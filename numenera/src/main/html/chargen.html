@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Numenera character creation utility</title>
+        <link rel="stylesheet" type="text/css" href="primejunta/numenera/chargen/themes/chargen.css"/>
+        <script type="text/javascript" src="dojo/dojo.js"  data-dojo-config="debug: true, async: true, parseOnLoad: true"></script>
+        <script type="text/javascript">
+        require([ "dojo/parser", "primejunta/numenera/chargen/CharacterGenerator" ]);
+        </script>
+    </head>
+    <body>
+        <div class="cg-noJavaScript">
+        <h1>Numenera Character Generation Utility</h1>
+        <p>To use the character generation utility, please enable JavaScript on your browser.</p>
+        <p><a href="http://www.numenera.com/">Numenera</a> is &copy; <a href="http://www.montecookgames.com/">Monte Cook Games LLC</a>.
+        The character generation utility is an unofficial project by Petteri Sulonen. No rights reserved: use and reuse as you like.</p>
+        </div>
+        <div data-dojo-type="primejunta/numenera/chargen/CharacterGenerator"></div>
+
+    </body>
+</html>
