@@ -57,6 +57,22 @@ th
 {
 	font-weight : normal;
 }
+li
+{
+	line-height : 26px;
+}
+.cg-itemInput
+{
+	color : gray;
+	font-style : italic;
+	display : block;
+	float : right;
+	margin-right : 275px;
+	width : 300px;
+	font-size : 13px;
+	height : 16px;
+	text-align : left;
+}
 .cg-noJavaScript
 {
 	padding : 50px;

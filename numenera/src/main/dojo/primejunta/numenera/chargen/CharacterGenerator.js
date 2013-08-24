@@ -123,7 +123,6 @@ function( declare,
             }
             else
             {
-                this._type = type;
                 if( type.stats.free_edge > 0 )
                 {
                     this._setDisabled([ "increment_might_edge", "increment_speed_edge", "increment_intellect_edge" ], false );
@@ -134,7 +133,7 @@ function( declare,
                 }
                 this._assign( type.stats );
                 this._appendToLists( type.lists, "type" );
-                this.special_list_label.innerHTML = type.special_list_label + " (pick " + type.special_count + ")";
+                this.special_list_label.innerHTML = type.special_list_label;
                 this.result_pane.style.display = "block";
             }
             if( desc )
@@ -148,6 +147,7 @@ function( declare,
                 this._appendToLists( focus.lists, "focus" );
             }
             this._checkCaps( "pool" );
+            this._printLists();
         },
         /**
          * Adjust value of field:
@@ -212,7 +212,81 @@ function( declare,
          */
         _writeItem : function( /* String */ where, /* String */ what, /* String */ from )
         {
-            this[ where ].innerHTML += "<li class=\"" + "cg-" + from + "\">" + what + "</li>"
+            if( !this._lists )
+            {
+                this._lists = {};
+            }
+            if( !this._lists[ where ] )
+            {
+                this._lists[ where ] = [];
+            }
+            var found = false;
+            if( what.indexOf( "${select:" ) != -1 )
+            {
+                var count = parseInt( what.substring( what.indexOf( "${select:" ) + 9, what.lastIndexOf( ":" ) ) );
+                var out = what.substring( 0, what.indexOf( "${select:" ) ) + "<select class=\"cg-itemSelect\">" + this._getOptions( what ) + "</select>";
+                if( what.indexOf( "${input:" ) != -1 )
+                {
+                    out += what.substring( what.indexOf( "}" ) + 1, what.indexOf( "${input:" ) ) + this._getInput( what );
+                }
+                found = true;
+                while( count > 0 )
+                {
+                    this._lists[ where ].push({
+                        from : from,
+                        text : out
+                    });
+                    count--;
+                }
+            }
+            else if( what.indexOf( "${input:" ) != -1 )
+            {
+                what = what.substring( 0, what.indexOf( "${input:" ) ) + this._getInput( what );
+            }
+            else if( what.indexOf( "Trained:" ) != -1 )
+            {
+                for( var i = 0; i < this._lists[ where ].length; i++ )
+                {
+                    if( what == this._lists[ where ][ i ].text )
+                    {
+                        this._lists[ where ][ i ].text = "<b><i>Specialized:" + what.substring( what.indexOf( "Trained:" ) + 8 ) + "</i></b>";
+                        this._lists[ where ][ i ].from = from;
+                        found = true;
+                    }
+                }
+            }
+            if( !found )
+            {
+                this._lists[ where ].push({
+                    from : from,
+                    text : what
+                });
+            }
+        },
+        _getInput : function( what )
+        {
+            return "<input onfocus=\"this.select();\" onkeydown=\"this.style.color='black';this.style.fontStyle='normal';\" type=\"text\" class=\"cg-itemInput\" value=\"" + what.substring( what.indexOf( "${input:" ) + 8, what.lastIndexOf( "}" ) ) + "\"/>"
+        },
+        _getOptions : function( item )
+        {
+            item = item.substring( item.indexOf( "${select:" ) + 11, item.indexOf( "}" ) );
+            var items = item.split( "|" );
+            var out = "";
+            for( var i = 0; i < items.length; i++ )
+            {
+                out +="<option>" + items[ i ] + "</options>";
+            }
+            return out;
+        },
+        _printLists : function()
+        {
+            for( var o in this._lists )
+            {
+                for( var i = 0; i < this._lists[ o ].length; i++ )
+                {
+                    this[ o ].innerHTML += "<li class=\"" + "cg-" + this._lists[ o ][ i ].from + "\">" + this._lists[ o ][ i ].text  + "</li>";
+                }
+            }
         },
         /**
          * Iterates through stats and writes each item's value into the matching input in template.
@@ -281,11 +355,11 @@ function( declare,
          */
         _clear : function()
         {
-            delete this._type;
+            delete this._lists;
             this.result_pane.style.display = "none";
             this._setDisabled([ "increment_might_pool", "decrement_might_pool", "increment_speed_pool", "decrement_speed_pool", "increment_intellect_pool", "decrement_intellect_pool","increment_might_edge", "decrement_might_edge", "increment_speed_edge", "decrement_speed_edge", "increment_intellect_edge", "decrement_intellect_edge" ], true );
             this._setValues([ "might_pool", "speed_pool", "intellect_pool", "might_edge", "speed_edge", "intellect_edge", "free_pool", "free_edge", "shin_count", "cypher_count", "armor_bonus" ], "" );
-            var lists = [ "ability_list", "inability_list", "special_list", "equipment_list", "bonus_list", "connection_list" ];
+            var lists = [ "ability_list", "inability_list", "special_list", "equipment_list", "bonus_list", "connection_list", "reference_list" ];
             for( var i = 0; i < lists.length; i++ )
             {
                 this[ lists[ i ] ].innerHTML = "";
