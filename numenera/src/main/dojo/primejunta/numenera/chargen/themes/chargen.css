@@ -1,4 +1,5 @@
 @import url( 'http://fonts.googleapis.com/css?family=Lato|Kreon|Droid+Sans|Prata' );
+@import url( 'charrec.css' );
 html, body
 {
 	margin : 0px;
@@ -61,10 +62,19 @@ li
 {
 	line-height : 26px;
 }
+.cg-characterNameInput
+{
+	font-size : large;
+	width : 600px;
+	padding : 10px;
+}
+.cg-valueNotSet
+{
+    color : gray;
+    font-style : italic;
+}
 .cg-itemInput
 {
-	color : gray;
-	font-style : italic;
 	display : block;
 	float : right;
 	margin-right : 275px;
@@ -147,6 +157,32 @@ li
 .cg-focus
 {
 	color : #345c8c !important;
+}
+.cg-printButtonContainer
+{
+	padding : 20px;
+	text-align:center;
+}
+.cg-printContainer
+{
+	position : fixed;
+	top : 0px;
+	left : 0px;
+	width : 100%;
+	height : 100%;
+	display : none;
+	background-color : white;
+	overflow : auto;
+}
+.cg-functionButton
+{
+	height : auto;
+	width : auto;
+	padding : 10px 20px 10px 20px;
+	border-radius : 20px;
+	background-color : #335C99;
+	font-family : Lato, sans-serif;
+	font-size : large;
 }
 /* Workaround Webkit rendering bug: styles not applied to selects at 100% zoom without this. */
 @media screen and (-webkit-min-device-pixel-ratio:0) {

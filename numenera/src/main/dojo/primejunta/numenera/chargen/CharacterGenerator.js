@@ -5,9 +5,14 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "dojo/_base/array",
+         "dojo/io-query",
          "dojo/on",
+         "dojo/dom-class",
+         "dojo/query",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
+         "./_ListItem",
+         "./_CharacterRecord",
          "./data/descriptors",
          "./data/types",
          "./data/foci",
@@ -15,9 +20,14 @@ define([ "dojo/_base/declare",
 function( declare,
           lang,
           array,
+          ioQuery,
           on,
+          domClass,
+          domQuery,
           _WidgetBase,
           _TemplatedMixin, 
+          _ListItem,
+          _CharacterRecord,
           descriptors,
           types,
           foci,
@@ -60,6 +70,9 @@ function( declare,
             this.initializeSelect( "descriptorSelect", descriptors, true );
             this.initializeSelect( "typeSelect", types );
             this.initializeSelect( "focusSelect", foci );
+            on( this.characterNameInput, "keydown", lang.hitch( this, this.normalizeClass, this.characterNameInput ) );
+            on( this.characterNameInput, "click", lang.hitch( this.characterNameInput.select ) );
+            on( this.characterNameInput, "focus", lang.hitch( this.characterNameInput.select ) );
             on( this.increment_might_pool, "click", lang.hitch( this, this._adjust, "might", "pool", 1 ) );
             on( this.increment_might_edge, "click", lang.hitch( this, this._adjust, "might", "edge", 1 ) );
             on( this.increment_speed_pool, "click", lang.hitch( this, this._adjust, "speed", "pool", 1 ) );
@@ -72,6 +85,39 @@ function( declare,
             on( this.decrement_speed_edge, "click", lang.hitch( this, this._adjust, "speed", "edge", -1 ) );
             on( this.decrement_intellect_pool, "click", lang.hitch( this, this._adjust, "intellect", "pool", -1 ) );
             on( this.decrement_intellect_edge, "click", lang.hitch( this, this._adjust, "intellect", "edge", -1 ) );
+            if( window.location.search != "" )
+            {
+                this.populateFromQueryString();
+            }
+        },
+        populateFromQueryString : function()
+        {
+            var qs = ioQuery.queryToObject( window.location.search.substring( 1 ) );
+            var idxs = qs.selects.split( "," );
+            var vals = qs.inputs.split( "," );
+            this.descriptorSelect.selectedIndex = idxs[ 0 ];
+            this.typeSelect.selectedIndex = idxs[ 1 ];
+            this.focusSelect.selectedIndex = idxs[ 2 ];
+            this.selectDescriptor();
+            var sels = domQuery( "select", this.domNode );
+            var inps = domQuery( "input", this.domNode );
+            for( var i = 3; i < idxs.length; i++ )
+            {
+                if( sels[ i ] )
+                {
+                    sels[ i ].selectedIndex = idxs[ i ];
+                }
+            }
+            for( var i = 0; i < vals.length; i++ )
+            {
+                if( inps[ i ] )
+                {
+                    inps[ i ].value = vals[ i ];
+                    this.normalizeClass( inps[ i ] );
+                }
+            }
+            this._checkCaps( "pool" );
+            this._checkCaps( "edge" );
         },
         /**
          * Iterate through data and write an option into select at attach point, with text = member.label and 
@@ -149,6 +195,38 @@ function( declare,
             this._checkCaps( "pool" );
             this._printLists();
         },
+        normalizeClass : function( node )
+        {
+            domClass.remove( node, "cg-valueNotSet" );
+        },
+        makePrint : function()
+        {
+            if( this._printWidget )
+            {
+                this._printWidget.destroy();
+            }
+            this._printWidget = new _CharacterRecord({ manager : this }).placeAt( this.printContainer );
+            this.characterGeneratorPane.style.display = "none";
+            this.printContainer.style.display = "block";
+        },
+        updateLink : function()
+        {
+            var sels = domQuery( "select", this.domNode );
+            var inps = domQuery( "input", this.domNode );
+            var idxs = [];
+            var vals = [];
+            for( var i = 0; i < sels.length; i++ )
+            {
+                idxs.push( sels[ i ].selectedIndex );
+            }
+            for( var i = 0; i < inps.length; i++ )
+            {
+                vals.push( escape( inps[ i ].value ) );
+            }
+            var href = window.location.origin + window.location.pathname + "?selects=" + idxs.join( "," ) + "&inputs=" + vals.join( "," );
+            this.linkNode.href = href;
+            this.linkNode.innerHTML = this.characterNameInput.value;
+        },
         /**
          * Adjust value of field:
          * * stat = "might"|"speed"|"intellect"
@@ -165,7 +243,6 @@ function( declare,
             this[ "free_" + prop ].value = _from;
             this[ stat + "_" + prop ].value = _to;
             // Check control states
-            this[ "decrement_" + stat + "_" + prop ].disabled = ( _to == this[ stat + "_" + prop + "_floor" ] );
             this._checkCaps( prop );
         },
         /**
@@ -175,6 +252,9 @@ function( declare,
         _checkCaps : function( prop )
         {
             var _from = parseInt( this[ "free_" + prop ].value );
+            this[ "decrement_might_" + prop ].disabled = ( parseInt( this[ "might_" + prop ].value ) == this[ "might_" + prop + "_floor" ] );
+            this[ "decrement_speed_" + prop ].disabled = ( parseInt( this[ "speed_" + prop ].value ) == this[ "speed_" + prop + "_floor" ] );
+            this[ "decrement_intellect_" + prop ].disabled = ( parseInt( this[ "intellect_" + prop ].value ) == this[ "intellect_" + prop + "_floor" ] );
             this[ "increment_might_" + prop ].disabled = ( parseInt( this[ "might_" + prop ].value ) >= this[ prop + "_cap" ] || _from == 0 );
             this[ "increment_speed_" + prop ].disabled = ( parseInt( this[ "speed_" + prop ].value ) >= this[ prop + "_cap" ] || _from == 0  );
             this[ "increment_intellect_" + prop ].disabled = ( parseInt( this[ "intellect_" + prop ].value ) >= this[ prop + "_cap" ] || _from == 0  );
@@ -221,29 +301,7 @@ function( declare,
                 this._lists[ where ] = [];
             }
             var found = false;
-            if( what.indexOf( "${select:" ) != -1 )
-            {
-                var count = parseInt( what.substring( what.indexOf( "${select:" ) + 9, what.lastIndexOf( ":" ) ) );
-                var out = what.substring( 0, what.indexOf( "${select:" ) ) + "<select class=\"cg-itemSelect\">" + this._getOptions( what ) + "</select>";
-                if( what.indexOf( "${input:" ) != -1 )
-                {
-                    out += what.substring( what.indexOf( "}" ) + 1, what.indexOf( "${input:" ) ) + this._getInput( what );
-                }
-                found = true;
-                while( count > 0 )
-                {
-                    this._lists[ where ].push({
-                        from : from,
-                        text : out
-                    });
-                    count--;
-                }
-            }
-            else if( what.indexOf( "${input:" ) != -1 )
-            {
-                what = what.substring( 0, what.indexOf( "${input:" ) ) + this._getInput( what );
-            }
-            else if( what.indexOf( "Trained:" ) != -1 )
+            if( what.indexOf( "Trained:" ) != -1 )
             {
                 for( var i = 0; i < this._lists[ where ].length; i++ )
                 {
@@ -255,6 +313,19 @@ function( declare,
                     }
                 }
             }
+            else if( what.indexOf( "${select:") != -1 )
+            {
+                var count = parseInt( what.substring( what.indexOf( "${select:" ) + 9, what.lastIndexOf( ":" ) ) );
+                while( count > 0 )
+                {
+                    this._lists[ where ].push({
+                        from : from,
+                        text : what
+                    });
+                    count--;
+                }
+                found = true;
+            }
             if( !found )
             {
                 this._lists[ where ].push({
@@ -263,28 +334,13 @@ function( declare,
                 });
             }
         },
-        _getInput : function( what )
-        {
-            return "<input onfocus=\"this.select();\" onkeydown=\"this.style.color='black';this.style.fontStyle='normal';\" type=\"text\" class=\"cg-itemInput\" value=\"" + what.substring( what.indexOf( "${input:" ) + 8, what.lastIndexOf( "}" ) ) + "\"/>"
-        },
-        _getOptions : function( item )
-        {
-            item = item.substring( item.indexOf( "${select:" ) + 11, item.indexOf( "}" ) );
-            var items = item.split( "|" );
-            var out = "";
-            for( var i = 0; i < items.length; i++ )
-            {
-                out +="<option>" + items[ i ] + "</options>";
-            }
-            return out;
-        },
         _printLists : function()
         {
             for( var o in this._lists )
             {
                 for( var i = 0; i < this._lists[ o ].length; i++ )
                 {
-                    this[ o ].innerHTML += "<li class=\"" + "cg-" + this._lists[ o ][ i ].from + "\">" + this._lists[ o ][ i ].text  + "</li>";
+                    this._lists[ o ][ i ] = new _ListItem({ content : this._lists[ o ][ i ].text, from : this._lists[ o ][ i ].from }).placeAt( this[ o ] );
                 }
             }
         },
@@ -355,16 +411,18 @@ function( declare,
          */
         _clear : function()
         {
-            delete this._lists;
+            for( var o in this._lists )
+            {
+                this[ o + "_label" ].style.display = "none";
+                while( this._lists[ o ].length > 0 )
+                {
+                    this._lists[ o ].pop().destroy();
+                }
+            }
             this.result_pane.style.display = "none";
             this._setDisabled([ "increment_might_pool", "decrement_might_pool", "increment_speed_pool", "decrement_speed_pool", "increment_intellect_pool", "decrement_intellect_pool","increment_might_edge", "decrement_might_edge", "increment_speed_edge", "decrement_speed_edge", "increment_intellect_edge", "decrement_intellect_edge" ], true );
             this._setValues([ "might_pool", "speed_pool", "intellect_pool", "might_edge", "speed_edge", "intellect_edge", "free_pool", "free_edge", "shin_count", "cypher_count", "armor_bonus" ], "" );
             var lists = [ "ability_list", "inability_list", "special_list", "equipment_list", "bonus_list", "connection_list", "reference_list" ];
-            for( var i = 0; i < lists.length; i++ )
-            {
-                this[ lists[ i ] ].innerHTML = "";
-                this[ lists[ i ] + "_label" ].style.display = "none";
-            }
         }
     });
 });

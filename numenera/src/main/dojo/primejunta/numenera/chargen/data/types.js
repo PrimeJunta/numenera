@@ -13,7 +13,8 @@ define([
             "speed_edge" : 1,
             "intellect_edge" : 0,
             "cypher_count" : 2,
-            "shin_count" : 5
+            "shin_count" : 5,
+            "recovery_roll" : 1
         },
         "lists" : {
             "equipment_list" : [
@@ -40,6 +41,7 @@ define([
             "intellect_edge" : 1,
             "cypher_count" : 3,
             "shin_count" : 4,
+            "recovery_roll" : 1
         },
         "lists" : {
             "equipment_list" : [
@@ -65,7 +67,8 @@ define([
             "speed_edge" : 0,
             "intellect_edge" : 0,
             "cypher_count" : 2,
-            "shin_count" : 8
+            "shin_count" : 8,
+            "recovery_roll" : 1
         },
         "lists" : {
             "equipment_list" : [

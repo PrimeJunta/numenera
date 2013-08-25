@@ -156,10 +156,11 @@ define([
             "label" : "Varjellen*",
             "stats" : {
                 "free_pool" : -3,
+                "recovery_roll" : -1
             },
             "lists" : {
                 "ability_list" : [ "Trained: Identifying/understanding the numenera", "Trained: Visually perceiving" ],
-                "inability_list" : [ "-1 to Recovery Roll", "History (+1 step)", "Poetry and oratory (+1 step)", "Hearing (+1 step)" ],
+                "inability_list" : [ "History (+1 step)", "Poetry and oratory (+1 step)", "Hearing (+1 step)" ],
                 "bonus_list" : [ "Reforging (rearrange Pools freely once every day)" ],
                 "equipment_list" : [ "Light Weapon: ${input:choose}" ],
                 "reference_list" : [ "Varjellen: Corebook, page 123" ]
