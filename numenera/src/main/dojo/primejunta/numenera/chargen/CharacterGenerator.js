@@ -7,6 +7,7 @@ define([ "dojo/_base/declare",
          "dojo/_base/array",
          "dojo/io-query",
          "dojo/on",
+         "dojo/topic",
          "dojo/dom-class",
          "dojo/query",
          "dijit/_WidgetBase",
@@ -22,6 +23,7 @@ function( declare,
           array,
           ioQuery,
           on,
+          topic,
           domClass,
           domQuery,
           _WidgetBase,
@@ -70,9 +72,11 @@ function( declare,
             this.initializeSelect( "descriptorSelect", descriptors, true );
             this.initializeSelect( "typeSelect", types );
             this.initializeSelect( "focusSelect", foci );
+            topic.subscribe( "CharGen/dataChanged", lang.hitch( this, this.updateLink ) );
             on( this.characterNameInput, "keydown", lang.hitch( this, this.normalizeClass, this.characterNameInput ) );
-            on( this.characterNameInput, "click", lang.hitch( this.characterNameInput.select ) );
-            on( this.characterNameInput, "focus", lang.hitch( this.characterNameInput.select ) );
+            on( this.characterNameInput, "click", lang.hitch( this.characterNameInput, this.characterNameInput.select ) );
+            on( this.characterNameInput, "focus", lang.hitch( this.characterNameInput, this.characterNameInput.select ) );
+            on( this.characterNameInput, "change", lang.hitch( this, this.updateLink ) );
             on( this.increment_might_pool, "click", lang.hitch( this, this._adjust, "might", "pool", 1 ) );
             on( this.increment_might_edge, "click", lang.hitch( this, this._adjust, "might", "edge", 1 ) );
             on( this.increment_speed_pool, "click", lang.hitch( this, this._adjust, "speed", "pool", 1 ) );
@@ -118,6 +122,7 @@ function( declare,
             }
             this._checkCaps( "pool" );
             this._checkCaps( "edge" );
+            this.updateLink();
         },
         /**
          * Iterate through data and write an option into select at attach point, with text = member.label and 
@@ -194,6 +199,7 @@ function( declare,
             }
             this._checkCaps( "pool" );
             this._printLists();
+            this.updateLink();
         },
         normalizeClass : function( node )
         {
@@ -221,11 +227,20 @@ function( declare,
             }
             for( var i = 0; i < inps.length; i++ )
             {
-                vals.push( escape( inps[ i ].value ) );
+                vals.push( inps[ i ].value );
             }
-            var href = window.location.origin + window.location.pathname + "?selects=" + idxs.join( "," ) + "&inputs=" + vals.join( "," );
+            var href = window.location.origin + window.location.pathname + "?selects=" + escape( idxs.join( "," ) ) + "&inputs=" + escape( vals.join( "," ) );
             this.linkNode.href = href;
-            this.linkNode.innerHTML = this.characterNameInput.value;
+            this.linkNode.innerHTML = "Share " + this.characterNameInput.value;
+        },
+        clearAll : function()
+        {
+            this._clear();
+            this.descriptorSelect.selectedIndex = 0;
+            this.typeSelect.selectedIndex = 0;
+            this.focusSelect.selectedIndex = 0;
+            this.characterNameInput.value = "a hero of the Ninth World";
+            domClass.add( this.characterNameInput, "cg-valueNotSet" );
         },
         /**
          * Adjust value of field:
@@ -244,6 +259,7 @@ function( declare,
             this[ stat + "_" + prop ].value = _to;
             // Check control states
             this._checkCaps( prop );
+            this.updateLink();
         },
         /**
          * If there's no free pool to assign, disable increment pool controls. Else enable them if they're below
@@ -301,7 +317,7 @@ function( declare,
                 this._lists[ where ] = [];
             }
             var found = false;
-            if( what.indexOf( "Trained:" ) != -1 )
+            if( what.indexOf( "Trained:" ) != -1 && what.indexOf( "${" ) == -1 )
             {
                 for( var i = 0; i < this._lists[ where ].length; i++ )
                 {
@@ -423,6 +439,7 @@ function( declare,
             this._setDisabled([ "increment_might_pool", "decrement_might_pool", "increment_speed_pool", "decrement_speed_pool", "increment_intellect_pool", "decrement_intellect_pool","increment_might_edge", "decrement_might_edge", "increment_speed_edge", "decrement_speed_edge", "increment_intellect_edge", "decrement_intellect_edge" ], true );
             this._setValues([ "might_pool", "speed_pool", "intellect_pool", "might_edge", "speed_edge", "intellect_edge", "free_pool", "free_edge", "shin_count", "cypher_count", "armor_bonus" ], "" );
             var lists = [ "ability_list", "inability_list", "special_list", "equipment_list", "bonus_list", "connection_list", "reference_list" ];
+            this.updateLink();
         }
     });
 });

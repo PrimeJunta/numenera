@@ -164,7 +164,7 @@
             </tr>
             <tr style="background-color : #d4e4f4;">
               <td> </td>
-              <td align="center">Shins</td>
+              <td align="right">Shins</td>
               <td>
                 <input type="text" readonly="readonly"
                 data-dojo-attach-point="shin_count" size="3" />
@@ -205,8 +205,8 @@
         <h2 data-dojo-attach-point="reference_list_label">References</h2>
         <ul data-dojo-attach-point="reference_list"></ul>
         <div class="cg-printButtonContainer">
-            <button data-dojo-attach-event="onClick:updateLink" class="cg-functionButton">Share</button>
-            <div>
+            <button class="cg-functionButton cg-redButton" data-dojo-attach-event="onClick:clearAll">Clear</button>
+            <div class="cg-functionButton">
               <a data-dojo-attach-point="linkNode"></a>
             </div>
             <!-- 

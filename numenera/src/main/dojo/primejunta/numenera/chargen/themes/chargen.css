@@ -178,11 +178,26 @@ li
 {
 	height : auto;
 	width : auto;
-	padding : 10px 20px 10px 20px;
+	padding : 15px 25px 15px 25px;
+	margin : 5px;
 	border-radius : 20px;
 	background-color : #335C99;
 	font-family : Lato, sans-serif;
 	font-size : large;
+}
+.cg-redButton
+{
+	background-color : #990000;
+}
+div.cg-functionButton
+{
+	display : inline-block;
+	margin-left : auto;
+	margin-right : auto;
+}
+.cg-functionButton a
+{
+	color : #d4e4f4;
 }
 /* Workaround Webkit rendering bug: styles not applied to selects at 100% zoom without this. */
 @media screen and (-webkit-min-device-pixel-ratio:0) {

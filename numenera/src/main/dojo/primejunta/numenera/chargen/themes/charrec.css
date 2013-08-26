@@ -1,0 +1,27 @@
+.cr-CharacterRecordPage1, .cr-CharacterRecordPage2
+{
+	width : 1753px;
+	height : 1240px;
+}
+.cr-CharacterRecordPage1
+{
+	background-image : url( 'images/charrec-1.png' );
+}
+.cr-CharacterRecordPage2
+{
+	background-image : url( 'images/charrec-2.png' );
+}
+@media screen
+{
+	.cr-CharacterRecordPage2
+	{
+	    border-top : 1px dotted silver;
+	}
+}
+@media print
+{
+	.cr-CharacterRecordPage2
+	{
+	    page-break-before : always;
+	}
+}
