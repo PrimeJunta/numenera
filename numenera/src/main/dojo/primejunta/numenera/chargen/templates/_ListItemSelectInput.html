@@ -1,6 +1,16 @@
 <li class="cg-${from}">
-  <span data-dojo-attach-point="baseTextNode">${baseText}</span>
-  <select data-dojo-attach-point="selectNode" data-dojo-attach-event="onChange:dataChanged">${selectOptions}</select>
-  <span data-dojo-attach-point="midTextNode">${midText}</span>
-  <input data-dojo-attach-point="inputNode" class="cg-itemInput cg-valueNotSet" value="${inputValue}" data-dojo-attach-event="onKeyDown:normalizeClass,onClick:selectContent,onFocus:selectContent,onChange:dataChanged"/>
+  <div>
+    <table cellspacing="0" cellpadding="0" width="100%">
+      <tr>
+        <td class="cg-baseTextNode">
+          <span data-dojo-attach-point="baseTextNode">${baseText}</span>
+          <select data-dojo-attach-point="selectNode" data-dojo-attach-event="onChange:dataChanged">${selectOptions}</select>
+          <span data-dojo-attach-point="midTextNode">${midText}</span>
+        </td>
+        <td>
+          <input data-dojo-attach-point="inputNode" class="cg-itemInput cg-valueNotSet" value="${inputValue}" data-dojo-attach-event="onKeyDown:normalizeClass,onClick:selectContent,onFocus:selectContent,onChange:dataChanged"/>
+        </td>
+      </tr>
+    </table>
+  </div>
 </li>

@@ -12,7 +12,7 @@ define([
             "label" : "Carries a Quiver",
             "lists" : {
                 "equipment_list" : [ "Well-made bow", "24 arrows" ],
-                "ability_list" : [ "Trained: Fletcher" ],
+                "ability_list" : [ "Trained: (I) Fletcher" ],
                 "connection_list" : [ "One PC is true friend", "One PC always hit on fumble" ],
                 "bonus_list" : [ "Archer (spend Speed or intellect Effort to increase bow damage)" ],
                 "reference_list" : [ "Carries a Quiver: Corebook, page 54" ]
@@ -22,7 +22,7 @@ define([
             "label" : "Commands Mental Powers",
             "lists" : {
                 "equipment_list" : [ "Intellect Crystal (+1 intellect Pool, -5 if lost)" ],
-                "ability_list" : [ "Trained: Mind Control (if has it)", "Trained: Mind Reading (if has it)" ],
+                "ability_list" : [ "Trained: (I) Mind Control (if has it)", "Trained: (I) Mind Reading (if has it)" ],
                 "bonus_list" : [ "Telepathic (1+ intellect)" ],
                 "connection_list" : [ "Telepathic connection to one PC" ],
                 "reference_list" : [ "Commands Mental Powers: Corebook, page 54" ]
@@ -59,7 +59,7 @@ define([
             "label" : "Crafts Unique Objects",
             "lists" : {
                 "equipment_list" : [ "Bag of Light Tools", "Self-made level 1/2 item: ${input:choose}", "Oddity: ${input:GM chooses}" ],
-                "ability_list" : [ "Trained: Craft item type: ${input:choose}", "Trained: Craft item type: ${input:choose}", "Trained: Identifying function of device" ],
+                "ability_list" : [ "Trained: (I) Craft item type: ${input:choose}", "Trained: (I) Craft item type: ${input:choose}", "Trained: (I) Identifying function of device" ],
                 "connection_list" : [ "One PC has extra self-made level 1/2 item" ],
                 "reference_list" : [ "Crafts Unique Objects: Corebook, page 58" ]
             }
@@ -76,7 +76,7 @@ define([
             "label" : "Entertains",
             "lists" : {
                 "equipment_list" : [ "Musical instrument: ${input:choose}" ],
-                "ability_list" : [ "Trained: All social interactions except coercion, intimidation" ],
+                "ability_list" : [ "Trained: (I) All social interactions except coercion, intimidation" ],
                 "bonus_list" : [ "Levity: +1 to comrades' Recovery Rolls" ],
                 "connection_list" : [ "One PC is worst critic; abilities don't work for him/her" ],
                 "reference_list" : [ "Entertains: Corebook, page 60" ]
@@ -94,7 +94,7 @@ define([
             "label" : "Explores Dark Places",
             "lists" : {
                 "equipment_list" : [ "Explorer's Pack" ],
-                "ability_list" : [ "Trained: Searching", "Trained: Listening", "Trained: Climbing", "Trained: Balancing", "Trained: Jumping" ],
+                "ability_list" : [ "Trained: (I) Searching", "Trained: (I) Listening", "Trained: (M) Climbing", "Trained: (S) Balancing", "Trained: (M) Jumping" ],
                 "bonus_list" : [ "Dark esoteries" ],
                 "connection_list" : [ "One PC is old companion, always gets +1 on rolls when working with you" ],
                 "reference_list" : [ "Explores Dark Places: Corebook, page 61" ]
@@ -103,7 +103,7 @@ define([
         {
             "label" : "Fights With Panache",
             "lists" : {
-                "equipment_list" : [ "Extremely stylish clothes", "Jeweled weapon: ${input:choose}" ],
+                "equipment_list" : [ "Extremely stylish clothes", "Jeweled ${select:1:Light Weapon|Medium Weapon|Heavy Weapon}: ${input:choose}" ],
                 "bonus_list" : [ "Attack Flourish (+1 to next die roll to selected creatures)" ],
                 "connection_list" : [ "Always trying to impress one PC" ],
                 "reference_list" : [ "Fights With Panache: Corebook, page 62" ]
@@ -144,7 +144,7 @@ define([
             "label" : "Hunts With Great Skill",
             "lists" : {
                 "equipment_list" : [ "Silent Boots (+1 to sneaking)" ],
-                "ability_list" : [ "Trained: Tracking", "Trained: Climbing", "Trained: Swimming", "Trained: Jumping", "Trained: Balancing", "Trained: Running" ],
+                "ability_list" : [ "Trained: (I) Tracking", "Trained: (M) Climbing", "Trained: (M) Swimming", "Trained: (M) Jumping", "Trained: (S) Balancing", "Trained: (S) Running" ],
                 "connection_list" : [ "One PC saw you let prey go" ],
                 "reference_list" : [ "Hunts With Great Skill: Corebook, page 65" ]
             }
@@ -153,7 +153,7 @@ define([
             "label" : "Leads",
             "lists" : {
                 "equipment_list" : [ "Artifact (tag Followers)" ],
-                "ability_list" : [ "Trained: All social interactions" ],
+                "ability_list" : [ "Trained: (I) All social interactions" ],
                 "bonus_list" : [ "Good Advice: Subject is Trained in task for 1 round (1 intellect)" ],
                 "connection_list" : [ "One PC is former follower, current equal" ],
                 "reference_list" : [ "Leads: Corebook, page 66" ]
@@ -163,7 +163,7 @@ define([
             "label" : "Lives in the Wilderness",
             "lists" : {
                 "equipment_list" : [ "Compass" ],
-                "ability_list" : [ "Trained: Climbing", "Trained: Swimming", "Trained: Wilderness Navigation", "Trained: Identifying plants", "Trained: Identifying animals" ],
+                "ability_list" : [ "Trained: (M) Climbing", "Trained: (M) Swimming", "Trained: (I) Wilderness Navigation", "Trained: (I) Identifying plants", "Trained: (I) Identifying animals" ],
                 "connection_list" : [ "Dislike one \"civilized\" PC" ],
                 "reference_list" : [ "Lives in the Wilderness: Corebook, page 67" ]
             }
@@ -172,7 +172,7 @@ define([
             "label" : "Masters Defense",
             "lists" : {
                 "equipment_list" : [ "Shield" ],
-                "ability_list" : [ "Trained: Speed defense" ],
+                "ability_list" : [ "Trained: (S) Speed defense" ],
                 "inability_list" : [ "Attack when using shield (+1 level)", "Defend when not using shield (+1 level)" ],
                 "connection_list" : [ "Another PC saved your life" ],
                 "reference_list" : [ "Masters Defense: Corebook, page 68" ]
@@ -181,7 +181,7 @@ define([
         {
             "label" : "Masters Weaponry",
             "lists" : {
-                "equipment_list" : [ "High-quality weapon: ${input:choose}" ],
+                "equipment_list" : [ "High-quality ${select:1:Light Weapon|Medium Weapon|Heavy Weapon}: ${input:choose}" ],
                 "bonus_list" : [ "Weapon Master (+1 damage with chosen weapon)", "Weaponry esoteries" ],
                 "connection_list" : [ "One PC shows promise in use of chosen weapon" ],
                 "reference_list" : [ "Masters Weaponry: Corebook, page 69" ]
@@ -191,7 +191,7 @@ define([
             "label" : "Murders",
             "lists" : {
                 "equipment_list" : [ "Disguise kit", "Level 2/5 DAM blade poison, (3 doses)" ],
-                "ability_list" : [ "Trained: Stealth", "Trained: Disguise" ],
+                "ability_list" : [ "Trained: (S) Stealth", "Trained: (I) Disguise" ],
                 "bonus_list" : [ "Surprise Attack (-1 difficulty, +2 damage)" ],
                 "connection_list" : [ "One PC knows your secret past" ],
                 "reference_list" : [ "Murders: Corebook, page 70" ]
@@ -218,7 +218,7 @@ define([
             "label" : "Talks to Machines",
             "lists" : {
                 "equipment_list" : [ "Bag of Light Tools" ],
-                "ability_list" : [ "Trained: All tasks involving electrical machines" ],
+                "ability_list" : [ "Trained: (I) All tasks involving electrical machines" ],
                 "bonus_list" : [ "Distant Activation (1 intellect)" ],
                 "connection_list" : [ "One PC is terrible with machines" ],
                 "reference_list" : [ "Talks to Machines: Corebook, page 72" ]
@@ -240,7 +240,7 @@ define([
             },
             "lists" : {
                 "equipment_list" : [ "Book (numenera)" ],
-                "ability_list" : [ "Trained: All Esoteries" ],
+                "ability_list" : [ "Trained: (I) All Esoteries" ],
                 "connection_list" : [ "One PC immune to your esoteries, unless s/he allows them" ],
                 "reference_list" : [ "Wields Power with Precision: Corebook, page 74" ]
             }
@@ -248,7 +248,7 @@ define([
         {
             "label" : "Wields Two Weapons at Once",
             "lists" : {
-                "equipment_list" : [ "Light melee weapon: ${input:choose}" ],
+                "equipment_list" : [ "Light Weapon (melee): ${input:choose}" ],
                 "bonus_list" : [ "Dual Light Wield (2 attacks on your turn with light weapons)" ],
                 "connection_list" : [ "One PC training companion; both get +1 to Speed Defense if fighting back to back" ],
                 "reference_list" : [ "Wields Two Weapons at Once: Corebook, page 75" ]
@@ -266,7 +266,7 @@ define([
             "label" : "Works the Back Alleys",
             "lists" : {
                 "equipment_list" : [ "Bag of Light Tools" ],
-                "ability_list" : [ "Trained: Sneaking", "Trained: Pickpocketing", "Trained: Lockpicking" ],
+                "ability_list" : [ "Trained: (S) Sneaking", "Trained: (S) Pickpocketing", "Trained: (I) Lockpicking" ],
                 "connection_list" : [ "One PC knew you before, convinced you to quit crime" ],
                 "reference_list" : [ "Works the Back Alleys: Corebook, page 76" ]
             }

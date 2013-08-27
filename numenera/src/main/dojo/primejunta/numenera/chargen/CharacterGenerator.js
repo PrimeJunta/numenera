@@ -10,8 +10,10 @@ define([ "dojo/_base/declare",
          "dojo/topic",
          "dojo/dom-class",
          "dojo/query",
+         "dijit/form/Textarea",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
+         "dijit/_WidgetsInTemplateMixin",
          "./_ListItem",
          "./_CharacterRecord",
          "./data/descriptors",
@@ -26,8 +28,10 @@ function( declare,
           topic,
           domClass,
           domQuery,
+          Textarea,
           _WidgetBase,
           _TemplatedMixin, 
+          _WidgetsInTemplateMixin,
           _ListItem,
           _CharacterRecord,
           descriptors,
@@ -35,7 +39,7 @@ function( declare,
           foci,
           template )
 {
-    return declare( "primejunta/numenera/chargen/CharacterGenerator", [ _WidgetBase, _TemplatedMixin ], {
+    return declare( "primejunta/numenera/chargen/CharacterGenerator", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin ], {
         /**
          * Cap for pools
          */
@@ -69,10 +73,15 @@ function( declare,
          */
         postCreate : function()
         {
+            var loaderNode = domQuery( "div.cg-noJavaScript" )[ 0 ];
+            loaderNode.style.display = "none";
+            this._buffer = [];
+            this._populating = [];
             this.initializeSelect( "descriptorSelect", descriptors, true );
             this.initializeSelect( "typeSelect", types );
             this.initializeSelect( "focusSelect", foci );
             topic.subscribe( "CharGen/dataChanged", lang.hitch( this, this.updateLink ) );
+            on( document, "keyup", lang.hitch( this, this.handleKeyUp ) );
             on( this.characterNameInput, "keydown", lang.hitch( this, this.normalizeClass, this.characterNameInput ) );
             on( this.characterNameInput, "click", lang.hitch( this.characterNameInput, this.characterNameInput.select ) );
             on( this.characterNameInput, "focus", lang.hitch( this.characterNameInput, this.characterNameInput.select ) );
@@ -92,36 +101,35 @@ function( declare,
             if( window.location.search != "" )
             {
                 this.populateFromQueryString();
+                if( window.location.search.indexOf( "&print=true" ) != -1 )
+                {
+                    this.makePrint();
+                }
             }
+        },
+        handleKeyUp : function( event )
+        {
+            if( event.keyCode == 90 && event.ctrlKey && this._buffer.length > 1 )
+            {
+                var prev = this._buffer.pop();
+                this._populateFromStoredData( this._buffer[ this._buffer.length - 1 ] );
+            }
+        },
+        descriptionUpdated : function()
+        {
+            if( this._taConnected )
+            {
+                this.updateLink();
+                this._taConnected = false;
+            }
+        },
+        connectTextareaListener : function()
+        {
+            this._taConnected = true;
         },
         populateFromQueryString : function()
         {
-            var qs = ioQuery.queryToObject( window.location.search.substring( 1 ) );
-            var idxs = qs.selects.split( "," );
-            var vals = qs.inputs.split( "," );
-            this.descriptorSelect.selectedIndex = idxs[ 0 ];
-            this.typeSelect.selectedIndex = idxs[ 1 ];
-            this.focusSelect.selectedIndex = idxs[ 2 ];
-            this.selectDescriptor();
-            var sels = domQuery( "select", this.domNode );
-            var inps = domQuery( "input", this.domNode );
-            for( var i = 3; i < idxs.length; i++ )
-            {
-                if( sels[ i ] )
-                {
-                    sels[ i ].selectedIndex = idxs[ i ];
-                }
-            }
-            for( var i = 0; i < vals.length; i++ )
-            {
-                if( inps[ i ] )
-                {
-                    inps[ i ].value = vals[ i ];
-                    this.normalizeClass( inps[ i ] );
-                }
-            }
-            this._checkCaps( "pool" );
-            this._checkCaps( "edge" );
+            this._populateFromStoredData( window.location.search.substring( 1 ) );
             this.updateLink();
         },
         /**
@@ -145,6 +153,7 @@ function( declare,
          */
         selectDescriptor : function()
         {
+            this._populating.push( 1 );
             var label = this._selVal( this.descriptorSelect ).label;
             var _art = "an"
             if( "AEIOUYaeiouy".indexOf( label.charAt( 0 ) ) == -1 )
@@ -153,6 +162,23 @@ function( declare,
             }
             this.articleNode.innerHTML = _art;
             this.updateValues();
+            this._populating.pop();
+            this.updateLink();
+        },
+        selectType : function()
+        {
+            this._populating.push( 4 );
+            this.updateValues();
+            this._populating.pop();
+
+            this.updateLink();
+        },
+        selectFocus : function()
+        {
+            this._populating.push( 5 );
+            this.updateValues();
+            this._populating.pop();
+            this.updateLink();
         },
         /**
          * Clears the UI, finds the data for the descriptor, type, and focus the user has picked, enables
@@ -161,6 +187,7 @@ function( declare,
          */
         updateValues : function()
         {
+            this._populating.push( 2 );
             this._clear();
             var di = this.descriptorSelect.selectedIndex - 1;
             var ti = this.typeSelect.selectedIndex - 1;
@@ -170,6 +197,7 @@ function( declare,
             var focus = fi >= 0 ? foci[ fi ] : false;
             if( !type )
             {
+                this._populating.pop();
                 return;
             }
             else
@@ -186,19 +214,23 @@ function( declare,
                 this._appendToLists( type.lists, "type" );
                 this.special_list_label.innerHTML = type.special_list_label;
                 this.result_pane.style.display = "block";
+                this._setDescription( type );
             }
             if( desc )
             {
                 this._augment( desc.stats );
                 this._appendToLists( desc.lists, "desc" );
+                this._setDescription( desc );
             }
             if( focus )
             {
                 this._augment( focus.stats );
                 this._appendToLists( focus.lists, "focus" );
+                this._setDescription( focus );
             }
             this._checkCaps( "pool" );
             this._printLists();
+            this._populating.pop();
             this.updateLink();
         },
         normalizeClass : function( node )
@@ -211,12 +243,19 @@ function( declare,
             {
                 this._printWidget.destroy();
             }
-            this._printWidget = new _CharacterRecord({ manager : this }).placeAt( this.printContainer );
-            this.characterGeneratorPane.style.display = "none";
-            this.printContainer.style.display = "block";
+            this.domNode.style.display = "none";
+            this._printWidget = new _CharacterRecord({ manager : this }).placeAt( document.body );
         },
         updateLink : function()
         {
+            if( !this._populating )
+            {
+                this._populating = [];
+            }
+            if( this._populating.length > 0 )
+            {
+                return;
+            }
             var sels = domQuery( "select", this.domNode );
             var inps = domQuery( "input", this.domNode );
             var idxs = [];
@@ -227,11 +266,25 @@ function( declare,
             }
             for( var i = 0; i < inps.length; i++ )
             {
-                vals.push( inps[ i ].value );
+                vals.push( this._escape( inps[ i ].value ) );
             }
-            var href = window.location.origin + window.location.pathname + "?selects=" + escape( idxs.join( "," ) ) + "&inputs=" + escape( vals.join( "," ) );
+            var qString = "selects=" + escape( idxs.join( "," ) ) + "&inputs=" + escape( vals.join( "," ) ) + "&description=" + escape( this.description_text.value );
+            var href = window.location.origin + window.location.pathname + "?" + qString; 
+            this._buffer.push( qString );
             this.linkNode.href = href;
             this.linkNode.innerHTML = "Share " + this.characterNameInput.value;
+        },
+        _escape : function( str )
+        {
+            str = str.split( "," );
+            str = str.join( "////" );
+            return str;
+        },
+        _unescape : function( str )
+        {
+            str = str.split( "////" );
+            str = str.join( "," );
+            return str;
         },
         clearAll : function()
         {
@@ -241,6 +294,46 @@ function( declare,
             this.focusSelect.selectedIndex = 0;
             this.characterNameInput.value = "a hero of the Ninth World";
             domClass.add( this.characterNameInput, "cg-valueNotSet" );
+        },
+        _populateFromStoredData : function( qString )
+        {
+            this._populating.push( 3 );
+            this.clearAll();
+            var kwObj = ioQuery.queryToObject( qString );
+            var idxs = kwObj.selects.split( "," );
+            var vals = kwObj.inputs.split( "," );
+            this.descriptorSelect.selectedIndex = idxs[ 0 ];
+            this.typeSelect.selectedIndex = idxs[ 1 ];
+            this.focusSelect.selectedIndex = idxs[ 2 ];
+            this.selectDescriptor();
+            var sels = domQuery( "select", this.domNode );
+            var inps = domQuery( "input", this.domNode );
+            for( var i = 3; i < idxs.length; i++ )
+            {
+                if( sels[ i ] )
+                {
+                    sels[ i ].selectedIndex = idxs[ i ];
+                }
+            }
+            for( var i = 0; i < vals.length; i++ )
+            {
+                if( inps[ i ] )
+                {
+                    inps[ i ].value = this._unescape( vals[ i ] );
+                    this.normalizeClass( inps[ i ] );
+                }
+            }
+            this._checkCaps( "pool" );
+            this._checkCaps( "edge" );
+            this.description_text.set( "value", kwObj.description );
+            this._populating.pop();
+        },
+        _setDescription : function( from )
+        {
+            if( from.description_text )
+            {
+                this.description_text.set( "value", this.description_text.focusNode.value + from.description_text + "\n" );
+            }
         },
         /**
          * Adjust value of field:
@@ -323,7 +416,7 @@ function( declare,
                 {
                     if( what == this._lists[ where ][ i ].text )
                     {
-                        this._lists[ where ][ i ].text = "<b><i>Specialized:" + what.substring( what.indexOf( "Trained:" ) + 8 ) + "</i></b>";
+                        this._lists[ where ][ i ].text = "<span class=\"cg-specialized\">Specialized:" + what.substring( what.indexOf( "Trained:" ) + 8 ) + "</span>";
                         this._lists[ where ][ i ].from = from;
                         found = true;
                     }
@@ -435,6 +528,7 @@ function( declare,
                     this._lists[ o ].pop().destroy();
                 }
             }
+            this.description_text.set( "value", "" );
             this.result_pane.style.display = "none";
             this._setDisabled([ "increment_might_pool", "decrement_might_pool", "increment_speed_pool", "decrement_speed_pool", "increment_intellect_pool", "decrement_intellect_pool","increment_might_edge", "decrement_might_edge", "increment_speed_edge", "decrement_speed_edge", "increment_intellect_edge", "decrement_intellect_edge" ], true );
             this._setValues([ "might_pool", "speed_pool", "intellect_pool", "might_edge", "speed_edge", "intellect_edge", "free_pool", "free_edge", "shin_count", "cypher_count", "armor_bonus" ], "" );

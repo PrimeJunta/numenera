@@ -25,18 +25,23 @@ function( declare,
         templateString : template,
         content : "",
         from : "",
+        inputClass : "",
         postMixInProperties : function()
         {
             if( this.content.indexOf( "${input" ) != -1 && this.content.indexOf( "${select" ) != -1 )
             {
+                this._hasSelect = true;
+                this._hasInput = true;
                 this.templateString = templateSelectInput;
             }
-            if( this.content.indexOf( "${input" ) != -1 )
+            else if( this.content.indexOf( "${input" ) != -1 )
             {
+                this._hasInput = true;
                 this.templateString = templateInput;
             }
-            if( this.content.indexOf( "${select" ) != -1 )
+            else if( this.content.indexOf( "${select" ) != -1 )
             {
+                this._hasSelect = true;
                 this.templateString = templateSelect;
             }
             this.midText = this.getMidText();
@@ -44,9 +49,13 @@ function( declare,
             this.inputValue = this.getInputValue();
             this.selectOptions = this.getSelectOptions();
         },
-        postCreate : function()
+        buildRendering : function()
         {
-            
+            this.inherited( arguments );
+            if( this.baseText == "" && !this._hasSelect && this._hasInput )
+            {
+                this.baseTextNode.style.display = "none";
+            }
         },
         getBaseText : function()
         {
@@ -59,6 +68,10 @@ function( declare,
         getInputValue : function()
         {
             return this.content.indexOf( "${input" ) != -1 ? this.content.substring( this.content.indexOf( "${input:" ) + 8, this.content.lastIndexOf( "}" ) ) : "";
+        },
+        getText : function()
+        {
+            return this.baseText + ( this._hasSelect ? this.selectNode.options[ this.selectNode.selectedIndex ].text + this.midText : "" ) + ( this._hasInput ? this.inputNode.value : "" );
         },
         getSelectOptions : function()
         {

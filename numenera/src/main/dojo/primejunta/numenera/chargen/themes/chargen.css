@@ -1,5 +1,5 @@
 @import url( 'http://fonts.googleapis.com/css?family=Lato|Kreon|Droid+Sans|Prata' );
-@import url( 'charrec.css' );
+@import url( 'charrec-table.css' );
 html, body
 {
 	margin : 0px;
@@ -35,7 +35,7 @@ button:disabled
 	background-color : silver;
 	color : #f4f4f4;
 }
-h1, h2
+h1, h2, h3
 {
 	font-family : Prata;
 	font-weight : normal;
@@ -62,6 +62,27 @@ li
 {
 	line-height : 26px;
 }
+li div
+{
+	display : inline-block;
+	vertical-align : top;
+	width : 750px;
+}
+.cg-linkNode
+{
+	padding : 20px;
+}
+.cg-specialized
+{
+	font-weight : bold;
+	font-style : italic;
+}
+.cg-inputTextArea
+{
+	width : 800px;
+	font-family : 'Droid sans', 'avant garde', sans-serif;
+	font-size : 13px;
+}
 .cg-characterNameInput
 {
 	font-size : large;
@@ -76,12 +97,14 @@ li
 .cg-itemInput
 {
 	display : block;
-	float : right;
-	margin-right : 275px;
-	width : 300px;
+	width : 100%;
 	font-size : 13px;
 	height : 16px;
 	text-align : left;
+}
+.cg-baseTextNode
+{
+	width : 275px;
 }
 .cg-noJavaScript
 {
@@ -165,13 +188,10 @@ li
 }
 .cg-printContainer
 {
-	position : fixed;
-	top : 0px;
-	left : 0px;
 	width : 100%;
 	height : 100%;
 	display : none;
-	background-color : white;
+	background-color : #343434;
 	overflow : auto;
 }
 .cg-functionButton

@@ -1,5 +1,6 @@
 <div class="cg-characterGenerator">
-  <div class="cg-characterGeneratorPane" data-dojo-attach-point="characterGeneratorPane">
+<div data-dojo-attach-point="characterGeneratorPane">
+  <div class="cg-characterGeneratorPane">
     <div style="text-align:center">
       <a href="http://www.numenera.com"><img src="${iconSrc}/Numenera_Logo.png" alt="Numenera" style="border:none"/></a>
       <div class="cg-blurb">Character Creation Utility</div>
@@ -19,10 +20,10 @@
               data-dojo-attach-event="onchange:selectDescriptor">
               <option value="">adjective</option>
             </select> <select class="cg-type" data-dojo-attach-point="typeSelect"
-              data-dojo-attach-event="onchange:updateValues">
+              data-dojo-attach-event="onchange:selectType">
               <option value="">noun</option>
             </select> who <select class="cg-focus" data-dojo-attach-point="focusSelect"
-              data-dojo-attach-event="onchange:updateValues">
+              data-dojo-attach-event="onchange:selectFocus">
               <option value="">verbs</option>
             </select>.
               </td>
@@ -32,6 +33,10 @@
       </div>
     </div>
       <div data-dojo-attach-point="result_pane" style="display : none;" class="cg-resultsPane">
+        <div style="display:none">
+        <input data-dojo-attach-point="character_tier" value="1"/>
+        <input data-dojo-attach-point="character_effort" value="1"/>
+        </div>
         <table cellspacing="0" cellpadding="10" width="100%" style="background-color:#FFEBCC">
           <tbody >
             <tr style="background-color:#e4e4e4;color:gray;">
@@ -190,9 +195,11 @@
             </tr>
           </tbody>
         </table>
+        <h2 data-dojo-attach-point="cypher_list_label">Cyphers</h2>
+        <ul data-dojo-attach-point="cypher_list"></ul>
         <h2 data-dojo-attach-point="equipment_list_label">Equipment</h2>
         <ul data-dojo-attach-point="equipment_list"></ul>
-        <h2 data-dojo-attach-point="ability_list_label">Abilities</h2>
+        <h2 data-dojo-attach-point="ability_list_label">Skills</h2>
         <ul data-dojo-attach-point="ability_list"></ul>
         <h2 data-dojo-attach-point="inability_list_label" style="display : none;">Inabilities and Drawbacks</h2>
         <ul data-dojo-attach-point="inability_list"></ul>
@@ -202,19 +209,19 @@
         <ul data-dojo-attach-point="special_list"></ul>
         <h2 data-dojo-attach-point="connection_list_label" style="display : none;">Connections</h2>
         <ul data-dojo-attach-point="connection_list"></ul>
+        <h2 data-dojo-attach-point="description_text_label">Description</h2>
+        <textarea data-dojo-attach-point="description_text" class="cg-inputTextArea" data-dojo-type="dijit/form/Textarea" data-dojo-attach-event="onKeyUp:connectTextareaListener,onChange:descriptionUpdated"></textarea>
         <h2 data-dojo-attach-point="reference_list_label">References</h2>
         <ul data-dojo-attach-point="reference_list"></ul>
         <div class="cg-printButtonContainer">
-            <button class="cg-functionButton cg-redButton" data-dojo-attach-event="onClick:clearAll">Clear</button>
-            <div class="cg-functionButton">
+            <div class="cg-linkNode">
               <a data-dojo-attach-point="linkNode"></a>
             </div>
-            <!-- 
-             <button data-dojo-attach-event="onClick:makePrint" class="cg-functionButton">Print</button>
-             -->
+            <button class="cg-functionButton cg-redButton" data-dojo-attach-event="onClick:clearAll">Clear</button>
+            <button data-dojo-attach-event="onClick:makePrint" class="cg-functionButton">Print</button>
         </div>
       </div>
   </div>
   <div class="cg-copyright">Numenera is &copy; <a href="http://www.montecookgames.com/">Monte Cook Games LLC</a>. <br/>Character creation utility is an unofficial project by Petteri Sulonen.</div>
-  <div class="cg-printContainer" data-dojo-attach-point="printContainer"></div>
+  </div>
 </div>

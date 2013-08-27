@@ -1,0 +1,308 @@
+<div class="cr-CharacterRecordBase">
+    <div class="cr-CharacterRecordPage1">
+      <table class="cr-CharacterRecordContent">
+        <tbody>
+          <tr valign="top">
+            <td class="cr-leftFold"> <!--  left fold -->
+              <div class="cr-marker cr-listBox cr-skills">
+                <div class="cr-content">
+                  <h2 class="cr-heading">Skills</h2>
+                  <div  data-dojo-attach-point="ability_list"></div>
+                </div>
+              </div>
+              <div class="cr-marker cr-listBox cr-specials">
+                <div class="cr-content">
+                  <h2 class="cr-heading">Special abilities</h2>
+                  <div  data-dojo-attach-point="special_list"></div>
+                </div>
+              </div>
+            </td>
+            <td class="cr-centerFold"> <!--  middle fold -->
+              <div class="cr-marker cr-listBox cr-stats">
+                <div class="cr-content">
+                  <table>
+                    <tbody>
+                      <tr>
+                        <td align="right">
+                          <div class="cr-statBoxContainer">
+                            <div class="cr-smallLabel">Tier</div>
+                            <div class="cr-statBox" data-dojo-attach-point="tier"></div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="cr-smallLabel">Effort</div>
+                          <div class="cr-statBox" data-dojo-attach-point="effort"></div>
+                        </td>
+                        <td>
+                          <div class="cr-smallLabel">XP</div>
+                          <div class="cr-statBox" data-dojo-attach-point="xp"></div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="cr-divider"></div>
+                  <table>
+                    <tbody>
+                      <tr valign="middle">
+                        <td><h3 class="cr-heading" style="text-align:right;">Might</h3></td>
+                        <td>
+                          <div class="cr-smallLabel">Pool</div>
+                          <div class="cr-statBox" data-dojo-attach-point="might_pool"></div>
+                        </td>
+                        <td>
+                          <div class="cr-smallLabel">Edge</div>
+                          <div class="cr-statBox" data-dojo-attach-point="might_edge"></div>
+                        </td>
+                        <td>
+                          <div class="cr-smallLabel">Current</div>
+                          <div class="cr-statBox" data-dojo-attach-point="might_current"></div>
+                        </td>
+                      </tr>
+                      <tr valign="middle">
+                        <td><h3 class="cr-heading" style="text-align:right;">Speed</h3></td>
+                        <td>
+                          <div class="cr-smallLabel">Pool</div>
+                          <div class="cr-statBox" data-dojo-attach-point="speed_pool"></div>
+                        </td>
+                        <td>
+                          <div class="cr-smallLabel">Edge</div>
+                          <div class="cr-statBox" data-dojo-attach-point="speed_edge"></div>
+                        </td>
+                        <td>
+                          <div class="cr-smallLabel">Current</div>
+                          <div class="cr-statBox" data-dojo-attach-point="speed_current"></div>
+                        </td>
+                      </tr>
+                      <tr valign="middle">
+                        <td><h3 class="cr-heading" style="text-align:right;">Intellect</h3></td>
+                        <td>
+                          <div class="cr-smallLabel">Pool</div>
+                          <div class="cr-statBox" data-dojo-attach-point="intellect_pool"></div>
+                        </td>
+                        <td>
+                          <div class="cr-smallLabel">Edge</div>
+                          <div class="cr-statBox" data-dojo-attach-point="intellect_edge"></div>
+                        </td>
+                        <td>
+                          <div class="cr-smallLabel">Current</div>
+                          <div class="cr-statBox" data-dojo-attach-point="intellect_current"></div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="cr-divider"></div>
+                  <table>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <table class="cr-damage">
+                            <tbody>
+                              <tr>
+                                <td colspan="2"><h3 class="cr-heading">Damage</h3></td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <div class="cr-smallCircle"></div>
+                                </td>
+                                <td>
+                                  <div class="cr-smallLabel" style="text-align:left;">Impaired</div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <div class="cr-smallCircle"></div>
+                                </td>
+                                <td>
+                                  <div class="cr-smallLabel" style="text-align:left;">Debilitated</div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <div class="cr-divider"></div>
+                          <table>
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <h3 class="cr-heading" style="text-align:right;">Armor</h3>
+                                </td>
+                                <td>
+                                  <div class="cr-statBox cr-armor" data-dojo-attach-point="armor_value"></div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                        <td>
+                          <table class="cr-recovery">
+                            <tbody>
+                              <tr>
+                                <td><h3 class="cr-heading" style="text-align:right;">Recovery rolls</h3></td>
+                                <td>
+                                  <div class="cr-smallLabel">1d6+</div>
+                                  <div class="cr-statBox" data-dojo-attach-point="recovery_roll"></div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <table class="cr-recovery-rolls">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <div class="cr-smallLabel" style="text-align:right;">1 action</div>
+                                </td>
+                                <td>
+                                  <div class="cr-smallCircle"></div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <div class="cr-smallLabel" style="text-align:right;">10 mins</div>
+                                </td>
+                                <td>
+                                  <div class="cr-smallCircle"></div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <div class="cr-smallLabel" style="text-align:right;">1 hour</div>
+                                </td>
+                                <td>
+                                  <div class="cr-smallCircle"></div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <div class="cr-smallLabel" style="text-align:right;">10 hours</div>
+                                </td>
+                                <td>
+                                  <div class="cr-smallCircle"></div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="cr-marker cr-listBox cr-attacks">
+                <div class="cr-content">
+                  <h2 class="cr-heading">Attacks</h2>
+                  <div data-dojo-attach-point="attack_list">
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td class="cr-rightFold"> <!--  right fold -->
+              <div class="cr-marker cr-listBox cr-cyphers" >
+                <div class="cr-content">
+                 <table class="cr-layoutTable" width="100%">
+                    <tbody>
+                      <tr>
+                        <td>
+                          <h2 class="cr-heading" style="text-align:left;">Cyphers</h2>
+                        </td>
+                        <td width="25%">
+                          <table class="cr-cypherLimitTable">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <div class="cr-smallLabel" style="text-align:right;">Limit</div>
+                                </td>
+                                <td>
+                                  <div class="cr-statBox" data-dojo-attach-point="cypher_count"></div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div data-dojo-attach-point="cypher_list">
+                  </div>
+                  </div>
+                </div>
+              <div class="cr-marker cr-listBox cr-equipment">
+                <div class="cr-content">
+                                 <table class="cr-layoutTable" width="100%">
+                    <tbody>
+                      <tr>
+                        <td>
+                          <h2 class="cr-heading" style="text-align:left;">Possessions</h2>
+                        </td>
+                        <td width="25%">
+                          <table class="cr-cypherLimitTable">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <div class="cr-smallLabel" style="text-align:right;">Shins</div>
+                                </td>
+                                <td>
+                                  <div class="cr-statBox" data-dojo-attach-point="shin_count"></div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div data-dojo-attach-point="equipment_list"></div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  <div class="cr-pageBreak"></div>
+  <div class="cr-CharacterRecordPage2">
+    <table class="cr-CharacterRecordContent">
+      <tbody>
+        <tr valign="top">
+          <td class="cr-leftFold">
+            <div class="cr-marker cr-listBox cr-background">
+              <div class="cr-content">
+                <h2 class="cr-heading">Background</h2>
+                <div  data-dojo-attach-point="description_text"></div>
+              </div>
+            </div>
+          </td>
+          <td class="cr-centerFold">
+            <div class="cr-marker cr-listBox cr-notes">
+              <div class="cr-content">
+                <h2 class="cr-heading">Notes</h2>
+                <div  data-dojo-attach-point="notes_list"></div>
+              </div>
+            </div>
+          </td>
+          <td class="cr-rightFold">
+            <div class="cr-marker cr-listBox cr-frontpage">
+              <div class="cr-content">
+                <img src="${iconSource}/Numenera_Logo.png" class="cr-numenera-logo" alt="Numenera"/>
+                <div class="cr-divider"></div>
+                <div class="cr-name" data-dojo-attach-point="name_field"></div>
+                <div class="cr-smallLabel">is a</div>
+                <div class="cr-definition">
+                  <span data-dojo-attach-point="descriptor_field"></span>
+                  <span data-dojo-attach-point="type_field"></span>
+                </div>
+                <div class="cr-smallLabel">who</div>
+                <div class="cr-definition">
+                  <span data-dojo-attach-point="focus_field"></span>
+                </div>
+                <div class="cr-divider"></div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="cr-backButton">
+    <button data-dojo-attach-event="onClick:closeMe" class="cg-functionButton cg-redButton">Back</button>
+  </div>
+</div>

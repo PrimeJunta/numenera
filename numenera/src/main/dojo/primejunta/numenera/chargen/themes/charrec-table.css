@@ -10,24 +10,34 @@ h2.cr-heading
 {
 	border-bottom : 1px solid black;
 }
-.cr-CharacterRecordContent, .cr-CharacterRecordPage1, .cr-CharacterRecordPage2
+.cr-CharacterRecordPage1, .cr-CharacterRecordPage2
 {
-    width : 1020px;
-    height : 750px;
+	height : 205mm;
+	width : 293mm;
 }
 .cr-CharacterRecordContent
 {
-	position : absolute;
 	background-color : white;
+	width : 100%;
+	height : 100%;
 }
 .cr-CharacterRecordPage1, .cr-CharacterRecordPage2
 {
 	margin-left : auto;
 	margin-right: auto;
 }
+.cr-leftFold, .cr-rightFold
+{
+	width : 33%;
+}
+.cr-centerFold
+{
+	border-right : 1px solid black;
+	border-left : 1px solid black;
+}
+
 .cr-listBox
 {
-	position : absolute;
 }
 .cr-content
 {
@@ -54,8 +64,11 @@ h2.cr-heading
 {
 	border : 1px solid black;
 	width : 40px;
-	height : 40px;
+	height : 30px;
+	padding-top : 10px;
 	border-radius : 20px;
+	text-align : center;
+	font-size : 16px;
 }
 .cr-smallCircle
 {
@@ -67,26 +80,13 @@ h2.cr-heading
 /* specific elements */
 .cr-skills
 {
-	top : 0px;
-	left : 0px;
-	height : 50%;
-	width : 33%;
-	border-right : 1px solid gray;
+    height : 70mm;
 }
 .cr-specials
 {
-    top : 50%;
-    left : 0px;
-    height : 50%;
-    width : 33%;
-    border-right : 1px solid gray;
 }
 .cr-stats
 {
-	top : 0px;
-	left : 33%;
-	width : 34%;
-	height : 70%;
 }
 .cr-damage
 {
@@ -103,59 +103,25 @@ h2.cr-heading
 }
 .cr-attacks
 {
-    top : 70%;
-    left : 33%;
-    width : 34%;
-    height : 25%;
 }
 .cr-cyphers
 {
-	border-left : 1px solid gray;
-	left : 67%;
-	top : 0px;
-	width : 33%;
-	height : 33%;
-}
-.cr-cyphers h2
-{
-	width : 66%;
+	height : 70mm;
 }
 .cr-equipment
 {
-    border-left : 1px solid gray;
-	left : 67%;
-    top : 33%;
-    width : 33%;
-    height : 67%;
 }
 .cr-cypherLimitTable
 {
-	position : absolute;
-	top : 15px;
-	right : 20px;
 }
 .cr-background
 {
-	top : 0px;
-	left : 0px;
-	width : 33%;
-	height : 100%;
-	border-right : 1px solid gray;
 }
 .cr-notes
 {
-    top : 0px;
-    left : 33%;
-    width : 34%;
-    height : 100%;
-    border-right : 1px solid gray;
 }
 .cr-frontpage
 {
-    top : 0px;
-    left : 67%;
-    width : 33%;
-    height : 100%;
 }
 .cr-numenera-logo
 {
@@ -167,6 +133,7 @@ h2.cr-heading
 	font-size : 24px;
 	text-align : center;
 	padding : 10px;
+	text-transform : capitalize;
 }
 .cr-name
 {
@@ -174,14 +141,25 @@ h2.cr-heading
 }
 @media screen
 {
+	.cg-printContainer
+	{
+	   background-color : #343434 !important;
+	}
 	.cr-CharacterRecordBase
 	{
-	    background-color : #282828;
 	    padding : 20px;
+	    width : 100%;
+	    height : 100%;
 	}
 	.cr-CharacterRecordPage2
 	{
 	    margin-top : 20px;
+	}
+	.cr-backButton
+	{
+	   display : block;
+	   text-align : center;
+	   padding : 20px;
 	}
 }
 @media print
@@ -191,6 +169,11 @@ h2.cr-heading
 	   size: 297mm 210mm;
 	   margin : 0cm;
     }
+    .cg-noJavaScript, .cr-backButton
+    {
+        display : none;
+    }
+    /*
     .cg-printContainer, .cr-CharacterRecordBase
     {
         width : 296mm;
@@ -201,6 +184,7 @@ h2.cr-heading
 	    width : 290mm;
 	    height : 205mm;
 	}
+	*/
 	.cr-pageBreak
 	{
 	    page-break-before : always;

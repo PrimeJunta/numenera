@@ -1,6 +1,7 @@
 define([
     {
         "label" : "glaive",
+        "description_text" : "Glaives are warriors: soldiers, mercenaries, bodyguards, and other masters of the martial arts.",
         "special_list_label" : "Fighting Moves",
         "stats" : {
             "armor_bonus" : 0,
@@ -17,10 +18,11 @@ define([
             "recovery_roll" : 1
         },
         "lists" : {
+            "cypher_list" : [ "${input:GM chooses}", "${input:GM chooses}" ],
             "equipment_list" : [
-                "Clothing", "Weapon: ${input:choose}", "${select:1:Shield|Weapon}: ${input:choose}", "${select:1:Light armor|Medium armor}: ${input:choose}", "Explorer's pack", "Cypher: ${input:GM chooses}", "Cypher: ${input:GM chooses}", "Oddity: ${input:GM chooses}"
+                "Clothing", "${select:1:Light Weapon|Medium Weapon|Heavy Weapon}: ${input:choose}", "${select:1:Shield|Light Weapon|Medium Weapon|Heavy Weapon}: ${input:choose}", "${select:1:Light armor|Medium armor}: ${input:choose}", "Explorer's pack", "Oddity: ${input:GM chooses}"
             ],
-            "ability_list" : [ "Trained: ${select:1:Balancing|Climbing|Jumping|Swimming}" ],
+            "ability_list" : [ "Trained: ${select:1:(S) Balancing|(M) Climbing|(M) Jumping|(M) Swimming}" ],
             "special_list" : [ "${select:2:Bash (1 might)|No Need for Weapons|Pierce (1 speed)|Thrust (1 might)|Trained Without Armor}" ],
             "reference_list" : [ "Glaive: Corebook, page 26" ],
             "bonus_list" : [ "Practiced in Armor", "Practiced With All Weapons" ]
@@ -28,6 +30,7 @@ define([
     },
     {
         "label" : "nano",
+        "description_text" : "Nanos are the 'wizards' of the Ninth World, performing miracles through the numenera.",
         "special_list_label" : "Esoteries",
         "stats" : {
             "armor_bonus" : 0,
@@ -44,10 +47,11 @@ define([
             "recovery_roll" : 1
         },
         "lists" : {
+            "cypher_list" : [ "${input:GM chooses}", "${input:GM chooses}", "${input:GM chooses}" ],
             "equipment_list" : [
-                "Clothing", "Weapon: ${input:choose}", "Book (numenera)", "Cypher: ${input:GM chooses}", "Cypher: ${input:GM chooses}", "Cypher: ${input:GM chooses}", "Oddity: ${input:GM chooses}"
+                "Clothing", "${select:1:Light Weapon|Medium Weapon|Heavy Weapon}: ${input:choose}", "Book (numenera)", "Oddity: ${input:GM chooses}"
             ],
-            "ability_list" : [ "Trained: Identifying/understanding the numenera" ],
+            "ability_list" : [ "Trained: (I) Identifying/understanding the numenera" ],
             "special_list" : [ "${select:2:Hedge Magic (1 intellect)|Onslaught (1 intellect)|Push (2 intellect)|Scan (2 intellect)|Ward (+1 Armor)}" ],
             "reference_list" : [ "Nano: Corebook, page 32" ],
             "bonus_list" : [ "Practiced With Light Weapons" ]
@@ -55,6 +59,7 @@ define([
     },
     {
         "label" : "jack",
+        "description_text" : "The Jack-of-all trades, master of those of his choosing, is the most flexible of the character types.",
         "special_list_label" : "Tricks of the Trade",
         "stats" : {
             "armor_bonus" : 0,
@@ -71,8 +76,9 @@ define([
             "recovery_roll" : 1
         },
         "lists" : {
+            "cypher_list" : [ "${input:GM chooses}", "${input:GM chooses}" ],
             "equipment_list" : [
-                "Clothing", "Weapon: ${input:choose}", "Weapon: ${input:choose}", "Light Armor: ${input:choose}", "Explorer's pack", "Bag of Light Tools", "Cypher: ${input:GM chooses}", "Cypher: ${input:GM chooses}", "Oddity: ${input:GM chooses}"
+                "Clothing", "${select:2:Light Weapon|Medium Weapon|Heavy Weapon}: ${input:choose}", "Light Armor: ${input:choose}", "Explorer's pack", "Bag of Light Tools", "Oddity: ${input:GM chooses}"
             ],
             "ability_list" : [ "Trained: ${input:choose any non-combat}" ],
             "special_list" : [ "${select:2:Bash (1 might)|Hedge Magic (1 intellect)|Pierce (1 speed)|Thrust (1 might)|Practiced in Armor|Skill With Defense|Trained Without Armor}" ],
