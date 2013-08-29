@@ -22,7 +22,7 @@ define([
             "equipment_list" : [
                 "Clothing", "${select:1:Light Weapon|Medium Weapon|Heavy Weapon}: ${input:choose}", "${select:1:Shield|Light Weapon|Medium Weapon|Heavy Weapon}: ${input:choose}", "${select:1:Light armor|Medium armor}: ${input:choose}", "Explorer's pack", "Oddity: ${input:GM chooses}"
             ],
-            "ability_list" : [ "Trained: ${select:1:(S) Balancing|(M) Climbing|(M) Jumping|(M) Swimming}" ],
+            "ability_list" : [ "Ⓣ ${select:1:Balancing|Climbing|Jumping|Swimming}" ],
             "special_list" : [ "${select:2:Bash (1 might)|No Need for Weapons|Pierce (1 speed)|Thrust (1 might)|Trained Without Armor}" ],
             "reference_list" : [ "Glaive: Corebook, page 26" ],
             "bonus_list" : [ "Practiced in Armor", "Practiced With All Weapons" ]
@@ -51,7 +51,7 @@ define([
             "equipment_list" : [
                 "Clothing", "${select:1:Light Weapon|Medium Weapon|Heavy Weapon}: ${input:choose}", "Book (numenera)", "Oddity: ${input:GM chooses}"
             ],
-            "ability_list" : [ "Trained: (I) Identifying/understanding the numenera" ],
+            "ability_list" : [ "Ⓣ Identifying/understanding the numenera" ],
             "special_list" : [ "${select:2:Hedge Magic (1 intellect)|Onslaught (1 intellect)|Push (2 intellect)|Scan (2 intellect)|Ward (+1 Armor)}" ],
             "reference_list" : [ "Nano: Corebook, page 32" ],
             "bonus_list" : [ "Practiced With Light Weapons" ]
@@ -80,7 +80,7 @@ define([
             "equipment_list" : [
                 "Clothing", "${select:2:Light Weapon|Medium Weapon|Heavy Weapon}: ${input:choose}", "Light Armor: ${input:choose}", "Explorer's pack", "Bag of Light Tools", "Oddity: ${input:GM chooses}"
             ],
-            "ability_list" : [ "Trained: ${input:choose any non-combat}" ],
+            "ability_list" : [ "Ⓣ ${input:choose any non-combat}" ],
             "special_list" : [ "${select:2:Bash (1 might)|Hedge Magic (1 intellect)|Pierce (1 speed)|Thrust (1 might)|Practiced in Armor|Skill With Defense|Trained Without Armor}" ],
             "reference_list" : [ "Jack: Corebook, page 40" ],
             "bonus_list" : [ "Flex Skill", "Practiced With Light/Medium Weapons" ]

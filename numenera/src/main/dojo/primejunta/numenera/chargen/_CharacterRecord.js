@@ -1,22 +1,27 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
+         "dojox/mobile/Button",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
-         "dojo/text!./templates/_CharacterRecordTable.html" ],
+         "dijit/_WidgetsInTemplateMixin",
+         "dojo/text!./templates/_CharacterRecord.html" ],
 function( declare,
           lang,
+          Button,
           _WidgetBase,
           _TemplatedMixin,
+          _WidgetsInTemplateMixin,
           template )
 {
-    return declare([ _WidgetBase, _TemplatedMixin ], {
-        TRAINED_STR : "Trained:",
-        SPECIALIZED_STR: "Specialized:",
+    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin ], {
+        TRAINED_STR : "Ⓣ",
+        SPECIALIZED_STR: "<span class=\"cg-specialized\">Ⓢ</span>",
         iconSource : require.toUrl( "primejunta/numenera/chargen/themes/images" ),
         manager : {},
         templateString : template,
         postCreate : function()
         {
+            window.scroll( 0, 0 );
             this._sv( "name_field", "characterNameInput" );
             this._sv( "descriptor_field", "descriptorSelect", 1 );
             this._sv( "type_field", "typeSelect", 1 );
@@ -62,12 +67,13 @@ function( declare,
                 return list;
             }
             var out = [];
+            out.push( list[ 0 ] );
             for( var i = 1; i < list.length; i++ )
             {
-                if( list[ i ] == list[ i - 1 ] && list[ i ].indexOf( this.TRAINED_STR ) != -1 )
+                if( list[ i ].toLowerCase() == list[ i - 1 ].toLowerCase() && list[ i ].indexOf( this.TRAINED_STR ) != -1 )
                 {
                     var cur = out[ out.length - 1 ];
-                    out[ out.length - 1 ] = "<span class=\"cg-specialized\">" + this.SPECIALIZED_STR + cur.substring( cur.indexOf( this._TRAINED_STR ) + this.TRAINED_STR.length + 1 ) + "</span>";
+                    out[ out.length - 1 ] = this.SPECIALIZED_STR + cur.substring( cur.indexOf( this.TRAINED_STR ) + this.TRAINED_STR.length ) + "</span>";
                 }
                 else
                 {
@@ -105,8 +111,7 @@ function( declare,
         _getArmorValue : function()
         {
             var base = parseInt( this._gf( "armor_bonus" ) );
-            var eq = this._listAsText( "equipment_list" );
-            eq = eq.join( "," ).toLowerCase();
+            var eq = this._listAsText( "equipment_list" ).join( "," ).toLowerCase();
             if( eq.indexOf( "heavy armor" ) != -1 )
             {
                 base += 3;
@@ -116,6 +121,11 @@ function( declare,
                 base += 2;
             }
             else if( eq.indexOf( "light armor" ) != -1 )
+            {
+                base += 1;
+            }
+            eq = this._listAsText( "special_list" ).join( "," ).toLowerCase();
+            if( eq.indexOf( "ward (+1 armor)" ) != -1 )
             {
                 base += 1;
             }
