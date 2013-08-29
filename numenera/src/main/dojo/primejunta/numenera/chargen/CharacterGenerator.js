@@ -10,8 +10,8 @@ define([ "dojo/_base/declare",
          "dojo/topic",
          "dojo/dom-class",
          "dojo/query",
+         "dijit/Dialog",
          "dijit/form/Button",
-         "dojox/mobile/Button",
          "dijit/form/Textarea",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -31,8 +31,8 @@ function( declare,
           topic,
           domClass,
           domQuery,
+          Dialog,
           Button,
-          mButton,
           Textarea,
           _WidgetBase,
           _TemplatedMixin, 
@@ -77,12 +77,7 @@ function( declare,
         postMixInProperties : function()
         {
             this.inherited( arguments );
-            document.body.className = "nihilo";
-            /*
-            document.addEventListener('touchmove', function (event) {
-                event.preventDefault();
-            }, false);
-            */
+            document.body.className = "tundra";
         },
         /**
          * Initialize selects from data, and connect onclick handlers to all of the UI buttons.
@@ -248,6 +243,16 @@ function( declare,
             this.focusSelect.selectedIndex = 0;
             this.characterNameInput.value = "a hero of the Ninth World";
             domClass.add( this.characterNameInput, "cg-valueNotSet" );
+            this.linkNode.innerHTML = "";
+            this._setDisabled([ "saveButton", "printButton" ], true );
+        },
+        showHelp : function()
+        {
+            this.helpDialog.show();
+        },
+        hideHelp : function()
+        {
+            this.helpDialog.hide();
         },
         _setDescription : function( from )
         {

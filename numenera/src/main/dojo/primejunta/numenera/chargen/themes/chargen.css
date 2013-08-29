@@ -1,5 +1,5 @@
 @import url( 'http://fonts.googleapis.com/css?family=Lato|Kreon|Droid+Sans|Prata' );
-@import url( '../../../../dijit/themes/nihilo/nihilo.css');
+@import url( '../../../../dijit/themes/tundra/tundra.css');
 @import url( '../../../../dojox/mobile/themes/blackberry/Button.css');
 @import url( 'charrec.css' );
 
@@ -12,7 +12,7 @@ html, body
 }
 body
 {
-	background-color : #242424;
+	background-color : #142434;
 }
 select 
 {
@@ -197,13 +197,46 @@ li div
 .cg-functionButton
 {
 }
-.cg-functionButton .dijitButtonNode
+.cg-blueButton .dijitButtonNode
 {
-    background-color : #335C99 !important;
+    background-image : linear-gradient(to bottom, #446dff 0%, #335C99 100%);
+    border : 1px solid black;
+    color : white;
 }
 .cg-redButton .dijitButtonNode
 {
-	background-color : #990000 !important;
+	background-image : linear-gradient(to bottom, #FFFFFF 0%, #990000 100%);
+}
+.cg-blueButton .dijitButtonDisabled .dijitButtonNode
+{
+    background-image : linear-gradient(to bottom, #FFFFFF 0%, #335C99 100%);
+}
+.cg-closeButton
+{
+	z-index : 99999;
+}
+.cg-closeButton .dijitButtonNode
+{
+	border-radius : 15px;
+}
+.cg-warmBackground
+{
+	background-color : #FFEBCC;
+}
+.cg-paleBackground
+{
+	background-color : #e4e4e4;
+	color : gray;
+}
+.cg-highlightBackground
+{
+	background-color : #d4e4f4;
+}
+/* character manager */
+.cg-characterManager:hover
+{
+	background-color : #d4e4f4;
+	cursor : pointer;
 }
 /* Workaround Webkit rendering bug: styles not applied to selects at 100% zoom without this. */
 @media screen and (-webkit-min-device-pixel-ratio:0) {

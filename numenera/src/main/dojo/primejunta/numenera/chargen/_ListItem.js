@@ -25,7 +25,6 @@ function( declare,
         templateString : template,
         content : "",
         from : "",
-        inputClass : "",
         postMixInProperties : function()
         {
             if( this.content.indexOf( "${input" ) != -1 && this.content.indexOf( "${select" ) != -1 )

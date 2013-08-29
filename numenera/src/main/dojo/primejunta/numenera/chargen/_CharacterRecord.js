@@ -1,6 +1,6 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
-         "dojox/mobile/Button",
+         "dijit/form/Button",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
