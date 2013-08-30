@@ -58,7 +58,7 @@ function( declare,
                 this._initStorage();
             }
             var keys = this._storage.getKeys();
-            var key = "HOTN_" + keys.length;
+            var key = this._getKey( this.characterNameInput.value );
             var val = {
                 name : this.characterNameInput.value,
                 data : this._getCharacterData()
@@ -94,7 +94,7 @@ function( declare,
             {
                 nde.innerHTML = "No stored characters.";
             }
-            var btn = new Button({ "style" : "display:block;text-align:right;", "label" : "Close", onClick : lang.hitch( this._dlog, this._dlog.hide ) }).placeAt( nde );
+            var btn = new Button({ "style" : "display:block;text-align:center;", "label" : "Close", onClick : lang.hitch( this._dlog, this._dlog.hide ) }).placeAt( nde );
             this._dlog.set( "content", nde );
             this._dlog.show();
         },
@@ -127,6 +127,10 @@ function( declare,
             this._buffer.push( qString );
             this.linkNode.href = href;
             this.linkNode.innerHTML = "Share " + this.characterNameInput.value;
+        },
+        _getKey : function( nameStr )
+        {
+            return nameStr.replace( /[^a-z|A-Z]+/g, "_" );
         },
         _initStorage : function()
         {

@@ -160,7 +160,7 @@ h2.cr-heading
         height : 100%;
         overflow : auto;
     }
-    .cr-CharacterRecordPage2
+    .cr-CharacterRecordPage2,.cr-CharacterRecordPage1
     {
         margin-top : 20px;
     }

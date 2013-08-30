@@ -199,16 +199,35 @@ li div
 }
 .cg-blueButton .dijitButtonNode
 {
+   background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0.00, #446dff),
+        color-stop(1.00, #335C99 )
+    );
+    background-image : -webkit-linear-gradient(to bottom, #446dff 0%, #335C99 100%);
     background-image : linear-gradient(to bottom, #446dff 0%, #335C99 100%);
     border : 1px solid black;
     color : white;
 }
 .cg-redButton .dijitButtonNode
 {
-	background-image : linear-gradient(to bottom, #FFFFFF 0%, #990000 100%);
+	background-image: -webkit-gradient(
+	    linear,
+	    left top,
+	    left bottom,
+	    color-stop(0.00, #ff6d44),
+	    color-stop(1.00, #990000 )
+	);
+    background-image : -webkit-linear-gradient(to bottom, #ff6d44 0%, #990000 100%);
+    background-image : linear-gradient(to bottom, #ff6d44 0%, #990000 100%);
+	border : 1px solid black;
+	color : white;
 }
 .cg-blueButton .dijitButtonDisabled .dijitButtonNode
 {
+    background-image : -webkit-linear-gradient(to bottom, #FFFFFF 0%, #335C99 100%);
     background-image : linear-gradient(to bottom, #FFFFFF 0%, #335C99 100%);
 }
 .cg-closeButton
@@ -217,7 +236,9 @@ li div
 }
 .cg-closeButton .dijitButtonNode
 {
-	border-radius : 15px;
+	border-radius : 12px;
+	height : 20px;
+	width : 20px;
 }
 .cg-warmBackground
 {

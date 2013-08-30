@@ -245,34 +245,39 @@
         <textarea data-dojo-attach-point="description_text" class="cg-inputTextArea" data-dojo-type="dijit/form/Textarea" data-dojo-attach-event="onKeyUp:connectTextareaListener,onChange:descriptionUpdated"></textarea>
         <h2 data-dojo-attach-point="reference_list_label">References</h2>
         <ul data-dojo-attach-point="reference_list"></ul>
-        <div class="cg-printButtonContainer">
-                <button data-dojo-type="dijit/form/Button" class="cg-redButton" data-dojo-attach-event="onClick:clearAll">Clear</button>
-       
+        <div style="text-align:right;">
+          <button data-dojo-type="dijit/form/Button" class="cg-redButton" data-dojo-attach-event="onClick:clearAll">Clear</button>
         </div>
       </div>
   </div>
   <div class="cg-copyright">Numenera is &copy; <a href="http://www.montecookgames.com/">Monte Cook Games LLC</a>. <br/>Character creation utility is an unofficial project by Petteri Sulonen.</div>
   </div>
   <!--  help node -->
-  <div data-dojo-type="dijit/Dialog" data-dojo-attach-point="helpDialog" data-dojo-props="title:'About the Character Creation Utility'" style="width:600px;">
-    <h3>What's it for?</h3>
-    <p>The Character Creation Utility is for creating characters for Monte Cook Games's Numenéra pen-and-paper role-playing game.</p>
-    <h3>How does it work?</h3>
-    <p>It is an all-Javascript/HTML/CSS webapp written with the <a href="http://www.dojotoolkit.org">Dojo Toolkit</a>.</p>
-    <h3>Do you collect any data?</h3>
-    <p>No, other than usual web server traffic logging. If you link to characters you've shared, that request and its query string does get logged in the web server's HTTP logs.</p>
-    <h3>So where do my saved characters go?</h3>
-    <p>In your browser's local data store. That means they'll only be available on the browser you used to create them, unless you've set up a service that syncs your browser data between devices.</p>
-    <h3>Anything else about my saved characters?</h3>
-    <p>Don't trust this app. I'm updating it frequently and an update may break all your characters without warning. Once this becomes stabler, I'll post a notice on <a href="http://www.ninthworldhub.com">Ninth World Hub.</a></p>
-    <h3>Any gotchas with the printable character sheet?</h3>
-    <p>It seems to work OK on Firefox and Google Chrome, but Firefox prints ugly headers and footers on it. For best results, use Chrome.</p>
-    <h3>I have an idea. Where can I reach you?</h3>
-    <p>You'll find me on <a href="http://www.ninthworldhub.com/">Ninth World Hub,</a> as Petteri Sulonen. I won't leave my e-mail here because spam and stuff.</p>
-    <h3>Is this an official Numenéra product?</h3>
-    <p>No way! Numenera is &copy; Monte Cook Games LLC. The Character Creation Utility is an unofficial fan project by me, Petteri Sulonen. I may take it off-line at any time, for any reason, in particular if MCG asks me to, so don't rely on it too much.</p>
-    <div style="text-align:right" >
-      <button data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:hideHelp">Close</button>
+  <div data-dojo-type="dijit/Dialog" data-dojo-attach-point="helpDialog" data-dojo-props="title:'About the Character Creation Utility'">
+    <div style="width:580px;padding:10px;overflow:auto;">
+      <h3>What's it for?</h3>
+      <p>The Character Creation Utility is for creating characters for Monte Cook Games's Numenéra pen-and-paper role-playing game.</p>
+      <h3>How does it work?</h3>
+      <p>It is an all-Javascript/HTML/CSS webapp written with the <a href="http://www.dojotoolkit.org">Dojo Toolkit</a>.</p>
+      <h3>Do you collect any data?</h3>
+      <p>No, other than usual web server traffic logging. If you link to characters you've shared, that request and its query string does get logged in the web server's HTTP logs.</p>
+      <h3>So where do my saved characters go?</h3>
+      <p>In your browser's local data store. That means they'll only be available on the browser you used to create them, unless you've set up a service that syncs your browser data between devices.</p>
+      <h3>Will I lose the characters if I empty my history, clear my cache, and remove my cookies?</h3>
+      <p>The details depend on your browser, but yeah, you most likely will.</p>
+      <h3>Any way I can "back up" my characters?</h3>
+      <p>Bookmark the "Share (character name)" link. That won't help if I've updated the app to break data compatibility again. The primary purpose of this app (at this point) is to easily fill out and print a character sheet; that's your real backup.</p>
+      <h3>Anything else about my saved characters?</h3>
+      <p>Don't trust this app. I'm updating it frequently and an update may break all your characters without warning. Once this becomes stabler, I'll post a notice on <a href="http://www.ninthworldhub.com">Ninth World Hub.</a></p>
+      <h3>Any gotchas with the printable character sheet?</h3>
+      <p>It seems to work OK on Firefox and Google Chrome, but Firefox prints ugly headers and footers on it. For best results, use Chrome.</p>
+      <h3>I have an idea. Where can I reach you?</h3>
+      <p>You'll find me on <a href="http://www.ninthworldhub.com/">Ninth World Hub,</a> as Petteri Sulonen. I won't leave my e-mail here because spam and stuff.</p>
+      <h3>Is this an official Numenéra product?</h3>
+      <p>No way! Numenera is &copy; Monte Cook Games LLC. The Character Creation Utility is an unofficial fan project by me, Petteri Sulonen. I may take it off-line at any time, for any reason, in particular if MCG asks me to, so don't rely on it too much.</p>
+      <div style="text-align:center;" >
+        <button data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:hideHelp">Close</button>
+      </div>
     </div>
   </div>
 </div>
