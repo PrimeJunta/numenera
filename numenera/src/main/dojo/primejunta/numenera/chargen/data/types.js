@@ -4,6 +4,8 @@ define([
         "description_text" : "Glaives are warriors: soldiers, mercenaries, bodyguards, and other masters of the martial arts.",
         "special_list_label" : "Fighting Moves",
         "stats" : {
+            "character_tier" : 1,
+            "character_effort" : 1,
             "armor_bonus" : 0,
             "free_pool" : 6,
             "might_pool" : 11,
@@ -33,6 +35,8 @@ define([
         "description_text" : "Nanos are the 'wizards' of the Ninth World, performing miracles through the numenera.",
         "special_list_label" : "Esoteries",
         "stats" : {
+            "character_tier" : 1,
+            "character_effort" : 1,
             "armor_bonus" : 0,
             "free_pool" : 6,
             "might_pool" : 7,
@@ -62,6 +66,8 @@ define([
         "description_text" : "The Jack-of-all trades, master of those of his choosing, is the most flexible of the character types.",
         "special_list_label" : "Tricks of the Trade",
         "stats" : {
+            "character_tier" : 1,
+            "character_effort" : 1,
             "armor_bonus" : 0,
             "free_pool" : 6,
             "might_pool" : 10,

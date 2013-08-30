@@ -22,6 +22,8 @@ function( declare,
           _CharacterManager )
 {
     return declare([], {
+        dataVersion : "0.0.2",
+        _listDelimiter : "-",
         postMixInProperties : function()
         {
             topic.subscribe( "CharGen/dataChanged", lang.hitch( this, this.updateLink ) );
@@ -150,29 +152,31 @@ function( declare,
             }
             for( var i = 0; i < inps.length; i++ )
             {
-                vals.push( this._escape( inps[ i ].value ) );
+                vals.push( this._escapeDelimiter( inps[ i ].value ) );
             }
-            return "selects=" + escape( idxs.join( "," ) ) + "&inputs=" + escape( vals.join( "," ) ) + "&description=" + escape( this.description_text.value );
+            return "version=" + escape( this.dataVersion ) + "&selects=" + encodeURIComponent( idxs.join( this._listDelimiter ) ) + "&inputs=" + encodeURIComponent( vals.join( this._listDelimiter ) ) + "&description=" + encodeURIComponent( this.description_text.value );
         },
-        _escape : function( str )
+        _escapeDelimiter : function( str )
         {
-            str = str.split( "," );
-            str = str.join( "////" );
-            return str;
+            return str.replace( /\-/g, "///" );
         },
-        _unescape : function( str )
+        _unescapeDelimiter : function( str )
         {
-            str = str.split( "////" );
-            str = str.join( "," );
-            return str;
+            return str.replace( /\/\/\//g, this._listDelimiter );
         },
         _populateFromStoredData : function( qString )
         {
             this._populating.push( 3 );
             this.clearAll();
             var kwObj = ioQuery.queryToObject( qString );
-            var idxs = kwObj.selects.split( "," );
-            var vals = kwObj.inputs.split( "," );
+            if( kwObj.version != this.dataVersion )
+            {
+                alert( "The character was created with an incompatible version of this \nutility, and cannot be loaded. We apologize for the inconvenience." );
+                this._populating.pop();
+                return;
+            }
+            var idxs = kwObj.selects.split( this._listDelimiter );
+            var vals = kwObj.inputs.split( this._listDelimiter );
             this.descriptorSelect.selectedIndex = idxs[ 0 ];
             this.typeSelect.selectedIndex = idxs[ 1 ];
             this.focusSelect.selectedIndex = idxs[ 2 ];
@@ -190,14 +194,14 @@ function( declare,
             {
                 if( inps[ i ] )
                 {
-                    inps[ i ].value = this._unescape( vals[ i ] );
-                    this.normalizeClass( inps[ i ] );
+                    inps[ i ].value = this._unescapeDelimiter( vals[ i ] );
                 }
             }
             this._checkCaps( "pool" );
             this._checkCaps( "edge" );
             this.description_text.set( "value", kwObj.description );
             this._populating.pop();
+            topic.publish( "CharGen/pleaseNormalizeClass" );
         }
     });
 });

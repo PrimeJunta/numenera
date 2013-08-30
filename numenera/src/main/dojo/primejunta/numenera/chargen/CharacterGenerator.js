@@ -46,6 +46,13 @@ function( declare,
           template )
 {
     return declare( "primejunta/numenera/chargen/CharacterGenerator", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _data ], {
+        DEFAULT_VALUES : {
+            "a Hero of the Ninth World" : true,
+            "choose" : true,
+            "GM chooses" : true,
+            "choose topic" : true,
+            "choose any non-combat" : true
+        },
         /**
          * Cap for pools
          */
@@ -107,6 +114,7 @@ function( declare,
             on( this.decrement_speed_edge, "click", lang.hitch( this, this._adjust, "speed", "edge", -1 ) );
             on( this.decrement_intellect_pool, "click", lang.hitch( this, this._adjust, "intellect", "pool", -1 ) );
             on( this.decrement_intellect_edge, "click", lang.hitch( this, this._adjust, "intellect", "edge", -1 ) );
+            topic.subscribe( "CharGen/pleaseNormalizeClass", lang.hitch( this, this.normalizeClass, this.characterNameInput ) );
             this.inherited( arguments );
         },
         descriptionUpdated : function()
@@ -224,7 +232,18 @@ function( declare,
         },
         normalizeClass : function( node )
         {
-            domClass.remove( node, "cg-valueNotSet" );
+            if( !node  )
+            {
+                console.log( "WTF?" );
+            }
+            if( this.DEFAULT_VALUES[ node.value ] )
+            {
+                domClass.add( node, "cg-valueNotSet" );
+            }
+            else
+            {
+                domClass.remove( node, "cg-valueNotSet" );
+            }
         },
         makePrint : function()
         {
@@ -375,7 +394,11 @@ function( declare,
             {
                 for( var i = 0; i < this._lists[ o ].length; i++ )
                 {
-                    this._lists[ o ][ i ] = new _ListItem({ content : this._lists[ o ][ i ].text, from : this._lists[ o ][ i ].from }).placeAt( this[ o ] );
+                    this._lists[ o ][ i ] = new _ListItem({
+                        manager : this,
+                        content : this._lists[ o ][ i ].text,
+                        from : this._lists[ o ][ i ].from
+                    }).placeAt( this[ o ] );
                 }
             }
         },
@@ -457,7 +480,7 @@ function( declare,
             this.description_text.set( "value", "" );
             this.result_pane.style.display = "none";
             this._setDisabled([ "increment_might_pool", "decrement_might_pool", "increment_speed_pool", "decrement_speed_pool", "increment_intellect_pool", "decrement_intellect_pool","increment_might_edge", "decrement_might_edge", "increment_speed_edge", "decrement_speed_edge", "increment_intellect_edge", "decrement_intellect_edge" ], true );
-            this._setValues([ "might_pool", "speed_pool", "intellect_pool", "might_edge", "speed_edge", "intellect_edge", "free_pool", "free_edge", "shin_count", "cypher_count", "armor_bonus" ], "" );
+            this._setValues([ "character_tier", "character_effort", "might_pool", "speed_pool", "intellect_pool", "might_edge", "speed_edge", "intellect_edge", "free_pool", "free_edge", "shin_count", "cypher_count", "armor_bonus" ], "" );
             var lists = [ "ability_list", "inability_list", "special_list", "equipment_list", "bonus_list", "connection_list", "reference_list" ];
             this.updateLink();
         }

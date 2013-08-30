@@ -25,6 +25,7 @@ function( declare,
         templateString : template,
         content : "",
         from : "",
+        manager : {},
         postMixInProperties : function()
         {
             if( this.content.indexOf( "${input" ) != -1 && this.content.indexOf( "${select" ) != -1 )
@@ -47,6 +48,10 @@ function( declare,
             this.baseText = this.getBaseText();
             this.inputValue = this.getInputValue();
             this.selectOptions = this.getSelectOptions();
+            if( this._hasInput )
+            {
+                this._sub = topic.subscribe( "CharGen/pleaseNormalizeClass", lang.hitch( this, this.normalizeClass ) );
+            }
         },
         buildRendering : function()
         {
@@ -70,7 +75,7 @@ function( declare,
         },
         getText : function()
         {
-            return this.baseText + ( this._hasSelect ? this.selectNode.options[ this.selectNode.selectedIndex ].text + this.midText : "" ) + ( this._hasInput ? this.inputNode.value : "" );
+            return this.baseText + ( this._hasSelect ? this.selectNode.options[ this.selectNode.selectedIndex ].text + this.midText : "" ) + ( this._hasInput ? ( this.manager.DEFAULT_VALUES[ this.inputNode.value ] ? "" : this.inputNode.value ) : "" );
         },
         getSelectOptions : function()
         {
@@ -82,19 +87,29 @@ function( declare,
                 out +="<option>" + items[ i ] + "</options>";
             }
             return out;
-
         },
         normalizeClass : function()
         {
-            domClass.remove( this.inputNode, "cg-valueNotSet" );
+            this.manager.normalizeClass( this.inputNode );
         },
         selectContent : function()
         {
-            this.inputNode.select();
+            if( this.manager.DEFAULT_VALUES[ this.inputNode.value ] )
+            {
+                this.inputNode.select();
+            }
         },
         dataChanged : function()
         {
             topic.publish( "CharGen/dataChanged" );
+        },
+        destroy : function()
+        {
+            if( this._sub )
+            {
+                this._sub.remove();
+            }
+            this.inherited( arguments );
         }
     });
 });

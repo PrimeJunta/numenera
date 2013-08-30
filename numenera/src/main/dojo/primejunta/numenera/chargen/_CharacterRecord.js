@@ -26,8 +26,8 @@ function( declare,
             this._sv( "descriptor_field", "descriptorSelect", 1 );
             this._sv( "type_field", "typeSelect", 1 );
             this._sv( "focus_field", "focusSelect", 1 );
-            this._sv( "tier", "character_tier" );
-            this._sv( "effort", "character_effort" );
+            this._sv( "character_tier", "character_tier" );
+            this._sv( "character_effort", "character_effort" );
             this._sv( "might_pool", "might_pool" );
             this._sv( "might_edge", "might_edge" );
             this._sv( "speed_pool", "speed_pool" );
@@ -133,6 +133,10 @@ function( declare,
         },
         _listAsText : function( list )
         {
+            if( !this.manager._lists || !this.manager._lists[ list ] )
+            {
+                return [];
+            }
             var _list = this.manager._lists[ list ];
             var out = [];
             for( var i = 0; i < _list.length; i++ )
