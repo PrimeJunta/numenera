@@ -133,18 +133,7 @@ function( declare,
         },
         _listAsText : function( list )
         {
-            if( !this.manager._lists || !this.manager._lists[ list ] )
-            {
-                return [];
-            }
-            var _list = this.manager._lists[ list ];
-            var out = [];
-            for( var i = 0; i < _list.length; i++ )
-            {
-                out.push( _list[ i ].getText() );
-            }
-            out.sort();
-            return out;
+            return this.manager.listAsText( list );
         },
         _wl : function( to, list )
         {

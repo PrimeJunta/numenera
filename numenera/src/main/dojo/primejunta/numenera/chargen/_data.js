@@ -146,15 +146,25 @@ function( declare,
             var inps = domQuery( "input.cg-storeMe", this.domNode );
             var idxs = [];
             var vals = [];
+            var disb = [];
             for( var i = 0; i < sels.length; i++ )
             {
                 idxs.push( sels[ i ].selectedIndex );
+                disb.push( sels[ i ].disabled ? 1 : 0 );
             }
             for( var i = 0; i < inps.length; i++ )
             {
-                vals.push( this._escapeDelimiter( inps[ i ].value ) );
+                if( inps[ i ].type == "checkbox" )
+                {
+                    vals.push( inps[ i ].checked ? "1" : "0" );
+                }
+                else
+                {
+                    vals.push( this._escapeDelimiter( inps[ i ].value ) );
+                }
+                disb.push( inps[ i ].disabled ? 1 : 0 );
             }
-            return "version=" + escape( this.dataVersion ) + "&selects=" + encodeURIComponent( idxs.join( this._listDelimiter ) ) + "&inputs=" + encodeURIComponent( vals.join( this._listDelimiter ) ) + "&description=" + encodeURIComponent( this.description_text.value );
+            return "version=" + escape( this.dataVersion ) + "&finalized=" + this.finalized + "&tier=" + this.character_tier.value + "&selects=" + encodeURIComponent( idxs.join( this._listDelimiter ) ) + "&inputs=" + encodeURIComponent( vals.join( this._listDelimiter ) ) + "&description=" + encodeURIComponent( this.description_text.value ) + "&disabled=" + disb.join( "" );
         },
         _escapeDelimiter : function( str )
         {
@@ -177,10 +187,15 @@ function( declare,
             }
             var idxs = kwObj.selects.split( this._listDelimiter );
             var vals = kwObj.inputs.split( this._listDelimiter );
+            var disb = kwObj.disabled ? kwObj.disabled : "";
             this.descriptorSelect.selectedIndex = idxs[ 0 ];
             this.typeSelect.selectedIndex = idxs[ 1 ];
             this.focusSelect.selectedIndex = idxs[ 2 ];
             this.selectDescriptor();
+            if( kwObj.finalized == "true" )
+            {
+                this.finalize( kwObj.tier );
+            }
             var sels = domQuery( "select.cg-storeMe", this.domNode );
             var inps = domQuery( "input.cg-storeMe", this.domNode );
             for( var i = 3; i < idxs.length; i++ )
@@ -188,20 +203,32 @@ function( declare,
                 if( sels[ i ] )
                 {
                     sels[ i ].selectedIndex = idxs[ i ];
+                    sels[ i ].disabled = ( disb[ i ] == "1" )
                 }
             }
             for( var i = 0; i < vals.length; i++ )
             {
                 if( inps[ i ] )
                 {
-                    inps[ i ].value = this._unescapeDelimiter( vals[ i ] );
+                    if( inps[ i ].type == "checkbox" )
+                    {
+                        inps[ i ].checked = vals[ i ] == "1" ? true : false;
+                    }
+                    else
+                    {
+                        inps[ i ].value = this._unescapeDelimiter( vals[ i ] );
+                    }
+                    inps[ i ].disabled = ( disb[ sels.length + i ] == "1" )
                 }
             }
-            this._checkCaps( "pool" );
-            this._checkCaps( "edge" );
+            if( this.finalized )
+            {
+                this.moveCaps();
+            }
+            this.checkCaps();
             this.description_text.set( "value", kwObj.description );
             this._populating.pop();
-            topic.publish( "CharGen/pleaseNormalizeClass" );
+            topic.publish( "CharGen/pleaseCheckState" );
         }
     });
 });

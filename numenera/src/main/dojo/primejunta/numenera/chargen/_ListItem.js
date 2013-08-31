@@ -25,6 +25,7 @@ function( declare,
         templateString : template,
         content : "",
         from : "",
+        selectedIndex : -1,
         manager : {},
         postMixInProperties : function()
         {
@@ -48,18 +49,36 @@ function( declare,
             this.baseText = this.getBaseText();
             this.inputValue = this.getInputValue();
             this.selectOptions = this.getSelectOptions();
+            this._subs = [ topic.subscribe( "CharGen/destroyListItems", lang.hitch( this, this.destroy ) ) ];
             if( this._hasInput )
             {
-                this._sub = topic.subscribe( "CharGen/pleaseNormalizeClass", lang.hitch( this, this.normalizeClass ) );
+                this._subs.push( topic.subscribe( "CharGen/pleaseCheckState", lang.hitch( this, this.normalizeClass ) ) );
+                this._subs.push( topic.subscribe( "CharGen/lockSheetControls", lang.hitch( this, this.lockInput ) ) );
+            }
+            if( this._hasSelect )
+            {
+                this._subs.push( topic.subscribe( "CharGen/lockSheetControls", lang.hitch( this, this.lockSelect ) ) );
             }
         },
         buildRendering : function()
         {
             this.inherited( arguments );
+            if( this._hasSelect && this.selectedIndex > 0 )
+            {
+                this.selectNode.selectedIndex = this.selectedIndex;
+            }
             if( this.baseText == "" && !this._hasSelect && this._hasInput )
             {
                 this.baseTextNode.style.display = "none";
             }
+        },
+        lockInput : function()
+        {
+            this.inputNode.disabled = true;
+        },
+        lockSelect : function()
+        {
+            this.selectNode.disabled = true;
         },
         getBaseText : function()
         {
@@ -105,9 +124,9 @@ function( declare,
         },
         destroy : function()
         {
-            if( this._sub )
+            while( this._subs.length > 0 )
             {
-                this._sub.remove();
+                this._subs.pop().remove();
             }
             this.inherited( arguments );
         }

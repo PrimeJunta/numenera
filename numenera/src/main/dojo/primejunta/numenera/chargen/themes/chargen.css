@@ -19,6 +19,15 @@ select
 	font-size : large;
    font-family : 'Droid sans', 'avant garde', helvetica, helve, arial, sans-serif;
 }
+.cg-tierRow td
+{
+	border-top : 1px solid silver;
+	border-right : 1px solid silver;
+}
+.cg-smallCell
+{
+	width : 65px;
+}
 .cg-statInput
 {
 	font-size : 18px;
@@ -158,8 +167,7 @@ li div
 	margin-left : auto;
 	margin-right : auto;
 	padding : 20px 0px 30px 0px;
-	opacity : 0.9;
-	background-color : white;
+	background-color : #f5f5f5;
 }
 .cg-characterGeneratorContent
 {
@@ -242,7 +250,7 @@ li div
 }
 .cg-warmBackground
 {
-	background-color : #FFEBCC;
+	background-color : #FFFFFF;
 }
 .cg-paleBackground
 {
@@ -251,7 +259,7 @@ li div
 }
 .cg-highlightBackground
 {
-	background-color : #d4e4f4;
+	background-color : #d4d4d4;
 }
 /* character manager */
 .cg-characterManager:hover

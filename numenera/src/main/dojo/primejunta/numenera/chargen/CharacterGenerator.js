@@ -18,6 +18,7 @@ define([ "dojo/_base/declare",
          "dijit/_WidgetsInTemplateMixin",
          "./_data",
          "./_ListItem",
+         "./_AdvancementControl",
          "./_CharacterRecord",
          "./data/descriptors",
          "./data/types",
@@ -39,6 +40,7 @@ function( declare,
           _WidgetsInTemplateMixin,
           _data,
           _ListItem,
+          _AdvancementControl,
           _CharacterRecord,
           descriptors,
           types,
@@ -53,6 +55,7 @@ function( declare,
             "choose topic" : true,
             "choose any non-combat" : true
         },
+        finalized : false,
         /**
          * Cap for pools
          */
@@ -91,8 +94,6 @@ function( declare,
          */
         postCreate : function()
         {
-            var loaderNode = domQuery( "div.cg-noJavaScript" )[ 0 ];
-            loaderNode.style.display = "none";
             this._buffer = [];
             this._populating = [];
             this.initializeSelect( "descriptorSelect", descriptors, true );
@@ -114,8 +115,27 @@ function( declare,
             on( this.decrement_speed_edge, "click", lang.hitch( this, this._adjust, "speed", "edge", -1 ) );
             on( this.decrement_intellect_pool, "click", lang.hitch( this, this._adjust, "intellect", "pool", -1 ) );
             on( this.decrement_intellect_edge, "click", lang.hitch( this, this._adjust, "intellect", "edge", -1 ) );
-            topic.subscribe( "CharGen/pleaseNormalizeClass", lang.hitch( this, this.normalizeClass, this.characterNameInput ) );
+            topic.subscribe( "CharGen/pleaseCheckState", lang.hitch( this, this.normalizeClass, this.characterNameInput ) );
+            topic.subscribe( "CharGen/lockSheetControls", lang.hitch( this, this.lockControls ) );
+            topic.subscribe( "CharGen/unlockSpecialButtons", lang.hitch( this, this.unlockSpecialButtons ) );
             this.inherited( arguments );
+            var loaderNode = domQuery( "div.cg-noJavaScript" )[ 0 ];
+            loaderNode.style.display = "none";
+            this.domNode.style.display = "block";
+        },
+        lockControls : function()
+        {
+            this.descriptorSelect.disabled = true;
+            this.typeSelect.disabled = true;
+            this.focusSelect.disabled = true;
+            this.updateLink();
+        },
+        unlockSpecialButtons : function()
+        {
+        },
+        unlockFinalize : function()
+        {
+            this.finalizeButton.set( "disabled", false );
         },
         descriptionUpdated : function()
         {
@@ -167,7 +187,6 @@ function( declare,
             this._populating.push( 4 );
             this.updateValues();
             this._populating.pop();
-
             this.updateLink();
         },
         selectFocus : function()
@@ -209,6 +228,7 @@ function( declare,
                 }
                 this._assign( type.stats );
                 this._appendToLists( type.lists, "type" );
+                this._writeSpecialList( type );
                 this.special_list_label.innerHTML = type.special_list_label;
                 this.result_pane.style.display = "block";
                 this._setDescription( type );
@@ -223,6 +243,7 @@ function( declare,
             {
                 this._augment( focus.stats );
                 this._appendToLists( focus.lists, "focus" );
+                this._writeBonusList( focus );
                 this._setDescription( focus );
             }
             this._checkCaps( "pool" );
@@ -230,12 +251,61 @@ function( declare,
             this._populating.pop();
             this.updateLink();
         },
+        finalize : function( tier )
+        {
+            if( !this.validateCharacter() )
+            {
+                return;
+            }
+            var type = types[ this.typeSelect.selectedIndex - 1 ];
+            var focus = foci[ this.focusSelect.selectedIndex - 1 ];
+            tier = !isNaN( parseInt( tier ) ) ? parseInt( tier ) : parseInt( this.character_tier.value );
+            if( !this.finalized )
+            {
+                this._advancementControl = new _AdvancementControl({
+                    manager : this,
+                    typeData : type.advancement,
+                    focusData : focus.advancement
+                }).placeAt( this.advancementControlNode );
+                this._advancementControl.advanceTier( tier );
+            }
+            this.moveCaps();
+            if( this.free_edge.value == "0" && this.free_pool.value == "0" )
+            {
+                this.finalizeButton.set( "disabled", true );
+            }
+            this.finalized = true;
+            this._advancementControl.checkAdvancement();
+        },
+        validateCharacter : function()
+        {
+            console.log( "VC", this._populating.length );
+            if( this._populating.length != 0 )
+            {
+                return true;
+            }
+            var errs = [];
+            if( !descriptors[ this.descriptorSelect.selectedIndex - 1 ] || !types[ this.typeSelect.selectedIndex - 1 ] || !foci[ this.focusSelect.selectedIndex - 1 ])
+            {
+                console.log( descriptors[ this.descriptorSelect.selectedIndex - 1 ], types[ this.typeSelect.selectedIndex - 1 ], foci[ this.focusSelect.selectedIndex - 1 ] )
+                errs.push( "Select a descriptor, type, and focus." );
+            }
+            if( this.free_pool.value != "0" || this.free_edge.value != "0" )
+            {
+                errs.push( "Assign all of your character points.")
+            }
+            if( errs.length == 0 )
+            {
+                return true;
+            }
+            else
+            {
+                alert( errs.join( "<br/>" ) );
+                return false;
+            }
+        },
         normalizeClass : function( node )
         {
-            if( !node  )
-            {
-                console.log( "WTF?" );
-            }
             if( this.DEFAULT_VALUES[ node.value ] )
             {
                 domClass.add( node, "cg-valueNotSet" );
@@ -273,6 +343,21 @@ function( declare,
         {
             this.helpDialog.hide();
         },
+        listAsText : function( list )
+        {
+            if( !this._lists || !this._lists[ list ] )
+            {
+                return [];
+            }
+            var _list = this._lists[ list ];
+            var out = [];
+            for( var i = 0; i < _list.length; i++ )
+            {
+                out.push( _list[ i ].getText() );
+            }
+            out.sort();
+            return out;
+        },
         _setDescription : function( from )
         {
             if( from.description_text )
@@ -299,6 +384,11 @@ function( declare,
             this._checkCaps( prop );
             this.updateLink();
         },
+        checkCaps : function()
+        {
+            this._checkCaps( "pool" );
+            this._checkCaps( "edge" );
+        },
         /**
          * If there's no free pool to assign, disable increment pool controls. Else enable them if they're below
          * 20.
@@ -312,6 +402,20 @@ function( declare,
             this[ "increment_might_" + prop ].set( "disabled", ( parseInt( this[ "might_" + prop ].value ) >= this[ prop + "_cap" ] || _from == 0 ) );
             this[ "increment_speed_" + prop ].set( "disabled", ( parseInt( this[ "speed_" + prop ].value ) >= this[ prop + "_cap" ] || _from == 0  ) );
             this[ "increment_intellect_" + prop ].set( "disabled", ( parseInt( this[ "intellect_" + prop ].value ) >= this[ prop + "_cap" ] || _from == 0  ) );
+        },
+        _writeSpecialList : function( /* Object */ type )
+        {
+            this.special_list_label.style.display = "block";
+            var item = "${select:2:" + type.advancement[ 0 ].perk_list + "}";
+            this._writeItem( "special_list", item, "type" );
+        },
+        _writeBonusList : function( /* Object */ focus )
+        {
+            this.bonus_list_label.style.display = "block";
+            if( focus.advancement[ 0 ].bonus_perks )
+            {
+                this._writeItems( "bonus_list", focus.advancement[ 0 ].bonus_perks, "focus" );
+            }
         },
         /**
          * Reads list items from from and writes them into each list in lists. The from property ends up in the
@@ -335,9 +439,13 @@ function( declare,
             }
             this[ list + "_label" ].style.display = "block";
             var lst = lists[ list ];
-            for( var i = 0; i < lst.length; i++ )
+            this._writeItems( list, lst, from );
+        },
+        _writeItems : function( listName, list, from )
+        {
+            for( var i = 0; i < list.length; i++ )
             {
-                this._writeItem( list, lst[ i ], from );
+                this._writeItem( listName, list[ i ], from );
             }
         },
         /**
@@ -346,23 +454,23 @@ function( declare,
          */
         _writeItem : function( /* String */ where, /* String */ what, /* String */ from )
         {
-            if( !this._lists )
+            if( !this._listdata )
             {
-                this._lists = {};
+                this._listdata = {};
             }
-            if( !this._lists[ where ] )
+            if( !this._listdata[ where ] )
             {
-                this._lists[ where ] = [];
+                this._listdata[ where ] = [];
             }
             var found = false;
             if( what.indexOf( "Ⓣ" ) != -1 && what.indexOf( "${" ) == -1 )
             {
-                for( var i = 0; i < this._lists[ where ].length; i++ )
+                for( var i = 0; i < this._listdata[ where ].length; i++ )
                 {
-                    if( what.toLowerCase() == this._lists[ where ][ i ].text.toLowerCase() )
+                    if( what.toLowerCase() == this._listdata[ where ][ i ].text.toLowerCase() )
                     {
-                        this._lists[ where ][ i ].text = "<span class=\"cg-specialized\">Ⓢ</span>" + what.substring( what.indexOf( "Ⓣ" ) + 1 );
-                        this._lists[ where ][ i ].from = from;
+                        this._listdata[ where ][ i ].text = "<span class=\"cg-specialized\">Ⓢ</span>" + what.substring( what.indexOf( "Ⓣ" ) + 1 );
+                        this._listdata[ where ][ i ].from = from;
                         found = true;
                     }
                 }
@@ -372,7 +480,7 @@ function( declare,
                 var count = parseInt( what.substring( what.indexOf( "${select:" ) + 9, what.lastIndexOf( ":" ) ) );
                 while( count > 0 )
                 {
-                    this._lists[ where ].push({
+                    this._listdata[ where ].push({
                         from : from,
                         text : what
                     });
@@ -382,7 +490,7 @@ function( declare,
             }
             if( !found )
             {
-                this._lists[ where ].push({
+                this._listdata[ where ].push({
                     from : from,
                     text : what
                 });
@@ -390,17 +498,41 @@ function( declare,
         },
         _printLists : function()
         {
-            for( var o in this._lists )
+            topic.publish( "CharGen/destroyListItems" ); 
+            this._lists = {};
+            for( var o in this._listdata )
             {
-                for( var i = 0; i < this._lists[ o ].length; i++ )
+                this._lists[ o ] = [];
+                for( var i = 0; i < this._listdata[ o ].length; i++ )
                 {
-                    this._lists[ o ][ i ] = new _ListItem({
-                        manager : this,
-                        content : this._lists[ o ][ i ].text,
-                        from : this._lists[ o ][ i ].from
-                    }).placeAt( this[ o ] );
+                    this.createListItem( o, this._listdata[ o ][ i ].text, this._listdata[ o ][ i ].from );
                 }
             }
+        },
+        moveCaps : function()
+        {
+            this._resetFloor( "might_pool" );
+            this._resetFloor( "might_edge" );
+            this._resetFloor( "speed_pool" );
+            this._resetFloor( "speed_edge" );
+            this._resetFloor( "intellect_pool" );
+            this._resetFloor( "intellect_edge" );
+            this.pool_cap = 999;
+            this.edge_cap = 99;
+            this.checkCaps();
+        },
+        _resetFloor : function( stat )
+        {
+            this[ stat + "_floor" ] = parseInt( this[ stat ].value );
+        },
+        createListItem : function( listName, itemText, from, selIdx )
+        {
+            this._lists[ listName ].push( new _ListItem({
+                manager : this,
+                content : itemText,
+                from : from,
+                selectedIndex : selIdx
+            }).placeAt( this[ listName ] ) );
         },
         /**
          * Iterates through stats and writes each item's value into the matching input in template.
@@ -441,7 +573,14 @@ function( declare,
         {
             for( var i = 0; i < controls.length; i++ )
             {
-                this[ controls[ i ] ].set( "disabled", state );
+                if( this[ controls[ i ].set ] )
+                {
+                    this[ controls[ i ] ].set( "disabled", state );
+                }
+                else
+                {
+                    this[ controls[ i ] ].disabled = state;
+                }
             }
         },
         /**
@@ -477,8 +616,16 @@ function( declare,
                     this._lists[ o ].pop().destroy();
                 }
             }
+            if( this._advancementControl )
+            {
+                this._advancementControl.destroy();
+            }
+            this.finalizeButton.set( "disabled", false );
+            this.finalized = false;
+            delete this._listdata;
             this.description_text.set( "value", "" );
             this.result_pane.style.display = "none";
+            this._setDisabled([ "descriptorSelect", "typeSelect", "focusSelect" ], false );
             this._setDisabled([ "increment_might_pool", "decrement_might_pool", "increment_speed_pool", "decrement_speed_pool", "increment_intellect_pool", "decrement_intellect_pool","increment_might_edge", "decrement_might_edge", "increment_speed_edge", "decrement_speed_edge", "increment_intellect_edge", "decrement_intellect_edge" ], true );
             this._setValues([ "character_tier", "character_effort", "might_pool", "speed_pool", "intellect_pool", "might_edge", "speed_edge", "intellect_edge", "free_pool", "free_edge", "shin_count", "cypher_count", "armor_bonus" ], "" );
             var lists = [ "ability_list", "inability_list", "special_list", "equipment_list", "bonus_list", "connection_list", "reference_list" ];

@@ -1,0 +1,28 @@
+<tr class="cg-tierRow">
+  <td class="cg-smallCell cg-highlightBackground" style="text-align:center">
+    ${tier}
+  </td>
+  <td class="cg-smallCell">
+    <label><input class="cg-storeMe" type="checkbox" data-dojo-attach-point="pool_checkbox"/> Pool</label><br/>
+    <label><input class="cg-storeMe" type="checkbox" data-dojo-attach-point="edge_checkbox"/> Edge</label><br/>
+    <label><input class="cg-storeMe" type="checkbox" data-dojo-attach-point="effort_checkbox"/> Effort</label><br/>
+  </td>
+  <td>
+    <select class="cg-storeMe" data-dojo-attach-point="skillTypeSelector" data-dojo-attach-event="onChange:checkSkillType">
+      <option>-- choose --</option>
+      <option>Trained:</option>
+      <option>Reduce armor cost</option>
+      <option>Recovery +2</option>
+      <option>Perk</option>
+    </select>
+    <br/>
+    <input type="text" class="cg-storeMe cg-itemInput" data-dojo-attach-point="skillInput" value="${DEFAULT_SKILL_NAME}" style="display:none"/>
+    <select class="cg-storeMe" data-dojo-attach-point="perkSelector" style="display:none"></select>
+  </td>
+  <td>
+    <ul data-dojo-attach-point="bonusPerksNode"></ul>
+  </td>
+  <td class="cg-smallCell">
+    <button data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:applyAdvancement" data-dojo-attach-point="applyButton">Apply</button>
+  </td>
+</tr>
