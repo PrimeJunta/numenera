@@ -52,7 +52,7 @@ define([
             "lists" : {
                 "ability_list" : [ "Ⓣ Perceiving (fugue)", "Ⓣ Attacks with chosen weapon (bursk)", "Ⓣ Breaking things (bursk)", "Ⓣ Perceiving (bursk)", "Ⓣ All interactions (neem)", "Ⓣ Study, contemplation, concentration, including esoteries (neem)" ],
                 "inability_list" : [ "Lore, knowledge, understanding (+1 step, bursk)", "Pleasant interactions (+1 step, bursk)", "Contemplation, study, concentration, including esoteries (+1 step, bursk)", "All combat tasks (+1 step, neem)", "Perceiving anything unexpected (+1 step, neem)" ],
-                "bonus_list" : [ "Change State (fugue/bursk/neem)" ],
+                "bonus_list" : [ "Ⓐ Change State (fugue/bursk/neem)" ],
                 "reference_list" : [ "Lattimor: Corebook, page 124" ]
             }
         },
@@ -85,7 +85,7 @@ define([
                 "equipment_list" : [ "Oddity: ${input:GM chooses}" ],
                 "ability_list" : [ "Ⓣ Identifying/understanding the numenera", "Ⓣ Sense Magic" ],
                 "inability_list" : [ "Unnerving aura (Charm, persuasion, deception tasks +1 step)" ],
-                "bonus_list" : [ "Hedge Magic (1 intellect)" ],
+                "bonus_list" : [ "Ⓐ Hedge Magic (1 intellect)" ],
                 "reference_list" : [ "Mystical/Mechanical: Corebook, page 49" ]
             }
         },
@@ -151,7 +151,7 @@ define([
                 "ability_list" : [ "Ⓣ Might defense" ],
                 "equipment_list" : [ "Light Weapon: ${input:choose}" ],
                 "reference_list" : [ "Tough: Corebook, page 51" ],
-                "bonus_list" : [ "Healthy (+1 to Recovery Roll points)" ]
+                "bonus_list" : [ "Ⓔ Healthy (+1 to Recovery Roll points)" ]
             }
         },
         {
@@ -164,7 +164,7 @@ define([
             "lists" : {
                 "ability_list" : [ "Ⓣ Identifying/understanding the numenera", "Ⓣ Visually perceiving" ],
                 "inability_list" : [ "History (+1 step)", "Poetry and oratory (+1 step)", "Hearing (+1 step)" ],
-                "bonus_list" : [ "Reforging (rearrange Pools freely once every day)" ],
+                "bonus_list" : [ "Ⓐ Reforging (rearrange Pools freely once every day)" ],
                 "equipment_list" : [ "Light Weapon: ${input:choose}" ],
                 "reference_list" : [ "Varjellen: Corebook, page 123" ]
             }

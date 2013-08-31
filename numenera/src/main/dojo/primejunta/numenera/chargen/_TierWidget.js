@@ -32,6 +32,7 @@ function( declare,
         postMixInProperties : function()
         {
             this._subs = [];
+            this._controls = [];
             this._subs.push( topic.subscribe( "CharGen/pleaseCheckState", lang.hitch( this, this.checkState ) ) );
             this._subs.push( topic.subscribe( "CharGen/destroyListItems", lang.hitch( this, this.destroy ) ) );
             this._typeData = this.typeData[ this.tier - 1 ];
@@ -77,12 +78,12 @@ function( declare,
             {
                 for( var i = 0; i < bps.length; i++ )
                 {
-                    var widg = new _ListItem({
+                    this._controls.push( new _ListItem({
                         manager : this,
                         content : bps[ i ],
                         from : "advancement",
                         selectedIndex : 0,
-                    }).placeAt( this.bonusPerksNode );
+                    }).placeAt( this.bonusPerksNode ) );
                 }
             }
         },
@@ -106,6 +107,8 @@ function( declare,
         },
         applyAdvancement : function()
         {
+            console.log( "Herp derp!" );
+            try {
             if( !this.skillTypeSelector.disabled ) switch( this.skillTypeSelector.selectedIndex )
             {
                 case 0 : 
@@ -149,6 +152,7 @@ function( declare,
             }
             topic.publish( "CharGen/lockSheetControls" );
             this.manager.unlockFinalize();
+            }catch(e){console.log("owie",e)}
         },
         canAdvance : function()
         {
@@ -161,14 +165,6 @@ function( declare,
                 return false;
             }
         },
-        destroy : function()
-        {
-            while( this._subs.length > 0 )
-            {
-                this._subs.pop().remove();
-            }
-            this.inherited( arguments );
-        },
         applyStatBonuses : function()
         {
             if( this._typeData.stats )
@@ -177,17 +173,66 @@ function( declare,
                 this.manager._augment( this._focusData.stats );
             }
         },
+        listAsText : function()
+        {
+            return this._perkAsText().concat( this._bonusPerksAsText() );
+        },
+        destroy : function()
+        {
+            while( this._subs.length > 0 )
+            {
+                this._subs.pop().remove();
+            }
+            while( this._controls.length > 0 )
+            {
+                this._controls.pop().destroy();
+            }
+            this.inherited( arguments );
+        },
+        _perkAsText : function()
+        {
+            switch( this.skillTypeSelector.selectedIndex )
+            {
+                case 1 :
+                    return [ "Ⓣ " + this.skillInput.value ];
+                case 2 :
+                    return [ "Ⓔ Reduce Armor Cost" ];
+                case 3 :
+                    return [ "Ⓔ Recovery Roll +2" ];
+                case 4 : 
+                    return [ this.perkSelector.options[ this.perkSelector.selectedIndex ].text ];
+                default :
+                    return [];
+            }
+        },
+        _bonusPerksAsText : function()
+        {
+            var out = [];
+            for( var i = 0; i < this._controls.length; i++ )
+            {
+                out.push( this._controls[ i ].getText() );
+            }
+            return out;
+        },
         _applyPerk : function()
         {
             var perk = this.perkSelector.options[ this.perkSelector.selectedIndex ].text;
             var perks = this.manager.listAsText( "special_list" );
             var stack = this._typeData.skills_stack;
+            var found = false;
             for( var i = 0; i < perks.length; i++ )
             {
                 if( perk == perks[ i ] && ( !stack || ( stack && perk.charAt( 0 ) == 'Ⓣ' ) ) )
                 {
-                    this._tell( "You cannot take " + perk + " a second time at this tier." );
-                    return false;
+                    if( found )
+                    {
+                        this._tell( "You cannot take " + perk + " a second time at this tier." );
+                        return false;
+                    }
+                    else
+                    {
+                        found = true;
+                    }
                 }
             }
             this.perkSelector.disabled = true;

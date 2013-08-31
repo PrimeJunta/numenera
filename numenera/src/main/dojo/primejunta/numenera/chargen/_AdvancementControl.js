@@ -39,7 +39,7 @@ function( declare,
             while( this._controls.length < this.tier )
             {
                 this._controls.push( new _TierWidget({ manager : this.manager, parent : this, typeData : this.typeData, focusData : this.focusData, tier : this._controls.length + 1 }).placeAt( this.tierContainerNode ) );
-                domClass.add( this._controls[ this._controls.length - 1 ].domNode, this._controls.length % 2 == 0 ? "cg-paleBackground" : "cg-warmBackground" );
+                domClass.add( this._controls[ this._controls.length - 1 ].domNode, this._controls.length % 2 == 0 ? "cg-evenBackground" : "cg-warmBackground" );
             }
             this.manager.character_tier.value = this.tier;
             this.manager.moveCaps();
@@ -55,6 +55,15 @@ function( declare,
                     this._controls[ this._controls.length - 1 ].applyStatBonuses();
                 }
             }
+        },
+        listAsText : function()
+        {
+            var out = [];
+            for( var i = 0; i < this._controls.length; i++ )
+            {
+                out = out.concat( this._controls[ i ].listAsText() );
+            }
+            return out;
         },
         destroy : function()
         {

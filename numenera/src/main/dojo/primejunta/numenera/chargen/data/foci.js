@@ -10,19 +10,19 @@ define([
                 "bonus_perks" : [ "Ⓔ Fire esoteries", "Shroud of Flame (1 intellect)" ],
             },
             {
-                "bonus_perks" : [ "Hurl Flame (2 intellect)", "Ⓔ Fiery Power" ]
+                "bonus_perks" : [ "Ⓐ Hurl Flame (2 intellect)", "Ⓔ Fiery Power" ]
             },
             {
-                "bonus_perks" : [ "Fiery Hand of Doom (3 intellect)" ]
+                "bonus_perks" : [ "Ⓔ Fiery Hand of Doom (3 intellect)" ]
             },
             {
-                "bonus_perks" : [ "Flameblade (4 intellect)" ]
+                "bonus_perks" : [ "Ⓔ Flameblade (4 intellect)" ]
             },
             {
-                "bonus_perks" : [ "Fire Tendrils (5 intellect)" ]
+                "bonus_perks" : [ "Ⓔ Fire Tendrils (5 intellect)" ]
             },
             {
-                "bonus_perks" : [ "Fire Servant (6 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Fire Servant (6 intellect)" ]
             }]
         },
         {
@@ -37,7 +37,7 @@ define([
                 "bonus_perks" : [ "Ⓔ Archer (spend Speed or intellect Effort to increase bow damage)" ],
             },
             {
-                "bonus_perks" : [ "Covering Fire (1 speed)", "Ⓣ Bowyer" ]
+                "bonus_perks" : [ "Ⓐ Covering Fire (1 speed)", "Ⓣ Bowyer" ]
             },
             {
                 "bonus_perks" : [ "Ⓣ Archery", "Ⓣ Fletcher" ]
@@ -49,7 +49,7 @@ define([
                 "bonus_perks" : [ "Ⓣ Archery" ]
             },
             {
-                "bonus_perks" : [ "Powerful Shot (2 might)" ]
+                "bonus_perks" : [ "Ⓐ Powerful Shot (2 might)" ]
             }]
         },
         {
@@ -61,22 +61,22 @@ define([
                 "reference_list" : [ "Commands Mental Powers: Corebook, page 54" ]
             },
             "advancement" : [{
-                "bonus_perks" : [ "Telepathic (1+ intellect)" ],
+                "bonus_perks" : [ "Ⓐ Telepathic (1+ intellect)" ],
             },
             {
-                "bonus_perks" : [ "Mind Reading (2 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Mind Reading (2 intellect)" ]
             },
             {
-                "bonus_perks" : [ "Psychic Burst (3+ intellect)" ]
+                "bonus_perks" : [ "Ⓐ Psychic Burst (3+ intellect)" ]
             },
             {
-                "bonus_perks" : [ "Use Senses of Others (4 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Use Senses of Others (4 intellect)" ]
             },
             {
-                "bonus_perks" : [ "Mind Control (6+ intellect)" ]
+                "bonus_perks" : [ "Ⓐ Mind Control (6+ intellect)" ]
             },
             {
-                "bonus_perks" : [ "Telepathic Network (0+ intellect)" ]
+                "bonus_perks" : [ "Ⓔ Telepathic Network (0+ intellect)" ]
             }]
         },
         {
@@ -90,19 +90,19 @@ define([
                 "bonus_perks" : [ "Ⓔ Beast Companion" ],
             },
             {
-                "bonus_perks" : [ "Soothe the Savage (2 intellect)", "Communication (2 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Soothe the Savage (2 intellect)", "Ⓐ Communication (2 intellect)" ]
             },
             {
                 "bonus_perks" : [ "Ⓔ Mount" ]
             },
             {
-                "bonus_perks" : [  "Beast Eyes (3 intellect)", "Ⓔ Improved Companion 1" ]
+                "bonus_perks" : [ "Ⓐ Beast Eyes (3 intellect)", "Ⓔ Improved Companion 1" ]
             },
             {
-                "bonus_perks" : [ "Beast Call (5 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Beast Call (5 intellect)" ]
             },
             {
-                "bonus_perks" : [ "Control the Savage (6 intellect)", "Ⓔ Improved Companion 2" ]
+                "bonus_perks" : [ "Ⓐ Control the Savage (6 intellect)", "Ⓔ Improved Companion 2" ]
             }]
         },
         {
@@ -113,22 +113,23 @@ define([
                 "reference_list" : [ "Controls Gravity: Corebook, page 56" ]
             },
             "advancement" : [{
-                "bonus_perks" : [ "Hover (1 intellect)" ],
+                "bonus_perks" : [ "Ⓐ Hover (1 intellect)" ],
             },
             {
-                "bonus_perks" : [ "Soothe the Savage (2 intellect)" ]
+                "stats" : { "speed_edge" : 1 },
+                "bonus_perks" : [ "Ⓔ Lessening Gravity's Pull" ]
             },
             {
-                "stats" : { "speed_edge" : 1 }
+                "bonus_perks" : [ "Ⓐ Gravity Cleave"]
             },
             {
-                "bonus_perks" : [ "Field of Gravity (4 intellect)" ]
+                "bonus_perks" : [ "Ⓔ Field of Gravity (4 intellect)" ]
             },
             {
-                "bonus_perks" : [ "Flight (4+ intellect)" ]
+                "bonus_perks" : [ "Ⓐ Flight (4+ intellect)" ]
             },
             {
-                "bonus_perks" : [ "Weight of the World (6+ intellect)" ]
+                "bonus_perks" : [ "Ⓐ Weight of the World (6+ intellect)" ]
             }]
         },
         {
@@ -139,22 +140,22 @@ define([
                 "reference_list" : [ "Crafts Illusions: Corebook, page 57" ]
             },
             "advancement" : [{
-                "bonus_perks" : [ "Ⓔ Psychedelic esoteries", "Minor Illusion (1 intellect)" ],
+                "bonus_perks" : [ "Ⓔ Psychedelic esoteries", "Ⓐ Minor Illusion (1 intellect)" ],
             },
             {
-                "bonus_perks" : [ "Disguise (2+ intellect)" ]
+                "bonus_perks" : [ "Ⓐ Disguise (2+ intellect)" ]
             },
             {
-                "bonus_perks" : [ "Major Illusion (3 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Major Illusion (3 intellect)" ]
             },
             {
-                "bonus_perks" : [  "Illusory Selves (4 intellect)" ]
+                "bonus_perks" : [  "Ⓐ Illusory Selves (4 intellect)" ]
             },
             {
-                "bonus_perks" : [ "Terrifying Image (6 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Terrifying Image (6 intellect)" ]
             },
             {
-                "bonus_perks" : [ "Grandiose Illusion (8 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Grandiose Illusion (8 intellect)" ]
             }]
         },
         {
@@ -168,7 +169,7 @@ define([
             "advancement" : [{
             },
             {
-                "bonus_perks" : [ "Ⓔ Tinkerer", "Quick Work (3+ intellect)" ]
+                "bonus_perks" : [ "Ⓔ Tinkerer", "Ⓐ Quick Work (3+ intellect)" ]
             },
             {
                 "bonus_perks" : [ "Ⓣ Craft item type: ${input:choose}", "Ⓣ Craft item type: ${input:choose}" ]
@@ -190,19 +191,19 @@ define([
                 "reference_list" : [ "Employs Magnetism: Corebook, page 59" ]
             },
             "advancement" : [{
-                "bonus_perks" : [ "Move Metal (1 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Move Metal (1 intellect)" ]
             },
             {
                 "bonus_perks" : [ "Ⓔ Repel Metal" ]
             },
             {
-                "bonus_perks" : [ "Destroy Metal (3 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Destroy Metal (3 intellect)" ]
             },
             {
-                "bonus_perks" : [ "Magnetic Field (4 intellect)" ]
+                "bonus_perks" : [ "Ⓔ Magnetic Field (4 intellect)" ]
             },
             {
-                "bonus_perks" : [ "Command Metal (5 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Command Metal (5 intellect)" ]
             },
             {
                 "bonus_perks" : [ "Ⓔ Diamagnetism" ]
@@ -226,7 +227,7 @@ define([
                 "bonus_perks" : [ "Ⓣ Knowledge area: ${input:choose}", "Ⓣ Knowledge area: ${input:choose}" ]
             },
             {
-                "bonus_perks" : [ "Calm (3 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Calm (3 intellect)" ]
             },
             {
                 "bonus_perks" : [ "Ⓔ Able Assistance" ]
@@ -242,22 +243,22 @@ define([
                 "reference_list" : [ "Exists Partially Out of Phase: Corebook, page 60" ]
             },
             "advancement" : [{
-                "bonus_perks" : [ "Walk through walls (2 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Walk through walls (2 intellect)" ]
             },
             {
-                "bonus_perks" : [ "Defensive Phasing (2 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Defensive Phasing (2 intellect)" ]
             },
             {
-                "bonus_perks" : [ "Phased Attack (3 intellect)" ]
+                "bonus_perks" : [ "Ⓔ Phased Attack (3 intellect)" ]
             },
             {
-                "bonus_perks" : [ "Ghost (4 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Ghost (4 intellect)" ]
             },
             {
-                "bonus_perks" : [ "Untouchable (6 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Untouchable (6 intellect)" ]
             },
             {
-                "bonus_perks" : [ "Enhanced Phased Attack (5 intellect)" ]
+                "bonus_perks" : [ "Ⓔ Enhanced Phased Attack (5 intellect)" ]
             }]
         },
         {
@@ -265,7 +266,6 @@ define([
             "lists" : {
                 "equipment_list" : [ "Explorer's Pack" ],
                 "ability_list" : [ "Ⓣ Searching", "Ⓣ Listening", "Ⓣ Climbing", "Ⓣ Balancing", "Ⓣ Jumping" ],
-                "bonus_list" : [  ],
                 "connection_list" : [ "One PC is old companion, always gets +1 on rolls when working with you" ],
                 "reference_list" : [ "Explores Dark Places: Corebook, page 61" ]
             },
@@ -282,13 +282,13 @@ define([
                 "stats" : {
                     "armor_bonus" : 1
                 },
-                "bonus_perks" : [ "Ⓣ Might Defense" ]
+                "bonus_perks" : [ "Ⓔ Resilient", "Ⓣ Might Defense" ]
             },
             {
                 "bonus_perks" : [ "Ⓣ Sneaking (in low light or darkness)", "Ⓔ Dark Explorer" ]
             },
             {
-                "bonus_perks" : [ "Blinding Attack (3 speed)" ]
+                "bonus_perks" : [ "Ⓐ Blinding Attack (3 speed)" ]
             }]
         },
         {
@@ -305,7 +305,7 @@ define([
                 "bonus_perks" : [ "Ⓔ Quick Block" ]
             },
             {
-                "bonus_perks" : [ "Acrobatic Attack (3 speed)" ]
+                "bonus_perks" : [ "Ⓔ Acrobatic Attack (3 speed)" ]
             },
             {
                 "bonus_perks" : [ "Ⓔ Mobile Fighter (3 speed)" ]
@@ -325,22 +325,22 @@ define([
                 "reference_list" : [ "Focuses Mind over Matter: Corebook, page 63" ]
             },
             "advancement" : [{
-                "bonus_perks" : [ "Ⓔ Mental esoteries", "Deflect Attacks (1 intellect)" ]
+                "bonus_perks" : [ "Ⓔ Mental esoteries", "Ⓐ Deflect Attacks (1 intellect)" ]
             },
             {
-                "bonus_perks" : [ "Telekinesis (2 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Telekinesis (2 intellect)" ]
             },
             {
-                "bonus_perks" : [ "Enhance Strength (3 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Enhance Strength (3 intellect)" ]
             },
             {
-                "bonus_perks" : [ "Apportation (4 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Apportation (4 intellect)" ]
             },
             {
-                "bonus_perks" : [ "Psychokinetic Attack (5 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Psychokinetic Attack (5 intellect)" ]
             },
             {
-                "bonus_perks" : [ "Reshape Matter (6 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Reshape Matter (6 intellect)" ]
             }]
         },
         {
@@ -376,7 +376,8 @@ define([
                     "speed_pool" : 5,
                     "intellect_pool" : 5,
                     "armor_bonus" : 1
-                }
+                },
+                "bonus_perks" : [ "Ⓔ Ultra Enhancement" ]
             }]
         },
         {
@@ -416,10 +417,10 @@ define([
             "advancement" : [{
             },
             {
-                "bonus_perks" : [ "Ⓣ Stealth", "Ⓣ Initiative", "Sprint and Grab (2 speed)" ]
+                "bonus_perks" : [ "Ⓣ Stealth", "Ⓣ Initiative", "Ⓐ Sprint and Grab (2 speed)" ]
             },
             {
-                "bonus_perks" : [ "Quarry (2 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Quarry (2 intellect)" ]
             },
             {
                 "bonus_perks" : [ "Ⓔ Surprise Attack" ]
@@ -428,7 +429,7 @@ define([
                 "bonus_perks" : [ "Ⓔ Hunter's Drive (5 intellect)" ]
             },
             {
-                "bonus_perks" : [ "Multiple Quarry (2 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Multiple Quarry (2 intellect)" ]
             }]
         },
         {
@@ -440,22 +441,22 @@ define([
                 "reference_list" : [ "Leads: Corebook, page 66" ]
             },
             "advancement" : [{
-                "bonus_perks" : [ "Good Advice (1 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Good Advice (1 intellect)" ]
             },
             {
                 "bonus_perks" : [ "Ⓔ Follower" ]
             },
             {
-                "bonus_perks" : [ "Command (3 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Command (3 intellect)" ]
             },
             {
-                "bonus_perks" : [ "Ⓔ Capable Follower", "Captivate or Inspire (4 intellect)" ]
+                "bonus_perks" : [ "Ⓔ Capable Follower", "Ⓐ Captivate or Inspire (4 intellect)" ]
             },
             {
                 "bonus_perks" : [ "Ⓔ Band of Followers" ]
             },
             {
-                "bonus_perks" : [ "Mind of a Leader (6 intellect)", "Ⓔ Capable Followers" ]
+                "bonus_perks" : [ "Ⓐ Mind of a Leader (6 intellect)", "Ⓔ Capable Followers" ]
             }]
         },
         {
@@ -475,13 +476,13 @@ define([
                 "bonus_perks" : [ "Ⓣ Spotting", "Ⓣ Listening", "Ⓔ Trap Sense", "Ⓔ Wilderness Explorer" ]
             },
             {
-                "bonus_perks" : [ "Wilderness Awareness (4 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Wilderness Awareness (4 intellect)" ]
             },
             {
-                "bonus_perks" : [ "The Wild Is On Your Side (5 intellect)" ]
+                "bonus_perks" : [ "Ⓐ The Wild Is On Your Side (5 intellect)" ]
             },
             {
-                "bonus_perks" : [ "One With the Wild (6 intellect)", "Ⓔ Master of the Wild" ]
+                "bonus_perks" : [ "Ⓐ One With the Wild (6 intellect)", "Ⓔ Master of the Wild" ]
             }]
         },
         {
@@ -505,7 +506,7 @@ define([
                 "bonus_perks" : [ "Ⓣ Intellect Defense", "Ⓔ Armor Master" ]
             },
             {
-                "bonus_perks" : [ "Nothing But Defend" ]
+                "bonus_perks" : [ "Ⓐ Nothing But Defend" ]
             },
             {
                 "bonus_perks" : [ "Ⓔ Defense Master" ]
@@ -549,7 +550,7 @@ define([
                 "bonus_perks" : [ "Ⓔ Surprise Attack" ]
             },
             {
-                "bonus_perks" : [ "Quick Death (2 speed)" ]
+                "bonus_perks" : [ "Ⓐ Quick Death (2 speed)" ]
             },
             {
                 "bonus_perks" : [ "Ⓣ Lies, trickery", "Ⓣ Craft item type: Poisons", "Ⓣ Identify, Sense, Resist Poisons" ]
@@ -558,7 +559,7 @@ define([
                 "bonus_perks" : [ "Ⓔ Better Surprise Attack" ]
             },
             {
-                "bonus_perks" : [ "Slayer (5 speed)" ]
+                "bonus_perks" : [ "Ⓐ Slayer (5 speed)" ]
             },
             {
                 "bonus_perks" : [ "Ⓔ Escape Plan" ]
@@ -593,7 +594,8 @@ define([
                 "stats" : {
                     "might_pool" : 6,
                     "speed_pool" : 6
-                }
+                },
+                "bonus_perks" : [ "Ⓔ Tough and Fast" ]
             }]
         },
         {
@@ -604,26 +606,26 @@ define([
                 "reference_list" : [ "Rides the Lightning: Corebook, page 71" ]
             },
             "advancement" : [{
-                "bonus_perks" : [ "Ⓔ Electrical esoteries", "Shock (1 intellect)", "Charge (1+ intellect)" ]
+                "bonus_perks" : [ "Ⓔ Electrical esoteries", "Ⓐ Shock (1 intellect)", "Ⓐ Charge (1+ intellect)" ]
             },
             {
-                "bonus_perks" : [ "Bolt Rider (4 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Bolt Rider (4 intellect)" ]
             },
             {
                 "stats" : {
                     "speed_pool" : 3,
                     "speed_edge" : 1
                 },
-                "bonus_perks" : [ "Ⓔ Lightning Swift", "Drain Charge" ]
+                "bonus_perks" : [ "Ⓔ Lightning Swift", "Ⓐ Drain Charge" ]
             },
             {
-                "bonus_perks" : [ "Bolts of Power (5+ intellect)" ]
+                "bonus_perks" : [ "Ⓐ Bolts of Power (5+ intellect)" ]
             },
             {
-                "bonus_perks" : [ "Electrical Flight (5 speed)" ]
+                "bonus_perks" : [ "Ⓐ Electrical Flight (5 speed)" ]
             },
             {
-                "bonus_perks" : [ "Wall of Lightning (6 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Wall of Lightning (6 intellect)" ]
             }]
         },
         {
@@ -635,10 +637,10 @@ define([
                 "reference_list" : [ "Talks to Machines: Corebook, page 72" ]
             },
             "advancement" : [{
-                "bonus_perks" : [ "Distant Activation (1 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Distant Activation (1 intellect)" ]
             },
             {
-                "bonus_perks" : [ "Coaxing Power (2 intellect)", "Charm Machine (2 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Coaxing Power (2 intellect)", "Ⓐ Charm Machine (2 intellect)" ]
             },
             {
                 "bonus_perks" : [ "Ⓔ Intelligent Interface (3 intellect)" ]
@@ -647,10 +649,10 @@ define([
                 "bonus_perks" : [ "Ⓔ Machine Companion", "Ⓣ Attacks against automata", "Ⓣ Defense against automata" ]
             },
             {
-                "bonus_perks" : [ "Information Gathering (5 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Information Gathering (5 intellect)" ]
             },
             {
-                "bonus_perks" : [ "Control Machine (6 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Control Machine (6 intellect)" ]
             }]
         },
         {
@@ -664,19 +666,19 @@ define([
                 "bonus_perks" : [ "Ⓔ Ice esoteries", "Ⓔ Ice Armor (1 intellect)" ]
             },
             {
-                "bonus_perks" : [ "Frost Touch (1 intellect)" ]
+                "bonus_perks" : [ "Ⓐ/Ⓔ  Frost Touch (1 intellect)" ]
             },
             {
-                "bonus_perks" : [ "Freezing Touch (4 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Freezing Touch (4 intellect)" ]
             },
             {
                 "bonus_perks" : [ "Ⓔ Resilient Ice Armor" ]
             },
             {
-                "bonus_perks" : [ "Cold Burst (5 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Cold Burst (5 intellect)" ]
             },
             {
-                "bonus_perks" : [ "Ice Creation (6 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Ice Creation (6 intellect)" ]
             }]
         },
         {
@@ -723,7 +725,7 @@ define([
                 "bonus_perks" : [ "Ⓔ Dual Light Wield" ]
             },
             {
-                "bonus_perks" : [ "Double Strike (3 might)" ]
+                "bonus_perks" : [ "Ⓐ Double Strike (3 might)" ]
             },
             {
                 "bonus_perks" : [ "Ⓔ Dual Medium Wield" ]
@@ -745,22 +747,22 @@ define([
                 "reference_list" : [ "Works Miracles: Corebook, page 75" ]
             },
             "advancement" : [{
-                "bonus_perks" : [ "Healing Touch (1 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Healing Touch (1 intellect)" ]
             },
             {
-                "bonus_perks" : [ "Alleviate (3 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Alleviate (3 intellect)" ]
             },
             {
                 "bonus_perks" : [ "Ⓔ Font of Healing" ]
             },
             {
-                "bonus_perks" : [ "Inspiration (4 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Inspiration (4 intellect)" ]
             },
             {
-                "bonus_perks" : [ "Undo (5 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Undo (5 intellect)" ]
             },
             {
-                "bonus_perks" : [ "Greater Healing Touch (4 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Greater Healing Touch (4 intellect)" ]
             }]
         },
         {
@@ -783,10 +785,10 @@ define([
                 "bonus_perks" : [ "Ⓣ Climbing", "Ⓣ Escape Artist" ]
             },
             {
-                "bonus_perks" : [ "Dirty Fighter (2 speed)" ]
+                "bonus_perks" : [ "Ⓐ Dirty Fighter (2 speed)" ]
             },
             {
-                "bonus_perks" : [ "Alley Rat (4 intellect)" ]
+                "bonus_perks" : [ "Ⓐ Alley Rat (4 intellect)" ]
             }]
         }
 ]);

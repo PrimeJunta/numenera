@@ -21,8 +21,11 @@ select
 }
 .cg-tierRow td
 {
-	border-top : 1px solid silver;
-	border-right : 1px solid silver;
+	padding : 10px;
+}
+.cg-tierRow select, .cg-tierRow.input[type=text]
+{
+	width : 90%;
 }
 .cg-smallCell
 {
@@ -255,11 +258,14 @@ li div
 .cg-paleBackground
 {
 	background-color : #e4e4e4;
-	color : gray;
 }
 .cg-highlightBackground
 {
 	background-color : #d4d4d4;
+}
+.cg-evenBackground
+{
+	background-color : #efefef;
 }
 /* character manager */
 .cg-characterManager:hover

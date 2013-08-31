@@ -30,32 +30,32 @@ define([
         },
         "advancement" : [
          {
-             "perk_list" : "Bash (1 might)|Ⓔ No Need for Weapons|Pierce (1 speed)|Thrust (1 might)|Ⓔ Trained Without Armor"
+             "perk_list" : "Ⓐ Bash (1 might)|Ⓔ No Need for Weapons|Ⓐ Pierce (1 speed)|Ⓐ Thrust (1 might)|Ⓔ Trained Without Armor"
          },
          {
              "stats" : {
                  "recovery_roll" : 1
              },
             "bonus_perks" : [ "Ⓣ ${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged}" ], // no stack,
-            "perk_list" : "Chop (2 might)|Crush (2 might)|Reload (1 speed)|Successive Attack (2 speed)|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense" // no stack
+            "perk_list" : "Ⓐ Chop (2 might)|Ⓐ Crush (2 might)|Ⓔ Reload (1 speed)|Ⓔ Successive Attack (2 speed)|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense" // no stack
         },
         {
             "stats" : {  "recovery_roll" : 1, "cypher_count" : 1 },
             "bonus_perks" : [ "Ⓣ ${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged}" ], // no stack,
-            "perk_list" : "Ⓔ Experienced With Armor|Lunge (2 might)|Slice (2 speed)|Spray (2 speed)|Trick shot (2 speed)|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense" // no stack
+            "perk_list" : "Ⓔ Experienced With Armor|Ⓐ Lunge (2 might)|Ⓐ Slice (2 speed)|Ⓐ Spray (2 speed)|Ⓐ Trick shot (2 speed)|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense" // no stack
         },
         {
             "stats" : {
                 "recovery_roll" : 1
             },
             "bonus_perks" : [ "Ⓣ ${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged}" ], // no stack,
-            "perk_list" : "Ⓔ Capable Warrior (+1 damage)|Ⓔ Experienced Defender (+1 armor)|Feint (2 speed)|Ⓔ Minor to Major|Snipe (2 speed)|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense" // no stack
+            "perk_list" : "Ⓔ Capable Warrior (+1 damage)|Ⓔ Experienced Defender (+1 armor)|Ⓐ Feint (2 speed)|Ⓔ Minor to Major|Snipe (2 speed)|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense" // no stack
         },
         {
             "skills_stack" : true,
             "stats" : { "recovery_roll" : 1, "cypher_count" : 1 },
             "bonus_perks" : [ "Ⓣ ${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged}" ], //stacks,
-            "perk_list" : "Arc Spray (3 speed)|Jump Attack (5 might)|Ⓔ Mastery with Armor|Parry (5 speed)|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense" // stacks
+            "perk_list" : "Ⓐ Arc Spray (3 speed)|Ⓐ Jump Attack (5 might)|Ⓔ Mastery with Armor|Ⓔ Parry (5 speed)|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense" // stacks
         },
         {
             "skills_stack" : true,
@@ -63,7 +63,7 @@ define([
                 "recovery_roll" : 1
             },
             "bonus_perks" : [ "Ⓣ ${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged}" ], //stacks,
-            "perk_list" : "Finishing Blow (5 might)|Slayer (3 might)|Spin Attack (5 speed)|Weapon and Body (5 speed)|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense" // stacks
+            "perk_list" : "Ⓔ Finishing Blow (5 might)|Ⓔ Slayer (3 might)|Ⓐ Spin Attack (5 speed)|Ⓐ Weapon and Body (5 speed)|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense" // stacks
         }]
     },
     {
@@ -96,33 +96,33 @@ define([
             "bonus_list" : [ "Ⓔ Practiced With Light Weapons" ]
         },
         "advancement" : [{
-                 "perk_list" : "Hedge Magic (1 intellect)|Onslaught (1 intellect)|Push (2 intellect)|Scan (2 intellect)|Ⓔ Ward (+1 Armor)"
+                 "perk_list" : "Ⓐ Hedge Magic (1 intellect)|Ⓐ Onslaught (1 intellect)|Ⓐ Push (2 intellect)|Ⓐ Scan (2 intellect)|Ⓔ Ward (+1 Armor)"
              },
              {
                  "stats" : {
                      "recovery_roll" : 1,
                  },
-                "perk_list" : "Adaptation (2 intellect)|Flash (4 intellect)|Hover (2 intellect)|Mind Reading (4 intellect)|Stasis (3 intellect)"
+                "perk_list" : "Ⓐ Adaptation (2 intellect)|Ⓐ Flash (4 intellect)|Ⓐ Hover (2 intellect)|Ⓐ Mind Reading (4 intellect)|Ⓐ Stasis (3 intellect)"
             },
             {
                 "stats" : { "recovery_roll" : 1, "cypher_count" : 1 },
-                "perk_list" : "Barrier (3+ intellect)|Countermeasures (4 intellect)|Energy Proteciton (3+ intellect)|Sensor (4 intellect)|Ⓣ Targeting Eye"
+                "perk_list" : "Ⓐ Barrier (3+ intellect)|Ⓐ Countermeasures (4 intellect)|Ⓐ Energy Protection (3+ intellect)|Ⓐ Sensor (4 intellect)|Ⓣ Targeting Eye"
             },
             {
                 "stats" : {
                     "recovery_roll" : 1,
                 },
-                "perk_list" : "Invisibility (4 intellect)|Mind Control (6+ intellect)|Regeneration (6 intellect)|Reshape (5 intellect)|Slay (6 intellect)"
+                "perk_list" : "Ⓐ Invisibility (4 intellect)|Ⓐ Mind Control (6+ intellect)|Ⓐ Regeneration (6 intellect)|Ⓐ Reshape (5 intellect)|Ⓐ Slay (6 intellect)"
             },
             {
                 "stats" : { "recovery_roll" : 1, "cypher_count" : 1 },
-                "perk_list" : "Absorb Energy (7 intellect)|Dust to Dust (7 intellect)|Knowing the Unknown (6 intellect)|Teleportation (6+ intellect)|Ⓔ True Senses"
+                "perk_list" : "Ⓐ Absorb Energy (7 intellect)|Ⓐ Dust to Dust (7 intellect)|Ⓐ Knowing the Unknown (6 intellect)|Ⓐ Teleportation (6+ intellect)|Ⓔ True Senses"
             },
             {
                 "stats" : {
                     "recovery_roll" : 1,
                 },
-                "perk_list" : "Control Weather (10 intellect)|Move Mountains (9 intellect)|Traverse the Worlds (8+ intellect)|Usurp Cypher"
+                "perk_list" : "Ⓐ Control Weather (10 intellect)|Ⓐ Move Mountains (9 intellect)|Ⓐ Traverse the Worlds (8+ intellect)|Ⓐ Usurp Cypher"
             }]
     },
     {
@@ -155,34 +155,34 @@ define([
             "bonus_list" : [ "Flex Skill", "Practiced With Light/Medium Weapons" ]
         },
         "advancement" : [{
-            "perk_list" : "Bash (1 might)|Hedge Magic (1 intellect)|Pierce (1 speed)|Thrust (1 might)|Ⓔ Practiced in Armor|Ⓔ Trained Without Armor|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense"
+            "perk_list" : "Ⓐ Bash (1 might)|Ⓐ Hedge Magic (1 intellect)|Ⓐ Pierce (1 speed)|Ⓐ Thrust (1 might)|Ⓔ Practiced in Armor|Ⓔ Trained Without Armor|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense"
         },
         {
            "stats" : { "recovery_roll" : 1 },
            "bonus_perks" : [ "Ⓣ ${input:choose any non-combat}" ],
-           "perk_list" : "Ⓔ Brute Finesse|Ⓔ Experienced Adventurer|Ⓔ No Need for Weapons|Push (2 intellect)|Reload (1 speed)|Ⓔ Ward (+1 armor)" // no stack
+           "perk_list" : "Ⓔ Brute Finesse|Ⓔ Experienced Adventurer|Ⓔ No Need for Weapons|Ⓐ Push (2 intellect)|Ⓔ Reload (1 speed)|Ⓔ Ward (+1 armor)"
        },
        {
            "stats" : { "recovery_roll" : 1, "cypher_count" : 1 },
            "bonus_perks" : [ "Ⓣ ${input:choose any non-combat}" ],
-           "perk_list" : "Enhancement (4 intellect)|Hover (3 intellect)|Mind Reading (4 intellect)|Onslaught (2 intellect)|Ⓣ Light Bashing|Ⓣ Light Bladed|Ⓣ Light Ranged|Ⓣ Medium Bashing|Ⓣ Medium Bladed|Ⓣ Medium Ranged|Ⓣ Heavy Bashing|Ⓣ Heavy Bladed|Ⓣ Heavy Ranged"
+           "perk_list" : "Ⓐ Enhancement (4 intellect)|Ⓐ Hover (3 intellect)|Ⓐ Mind Reading (4 intellect)|Ⓐ Onslaught (2 intellect)|Ⓣ Light Bashing|Ⓣ Light Bladed|Ⓣ Light Ranged|Ⓣ Medium Bashing|Ⓣ Medium Bladed|Ⓣ Medium Ranged|Ⓣ Heavy Bashing|Ⓣ Heavy Bladed|Ⓣ Heavy Ranged"
        },
        {
            "stats" : { "recovery_roll" : 1 },
            "bonus_perks" : [ "Ⓣ ${input:choose any non-combat}" ],
-           "perk_list" : "Ⓔ Analytical Combat|Lunge (2 might)|Slice (2 speed)|Spray (2 speed)|Transdimensional Weapon (3 intellect)" // no stack
+           "perk_list" : "Ⓔ Analytical Combat|Ⓐ Lunge (2 might)|Ⓐ Slice (2 speed)|Ⓐ Spray (2 speed)|Ⓐ Transdimensional Weapon (3 intellect)"
        },
        {
            "skills_stack" : true,
            "stats" : { "recovery_roll" : 1, "cypher_count" : 1 },
            "bonus_perks" : [ "Ⓣ ${input:choose any non-combat}" ],
-           "perk_list" : "Feint (3 speed)|Snipe (3 speed)|Successive Attack (2 speed)|Ⓣ Targeting Eye|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense" // stacks
+           "perk_list" : "Ⓐ Feint (3 speed)|Ⓐ Snipe (3 speed)|Ⓔ Successive Attack (2 speed)|Ⓣ Targeting Eye|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense"
        },
        {
            "skills_stack" : true,
            "stats" : { "recovery_roll" : 1 },
            "bonus_perks" : [ "Ⓣ ${input:choose any non-combat}" ],
-           "perk_list" : "Energy Protection (4+ intellect)|Invisibility (4 intellect)|Parry (6 speed)|Spin Attack (6 speed)|Ⓔ True Senses" // stacks
+           "perk_list" : "Ⓐ Energy Protection (4+ intellect)|Ⓐ Invisibility (4 intellect)|Ⓔ Parry (6 speed)|Ⓐ Spin Attack (6 speed)|Ⓔ True Senses"
        }]
     }
 ]);

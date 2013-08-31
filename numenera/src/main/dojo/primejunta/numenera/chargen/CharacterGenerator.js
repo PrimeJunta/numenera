@@ -279,7 +279,6 @@ function( declare,
         },
         validateCharacter : function()
         {
-            console.log( "VC", this._populating.length );
             if( this._populating.length != 0 )
             {
                 return true;
@@ -322,7 +321,9 @@ function( declare,
                 this._printWidget.destroy();
             }
             this.domNode.style.display = "none";
+            try{
             this._printWidget = new _CharacterRecord({ manager : this }).placeAt( document.body );
+            }catch(e){console.log(e)}
         },
         clearAll : function()
         {
@@ -354,6 +355,28 @@ function( declare,
             for( var i = 0; i < _list.length; i++ )
             {
                 out.push( _list[ i ].getText() );
+            }
+            if( list == "special_list" && this._advancementControl )
+            {
+                var alist = this._advancementControl.listAsText();
+                for( var i = 0; i < alist.length; i++ )
+                {
+                    if( alist[ i ].charAt( 0 ) != "Ⓣ" )
+                    {
+                        out.push( alist[ i ] );
+                    }
+                }
+            }
+            else if( list == "ability_list" && this._advancementControl )
+            {
+                var alist = this._advancementControl.listAsText();
+                for( var i = 0; i < alist.length; i++ )
+                {
+                    if( alist[ i ].charAt( 0 ) == "Ⓣ" )
+                    {
+                        out.push( alist[ i ] );
+                    }
+                }
             }
             out.sort();
             return out;

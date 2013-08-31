@@ -41,7 +41,7 @@ function( declare,
             this._st( "armor_value", this._getArmorValue() );
             this._wl( "attack_list", this._getAttackList() );
             this._wl( "ability_list", this._getSkillList() );
-            this._wl( "special_list", this._listAsText( "special_list").concat( this._listAsText( "bonus_list" ) ) );
+            this._wl( "special_list", this._listAsText( "special_list") );
             this._wl( "cypher_list", this._listAsText( "cypher_list") );
             this._wl( "equipment_list", this._listAsText( "equipment_list") );
             this._wl( "notes_list", this._listAsText( "reference_list" ) );
