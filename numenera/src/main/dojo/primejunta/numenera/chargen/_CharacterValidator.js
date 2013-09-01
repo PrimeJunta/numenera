@@ -15,7 +15,7 @@ function( declare,
 {
     return declare([], {
         TRAINED_STR : "Ⓣ",
-        SPECIALIZED_STR: "<span class=\"cg-specialized\">Ⓢ</span>",
+        SPECIALIZED_STR: "Ⓢ",
         manager : {},
         constructor : function( kwObj )
         {
@@ -137,6 +137,7 @@ function( declare,
                 {
                     var boost = cats[ i ] + "_" + types[ j ];
                     var skill = cats[ i ].charAt( 0 ).toUpperCase() + cats[ i ].substring( 1 ) + " " + types[ j ].charAt( 0 ).toUpperCase() + types[ j ].substring( 1 );
+                    console.log( sl, skill );
                     if( array.indexOf( sl, "Ⓢ " + skill ) != -1 )
                     {
                         boosts[ boost ] += 2;
@@ -183,7 +184,7 @@ function( declare,
                 if( list[ i ].toLowerCase() == list[ i - 1 ].toLowerCase() && list[ i ].indexOf( this.TRAINED_STR ) != -1 )
                 {
                     var cur = out[ out.length - 1 ];
-                    out[ out.length - 1 ] = this.SPECIALIZED_STR + cur.substring( cur.indexOf( this.TRAINED_STR ) + this.TRAINED_STR.length ) + "</span>";
+                    out[ out.length - 1 ] = this.SPECIALIZED_STR + cur.substring( cur.indexOf( this.TRAINED_STR ) + this.TRAINED_STR.length );
                 }
                 else
                 {

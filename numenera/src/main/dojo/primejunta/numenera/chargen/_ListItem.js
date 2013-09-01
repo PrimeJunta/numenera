@@ -33,7 +33,7 @@ function( declare,
         from : "",
         selectedIndex : -1,
         manager : {},
-        hasUnlockControls : false,
+        isUnlockable : false,
         remainsOpen : false,
         postMixInProperties : function()
         {
@@ -67,10 +67,6 @@ function( declare,
             {
                 this._subs.push( topic.subscribe( "CharGen/lockSheetControls", lang.hitch( this, this.lockSelect ) ) );
             }
-            if( this.hasUnlockControls )
-            {
-                this.initializeUnlockControls();
-            }
         },
         buildRendering : function()
         {
@@ -86,6 +82,10 @@ function( declare,
             if( this.baseText == "" && !this._hasSelect && this._hasInput )
             {
                 this.baseTextNode.style.display = "none";
+            }
+            if( this.isUnlockable )
+            {
+                this.initializeUnlockControls();
             }
         },
         lockInput : function()
@@ -113,8 +113,8 @@ function( declare,
         },
         rollBack : function( _prevVal )
         {
-            _prevVal.inputValue ? this.inputNode.value = _prevVal.inputValue : false;
-            _prevVal.selectedIndex ? this.selectNode.selectedIndex = _prevVal.selectedIndex : false;
+            this._hasInput ? this.inputNode.value = _prevVal.inputValue : false;
+            this._hasSelect ? this.selectNode.selectedIndex = _prevVal.selectedIndex : false;
         },
         lockControls : function()
         {

@@ -42,10 +42,10 @@ function( declare,
             this._subs.push( topic.subscribe( "CharGen/destroyListItems", lang.hitch( this, this.destroy ) ) );
             this._typeData = this.typeData[ this.tier - 1 ];
             this._focusData = this.focusData[ this.tier - 1 ];
-            this.initializeUnlockControls();
         },
         postCreate : function()
         {
+            this.initializeUnlockControls();
             for( var i = this.tier; i > 0; i-- )
             {
                 var opts = this.typeData[ i - 1 ].perk_list.split( "|" );
@@ -61,28 +61,20 @@ function( declare,
         getPrevVal : function()
         {
             return {
-                skillTypeSelector : this.skillTypeSelector.selectedIndex,
-                skillInput : this.skillInput.value,
                 perkSelector : this.perkSelector.selectedIndex
             }
         },
-        rollBack : function()
+        rollBack : function( _prevVal )
         {
-            _prevVal.skillInput ? this.skillInput.value = _prevVal.skillInput : false;
-            _prevVal.skillTypeSelector ? this.skillTypeSelector.selectedIndex = _prevVal.skillTypeSelector : false;
-            _prevVal.perkSelector ? this.perkSelector.selectedIndex = _prevVal.perkSelector : false;
+            this.perkSelector.selectedIndex = _prevVal.perkSelector;
             this.checkSkillType();
         },
         lockControls : function()
         {
-            this.skillInput.disabled = true;
-            this.skillTypeSelector.disabled = true;
             this.perkSelector.disabled = true;
         },
         unlockControls : function()
         {
-            this.skillInput.disabled = false;
-            this.skillTypeSelector.disabled = false;
             this.perkSelector.disabled = false;
         },
         checkState : function()
@@ -128,6 +120,7 @@ function( declare,
         },
         checkSkillType : function()
         {
+            this.isUnlockable = false;
             switch( this.skillTypeSelector.selectedIndex )
             {
                 case 1 :
@@ -137,6 +130,7 @@ function( declare,
                 case 4 : 
                     this._hide( this.skillInputContainer );
                     this._show( this.perkSelectorContainer );
+                    this.isUnlockable = true;
                     break;
                 default :
                     this._hide( this.skillInputContainer );

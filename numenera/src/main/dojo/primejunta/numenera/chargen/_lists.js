@@ -56,7 +56,7 @@ function( declare,
                 content : itemText,
                 from : from,
                 selectedIndex : selIdx,
-                hasUnlockControls : listName == "special_list" ? true : false
+                isUnlockable : listName == "special_list" ? true : false
             }).placeAt( this[ listName ] ) );
         },
         _writeSpecialList : function( /* Object */ type )
@@ -125,7 +125,7 @@ function( declare,
                 {
                     if( what.toLowerCase() == this._listdata[ where ][ i ].text.toLowerCase() )
                     {
-                        this._listdata[ where ][ i ].text = "<span class=\"cg-specialized\">Ⓢ</span>" + what.substring( what.indexOf( "Ⓣ" ) + 1 );
+                        this._listdata[ where ][ i ].text = "Ⓢ" + what.substring( what.indexOf( "Ⓣ" ) + 1 );
                         this._listdata[ where ][ i ].from = from;
                         found = true;
                     }

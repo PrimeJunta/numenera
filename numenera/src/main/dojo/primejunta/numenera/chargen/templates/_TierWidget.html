@@ -23,17 +23,22 @@
         <input type="text" class="cg-storeMe cg-itemInput" data-dojo-attach-point="skillInput" value="${DEFAULT_SKILL_NAME}"/>
       </li>
       <li data-dojo-attach-point="perkSelectorContainer" style="display:none;">
-        <select class="cg-storeMe" data-dojo-attach-point="perkSelector"></select>
+        <div>
+          <table cellspacing="0" cellpadding="0">
+            <tr>
+              <td>
+                <select class="cg-storeMe" data-dojo-attach-point="perkSelector"></select>
+              </td>
+              <td>
+                <div data-dojo-attach-point="unlockControlNode" style="display:none"></div>
+              </td>
+            </tr>
+          </table>
+        </div>
       </li>
     </ul>
     <h3 style="display:none;" data-dojo-attach-point="bonusPerksTitle">Focus perks</h3>
     <ul data-dojo-attach-point="bonusPerksNode"></ul>
-  </td>
-  <td class="cg-smallCell">
-    <div data-dojo-attach-point="unlockControlNode" style="display:none">
-       <button data-dojo-attach-point="unlockButton" data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:unlock">Unlock</button>
-       <button data-dojo-attach-point="cancelButton" data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:cancelChange" style="display:none;">Cancel</button>
-    </div>
   </td>
   <td class="cg-smallCell">
     <button data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:applyAdvancement" data-dojo-attach-point="applyButton">Apply</button>

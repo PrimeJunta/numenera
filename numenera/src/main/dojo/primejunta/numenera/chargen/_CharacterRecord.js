@@ -17,7 +17,7 @@ function( declare,
 {
     return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin ], {
         TRAINED_STR : "Ⓣ",
-        SPECIALIZED_STR: "<span class=\"cg-specialized\">Ⓢ</span>",
+        SPECIALIZED_STR: "Ⓢ",
         iconSource : require.toUrl( "primejunta/numenera/chargen/themes/images" ),
         manager : {},
         templateString : template,
