@@ -35,9 +35,10 @@ function( declare,
             this.analyzeCharacter();
             // Look for duplicate perks.
             var _sl = this._cdata.special_list;
+            var _plist = [ "Ⓔ Reduce Armor Cost", "Ⓔ Recovery Roll +2" ];
             for( var i = 1; i < _sl.length; i++ )
             {
-                if( _sl[ i ] == _sl[ i - 1 ] )
+                if( _sl[ i ] == _sl[ i - 1 ] && array.indexOf( _plist, _sl[ i ] ) == -1 )
                 {
                     errs.push( "You cannot take the special ability " + _sl[ i ] + " twice." );
                 }
@@ -45,7 +46,6 @@ function( declare,
             // Enforce combat skill specialization limit.
             if( this._cdata.character_type != "glaive" || this._cdata.character_tier < 5 )
             {
-                console.log( "Check combat spec", this._cdata.character_type, this._cdata.character_tier );
                 var _al = this._cdata.ability_list;
                 var _cats = [ "Light", "Medium", "Heavy" ];
                 var _types = [ "Bashing", "Bladed", "Ranged" ];
@@ -56,7 +56,6 @@ function( declare,
                         console.log( "Checking for ", this.SPECIALIZED_STR + _cats[ i ] + " " + _types[ j ] );
                         if( array.indexOf( _al, this.SPECIALIZED_STR + _cats[ i ] + " " + _types[ j ] ) != -1 )
                         {
-                            console.log( "ERR!" );
                             errs.push( "You cannot specialize in " + _cats[ i ] + " " + _types[ j ] + " at your tier." );
                         }
                     }
@@ -323,6 +322,14 @@ function( declare,
         {
             var aBase = parseInt( this._gf( "armor_bonus" ) );
             var pBase = 0;
+            var _sl = this._cdata.special_list;
+            for( var i = 0; i < _sl.length; i++ )
+            {
+                if( _sl[ i ] == "Ⓔ Reduce Armor Cost" )
+                {
+                    pBase--;
+                }
+            }
             if( this._has( "Ⓔ Ward" ) )
             {
                 aBase += 1;
