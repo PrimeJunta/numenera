@@ -14,8 +14,8 @@ function( declare,
           foci )
 {
     return declare([], {
-        TRAINED_STR : "Ⓣ",
-        SPECIALIZED_STR: "Ⓢ",
+        TRAINED_STR : "Ⓣ ",
+        SPECIALIZED_STR: "Ⓢ ",
         manager : {},
         constructor : function( kwObj )
         {
@@ -32,13 +32,43 @@ function( declare,
             {
                 errs.push( "Assign all of your character points.")
             }
+            this.analyzeCharacter();
+            // Look for duplicate perks.
+            var _sl = this._cdata.special_list;
+            for( var i = 1; i < _sl.length; i++ )
+            {
+                if( _sl[ i ] == _sl[ i - 1 ] )
+                {
+                    errs.push( "You cannot take the special ability " + _sl[ i ] + " twice." );
+                }
+            }
+            // Enforce combat skill specialization limit.
+            if( this._cdata.character_type != "glaive" || this._cdata.character_tier < 5 )
+            {
+                console.log( "Check combat spec", this._cdata.character_type, this._cdata.character_tier );
+                var _al = this._cdata.ability_list;
+                var _cats = [ "Light", "Medium", "Heavy" ];
+                var _types = [ "Bashing", "Bladed", "Ranged" ];
+                for( var i = 0; i < _cats.length; i++ )
+                {
+                    for( var j = 0; j < _types.length; j++ )
+                    {
+                        console.log( "Checking for ", this.SPECIALIZED_STR + _cats[ i ] + " " + _types[ j ] );
+                        if( array.indexOf( _al, this.SPECIALIZED_STR + _cats[ i ] + " " + _types[ j ] ) != -1 )
+                        {
+                            console.log( "ERR!" );
+                            errs.push( "You cannot specialize in " + _cats[ i ] + " " + _types[ j ] + " at your tier." );
+                        }
+                    }
+                }
+            }
             if( errs.length == 0 )
             {
                 return true;
             }
             else
             {
-                alert( errs.join( "<br/>" ) );
+                alert( errs.join( "\n" ) );
                 return false;
             }
         },
@@ -81,6 +111,11 @@ function( declare,
             {
                 this._cdata.armor_value += 1;
             }
+            if( array.indexOf( eq, "Ⓔ Experienced Defender" ) != -1 )
+            {
+                this._cdata.armor_value += 1;
+            }
+
             // attacks
             // collect boosts by type, category, short_name
             var boosts = {
@@ -93,6 +128,7 @@ function( declare,
                 "heavy_bashing" : 0,
                 "heavy_bladed" : 0,
                 "heavy_ranged" : 0,
+                "damage" : 0,
                 "light" : 1,
                 "medium" : 0,
                 "heavy" : 0,
@@ -108,9 +144,13 @@ function( declare,
                     boosts.chosen_weapon = 1;
                 }
             }
-            if( array.indexOf( "Ⓔ Damage Dealer" ) != -1 )
+            if( array.indexOf( eq, "Ⓔ Damage Dealer" ) != -1 )
             {
                 boosts.chosen_weapon = 3;
+            }
+            if( array.indexOf( eq, "Ⓔ Capable Warrior" ) != -1 )
+            {
+                boosts.damage = 1;
             }
             // enablers
             if( array.indexOf( eq, "Ⓔ Practiced With All Weapons" ) != -1 )
@@ -137,12 +177,11 @@ function( declare,
                 {
                     var boost = cats[ i ] + "_" + types[ j ];
                     var skill = cats[ i ].charAt( 0 ).toUpperCase() + cats[ i ].substring( 1 ) + " " + types[ j ].charAt( 0 ).toUpperCase() + types[ j ].substring( 1 );
-                    console.log( sl, skill );
-                    if( array.indexOf( sl, "Ⓢ " + skill ) != -1 )
+                    if( array.indexOf( sl, this.SPECIALIZED_STR + skill ) != -1 )
                     {
                         boosts[ boost ] += 2;
                     }
-                    else if( array.indexOf( sl, "Ⓣ " + skill ) != -1 )
+                    else if( array.indexOf( sl, this.TRAINED_STR + skill ) != -1 )
                     {
                         boosts[ boost ] += 1;
                     }
@@ -156,6 +195,8 @@ function( declare,
                 {
                     cur.damage += boosts.chosen_weapon;
                 }
+                // general damage bonus
+                cur.damage += boosts.damage;
                 // category
                 cur.difficulty_adjustment -= boosts[ cur.category ];
                 // type

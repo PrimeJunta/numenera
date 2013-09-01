@@ -48,7 +48,7 @@ define([
         },
         {
             "bonus_perks" : [ "Ⓣ ${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged}" ], // no stack,
-            "perk_list" : "Ⓔ Capable Warrior (+1 damage)|Ⓔ Experienced Defender (+1 armor)|Ⓐ Feint (2 speed)|Ⓔ Minor to Major|Snipe (2 speed)|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense" // no stack
+            "perk_list" : "Ⓔ Capable Warrior|Ⓔ Experienced Defender|Ⓐ Feint (2 speed)|Ⓔ Minor to Major|Snipe (2 speed)|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense" // no stack
         },
         {
             "skills_stack" : true,
@@ -158,13 +158,11 @@ define([
            "perk_list" : "Ⓔ Analytical Combat|Ⓐ Lunge (2 might)|Ⓐ Slice (2 speed)|Ⓐ Spray (2 speed)|Ⓐ Transdimensional Weapon (3 intellect)"
        },
        {
-           "skills_stack" : true,
            "stats" : { "cypher_count" : 1 },
            "bonus_perks" : [ "Ⓣ ${input:choose any non-combat}" ],
            "perk_list" : "Ⓐ Feint (3 speed)|Ⓐ Snipe (3 speed)|Ⓔ Successive Attack (2 speed)|Ⓣ Targeting Eye|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense"
        },
        {
-           "skills_stack" : true,
            "bonus_perks" : [ "Ⓣ ${input:choose any non-combat}" ],
            "perk_list" : "Ⓐ Energy Protection (4+ intellect)|Ⓐ Invisibility (4 intellect)|Ⓔ Parry (6 speed)|Ⓐ Spin Attack (6 speed)|Ⓔ True Senses"
        }]

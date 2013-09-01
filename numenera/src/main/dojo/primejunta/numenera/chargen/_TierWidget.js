@@ -7,6 +7,7 @@ define([ "dojo/_base/declare",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
          "dijit/form/Button",
+         "./_CharacterValidator",
          "./_ListItem",
          "./_unlockable",
          "dojo/text!./templates/_TierWidget.html" ],
@@ -19,6 +20,7 @@ function( declare,
           _TemplatedMixin,
           _WidgetsInTemplateMixin,
           Button,
+          _CharacterValidator,
           _ListItem,
           _unlockable,
           template )
@@ -140,7 +142,14 @@ function( declare,
         },
         applyAdvancement : function()
         {
-            try {
+            if( !this._validator )
+            {
+                this._validator = new _CharacterValidator({ manager : this.manager });
+            }
+            if( !this._validator.validateCharacter() )
+            {
+                return;
+            }
             if( !this.skillTypeSelector.disabled ) switch( this.skillTypeSelector.selectedIndex )
             {
                 case 0 : 
@@ -184,7 +193,6 @@ function( declare,
             }
             topic.publish( "CharGen/lockSheetControls" );
             this.manager.unlockFinalize();
-            }catch(e){console.log("owie",e)}
         },
         canAdvance : function()
         {
@@ -199,7 +207,7 @@ function( declare,
         },
         applyNewTier : function()
         {
-            this.manager._augment( this.standardBenefits.stats );
+            this.manager._augment( this.standardBenefits );
             if( this._typeData.stats )
             {
                 this.manager._augment( this._typeData.stats );
@@ -260,21 +268,6 @@ function( declare,
             var perks = this.manager.listAsText( "special_list" );
             var stack = this._typeData.skills_stack;
             var found = false;
-            for( var i = 0; i < perks.length; i++ )
-            {
-                if( perk == perks[ i ] && ( !stack || ( stack && perk.charAt( 0 ) == 'Ⓣ' ) ) )
-                {
-                    if( found )
-                    {
-                        this._tell( "You cannot take " + perk + " a second time at this tier." );
-                        return false;
-                    }
-                    else
-                    {
-                        found = true;
-                    }
-                }
-            }
             this.perkSelector.disabled = true;
             return true;
         },

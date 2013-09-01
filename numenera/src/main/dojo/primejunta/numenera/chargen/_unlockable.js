@@ -1,10 +1,12 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "dijit/form/Button",
+         "dojo/dom-class",
          "dojo/topic" ], 
 function( declare,
           lang,
           Button,
+          domClass,
           topic ) {
     return declare([], {
         initializeUnlockControls : function()
@@ -22,16 +24,16 @@ function( declare,
             }).placeAt( this.unlockControlNode );
             this.cancelButton = new Button({
                 style : "display:none",
-                className : "cg-redButton",
                 label : "Cancel",
                 onClick : lang.hitch( this, this.cancelChange )
             }).placeAt( this.unlockControlNode );
             this.applyChangeButton = new Button({
                 style : "display:none",
-                className : "cg-blueButton",
                 label : "Apply",
                 onClick : lang.hitch( this, this.applyChange )
             }).placeAt( this.unlockControlNode );
+            domClass.add( this.cancelButton.domNode, "cg-redButton" );
+            domClass.add( this.applyChangeButton.domNode, "cg-blueButton" );
         },
         unlock : function()
         {
@@ -99,9 +101,12 @@ function( declare,
             {
                 this._subs.pop().destroy();
             }
-            this.unlockButton.destroy();
-            this.cancelButton.destroy();
-            this.applyChangeButton.destroy();
+            if( this.unlockButton )
+            {
+                this.unlockButton.destroy();
+                this.cancelButton.destroy();
+                this.applyChangeButton.destroy();
+            }
         }
     });
 });
