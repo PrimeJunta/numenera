@@ -235,6 +235,10 @@ function( declare,
             this._populating.pop();
             this.updateLink();
         },
+        getType : function()
+        {
+            return types[ this.typeSelect.selectedIndex - 1 ];
+        },
         finalize : function( tier )
         {
             try{

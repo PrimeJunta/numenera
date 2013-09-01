@@ -21,22 +21,28 @@
             <td class="cr-centerFold"> <!--  middle fold -->
               <div class="cr-marker cr-listBox cr-stats">
                 <div class="cr-content">
-                  <table>
+                  <table width="100%">
                     <tbody>
                       <tr>
-                        <td align="right">
+                        <td width="17%">
                           <div class="cr-statBoxContainer">
                             <div class="cr-smallLabel">Tier</div>
                             <div class="cr-statBox" data-dojo-attach-point="character_tier"></div>
                           </div>
                         </td>
-                        <td>
+                        <td width="17%">
                           <div class="cr-smallLabel">Effort</div>
                           <div class="cr-statBox" data-dojo-attach-point="character_effort"></div>
                         </td>
-                        <td>
+                        <td width="17%">
                           <div class="cr-smallLabel">XP</div>
                           <div class="cr-statBox" data-dojo-attach-point="xp"></div>
+                        </td>
+                        <td width="15%">
+                        </td>
+                        <td width="35%" style="text-align:center">
+                          <div class="cr-smallLabel">Recovery: 1d6+</div>
+                          <div class="cr-statBox" style="margin-left:auto;margin-right:auto;" data-dojo-attach-point="recovery_roll"></div>
                         </td>
                       </tr>
                     </tbody>
@@ -92,95 +98,38 @@
                     </tbody>
                   </table>
                   <div class="cr-divider"></div>
-                  <table>
+                  <table width="100%">
                     <tbody>
                       <tr>
-                        <td>
-                          <table class="cr-damage">
-                            <tbody>
-                              <tr>
-                                <td colspan="2"><h3 class="cr-heading">Damage</h3></td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="cr-smallCircle"></div>
-                                </td>
-                                <td>
-                                  <div class="cr-smallLabel" style="text-align:left;">Impaired</div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="cr-smallCircle"></div>
-                                </td>
-                                <td>
-                                  <div class="cr-smallLabel" style="text-align:left;">Debilitated</div>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                          <div class="cr-divider"></div>
-                          <table>
-                            <tbody>
-                              <tr>
-                                <td>
-                                  <h3 class="cr-heading" style="text-align:right;">Armor</h3>
-                                </td>
-                                <td>
-                                  <div class="cr-statBox cr-armor" data-dojo-attach-point="armor_value"></div>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
+                        <td colspan="4">
+                          <h3 class="cr-heading">Armor</h3>
                         </td>
-                        <td>
-                          <table class="cr-recovery">
-                            <tbody>
-                              <tr>
-                                <td><h3 class="cr-heading" style="text-align:right;">Recovery rolls</h3></td>
-                                <td>
-                                  <div class="cr-smallLabel">1d6+</div>
-                                  <div class="cr-statBox" data-dojo-attach-point="recovery_roll"></div>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                          <table class="cr-recovery-rolls">
-                            <tbody>
-                              <tr>
-                                <td>
-                                  <div class="cr-smallLabel" style="text-align:right;">1 action</div>
-                                </td>
-                                <td>
-                                  <div class="cr-smallCircle"></div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="cr-smallLabel" style="text-align:right;">10 mins</div>
-                                </td>
-                                <td>
-                                  <div class="cr-smallCircle"></div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="cr-smallLabel" style="text-align:right;">1 hour</div>
-                                </td>
-                                <td>
-                                  <div class="cr-smallCircle"></div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="cr-smallLabel" style="text-align:right;">10 hours</div>
-                                </td>
-                                <td>
-                                  <div class="cr-smallCircle"></div>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
+                      </tr>
+                      <tr valign="top">
+                        <td width="25%">
+                          <div class="cr-smallLabel">Heavy</div>
+                          <div class="cr-statBox cr-armor" data-dojo-attach-point="armor_value_heavy"></div>
+                          <div style="text-align:center">
+                            (<span data-dojo-attach-point="armor_speed_cost_heavy"></span> s / <span data-dojo-attach-point="armor_might_cost_heavy"></span> m)
+                          </div>
+                        </td>
+                        <td width="25%">
+                          <div class="cr-smallLabel">Medium</div>
+                          <div class="cr-statBox cr-armor" data-dojo-attach-point="armor_value_medium"></div>
+                          <div style="text-align:center">
+                            (<span data-dojo-attach-point="armor_speed_cost_medium"></span> s / <span data-dojo-attach-point="armor_might_cost_medium"></span> m)
+                          </div>
+                        </td>
+                        <td width="25%">
+                          <div class="cr-smallLabel">Light</div>
+                          <div class="cr-statBox cr-armor" data-dojo-attach-point="armor_value_light"></div>
+                          <div style="text-align:center">
+                            (<span data-dojo-attach-point="armor_speed_cost_light"></span> s / <span data-dojo-attach-point="armor_might_cost_light"></span> m)
+                          </div>
+                        </td>
+                        <td width="25%">
+                          <div class="cr-smallLabel">None</div>
+                          <div class="cr-statBox cr-armor" data-dojo-attach-point="armor_value_none"></div>
                         </td>
                       </tr>
                     </tbody>
@@ -227,7 +176,7 @@
                 </div>
               <div class="cr-marker cr-listBox cr-equipment">
                 <div class="cr-content">
-                                 <table class="cr-layoutTable" width="100%">
+                 <table class="cr-layoutTable" width="100%">
                     <tbody>
                       <tr>
                         <td>
@@ -309,3 +258,4 @@
   </div>
   </div>
 </div>
+

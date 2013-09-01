@@ -42,7 +42,16 @@ function( declare,
             this._sv( "cypher_count", "cypher_count" );
             this._sv( "shin_count", "shin_count" );
             this._sv( "description_text", "description_text" );
-            this._sv( "armor_value", "armor_value" );
+            this._sv( "armor_value_none", "armor_value_none" );
+            this._sv( "armor_value_light", "armor_value_light" );
+            this._sv( "armor_value_medium", "armor_value_medium" );
+            this._sv( "armor_value_heavy", "armor_value_heavy" );
+            this._sv( "armor_speed_cost_heavy", "armor_speed_cost_heavy" );
+            this._sv( "armor_might_cost_heavy", "armor_might_cost_heavy" );
+            this._sv( "armor_speed_cost_medium", "armor_speed_cost_medium" );
+            this._sv( "armor_might_cost_medium", "armor_might_cost_medium" );
+            this._sv( "armor_speed_cost_light", "armor_speed_cost_light" );
+            this._sv( "armor_might_cost_light", "armor_might_cost_light" );
             this._wl( "attack_list", "attack_list" );
             this._wl( "ability_list", "ability_list" );
             this._wl( "special_list", "special_list" );

@@ -3,6 +3,7 @@ define([
         "label" : "glaive",
         "description_text" : "Glaives are warriors: soldiers, mercenaries, bodyguards, and other masters of the martial arts.",
         "special_list_label" : "Fighting Moves",
+        "special_ability_name" : "Fighting Move",
         "stats" : {
             "character_tier" : 1,
             "character_effort" : 1,
@@ -54,7 +55,7 @@ define([
             "skills_stack" : true,
             "stats" : { "cypher_count" : 1 },
             "bonus_perks" : [ "Ⓣ ${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged}" ], //stacks,
-            "perk_list" : "Ⓐ Arc Spray (3 speed)|Ⓐ Jump Attack (5 might)|Ⓔ Mastery with Armor|Ⓔ Parry (5 speed)|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense" // stacks
+            "perk_list" : "Ⓐ Arc Spray (3 speed)|Ⓐ Jump Attack (5 might)|Ⓔ Mastery With Armor|Ⓔ Parry (5 speed)|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense" // stacks
         },
         {
             "skills_stack" : true,
@@ -66,6 +67,7 @@ define([
         "label" : "nano",
         "description_text" : "Nanos are the 'wizards' of the Ninth World, performing miracles through the numenera.",
         "special_list_label" : "Esoteries",
+        "special_ability_name" : "Esotery",
         "stats" : {
             "character_tier" : 1,
             "character_effort" : 1,
@@ -116,6 +118,7 @@ define([
         "label" : "jack",
         "description_text" : "The Jack-of-all trades, master of those of his choosing, is the most flexible of the character types.",
         "special_list_label" : "Tricks of the Trade",
+        "special_ability_name" : "Trick of the Trade",
         "stats" : {
             "character_tier" : 1,
             "character_effort" : 1,

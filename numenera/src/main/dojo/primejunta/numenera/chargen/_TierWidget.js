@@ -44,6 +44,7 @@ function( declare,
             this._subs.push( topic.subscribe( "CharGen/destroyListItems", lang.hitch( this, this.destroy ) ) );
             this._typeData = this.typeData[ this.tier - 1 ];
             this._focusData = this.focusData[ this.tier - 1 ];
+            this.specialAbilityName = this.manager.getType().special_ability_name;
         },
         postCreate : function()
         {

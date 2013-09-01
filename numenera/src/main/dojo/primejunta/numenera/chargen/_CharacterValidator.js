@@ -90,7 +90,6 @@ function( declare,
             this._ss( "recovery_roll", "recovery_roll" );
             this._ss( "cypher_count", "cypher_count" );
             this._ss( "shin_count", "shin_count" );
-            this._st( "armor_value", this._getArmorValue() );
             this._st( "description_text", this._getDescriptionText() );
             this._wl( "ability_list", this._getSkillList() );
             this._wl( "special_list", this._listAsText( "special_list") );
@@ -99,6 +98,7 @@ function( declare,
             this._wl( "reference_list", this._listAsText( "reference_list" ) );
             this._wl( "attack_data", this._getAttacks() );
             this._processSpecialAbilities();
+            this._processArmorValues();
             this._wl( "attack_list", this._getAttackList() );
             return this._cdata;
         },
@@ -106,15 +106,6 @@ function( declare,
         {
             var eq = this._cdata.special_list;
             var sl = this._cdata.ability_list;
-            // Ward
-            if( array.indexOf( eq, "Ⓔ Ward" ) != -1 )
-            {
-                this._cdata.armor_value += 1;
-            }
-            if( array.indexOf( eq, "Ⓔ Experienced Defender" ) != -1 )
-            {
-                this._cdata.armor_value += 1;
-            }
 
             // attacks
             // collect boosts by type, category, short_name
@@ -144,16 +135,16 @@ function( declare,
                     boosts.chosen_weapon = 1;
                 }
             }
-            if( array.indexOf( eq, "Ⓔ Damage Dealer" ) != -1 )
+            if( this._has( "Ⓔ Damage Dealer" ) )
             {
                 boosts.chosen_weapon = 3;
             }
-            if( array.indexOf( eq, "Ⓔ Capable Warrior" ) != -1 )
+            if( this._has( "Ⓔ Capable Warrior" ) )
             {
                 boosts.damage = 1;
             }
             // enablers
-            if( array.indexOf( eq, "Ⓔ Practiced With All Weapons" ) != -1 )
+            if( this._has( "Ⓔ Practiced With All Weapons" ) )
             {
                 boosts = lang.mixin( boosts, {
                     light : 1,
@@ -161,7 +152,7 @@ function( declare,
                     heavy : 1
                 });
             }
-            else if( array.indexOf( eq, "Ⓔ Practiced With Light/Medium Weapons" ) != -1 )
+            else if( this._has( "Ⓔ Practiced With Light/Medium Weapons" ) )
             {
                 boosts = lang.mixin( boosts, {
                     light : 1,
@@ -328,23 +319,58 @@ function( declare,
             }
             return out.sort();
         },
-        _getArmorValue : function()
+        _processArmorValues : function()
         {
-            var base = parseInt( this._gf( "armor_bonus" ) );
-            var eq = this._listAsText( "equipment_list" ).join( "," ).toLowerCase();
-            if( eq.indexOf( "heavy armor" ) != -1 )
+            var aBase = parseInt( this._gf( "armor_bonus" ) );
+            var pBase = 0;
+            if( this._has( "Ⓔ Ward" ) )
             {
-                base += 3;
+                aBase += 1;
             }
-            else if( eq.indexOf( "medium armor" ) != -1 )
+            if( this._has( "Ⓔ Experienced Defender" ) )
             {
-                base += 2;
+                aBase += 1;
             }
-            else if( eq.indexOf( "light armor" ) != -1 )
+            if( this._has( "Ⓔ Practiced in Armor" ) )
             {
-                base += 1;
+                console.log( "HAS" );
+                pBase -= 2;
             }
-            return base;
+            if( this._has( "Ⓔ Armor Expert" ) )
+            {
+                pBase -= 1;
+            }
+            if( this._has( "Ⓔ Experienced With Armor" ) )
+            {
+                pBase -= 1;
+            }
+            if( this._has( "Ⓔ Armor Master" ) || this._has( "Ⓔ Mastery With Armor" ) )
+            {
+                pBase = -999;
+            }
+            this._cdata.armor_value_none = aBase;
+            this._cdata.armor_value_light = aBase + 1;
+            this._cdata.armor_value_medium = aBase + 2;
+            this._cdata.armor_value_heavy = aBase + 3;
+            this._cdata.armor_speed_cost_heavy = pBase + 5 > 0 ? pBase + 5 : 0;
+            this._cdata.armor_might_cost_heavy = pBase + 3 > 0 ? pBase + 3 : 0;
+            this._cdata.armor_speed_cost_medium = pBase + 3 > 0 ? pBase + 3 : 0;
+            this._cdata.armor_might_cost_medium = pBase + 2 > 0 ? pBase + 2 : 0;
+            this._cdata.armor_speed_cost_light = pBase + 2 > 0 ? pBase + 2 : 0;
+            this._cdata.armor_might_cost_light = pBase + 1 > 0 ? pBase + 1 : 0;
+        },
+        _has : function( feat )
+        {
+            console.log( "TRYING", feat );
+            var sl = this._cdata.special_list;
+            if( array.indexOf( sl, feat ) != -1 )
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         },
         _listAsText : function( list )
         {
