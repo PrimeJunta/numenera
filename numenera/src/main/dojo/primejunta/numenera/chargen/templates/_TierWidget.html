@@ -1,6 +1,6 @@
 <tr class="cg-tierRow">
-  <td style="text-align:center">
-    ${tier}
+  <td class="cg-smallCell" style="text-align:center">
+    Tier ${tier}
   </td>
   <td class="cg-smallCell">
     <label><input class="cg-storeMe" type="checkbox" data-dojo-attach-point="pool_checkbox"/> Pool</label><br/>
@@ -8,19 +8,32 @@
     <label><input class="cg-storeMe" type="checkbox" data-dojo-attach-point="effort_checkbox"/> Effort</label><br/>
   </td>
   <td>
-    <select class="cg-storeMe" data-dojo-attach-point="skillTypeSelector" data-dojo-attach-event="onChange:checkSkillType">
-      <option>-- choose --</option>
-      <option>Trained:</option>
-      <option>Reduce Armor Cost</option>
-      <option>Recovery +2</option>
-      <option>Perk</option>
-    </select>
-    <br/>
-    <input type="text" class="cg-storeMe cg-itemInput" data-dojo-attach-point="skillInput" value="${DEFAULT_SKILL_NAME}" style="display:none"/>
-    <select class="cg-storeMe" data-dojo-attach-point="perkSelector" style="display:none"></select>
-  </td>
-  <td>
+    <h3>Type perks</h3>
+    <ul>
+      <li>
+        <select class="cg-storeMe" data-dojo-attach-point="skillTypeSelector" data-dojo-attach-event="onChange:checkSkillType">
+          <option>-- choose --</option>
+          <option>Trained:</option>
+          <option>Reduce Armor Cost</option>
+          <option>Recovery +2</option>
+          <option>Perk</option>
+        </select>
+      </li>
+      <li data-dojo-attach-point="skillInputContainer" style="display:none;">
+        <input type="text" class="cg-storeMe cg-itemInput" data-dojo-attach-point="skillInput" value="${DEFAULT_SKILL_NAME}"/>
+      </li>
+      <li data-dojo-attach-point="perkSelectorContainer" style="display:none;">
+        <select class="cg-storeMe" data-dojo-attach-point="perkSelector"></select>
+      </li>
+    </ul>
+    <h3 style="display:none;" data-dojo-attach-point="bonusPerksTitle">Focus perks</h3>
     <ul data-dojo-attach-point="bonusPerksNode"></ul>
+  </td>
+  <td class="cg-smallCell">
+    <div data-dojo-attach-point="unlockControlNode" style="display:none">
+       <button data-dojo-attach-point="unlockButton" data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:unlock">Unlock</button>
+       <button data-dojo-attach-point="cancelButton" data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:cancelChange" style="display:none;">Cancel</button>
+    </div>
   </td>
   <td class="cg-smallCell">
     <button data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:applyAdvancement" data-dojo-attach-point="applyButton">Apply</button>

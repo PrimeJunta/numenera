@@ -5,6 +5,9 @@ define([ "dojo/_base/declare",
          "dojo/dom-class",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
+         "dijit/_WidgetsInTemplateMixin",
+         "dijit/form/Button",
+         "./_unlockable",
          "dojo/text!./templates/_ListItem.html",
          "dojo/text!./templates/_ListItemSelect.html",
          "dojo/text!./templates/_ListItemInput.html",
@@ -16,17 +19,22 @@ function( declare,
           domClass,
           _WidgetBase,
           _TemplatedMixin,
+          _WidgetsInTemplateMixin,
+          Button,
+          _unlockable,
           template,
           templateSelect,
           templateInput,
           templateSelectInput )
 {
-    return declare([ _WidgetBase, _TemplatedMixin ], {
+    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _unlockable ], {
         templateString : template,
         content : "",
         from : "",
         selectedIndex : -1,
         manager : {},
+        hasUnlockControls : false,
+        remainsOpen : false,
         postMixInProperties : function()
         {
             if( this.content.indexOf( "${input" ) != -1 && this.content.indexOf( "${select" ) != -1 )
@@ -59,13 +67,21 @@ function( declare,
             {
                 this._subs.push( topic.subscribe( "CharGen/lockSheetControls", lang.hitch( this, this.lockSelect ) ) );
             }
+            if( this.hasUnlockControls )
+            {
+                this.initializeUnlockControls();
+            }
         },
         buildRendering : function()
         {
             this.inherited( arguments );
-            if( this._hasSelect && this.selectedIndex > 0 )
+            if( this._hasSelect )
             {
-                this.selectNode.selectedIndex = this.selectedIndex;
+                this.selectNode.innerHTML = this.selectOptions;
+                if( this.selectedIndex > 0 )
+                {
+                    this.selectNode.selectedIndex = this.selectedIndex;
+                }
             }
             if( this.baseText == "" && !this._hasSelect && this._hasInput )
             {
@@ -74,11 +90,53 @@ function( declare,
         },
         lockInput : function()
         {
+            if( this.remainsOpen )
+            {
+                return;
+            }
             this.inputNode.disabled = true;
         },
         lockSelect : function()
         {
+            if( this.remainsOpen )
+            {
+                return;
+            }
             this.selectNode.disabled = true;
+        },
+        getPrevVal : function()
+        {
+            return {
+                selectedIndex : this.selectNode ? this.selectNode.selectedIndex : false,
+                inputValue : this.inputNode ? this.inputNode.value : false
+            }
+        },
+        rollBack : function( _prevVal )
+        {
+            _prevVal.inputValue ? this.inputNode.value = _prevVal.inputValue : false;
+            _prevVal.selectedIndex ? this.selectNode.selectedIndex = _prevVal.selectedIndex : false;
+        },
+        lockControls : function()
+        {
+            if( this.selectNode )
+            {
+                this.selectNode.disabled = true;
+            }
+            if( this.inputNode )
+            {
+                this.inputNode.disabled = true;
+            }
+        },
+        unlockControls : function()
+        {
+            if( this.selectNode )
+            {
+                this.selectNode.disabled = false;
+            }
+            if( this.inputNode )
+            {
+                this.inputNode.disabled = false;
+            }
         },
         getBaseText : function()
         {
@@ -99,11 +157,19 @@ function( declare,
         getSelectOptions : function()
         {
             var item = this.content.substring( this.content.indexOf( "${select:" ) + 11, this.content.indexOf( "}" ) );
-            var items = item.split( "|" );
-            var out = "";
-            for( var i = 0; i < items.length; i++ )
+            if( item.indexOf( "@" ) == 0 )
             {
-                out +="<option>" + items[ i ] + "</options>";
+                console.log( this.manager[ item.substring( 1 ) ].innerHTML );
+                return this.manager[ item.substring( 1 ) ].innerHTML;
+            }
+            else
+            {
+                var items = item.split( "|" );
+                var out = "";
+                for( var i = 0; i < items.length; i++ )
+                {
+                    out +="<option>" + items[ i ] + "</options>";
+                }
             }
             return out;
         },

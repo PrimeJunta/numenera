@@ -294,7 +294,7 @@ define([
         {
             "label" : "Fights With Panache",
             "lists" : {
-                "equipment_list" : [ "Extremely stylish clothes", "Jeweled ${select:1:Light Weapon|Medium Weapon|Heavy Weapon}: ${input:choose}" ],
+                "equipment_list" : [ "Extremely stylish clothes", "Jeweled ${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged} Weapon: ${input:choose}" ],
                 "connection_list" : [ "Always trying to impress one PC" ],
                 "reference_list" : [ "Fights With Panache: Corebook, page 62" ]
             },
@@ -489,8 +489,8 @@ define([
             "label" : "Masters Defense",
             "lists" : {
                 "equipment_list" : [ "Shield" ],
-                "ability_list" : [ "Ⓣ Speed defense" ],
-                "inability_list" : [ "Attack when using shield (+1 level)", "Defend when not using shield (+1 level)" ],
+                "ability_list" : [ "Ⓣ Speed Defense (with shield)" ],
+                "inability_list" : [ "Attack (with shield) (+1 level)", "Defense (without shield) (+1 level)" ],
                 "connection_list" : [ "Another PC saved your life" ],
                 "reference_list" : [ "Masters Defense: Corebook, page 68" ]
             },
@@ -515,15 +515,15 @@ define([
         {
             "label" : "Masters Weaponry",
             "lists" : {
-                "equipment_list" : [ "High-quality ${select:1:Light Weapon|Medium Weapon|Heavy Weapon}: ${input:choose}" ],
+                "equipment_list" : [ "High-quality ${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged} Weapon: ${input:choose}" ],
                 "connection_list" : [ "One PC shows promise in use of chosen weapon" ],
                 "reference_list" : [ "Masters Weaponry: Corebook, page 69" ]
             },
             "advancement" : [{
-                "bonus_perks" : [ "Ⓔ Weapon Master: ${input:choose}", "Ⓔ Weaponry esoteries" ] // hm, how to get this into the char sheet
+                "bonus_perks" : [ "Ⓔ Weapon Master: ${input:choose}", "Ⓔ Weaponry esoteries" ]
             },
             {
-                "bonus_perks" : [ "Ⓣ Speed defense (with chosen weapon)" ]
+                "bonus_perks" : [ "Ⓣ Speed Defense (with chosen weapon)" ]
             },
             {
                 "bonus_perks" : [ "Ⓔ Rapid Attack (3 speed)" ]
@@ -535,7 +535,7 @@ define([
                 "bonus_perks" : [ "Ⓔ Extreme Mastery (4 might)" ]
             },
             {
-                "bonus_perks" : [ "Ⓔ Damage Dealer", "Death Dealer (5 might)" ] // hm, how to get this into the char sheet
+                "bonus_perks" : [ "Ⓔ Damage Dealer", "Death Dealer (5 might)" ]
             }]
         },
         {
@@ -658,7 +658,7 @@ define([
         {
             "label" : "Wears a Sheen of Ice",
             "lists" : {
-                "equipment_list" : [ "Stronglass Bladed Weapon: ${input:choose}" ],
+                "equipment_list" : [ "Stronglass ${select:1:Light Bladed|Medium Bladed|Heavy Bladed} Weapon: ${input:choose}" ],
                 "connection_list" : [ "One PC gets benefit of Ice Armor, if standing nearby" ],
                 "reference_list" : [ "Wears a Sheen of Ice: Corebook, page 73" ]
             },
@@ -701,7 +701,7 @@ define([
                 "bonus_perks" : [ "Ⓔ Enhanced Esoteries" ]
             },
             {
-                "bonus_perks" : [ "Ⓔ Greater Repertoire" ] // TODO: one extra esotery at level 4 or below; implement this somehow
+                "bonus_perks" : [ "Ⓔ Greater Repertoire", "${select:1:@perkSelector}" ]
             },
             {
                 "bonus_perks" : [ "Ⓣ All Esoteries" ]
@@ -717,7 +717,7 @@ define([
         {
             "label" : "Wields Two Weapons at Once",
             "lists" : {
-                "equipment_list" : [ "Light Weapon (melee): ${input:choose}" ],
+                "equipment_list" : [ "${select:1:Light Bashing|Light Bladed} Weapon: ${input:choose}" ],
                 "connection_list" : [ "One PC training companion; both get +1 to Speed Defense if fighting back to back" ],
                 "reference_list" : [ "Wields Two Weapons at Once: Corebook, page 75" ]
             },

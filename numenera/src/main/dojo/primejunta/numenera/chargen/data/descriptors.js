@@ -7,7 +7,7 @@ define([
             },
             "lists" : {
                 "ability_list" : [ "Ⓣ Pleasant Social Interaction", "Ⓣ Mind-Affecting Esoteries/Special Abilities" ],
-                "inability_list" : [ "Poor at Studying (+1 difficulty in knowledge tasks)", "Weak Will (+1 difficulty in mental defense)" ],
+                "inability_list" : [ "Poor at Studying (+1 difficulty in knowledge tasks)", "Weak Will (+1 difficulty in Mental Defense)" ],
                 "reference_list" : [ "Charming: Corebook, page 47" ]
             }
         },
@@ -18,7 +18,7 @@ define([
                 "shin_count" : 10
             },
             "lists" : {
-                "ability_list" : [ "Ⓣ Lies and trickery", "Ⓣ Mental defense", "Ⓣ Assess danger, lies, quality, importance, function, or power" ],
+                "ability_list" : [ "Ⓣ Lies and trickery", "Ⓣ Mental Defense", "Ⓣ Assess danger, lies, quality, importance, function, or power" ],
                 "inability_list" : [ "Poor at Studying (+1 step in knowledge tasks)" ],
                 "reference_list" : [ "Clever: Corebook, page 48" ]
             }
@@ -29,7 +29,7 @@ define([
                 "speed_pool" : 2
             },
             "lists" : {
-                "ability_list" : [ "Ⓣ Balancing", "Ⓣ Careful movement", "Ⓣ Speed defense" ],
+                "ability_list" : [ "Ⓣ Balancing", "Ⓣ Careful movement", "Ⓣ Speed Defense" ],
                 "reference_list" : [ "Graceful: Corebook, page 48" ]
             }
         },
@@ -116,7 +116,7 @@ define([
             },
             "lists" : {
                 "ability_list" : [ "Ⓣ Breaking things", "Ⓣ Jumping" ],
-                "equipment_list" : [ "${select:1:Medium Weapon|Heavy Weapon}: ${input:choose}" ],
+                "equipment_list" : [ "${select:1:Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged} Weapon: ${input:choose}" ],
                 "reference_list" : [ "Strong: Corebook, page 50" ]
             }
         },
@@ -146,12 +146,13 @@ define([
             "label" : "Tough",
             "stats" : {
                 "armor_bonus" : 1,
+                "recovery_roll" : 1,
             },
             "lists" : {
-                "ability_list" : [ "Ⓣ Might defense" ],
-                "equipment_list" : [ "Light Weapon: ${input:choose}" ],
+                "ability_list" : [ "Ⓣ Might Defense" ],
+                "equipment_list" : [ "${select:1:Light Bashing|Light Bladed|Light Ranged} Weapon: ${input:choose}" ],
                 "reference_list" : [ "Tough: Corebook, page 51" ],
-                "bonus_list" : [ "Ⓔ Healthy (+1 to Recovery Roll points)" ]
+                "bonus_list" : [ "Ⓔ Resilient", "Ⓔ Healthy" ]
             }
         },
         {
@@ -165,7 +166,6 @@ define([
                 "ability_list" : [ "Ⓣ Identifying/understanding the numenera", "Ⓣ Visually perceiving" ],
                 "inability_list" : [ "History (+1 step)", "Poetry and oratory (+1 step)", "Hearing (+1 step)" ],
                 "bonus_list" : [ "Ⓐ Reforging (rearrange Pools freely once every day)" ],
-                "equipment_list" : [ "Light Weapon: ${input:choose}" ],
                 "reference_list" : [ "Varjellen: Corebook, page 123" ]
             }
         }

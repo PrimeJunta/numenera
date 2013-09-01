@@ -20,14 +20,18 @@ function( declare,
             {
                 out.push( _list[ i ].getText() );
             }
-            if( list == "special_list" && this._advancementControl )
+            if( list == "special_list"  )
             {
-                var alist = this._advancementControl.listAsText();
-                for( var i = 0; i < alist.length; i++ )
+                out = out.concat( this.listAsText( "bonus_list" ) );
+                if( this._advancementControl )
                 {
-                    if( alist[ i ].charAt( 0 ) != "Ⓣ" )
+                    var alist = this._advancementControl.listAsText();
+                    for( var i = 0; i < alist.length; i++ )
                     {
-                        out.push( alist[ i ] );
+                        if( alist[ i ].charAt( 0 ) != "Ⓣ" )
+                        {
+                            out.push( alist[ i ] );
+                        }
                     }
                 }
             }
@@ -51,7 +55,8 @@ function( declare,
                 manager : this,
                 content : itemText,
                 from : from,
-                selectedIndex : selIdx
+                selectedIndex : selIdx,
+                hasUnlockControls : listName == "special_list" ? true : false
             }).placeAt( this[ listName ] ) );
         },
         _writeSpecialList : function( /* Object */ type )

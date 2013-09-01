@@ -43,7 +43,6 @@ function( declare,
             }
             this.manager.character_tier.value = this.tier;
             this.manager.moveCaps();
-            topic.publish( "CharGen/unlockSpecialButtons" );
         },
         checkAdvancement : function()
         {
@@ -52,7 +51,7 @@ function( declare,
                 if( this._controls[ this._controls.length - 1 ].canAdvance() )
                 {
                     this.advanceTier( this._controls.length + 1 );
-                    this._controls[ this._controls.length - 1 ].applyStatBonuses();
+                    this._controls[ this._controls.length - 1 ].applyNewTier();
                 }
             }
         },

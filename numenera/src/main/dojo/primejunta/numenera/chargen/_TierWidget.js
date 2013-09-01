@@ -8,6 +8,7 @@ define([ "dojo/_base/declare",
          "dijit/_WidgetsInTemplateMixin",
          "dijit/form/Button",
          "./_ListItem",
+         "./_unlockable",
          "dojo/text!./templates/_TierWidget.html" ],
 function( declare,
           lang,
@@ -19,9 +20,10 @@ function( declare,
           _WidgetsInTemplateMixin,
           Button,
           _ListItem,
+          _unlockable,
           template )
 {
-    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin ], {
+    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _unlockable ], {
         tier : 1,
         typeData : [],
         focusData : [],
@@ -29,6 +31,9 @@ function( declare,
         parent : {},
         templateString : template,
         DEFAULT_SKILL_NAME : "choose any non-combat",
+        standardBenefits : {
+            recovery_roll : 1
+        },
         postMixInProperties : function()
         {
             this._subs = [];
@@ -37,19 +42,48 @@ function( declare,
             this._subs.push( topic.subscribe( "CharGen/destroyListItems", lang.hitch( this, this.destroy ) ) );
             this._typeData = this.typeData[ this.tier - 1 ];
             this._focusData = this.focusData[ this.tier - 1 ];
+            this.initializeUnlockControls();
         },
         postCreate : function()
         {
             for( var i = this.tier; i > 0; i-- )
             {
                 var opts = this.typeData[ i - 1 ].perk_list.split( "|" );
-                var grp = domConstruct.create( "optgroup", { label : "Tier " + i }, this.perkSelector );
+                var lbl =  "Tier " + i;
+                var grp = domConstruct.create( "optgroup", { label : lbl }, this.perkSelector );
                 for( var o = 0; o < opts.length; o++ )
                 {
                     domConstruct.create( "option", { innerHTML : opts[ o ] }, grp );
                 }
             }
             this.applyBonusPerks();
+        },
+        getPrevVal : function()
+        {
+            return {
+                skillTypeSelector : this.skillTypeSelector.selectedIndex,
+                skillInput : this.skillInput.value,
+                perkSelector : this.perkSelector.selectedIndex
+            }
+        },
+        rollBack : function()
+        {
+            _prevVal.skillInput ? this.skillInput.value = _prevVal.skillInput : false;
+            _prevVal.skillTypeSelector ? this.skillTypeSelector.selectedIndex = _prevVal.skillTypeSelector : false;
+            _prevVal.perkSelector ? this.perkSelector.selectedIndex = _prevVal.perkSelector : false;
+            this.checkSkillType();
+        },
+        lockControls : function()
+        {
+            this.skillInput.disabled = true;
+            this.skillTypeSelector.disabled = true;
+            this.perkSelector.disabled = true;
+        },
+        unlockControls : function()
+        {
+            this.skillInput.disabled = false;
+            this.skillTypeSelector.disabled = false;
+            this.perkSelector.disabled = false;
         },
         checkState : function()
         {
@@ -61,6 +95,10 @@ function( declare,
         },
         applyBonusPerks : function()
         {
+            if( this.tier == 1 )
+            {
+                return;
+            }
             var bps = [];
             if( this._typeData.bonus_perks )
             {
@@ -76,13 +114,14 @@ function( declare,
             }
             else
             {
+                this.bonusPerksTitle.style.display = "block";
                 for( var i = 0; i < bps.length; i++ )
                 {
                     this._controls.push( new _ListItem({
                         manager : this,
                         content : bps[ i ],
                         from : "advancement",
-                        selectedIndex : 0,
+                        selectedIndex : 0
                     }).placeAt( this.bonusPerksNode ) );
                 }
             }
@@ -92,22 +131,21 @@ function( declare,
             switch( this.skillTypeSelector.selectedIndex )
             {
                 case 1 :
-                    this._show( this.skillInput );
-                    this._hide( this.perkSelector );
+                    this._show( this.skillInputContainer );
+                    this._hide( this.perkSelectorContainer );
                     break;
                 case 4 : 
-                    this._hide( this.skillInput );
-                    this._show( this.perkSelector );
+                    this._hide( this.skillInputContainer );
+                    this._show( this.perkSelectorContainer );
                     break;
                 default :
-                    this._hide( this.skillInput );
-                    this._hide( this.perkSelector );
+                    this._hide( this.skillInputContainer );
+                    this._hide( this.perkSelectorContainer );
                     break;
             }
         },
         applyAdvancement : function()
         {
-            console.log( "Herp derp!" );
             try {
             if( !this.skillTypeSelector.disabled ) switch( this.skillTypeSelector.selectedIndex )
             {
@@ -165,12 +203,20 @@ function( declare,
                 return false;
             }
         },
-        applyStatBonuses : function()
+        applyNewTier : function()
         {
+            this.manager._augment( this.standardBenefits.stats );
             if( this._typeData.stats )
             {
                 this.manager._augment( this._typeData.stats );
+            }
+            if( this._focusData.stats )
+            {
                 this.manager._augment( this._focusData.stats );
+            }
+            if( this.tier > 1 )
+            {
+                topic.publish( "CharGen/pleaseShowUnlock" );
             }
         },
         listAsText : function()
@@ -261,7 +307,7 @@ function( declare,
         },
         _show : function( what )
         {
-            what.style.display = "inline-block";
+            what.style.display = "list-item";
         },
         _hide : function( what )
         {

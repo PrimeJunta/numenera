@@ -1,4 +1,18 @@
 <li class="cg-${from}">
-  <span data-dojo-attach-point="baseTextNode">${baseText}</span>
-  <select class="cg-storeMe" data-dojo-attach-point="selectNode" data-dojo-attach-event="onChange:dataChanged">${selectOptions}</select>
+  <div>
+    <table cellspacing="0" cellpadding="0">
+      <tr>
+        <td data-dojo-attach-point="baseTextNode" class="cg-baseTextNode">${baseText}</td>
+        <td>
+          <select class="cg-storeMe" data-dojo-attach-point="selectNode" data-dojo-attach-event="onChange:dataChanged"></select>
+        </td>
+        <td>
+          <div data-dojo-attach-point="unlockControlNode" style="display:none">
+             <button data-dojo-attach-point="unlockButton" data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:unlock">Unlock</button>
+             <button data-dojo-attach-point="cancelButton" data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:cancelChange" style="display:none;">Cancel</button>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
 </li>

@@ -21,6 +21,7 @@ define([ "dojo/_base/declare",
          "./_lists",
          "./_AdvancementControl",
          "./_CharacterRecord",
+         "./_CharacterValidator",
          "./data/descriptors",
          "./data/types",
          "./data/foci",
@@ -44,6 +45,7 @@ function( declare,
           _lists,
           _AdvancementControl,
           _CharacterRecord,
+          _CharacterValidator,
           descriptors,
           types,
           foci,
@@ -235,8 +237,10 @@ function( declare,
         },
         finalize : function( tier )
         {
+            try{
             if( !this.validateCharacter() )
             {
+                console.log( "owie!" );
                 return;
             }
             var type = types[ this.typeSelect.selectedIndex - 1 ];
@@ -258,6 +262,7 @@ function( declare,
             }
             this.finalized = true;
             this._advancementControl.checkAdvancement();
+            }catch(e){console.log("OOHG",e)}
         },
         validateCharacter : function()
         {

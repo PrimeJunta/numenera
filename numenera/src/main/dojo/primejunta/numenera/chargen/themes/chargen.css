@@ -25,7 +25,7 @@ select
 }
 .cg-tierRow select, .cg-tierRow.input[type=text]
 {
-	width : 90%;
+	width : 300px;
 }
 .cg-smallCell
 {
@@ -81,7 +81,10 @@ li div
 {
 	display : inline-block;
 	vertical-align : top;
-	width : 750px;
+}
+li td
+{
+	padding : 0px !important;
 }
 .cg-linkNode
 {
@@ -119,7 +122,7 @@ li div
 }
 .cg-baseTextNode
 {
-	width : 275px;
+	___width : 275px;
 }
 .cg-noJavaScript
 {
