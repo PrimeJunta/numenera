@@ -88,6 +88,22 @@ function( declare,
                 this.applyButton.domNode.style.visibility = "hidden";
             }
         },
+        onFocusSkillInput : function()
+        {
+            if( this.skillInput.value == this.DEFAULT_SKILL_NAME )
+            {
+                this.skillInput.value = "";
+            }
+            this.manager.normalizeClass( this.skillInput );
+        },
+        onBlurSkillInput : function()
+        {
+            if( this.skillInput.value == "" )
+            {
+                this.skillInput.value = this.DEFAULT_SKILL_NAME;
+            }
+            this.manager.normalizeClass( this.skillInput );
+        },
         applyBonusPerks : function()
         {
             if( this.tier == 1 )
@@ -95,6 +111,14 @@ function( declare,
                 return;
             }
             var bps = [];
+            this.tierPerkTitleNode.style.display = "block";
+            this._controls.push( new _ListItem({
+                manager : this,
+                content : "${select:1:@perkSelector}",
+                isUnlockable : true,
+                from : "advancement",
+                selectedIndex : 0
+            }).placeAt( this.characterTierAbility ) );
             if( this._typeData.bonus_perks )
             {
                 bps = bps.concat( this._typeData.bonus_perks );
@@ -103,13 +127,9 @@ function( declare,
             {
                 bps = bps.concat( this._focusData.bonus_perks );
             }
-            if( bps.length == 0 )
+            if( bps.length > 0 )
             {
-                this.bonusPerksNode.innerHTML = "No bonus perks for this tier.";
-            }
-            else
-            {
-                this.bonusPerksTitle.style.display = "block";
+                this.bonusPerksTitleNode.style.display = "block";
                 for( var i = 0; i < bps.length; i++ )
                 {
                     this._controls.push( new _ListItem({
@@ -143,11 +163,7 @@ function( declare,
         },
         applyAdvancement : function()
         {
-            if( !this._validator )
-            {
-                this._validator = new _CharacterValidator({ manager : this.manager });
-            }
-            if( !this._validator.validateCharacter() )
+            if( !this._checkAdvancementCost() )
             {
                 return;
             }
@@ -156,17 +172,8 @@ function( declare,
                 case 0 : 
                     break;
                 case 1 : 
-                    if( this.skillInput.value == this.DEFAULT_SKILL_NAME )
-                    {
-                        this._tell( "Please select any non-combat skill." );
-                        return;
-                    }
-                    else
-                    {
-                        this.skillInput.disabled = true;
-                        this.skillTypeSelector.disabled = true;
-                    }
-                    break;
+                    this.skillInput.disabled = true;
+                    this.skillTypeSelector.disabled = true;
                 case 2 : 
                     this.skillTypeSelector.disabled = true;
                     break;
@@ -194,6 +201,56 @@ function( declare,
             }
             topic.publish( "CharGen/lockSheetControls" );
             this.manager.unlockFinalize();
+        },
+        _cbCost : function( cb )
+        {
+            if( !this[ cb ].disabled && this[ cb ].checked )
+            {
+                return 4;
+            }
+            else
+            {
+                return 0;
+            }
+        },
+        _checkAdvancementCost : function()
+        {
+            if( !this._validator )
+            {
+                this._validator = new _CharacterValidator({ manager : this.manager });
+            }
+            if( !this._validator.validateCharacter() )
+            {
+                return false;
+            }
+            if( !this.skillTypeSelector.disabled && this.skillTypeSelector.selectedIndex == 1 && this.skillInput.value == this.DEFAULT_SKILL_NAME )
+            {
+                this._tell( "Please select any non-combat skill." );
+                return false;
+            }
+            if( isNaN( parseInt( this.parent.character_xp.value ) ) )
+            {
+                this._tell( "You need a minimum of 4 XP to advance your character." );
+                return false;
+            }
+            var cost = 0;
+            if( !this.skillTypeSelector.disabled && this.skillTypeSelector.selectedIndex > 0 )
+            {
+                cost += 4;
+            }
+            cost += this._cbCost( "pool_checkbox" );
+            cost += this._cbCost( "edge_checkbox" );
+            cost += this._cbCost( "effort_checkbox" );
+            if( parseInt( this.parent.character_xp.value ) < cost )
+            {
+                this._tell( "You need " + cost + " XP for your choices." );
+                return false;
+            }
+            else
+            {
+                this.parent.character_xp.value = parseInt( this.parent.character_xp.value ) - cost;
+                return true;
+            }
         },
         canAdvance : function()
         {

@@ -41,6 +41,7 @@ function( declare,
             this._sv( "recovery_roll", "recovery_roll" );
             this._sv( "cypher_count", "cypher_count" );
             this._sv( "shin_count", "shin_count" );
+            this._sv( "character_xp", "character_xp" );
             this._sv( "description_text", "description_text" );
             this._sv( "armor_value_none", "armor_value_none" );
             this._sv( "armor_value_light", "armor_value_light" );

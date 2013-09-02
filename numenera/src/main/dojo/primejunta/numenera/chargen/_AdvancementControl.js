@@ -29,6 +29,10 @@ function( declare,
         {
             this._controls = [];
         },
+        postCreate : function()
+        {
+            this.manager.character_xp = this.character_xp;
+        },
         advanceTier : function( tier )
         {
             if( !isNaN( tier ) )

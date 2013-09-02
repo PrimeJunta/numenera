@@ -73,7 +73,7 @@ function( declare,
         },
         showUnlockControls : function()
         {
-            if( !this.unlockControlNode || !this.isUnlockable )
+            if( !this.unlockControlNode || !this.isUnlockable || !this.isLocked() )
             {
                 return;
             }
@@ -81,6 +81,10 @@ function( declare,
             this.unlockButton.domNode.style.display = "block";
             this.cancelButton.domNode.style.display = "none";
             this.unlockButton.set( "disabled", false );
+        },
+        isLocked : function()
+        {
+            return true();
         },
         lockUnlockControls : function()
         {

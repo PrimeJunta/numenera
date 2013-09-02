@@ -22,7 +22,7 @@ function( declare,
           _CharacterManager )
 {
     return declare([], {
-        dataVersion : "0.0.2",
+        dataVersion : "0.9.0",
         _listDelimiter : "-",
         postMixInProperties : function()
         {

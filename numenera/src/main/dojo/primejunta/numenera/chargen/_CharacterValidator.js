@@ -16,6 +16,7 @@ function( declare,
     return declare([], {
         TRAINED_STR : "Ⓣ ",
         SPECIALIZED_STR: "Ⓢ ",
+        CHOOSE_STR : "-- choose --",
         manager : {},
         constructor : function( kwObj )
         {
@@ -26,15 +27,30 @@ function( declare,
             var errs = [];
             if( !descriptors[ this.manager.descriptorSelect.selectedIndex - 1 ] || !types[ this.manager.typeSelect.selectedIndex - 1 ] || !foci[ this.manager.focusSelect.selectedIndex - 1 ])
             {
-                errs.push( "Select a descriptor, type, and focus." );
+                errs.push( "Please select a descriptor, type, and focus." );
             }
             if( this.manager.free_pool.value != "0" || this.manager.free_edge.value != "0" )
             {
-                errs.push( "Assign all of your character points.")
+                errs.push( "Please assign all of your character points.")
             }
             this.analyzeCharacter();
-            // Look for duplicate perks.
             var _sl = this._cdata.special_list;
+            var _al = this._cdata.ability_list;
+            var _el = this._cdata.equipment_list;
+            // Look for missing choices.
+            if( _sl.join( "," ).indexOf( this.CHOOSE_STR ) != -1 )
+            {
+                errs.push( "Please make all your special ability choices." );
+            }
+            if( _al.join( "," ).indexOf( this.CHOOSE_STR ) != -1 )
+            {
+                errs.push( "Please make all your skill choices." );
+            }
+            if( _el.join( "," ).indexOf( this.CHOOSE_STR ) != -1 )
+            {
+                errs.push( "Please make all equipment choices." );
+            }
+            // Look for duplicate perks.
             var _plist = [ "Ⓔ Reduce Armor Cost", "Ⓔ Recovery Roll +2" ];
             for( var i = 1; i < _sl.length; i++ )
             {
@@ -53,7 +69,6 @@ function( declare,
                 {
                     for( var j = 0; j < _types.length; j++ )
                     {
-                        console.log( "Checking for ", this.SPECIALIZED_STR + _cats[ i ] + " " + _types[ j ] );
                         if( array.indexOf( _al, this.SPECIALIZED_STR + _cats[ i ] + " " + _types[ j ] ) != -1 )
                         {
                             errs.push( "You cannot specialize in " + _cats[ i ] + " " + _types[ j ] + " at your tier." );
@@ -89,6 +104,7 @@ function( declare,
             this._ss( "recovery_roll", "recovery_roll" );
             this._ss( "cypher_count", "cypher_count" );
             this._ss( "shin_count", "shin_count" );
+            this._ss( "character_xp", "character_xp" );
             this._st( "description_text", this._getDescriptionText() );
             this._wl( "ability_list", this._getSkillList() );
             this._wl( "special_list", this._listAsText( "special_list") );
@@ -340,7 +356,6 @@ function( declare,
             }
             if( this._has( "Ⓔ Practiced in Armor" ) )
             {
-                console.log( "HAS" );
                 pBase -= 2;
             }
             if( this._has( "Ⓔ Armor Expert" ) )
@@ -368,7 +383,6 @@ function( declare,
         },
         _has : function( feat )
         {
-            console.log( "TRYING", feat );
             var sl = this._cdata.special_list;
             if( array.indexOf( sl, feat ) != -1 )
             {
@@ -405,7 +419,8 @@ function( declare,
         },
         _ss : function( to, from )
         {
-            this._cdata[ to ] = parseInt( this._gf( from ) );
+            var val = parseInt( this._gf( from ) );
+            this._cdata[ to ] = isNaN( val ) ? 0 : val;
         },
         _st : function( to, val )
         {

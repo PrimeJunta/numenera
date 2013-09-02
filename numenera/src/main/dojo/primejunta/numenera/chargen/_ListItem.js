@@ -154,18 +154,28 @@ function( declare,
         {
             return this.baseText + ( this._hasSelect ? this.selectNode.options[ this.selectNode.selectedIndex ].text + this.midText : "" ) + ( this._hasInput ? ( this.manager.DEFAULT_VALUES[ this.inputNode.value ] ? "" : this.inputNode.value ) : "" );
         },
+        isLocked : function()
+        {
+            if( this._hasSelect && this.selectNode.disabled || this._hasInput && this.inputNode.disabled )
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        },
         getSelectOptions : function()
         {
             var item = this.content.substring( this.content.indexOf( "${select:" ) + 11, this.content.indexOf( "}" ) );
             if( item.indexOf( "@" ) == 0 )
             {
-                console.log( this.manager[ item.substring( 1 ) ].innerHTML );
                 return this.manager[ item.substring( 1 ) ].innerHTML;
             }
             else
             {
                 var items = item.split( "|" );
-                var out = "";
+                var out = "<option>-- choose --</option>";
                 for( var i = 0; i < items.length; i++ )
                 {
                     out +="<option>" + items[ i ] + "</options>";
@@ -181,8 +191,16 @@ function( declare,
         {
             if( this.manager.DEFAULT_VALUES[ this.inputNode.value ] )
             {
-                this.inputNode.select();
+                this.inputNode.value = "";
             }
+        },
+        onBlurInput : function()
+        {
+            if( this.inputNode.value == "" )
+            {
+                this.inputNode.value = this.inputValue;
+            }
+            this.manager.normalizeClass( this.inputNode );
         },
         dataChanged : function()
         {

@@ -59,6 +59,7 @@ function( declare,
             "choose topic" : true,
             "choose any non-combat" : true
         },
+        DEFAULT_CHARACTER_NAME : "a hero of the Ninth World",
         finalized : false,
         /**
          * Descriptor data.
@@ -96,9 +97,10 @@ function( declare,
             this.initializeSelect( "typeSelect", types );
             this.initializeSelect( "focusSelect", foci );
             on( this.characterNameInput, "keydown", lang.hitch( this, this.normalizeClass, this.characterNameInput ) );
-            on( this.characterNameInput, "click", lang.hitch( this.characterNameInput, this.characterNameInput.select ) );
-            on( this.characterNameInput, "focus", lang.hitch( this.characterNameInput, this.characterNameInput.select ) );
+            on( this.characterNameInput, "click", lang.hitch( this, this.onCharNameFocus ) );
             on( this.characterNameInput, "change", lang.hitch( this, this.updateLink ) );
+            on( this.characterNameInput, "focus", lang.hitch( this, this.onCharNameFocus ) );
+            on( this.characterNameInput, "blur", lang.hitch( this, this.onCharNameBlur ) );
             topic.subscribe( "CharGen/pleaseCheckState", lang.hitch( this, this.normalizeClass, this.characterNameInput ) );
             topic.subscribe( "CharGen/lockSheetControls", lang.hitch( this, this.lockControls ) );
             topic.subscribe( "CharGen/unlockSpecialButtons", lang.hitch( this, this.unlockSpecialButtons ) );
@@ -106,6 +108,22 @@ function( declare,
             var loaderNode = domQuery( "div.cg-noJavaScript" )[ 0 ];
             loaderNode.style.display = "none";
             this.domNode.style.display = "block";
+        },
+        onCharNameFocus : function()
+        {
+            if( this.characterNameInput.value == this.DEFAULT_CHARACTER_NAME )
+            {
+                this.characterNameInput.value = "";
+                this.normalizeClass( this.characterNameInput );
+            }
+        },
+        onCharNameBlur : function()
+        {
+            if( this.characterNameInput.value == "" )
+            {
+                this.characterNameInput.value = this.DEFAULT_CHARACTER_NAME;
+            }
+            this.normalizeClass( this.characterNameInput );
         },
         lockControls : function()
         {
