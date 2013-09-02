@@ -154,7 +154,7 @@ function( declare,
         {
             return this.baseText + ( this._hasSelect ? this.selectNode.options[ this.selectNode.selectedIndex ].text + this.midText : "" ) + ( this._hasInput ? ( this.manager.DEFAULT_VALUES[ this.inputNode.value ] ? "" : this.inputNode.value ) : "" );
         },
-        isLocked : function()
+        controlsAreLocked : function()
         {
             if( this._hasSelect && this.selectNode.disabled || this._hasInput && this.inputNode.disabled )
             {

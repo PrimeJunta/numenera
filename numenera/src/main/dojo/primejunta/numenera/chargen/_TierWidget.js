@@ -110,32 +110,38 @@ function( declare,
             {
                 return;
             }
-            var bps = [];
             this.tierPerkTitleNode.style.display = "block";
             this._controls.push( new _ListItem({
                 manager : this,
                 content : "${select:1:@perkSelector}",
                 isUnlockable : true,
-                from : "advancement",
+                from : "type",
                 selectedIndex : 0
             }).placeAt( this.characterTierAbility ) );
             if( this._typeData.bonus_perks )
             {
-                bps = bps.concat( this._typeData.bonus_perks );
-            }
-            if( this._focusData.bonus_perks )
-            {
-                bps = bps.concat( this._focusData.bonus_perks );
-            }
-            if( bps.length > 0 )
-            {
                 this.bonusPerksTitleNode.style.display = "block";
+                var bps = this._typeData.bonus_perks;
                 for( var i = 0; i < bps.length; i++ )
                 {
                     this._controls.push( new _ListItem({
                         manager : this,
                         content : bps[ i ],
-                        from : "advancement",
+                        from : "type",
+                        selectedIndex : 0
+                    }).placeAt( this.bonusPerksNode ) );
+                }
+            }
+            if( this._focusData.bonus_perks )
+            {
+                this.bonusPerksTitleNode.style.display = "block";
+                var bps = this._focusData.bonus_perks;
+                for( var i = 0; i < bps.length; i++ )
+                {
+                    this._controls.push( new _ListItem({
+                        manager : this,
+                        content : bps[ i ],
+                        from : "focus",
                         selectedIndex : 0
                     }).placeAt( this.bonusPerksNode ) );
                 }

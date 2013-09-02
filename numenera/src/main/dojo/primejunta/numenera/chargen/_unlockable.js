@@ -73,8 +73,9 @@ function( declare,
         },
         showUnlockControls : function()
         {
-            if( !this.unlockControlNode || !this.isUnlockable || !this.isLocked() )
+            if( !this.unlockControlNode || !this.isUnlockable || !this.controlsAreLocked() )
             {
+                console.log( "isUnlockable", this.isUnlockable, "isLocked", this.controlsAreLocked() );
                 return;
             }
             this.unlockControlNode.style.display = "block";
@@ -82,9 +83,9 @@ function( declare,
             this.cancelButton.domNode.style.display = "none";
             this.unlockButton.set( "disabled", false );
         },
-        isLocked : function()
+        controlsAreLocked : function()
         {
-            return true();
+            return true;
         },
         lockUnlockControls : function()
         {

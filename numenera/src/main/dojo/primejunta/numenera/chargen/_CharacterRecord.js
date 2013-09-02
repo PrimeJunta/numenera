@@ -71,12 +71,15 @@ function( declare,
             var list = this.character[ ln ];
             if( !list )
             {
-                console.log( "Hu?", ln );
                 return;
             }
             while( list.length > 0 )
             {
-                out += list.shift() + "<br/>";
+                var itm = list.shift();
+                if( itm.indexOf( "-- choose --" ) == -1 ) // TODO: fix in the character validator
+                {
+                    out += itm + "<br/>";
+                }
             }
             this[ to ].innerHTML = out;
         },

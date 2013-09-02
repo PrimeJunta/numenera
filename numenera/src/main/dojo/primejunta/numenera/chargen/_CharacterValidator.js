@@ -22,7 +22,7 @@ function( declare,
         {
             lang.mixin( this, kwObj );
         },
-        validateCharacter : function()
+        validateCharacter : function( silent )
         {
             var errs = [];
             if( !descriptors[ this.manager.descriptorSelect.selectedIndex - 1 ] || !types[ this.manager.typeSelect.selectedIndex - 1 ] || !foci[ this.manager.focusSelect.selectedIndex - 1 ])

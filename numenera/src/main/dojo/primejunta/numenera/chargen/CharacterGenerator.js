@@ -59,7 +59,7 @@ function( declare,
             "choose topic" : true,
             "choose any non-combat" : true
         },
-        DEFAULT_CHARACTER_NAME : "a hero of the Ninth World",
+        DEFAULT_CHARACTER_NAME : "a Hero of the Ninth World",
         finalized : false,
         /**
          * Descriptor data.
