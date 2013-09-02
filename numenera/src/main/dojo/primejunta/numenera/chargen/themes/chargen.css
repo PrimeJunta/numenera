@@ -27,6 +27,12 @@ select
 {
 	width : 300px;
 }
+.cg-dialogContent 
+{
+	width : 580px;
+	padding : 10px;
+	overflow : auto; 
+}
 .cg-smallCell
 {
 	width : 65px;

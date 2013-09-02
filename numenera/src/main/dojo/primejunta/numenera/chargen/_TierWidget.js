@@ -42,6 +42,9 @@ function( declare,
             this._controls = [];
             this._subs.push( topic.subscribe( "CharGen/pleaseCheckState", lang.hitch( this, this.checkState ) ) );
             this._subs.push( topic.subscribe( "CharGen/destroyListItems", lang.hitch( this, this.destroy ) ) );
+            this._subs.push( topic.subscribe( "CharGen/showPurchasedBenefits", lang.hitch( this, function() {
+                this.purchasedBenefitsNode.style.display = "block";
+            })));
             this._typeData = this.typeData[ this.tier - 1 ];
             this._focusData = this.focusData[ this.tier - 1 ];
             this.specialAbilityName = this.manager.getType().special_ability_name;
@@ -231,12 +234,12 @@ function( declare,
             }
             if( !this.skillTypeSelector.disabled && this.skillTypeSelector.selectedIndex == 1 && this.skillInput.value == this.DEFAULT_SKILL_NAME )
             {
-                this._tell( "Please select any non-combat skill." );
+                this.manager.tell( "Please select any non-combat skill." );
                 return false;
             }
             if( isNaN( parseInt( this.parent.character_xp.value ) ) )
             {
-                this._tell( "You need a minimum of 4 XP to advance your character." );
+                this.manager.tell( "You need a minimum of 4 XP to advance your character." );
                 return false;
             }
             var cost = 0;
@@ -249,7 +252,7 @@ function( declare,
             cost += this._cbCost( "effort_checkbox" );
             if( parseInt( this.parent.character_xp.value ) < cost )
             {
-                this._tell( "You need " + cost + " XP for your choices." );
+                this.manager.tell( "You need " + cost + " XP for your choices." );
                 return false;
             }
             else
@@ -363,10 +366,6 @@ function( declare,
         _hide : function( what )
         {
             what.style.display = "none";
-        },
-        _tell : function( msg )
-        {
-            alert( msg );
         }
     });
 });

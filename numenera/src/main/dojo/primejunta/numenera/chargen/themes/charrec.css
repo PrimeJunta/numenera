@@ -164,11 +164,12 @@ h2.cr-heading
     {
         margin-top : 20px;
     }
-    .cr-backButton
+    .cr-uiControl
     {
        display : block;
        text-align : center;
        padding : 20px;
+       color : white;
     }
 }
 @media print
@@ -178,7 +179,7 @@ h2.cr-heading
        size: 297mm 210mm;
        margin : 0cm;
     }
-    .cg-noJavaScript, .cr-backButton
+    .cg-noJavaScript, .cr-uiControl
     {
         display : none;
     }

@@ -28,7 +28,7 @@ define([
         {
             "label" : "Carries a Quiver",
             "lists" : {
-                "equipment_list" : [ "Well-made bow", "24 arrows" ],
+                "equipment_list" : [ "Well-Made Medium Ranged Weapon: Bow", "24 arrows" ],
                 "ability_list" : [ "Ⓣ Fletcher" ],
                 "connection_list" : [ "One PC is true friend", "One PC always hit on fumble" ],
                 "reference_list" : [ "Carries a Quiver: Corebook, page 54" ]

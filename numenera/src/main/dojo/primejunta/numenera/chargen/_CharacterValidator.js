@@ -51,7 +51,7 @@ function( declare,
                 errs.push( "Please make all equipment choices." );
             }
             // Look for duplicate perks.
-            var _plist = [ "Ⓔ Reduce Armor Cost", "Ⓔ Recovery Roll +2" ];
+            var _plist = [ "Ⓔ Reduce Armor Cost", "Ⓔ Recovery Roll +2", this.CHOOSE_STR ];
             for( var i = 1; i < _sl.length; i++ )
             {
                 if( _sl[ i ] == _sl[ i - 1 ] && array.indexOf( _plist, _sl[ i ] ) == -1 )
@@ -82,7 +82,7 @@ function( declare,
             }
             else
             {
-                alert( errs.join( "\n" ) );
+                this.manager.tell( errs.join( "<br/><br/>" ) );
                 return false;
             }
         },

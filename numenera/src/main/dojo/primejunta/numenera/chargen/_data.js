@@ -22,7 +22,7 @@ function( declare,
           _CharacterManager )
 {
     return declare([], {
-        dataVersion : "0.9.0",
+        dataVersion : "0.9.1",
         _listDelimiter : "-",
         postMixInProperties : function()
         {
@@ -181,7 +181,7 @@ function( declare,
             var kwObj = ioQuery.queryToObject( qString );
             if( kwObj.version != this.dataVersion )
             {
-                alert( "The character was created with an incompatible version of this \nutility, and cannot be loaded. We apologize for the inconvenience." );
+                this.tell( "The character was created with an incompatible version of this utility, and cannot be loaded. We apologize for the inconvenience." );
                 this._populating.pop();
                 return;
             }

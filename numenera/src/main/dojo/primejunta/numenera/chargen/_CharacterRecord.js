@@ -1,5 +1,7 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
+         "dojo/cookie",
+         "dojo/json",
          "dijit/form/Button",
          "./_CharacterValidator",
          "dijit/_WidgetBase",
@@ -8,6 +10,8 @@ define([ "dojo/_base/declare",
          "dojo/text!./templates/_CharacterRecord.html" ],
 function( declare,
           lang,
+          cookie,
+          json,
           Button,
           _CharacterValidator,
           _WidgetBase,
@@ -59,11 +63,65 @@ function( declare,
             this._wl( "cypher_list", "cypher_list" );
             this._wl( "equipment_list", "equipment_list" );
             this._wl( "notes_list", "reference_list" );
+            this._updatePrint();
+        },
+        printSettingsChanged : function()
+        {
+            cookie( "printSettings", json.stringify({
+                showShins : this.showShinsCheckbox.checked,
+                showXP : this.showXPCheckbox.checked,
+                showCyphers : this.showCyphersCheckbox.checked
+            }), { expires : 30 });
+            this._updatePrint();
+        },
+        _updatePrint : function()
+        {
+            var settings = cookie( "printSettings" );
+            if( !settings )
+            {
+                return;
+            }
+            try
+            {
+                settings = json.parse( settings );
+            }
+            catch( e )
+            {
+                cookie( "printSettings", null, { expires : -1 });
+                return;
+            }
+            if( !settings.showShins )
+            {
+                this.shin_count.style.visibility = "hidden";
+                this.showShinsCheckbox.checked = false;
+            }
+            else
+            {
+                this.shin_count.style.visibility = "visible";
+            }
+            if( !settings.showXP )
+            {
+                this.character_xp.style.visibility = "hidden";
+                this.showXPCheckbox.checked = false;
+            }
+            else
+            {
+                this.character_xp.style.visibility = "visible";
+            }
+            if( !settings.showCyphers )
+            {
+                this.cypher_list.style.visibility = "hidden";
+                this.showCyphersCheckbox.checked = false;
+            }
+            else
+            {
+                this.cypher_list.style.visibility = "visible";
+            }
         },
         closeMe : function()
         {
-            this.manager.domNode.style.display = "block";
             this.destroy();
+            this.manager.domNode.style.display = "block";
         },
         _wl : function( to, ln )
         {

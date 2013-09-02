@@ -5,6 +5,7 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "dojo/_base/array",
+         "dojo/_base/event",
          "dojo/io-query",
          "dojo/on",
          "dojo/topic",
@@ -29,6 +30,7 @@ define([ "dojo/_base/declare",
 function( declare,
           lang,
           array,
+          event,
           ioQuery,
           on,
           topic,
@@ -259,10 +261,8 @@ function( declare,
         },
         finalize : function( tier )
         {
-            try{
             if( !this.validateCharacter() )
             {
-                console.log( "owie!" );
                 return;
             }
             var type = types[ this.typeSelect.selectedIndex - 1 ];
@@ -284,7 +284,6 @@ function( declare,
             }
             this.finalized = true;
             this._advancementControl.checkAdvancement();
-            }catch(e){console.log("OOHG",e)}
         },
         validateCharacter : function()
         {
@@ -335,9 +334,20 @@ function( declare,
         {
             this.helpDialog.show();
         },
-        hideHelp : function()
+        hideHelp : function( e )
         {
             this.helpDialog.hide();
+            event.stop( e );
+        },
+        tell : function( msg )
+        {
+            this.messageContentNode.innerHTML = msg;
+            this.messageDialog.show();
+        },
+        hideMessage : function( e )
+        {
+            this.messageDialog.hide();
+            event.stop( e );
         },
         _setDescription : function( from )
         {

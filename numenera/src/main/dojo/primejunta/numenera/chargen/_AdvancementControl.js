@@ -50,6 +50,7 @@ function( declare,
         },
         checkAdvancement : function()
         {
+            topic.publish( "CharGen/showPurchasedBenefits" );
             if( this._controls.length > 0 )
             {
                 if( this._controls[ this._controls.length - 1 ].canAdvance() )
