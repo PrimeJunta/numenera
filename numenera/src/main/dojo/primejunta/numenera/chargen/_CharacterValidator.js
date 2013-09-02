@@ -50,6 +50,14 @@ function( declare,
             {
                 errs.push( "Please make all equipment choices." );
             }
+            if( array.indexOf( _al, this.TRAINED_STR + "Knowledge area:" ) != -1 || array.indexOf( _al, this.SPECIALIZED_STR + "Knowledge area:" ) != -1 )
+            {
+                errs.push( "Please choose your knowledge areas." );
+            }
+            if( array.indexOf(  _al, this.TRAINED_STR ) != -1 || array.indexOf( _al, this.SPECIALIZED_STR ) != -1 )
+            {
+                errs.push( "Please choose all your skills." );
+            }
             // Look for duplicate perks.
             var _plist = [ "Ⓔ Reduce Armor Cost", "Ⓔ Recovery Roll +2", this.CHOOSE_STR ];
             for( var i = 1; i < _sl.length; i++ )
