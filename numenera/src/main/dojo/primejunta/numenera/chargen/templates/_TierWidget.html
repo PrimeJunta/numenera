@@ -10,12 +10,14 @@
     <ul data-dojo-attach-point="bonusPerksNode"></ul>
     <div data-dojo-attach-point="purchasedBenefitsNode" style="display:none">
       <h3>Purchased Benefits</h3>
-      <div>
-        <label><input class="cg-storeMe" type="checkbox" data-dojo-attach-point="pool_checkbox"/> Pool</label>
-        <label><input class="cg-storeMe" type="checkbox" data-dojo-attach-point="edge_checkbox"/> Edge</label>
-        <label><input class="cg-storeMe" type="checkbox" data-dojo-attach-point="effort_checkbox"/> Effort</label>
-      </div>
       <ul>
+        <li>
+          <div style="vertical-align:bottom;">
+            Raise: <label><input class="cg-storeMe" type="checkbox" data-dojo-attach-point="pool_checkbox"/> Pools</label>
+            <label><input class="cg-storeMe" type="checkbox" data-dojo-attach-point="edge_checkbox"/> Edge</label>
+            <label><input class="cg-storeMe" type="checkbox" data-dojo-attach-point="effort_checkbox"/> Effort</label>
+          </div>
+        </li>
         <li>
           <div>
             <select class="cg-storeMe" data-dojo-attach-point="skillTypeSelector" data-dojo-attach-event="onChange:checkSkillType">
