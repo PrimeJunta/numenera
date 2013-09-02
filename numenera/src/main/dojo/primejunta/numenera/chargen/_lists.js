@@ -56,7 +56,8 @@ function( declare,
                 content : itemText,
                 from : from,
                 selectedIndex : selIdx,
-                isUnlockable : listName == "special_list" ? true : false
+                isUnlockable : listName == "special_list" ? true : false,
+                remainsOpen : ( listName == "equipment_list" || listName == "cypher_list" ) ? true : false
             }).placeAt( this[ listName ] ) );
         },
         _writeSpecialList : function( /* Object */ type )
