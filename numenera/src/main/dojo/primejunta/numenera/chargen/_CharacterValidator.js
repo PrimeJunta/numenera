@@ -31,7 +31,7 @@ function( declare,
             }
             if( this.manager.free_pool.value != "0" || this.manager.free_edge.value != "0" )
             {
-                errs.push( "Please assign all of your character points.")
+                errs.push( "Please assign all of your character points." );
             }
             this.analyzeCharacter();
             var _sl = this._cdata.special_list;
@@ -70,7 +70,6 @@ function( declare,
             // Enforce combat skill specialization limit.
             if( this._cdata.character_type != "glaive" || this._cdata.character_tier < 5 )
             {
-                var _al = this._cdata.ability_list;
                 var _cats = [ "Light", "Medium", "Heavy" ];
                 var _types = [ "Bashing", "Bladed", "Ranged" ];
                 for( var i = 0; i < _cats.length; i++ )

@@ -87,6 +87,14 @@ function( declare,
         {
             this.inherited( arguments );
             document.body.className = "tundra";
+            window.applicationCache.addEventListener( "updateready", lang.hitch( this, this.updateSite ), false);
+        },
+        updateSite : function( event )
+        {
+            if( confirm( "A new version is available. Reload now?" ) )
+            {
+                window.applicationCache.swapCache();
+            }
         },
         /**
          * Initialize selects from data, and connect onclick handlers to all of the UI buttons.
@@ -177,7 +185,7 @@ function( declare,
         {
             this._populating.push( 1 );
             var label = this._selVal( this.descriptorSelect ).label;
-            var _art = "an"
+            var _art = "an";
             if( "AEIOUYaeiouy".indexOf( label.charAt( 0 ) ) == -1 )
             {
                 _art = "a";

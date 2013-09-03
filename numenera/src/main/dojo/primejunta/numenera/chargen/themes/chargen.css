@@ -1,8 +1,10 @@
 @import url( 'http://fonts.googleapis.com/css?family=Lato|Kreon|Droid+Sans|Prata' );
-@import url( '../../../../dijit/themes/tundra/tundra.css');
-@import url( '../../../../dojox/mobile/themes/blackberry/Button.css');
+@import url( '../../../../dijit/themes/dijit.css');
+@import url( '../../../../dijit/themes/tundra/Dialog.css');
+@import url( '../../../../dijit/themes/tundra/Common.css' );
+@import url( '../../../../dijit/themes/tundra/form/Common.css' );
+@import url( '../../../../dijit/themes/tundra/form/Button.css' );
 @import url( 'charrec.css' );
-
 
 html, body
 {

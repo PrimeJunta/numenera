@@ -147,7 +147,7 @@ define({
         "notes_text" : "Tough: Corebook, page 51",
         "stats" : {
             "armor_bonus" : 1,
-            "recovery_roll" : 1,
+            "recovery_roll" : 1
         },
         "lists" : {
             "ability_list" : [ "Ⓣ Might Defense" ],

@@ -70,7 +70,7 @@ function( declare,
         {
             return {
                 perkSelector : this.perkSelector.selectedIndex
-            }
+            };
         },
         rollBack : function( _prevVal )
         {

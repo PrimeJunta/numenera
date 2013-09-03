@@ -86,10 +86,10 @@ function( declare,
             var nde = domConstruct.create( "div", { style : "width:400px;padding:10px;" } );
             for( var i = 0; i < chars.length; i++ )
             {
-                var char = this._storage.get( chars[ i ] );
-                if( char.name && char.data )
+                var _char = this._storage.get( chars[ i ] );
+                if( _char.name && _char.data )
                 {
-                    this._cwa.push( new _CharacterManager({ key : chars[ i ], character : char, manager : this }).placeAt( nde ) );
+                    this._cwa.push( new _CharacterManager({ key : chars[ i ], character : _char, manager : this }).placeAt( nde ) );
                 }
             }
             if( this._cwa.length == 0 )

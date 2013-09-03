@@ -11,7 +11,7 @@ define([ "dojo/_base/declare",
          "dojo/text!./templates/_ListItem.html",
          "dojo/text!./templates/_ListItemSelect.html",
          "dojo/text!./templates/_ListItemInput.html",
-         "dojo/text!./templates/_ListItemSelectInput.html",],
+         "dojo/text!./templates/_ListItemSelectInput.html" ],
 function( declare,
           lang,
           on,
@@ -127,7 +127,7 @@ function( declare,
             return {
                 selectedIndex : this.selectNode ? this.selectNode.selectedIndex : false,
                 inputValue : this.inputNode ? this.inputNode.value : false
-            }
+            };
         },
         rollBack : function( _prevVal )
         {
