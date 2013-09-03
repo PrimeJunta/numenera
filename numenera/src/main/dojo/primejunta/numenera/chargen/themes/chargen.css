@@ -25,12 +25,17 @@ select
 {
 	display : none;
 	margin-left : 24px;
+    width : 24px;
+    height : 24px;
+    line-height : 24px;
 	cursor : pointer;
+	text-decoration : none;
+	border : none;
+	background-color : transparent;
 }
 .cg-deleteControl
 {
 	font-size : 22px;
-	font-weight : bold;
 	color : #990000;
 }
 .cg-deletedItem, .cg-deletedItem td, .cg-deletedItem select, .cg-deletedItem input
@@ -42,12 +47,9 @@ select
 {
 	/* display : none; */
 }
-.cg-hoverControls:hover .cg-hiddenControl
+.cg-hoverControls .cg-hiddenControl
 {
 	display : inline-block;
-	width : 24px;
-	height : 24px;
-	line-height : 24px;
 	vertical-align : middle;
 }
 .cg-finalized .cg-hiddenControl

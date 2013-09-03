@@ -1,5 +1,6 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
+         "dojo/_base/event",
          "dojo/on",
          "dojo/topic",
          "dojo/dom-class",
@@ -14,6 +15,7 @@ define([ "dojo/_base/declare",
          "dojo/text!./templates/_ListItemSelectInput.html" ],
 function( declare,
           lang,
+          event,
           on,
           topic,
           domClass,
@@ -93,8 +95,12 @@ function( declare,
                 domClass.add( this.domNode, "cg-hoverControls" );
             }
         },
-        deleteMe : function()
+        deleteMe : function( e )
         {
+            if( e )
+            {
+                event.stop( e );
+            }
             if( this.deleted )
             {
                 this.deleted = false;

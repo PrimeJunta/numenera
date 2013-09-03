@@ -93,7 +93,7 @@ function( declare,
         {
             if( confirm( "A new version is available. Reload now?" ) )
             {
-                window.applicationCache.swapCache();
+                window.location.reload();
             }
         },
         /**
