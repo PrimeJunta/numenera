@@ -3,9 +3,11 @@
     <h3>Tier ${tier}</h3>
   </td>
   <td>
-    <h3 style="display:none;" data-dojo-attach-point="tierPerkTitleNode">${specialAbilityName}</h3>
+    <div data-dojo-attach-point="freeBenefitsNode">
+      <h3 style="display:none;" data-dojo-attach-point="tierPerkTitleNode">${specialAbilityName}</h3>
       <ul data-dojo-attach-point="characterTierAbility">
       </ul>
+    </div>
     <h3 style="display:none;" data-dojo-attach-point="bonusPerksTitleNode">Other Benefits</h3>
     <ul data-dojo-attach-point="bonusPerksNode"></ul>
     <div data-dojo-attach-point="purchasedBenefitsNode" style="display:none">

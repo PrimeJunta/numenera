@@ -62,7 +62,7 @@ function( declare,
             this._wl( "special_list", "special_list" );
             this._wl( "cypher_list", "cypher_list" );
             this._wl( "equipment_list", "equipment_list" );
-            this._wl( "notes_list", "reference_list" );
+            this._wl( "notes_list", "notes_list" );
             this._updatePrint();
         },
         printSettingsChanged : function()

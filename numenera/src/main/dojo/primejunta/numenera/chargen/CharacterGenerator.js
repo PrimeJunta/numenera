@@ -95,6 +95,7 @@ function( declare,
         {
             this._buffer = [];
             this._populating = [];
+            this._controls = [];
             this.initializeSelect( "descriptorSelect", descriptors, true );
             this.initializeSelect( "typeSelect", types );
             this.initializeSelect( "focusSelect", foci );
@@ -105,7 +106,8 @@ function( declare,
             on( this.characterNameInput, "blur", lang.hitch( this, this.onCharNameBlur ) );
             topic.subscribe( "CharGen/pleaseCheckState", lang.hitch( this, this.normalizeClass, this.characterNameInput ) );
             topic.subscribe( "CharGen/lockSheetControls", lang.hitch( this, this.lockControls ) );
-            topic.subscribe( "CharGen/unlockSpecialButtons", lang.hitch( this, this.unlockSpecialButtons ) );
+            topic.subscribe( "CharGen/pleaseShowUnlock", lang.hitch( this, this.setFinalizedClass, false ) );
+            topic.subscribe( "CharGen/pleaseHideUnlock", lang.hitch( this, this.setFinalizedClass, true ) );
             this.inherited( arguments );
             var loaderNode = domQuery( "div.cg-noJavaScript" )[ 0 ];
             loaderNode.style.display = "none";
@@ -134,8 +136,9 @@ function( declare,
             this.focusSelect.disabled = true;
             this.updateLink();
         },
-        unlockSpecialButtons : function()
+        setFinalizedClass : function( state )
         {
+            state ? domClass.add( this.domNode, "cg-finalized" ) : domClass.remove( this.domNode, "cg-finalized" );
         },
         unlockFinalize : function()
         {
@@ -160,11 +163,9 @@ function( declare,
         initializeSelect : function( /* String */ select, /* Object[] */ data )
         {
             var sel = this[ select ];
-            for( var i = 0; i < data.length; i++ )
+            for( var o in data )
             {
-                var cur = data[ i ];
-                var label = data[ i ].label;
-                var opt = new Option( label, i );
+                var opt = new Option( data[ o ].label, o );
                 sel.options[ sel.options.length ] = opt;
             }
         },
@@ -184,21 +185,18 @@ function( declare,
             this.articleNode.innerHTML = _art;
             this.updateValues();
             this._populating.pop();
-            this.updateLink();
         },
         selectType : function()
         {
             this._populating.push( 4 );
             this.updateValues();
             this._populating.pop();
-            this.updateLink();
         },
         selectFocus : function()
         {
             this._populating.push( 5 );
             this.updateValues();
             this._populating.pop();
-            this.updateLink();
         },
         /**
          * Clears the UI, finds the data for the descriptor, type, and focus the user has picked, enables
@@ -209,13 +207,10 @@ function( declare,
         {
             this._populating.push( 2 );
             this._clear();
-            var di = this.descriptorSelect.selectedIndex - 1;
-            var ti = this.typeSelect.selectedIndex - 1;
-            var fi = this.focusSelect.selectedIndex - 1;
-            var type = ti >= 0 ? types[ ti ] : false;
-            var desc = di >= 0 ? descriptors[ di ] : false;
-            var focus = fi >= 0 ? foci[ fi ] : false;
-            if( !type )
+            var type = this.getType();
+            var desc = this.getDescriptor();
+            var focus = this.getFocus();
+            if( !type || !desc || !focus )
             {
                 this._populating.pop();
                 return;
@@ -235,29 +230,47 @@ function( declare,
                 this._writeSpecialList( type );
                 this.special_list_label.innerHTML = type.special_list_label;
                 this.result_pane.style.display = "block";
-                this._setDescription( type );
+                this._appendToText( "description_text", type.description_text );
+                this._appendToText( "notes_text", type.notes_text );
             }
             if( desc )
             {
                 this._augment( desc.stats );
                 this._appendToLists( desc.lists, "desc" );
-                this._setDescription( desc );
+                this._appendToText( "description_text", desc.description_text );
+                this._appendToText( "notes_text", desc.notes_text );
             }
             if( focus )
             {
                 this._augment( focus.stats );
                 this._appendToLists( focus.lists, "focus" );
                 this._writeBonusList( focus );
-                this._setDescription( focus );
+                this._appendToText( "description_text", focus.description_text );
+                this._appendToText( "notes_text", focus.notes_text );
             }
             this.checkCaps();
             this._printLists();
             this._populating.pop();
             this.updateLink();
         },
+        _appendToText : function( where, what )
+        {
+            if( what )
+            {
+                this[ where ].set( "value", this[ where ].get( "value" ) + what + "\n" );
+            }
+        },
         getType : function()
         {
-            return types[ this.typeSelect.selectedIndex - 1 ];
+            return types[ this._selVal( this.typeSelect ).value ];
+        },
+        getDescriptor : function()
+        {
+            return descriptors[  this._selVal( this.descriptorSelect ).value ];
+        },
+        getFocus : function()
+        {
+            return foci[  this._selVal( this.focusSelect ).value ];
         },
         finalize : function( tier )
         {
@@ -265,8 +278,8 @@ function( declare,
             {
                 return;
             }
-            var type = types[ this.typeSelect.selectedIndex - 1 ];
-            var focus = foci[ this.focusSelect.selectedIndex - 1 ];
+            var type = this.getType();
+            var focus = this.getFocus();
             tier = !isNaN( parseInt( tier ) ) ? parseInt( tier ) : parseInt( this.character_tier.value );
             if( !this.finalized )
             {
@@ -283,6 +296,7 @@ function( declare,
                 this.finalizeButton.set( "disabled", true );
             }
             this.finalized = true;
+            //domClass.add( this.domNode, "cg-finalized" );
             this._advancementControl.checkAdvancement();
         },
         validateCharacter : function()
@@ -349,13 +363,6 @@ function( declare,
             this.messageDialog.hide();
             event.stop( e );
         },
-        _setDescription : function( from )
-        {
-            if( from.description_text )
-            {
-                this.description_text.set( "value", this.description_text.focusNode.value + from.description_text + "\n" );
-            }
-        },
         /**
          * Sets disabled of all controls matching controls to state.
          */
@@ -363,7 +370,7 @@ function( declare,
         {
             for( var i = 0; i < controls.length; i++ )
             {
-                if( this[ controls[ i ].set ] )
+                if( this[ controls[ i ] ].set )
                 {
                     this[ controls[ i ] ].set( "disabled", state );
                 }
@@ -386,8 +393,19 @@ function( declare,
         /**
          * Returns value of selected item in sel as object with label and value properties.
          */
-        _selVal : function( sel )
+        _selVal : function( sel, /* String? */ val )
         {
+            if( val )
+            {
+                for( var i = 0; i < sel.options.length; i++ )
+                {
+                    if( sel.options[ i ].value == val )
+                    {
+                        sel.options[ i ].selected = true;
+                        break;
+                    }
+                }
+            }
             return {
                 "label" : sel.options[ sel.selectedIndex ].text,
                 "value" : sel.options[ sel.selectedIndex ].value
@@ -406,20 +424,22 @@ function( declare,
                     this._lists[ o ].pop().destroy();
                 }
             }
+            this._controls = [];
             if( this._advancementControl )
             {
                 this._advancementControl.destroy();
             }
-            this.finalizeButton.set( "disabled", false );
-            this.finalized = false;
+            this.unlockFinalize();
             delete this._listdata;
             this.description_text.set( "value", "" );
+            this.notes_text.set( "value", "" );
+            this.extra_equipment_text.set( "value", "" );
             this.result_pane.style.display = "none";
             this._setDisabled([ "descriptorSelect", "typeSelect", "focusSelect" ], false );
-            this._setDisabled([ "increment_might_pool", "decrement_might_pool", "increment_speed_pool", "decrement_speed_pool", "increment_intellect_pool", "decrement_intellect_pool","increment_might_edge", "decrement_might_edge", "increment_speed_edge", "decrement_speed_edge", "increment_intellect_edge", "decrement_intellect_edge" ], true );
             this._setValues([ "character_tier", "character_effort", "might_pool", "speed_pool", "intellect_pool", "might_edge", "speed_edge", "intellect_edge", "free_pool", "free_edge", "shin_count", "cypher_count", "armor_bonus" ], "" );
-            var lists = [ "ability_list", "inability_list", "special_list", "equipment_list", "bonus_list", "connection_list", "reference_list" ];
+            var lists = [ "ability_list", "inability_list", "special_list", "equipment_list", "bonus_list", "connection_list" ];
             this.updateLink();
+            this._setDisabled([ "saveButton", "printButton", "increment_might_pool", "decrement_might_pool", "increment_speed_pool", "decrement_speed_pool", "increment_intellect_pool", "decrement_intellect_pool","increment_might_edge", "decrement_might_edge", "increment_speed_edge", "decrement_speed_edge", "increment_intellect_edge", "decrement_intellect_edge" ], true );
         }
     });
 });

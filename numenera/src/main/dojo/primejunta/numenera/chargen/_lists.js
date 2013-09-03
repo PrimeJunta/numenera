@@ -18,7 +18,10 @@ function( declare,
             var out = [];
             for( var i = 0; i < _list.length; i++ )
             {
-                out.push( _list[ i ].getText() );
+                if( _list[ i ].getText() )
+                {
+                    out.push( _list[ i ].getText() );
+                }
             }
             if( list == "special_list"  )
             {
@@ -51,14 +54,21 @@ function( declare,
         },
         createListItem : function( listName, itemText, from, selIdx )
         {
-            this._lists[ listName ].push( new _ListItem({
+            if( !this._controls )
+            {
+                this._controls = [];
+            }
+            var itm =  new _ListItem({
                 manager : this,
                 content : itemText,
                 from : from,
                 selectedIndex : selIdx,
                 isUnlockable : listName == "special_list" ? true : false,
+                isDeletable : listName == "equipment_list" ? true : false,
                 remainsOpen : ( listName == "equipment_list" || listName == "cypher_list" ) ? true : false
-            }).placeAt( this[ listName ] ) );
+            }).placeAt( this[ listName ] );
+            this._lists[ listName ].push( itm );
+            this._controls.push( itm );
         },
         _writeSpecialList : function( /* Object */ type )
         {
@@ -72,6 +82,18 @@ function( declare,
             if( focus.advancement[ 0 ].bonus_perks )
             {
                 this._writeItems( "bonus_list", focus.advancement[ 0 ].bonus_perks, "focus" );
+            }
+        },
+        _augmentCypherList : function( count )
+        {
+            if( !this._lists || !this._lists.cypher_list )
+            {
+                return;
+            }
+            var count = parseInt( count );
+            while( this._lists.cypher_list.length < count )
+            {
+                this.createListItem( "cypher_list", "${input:GM chooses}", "type" );
             }
         },
         /**

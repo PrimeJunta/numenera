@@ -35,6 +35,7 @@ function( declare,
         manager : {},
         isUnlockable : false,
         remainsOpen : false,
+        isDeletable : false,
         postMixInProperties : function()
         {
             if( this.content.indexOf( "${input" ) != -1 && this.content.indexOf( "${select" ) != -1 )
@@ -86,6 +87,23 @@ function( declare,
             if( this.isUnlockable )
             {
                 this.initializeUnlockControls();
+            }
+            if( this.isDeletable )
+            {
+                domClass.add( this.domNode, "cg-hoverControls" );
+            }
+        },
+        deleteMe : function()
+        {
+            if( this.deleted )
+            {
+                this.deleted = false;
+                domClass.remove( this.domNode, "cg-deletedItem" );
+            }
+            else
+            {
+                this.deleted = true;
+                domClass.add( this.domNode, "cg-deletedItem" );
             }
         },
         lockInput : function()
@@ -152,7 +170,7 @@ function( declare,
         },
         getText : function()
         {
-            return this.baseText + ( this._hasSelect ? this.selectNode.options[ this.selectNode.selectedIndex ].text + this.midText : "" ) + ( this._hasInput ? ( this.manager.DEFAULT_VALUES[ this.inputNode.value ] ? "" : this.inputNode.value ) : "" );
+            return this.deleted ? false : this.baseText + ( this._hasSelect ? this.selectNode.options[ this.selectNode.selectedIndex ].text + this.midText : "" ) + ( this._hasInput ? ( this.manager.DEFAULT_VALUES[ this.inputNode.value ] ? "" : this.inputNode.value ) : "" );
         },
         controlsAreLocked : function()
         {

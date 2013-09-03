@@ -25,7 +25,7 @@ function( declare,
         validateCharacter : function( silent )
         {
             var errs = [];
-            if( !descriptors[ this.manager.descriptorSelect.selectedIndex - 1 ] || !types[ this.manager.typeSelect.selectedIndex - 1 ] || !foci[ this.manager.focusSelect.selectedIndex - 1 ])
+            if( !this.manager.getType() || !this.manager.getDescriptor() || !this.manager.getFocus() )
             {
                 errs.push( "Please select a descriptor, type, and focus." );
             }
@@ -113,12 +113,12 @@ function( declare,
             this._ss( "cypher_count", "cypher_count" );
             this._ss( "shin_count", "shin_count" );
             this._ss( "character_xp", "character_xp" );
-            this._st( "description_text", this._getDescriptionText() );
+            this._st( "description_text", this._textAsList( "description_text" ) );
             this._wl( "ability_list", this._getSkillList() );
             this._wl( "special_list", this._listAsText( "special_list") );
             this._wl( "cypher_list", this._listAsText( "cypher_list") );
-            this._wl( "equipment_list", this._listAsText( "equipment_list") );
-            this._wl( "reference_list", this._listAsText( "reference_list" ) );
+            this._wl( "equipment_list", this._listAsText( "equipment_list" ).concat( this._textAsList( "extra_equipment_text") ) );
+            this._wl( "notes_list", this._textAsList( "notes_text" ) );
             this._wl( "attack_data", this._getAttacks() );
             this._processSpecialAbilities();
             this._processArmorValues();
@@ -217,11 +217,10 @@ function( declare,
                 cur.difficulty_adjustment -= boosts[ cur.category + "_" + cur.type ];
             }
         },
-        _getDescriptionText : function()
+        _textAsList : function( textArea )
         {
-            var dt = this.manager.description_text.get( "value" );
+            var dt = this.manager[ textArea ].get( "value" );
             dt = dt.split( "\n" );
-            dt = dt.join( "<br/>" );
             return dt;
         },
         _getSkillList : function()

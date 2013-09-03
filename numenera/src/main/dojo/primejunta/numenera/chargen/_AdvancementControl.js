@@ -42,7 +42,13 @@ function( declare,
             topic.publish( "CharGen/lockSheetControls" );
             while( this._controls.length < this.tier )
             {
-                this._controls.push( new _TierWidget({ manager : this.manager, parent : this, typeData : this.typeData, focusData : this.focusData, tier : this._controls.length + 1 }).placeAt( this.tierContainerNode ) );
+                this._controls.push( new _TierWidget({
+                    manager : this.manager,
+                    parent : this,
+                    typeData : this.typeData,
+                    focusData : this.focusData,
+                    tier : this._controls.length + 1
+                }).placeAt( this.tierContainerNode ) );
                 domClass.add( this._controls[ this._controls.length - 1 ].domNode, this._controls.length % 2 == 0 ? "cg-evenBackground" : "cg-warmBackground" );
             }
             this.manager.character_tier.value = this.tier;

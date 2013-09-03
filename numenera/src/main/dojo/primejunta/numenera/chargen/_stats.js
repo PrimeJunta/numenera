@@ -83,11 +83,8 @@ function( declare,
             var _from = parseInt( this[ "free_" + prop ].value );
             var ddis = ( parseInt( this[ stat + "_" + prop ].value ) == this[ stat + "_" + prop + "_floor" ] );
             var edis = ( ( parseInt( this[ stat + "_" + prop ].value ) >= this[ prop + "_cap" ] || _from == 0 ) );
-            this[ "decrement_" + stat + "_" + prop ].set( "disabled", ddis );
-            this[ "increment_" + stat + "_" + prop ].set( "disabled", edis );
-            // I have no idea why I need to add these classes by hand. The button should do it by itself, but sometimes it just doesn't.
-            ddis ? domClass.add( this[ "decrement_" + stat + "_" + prop ].domNode, [ "dijitButtonDisabled", "dijitDisabled" ] ) : domClass.remove( this[ "decrement_" + stat + "_" + prop ].domNode, [ "dijitButtonDisabled", "dijitDisabled" ] );
-            edis ? domClass.add( this[ "increment_" + stat + "_" + prop ].domNode, [ "dijitButtonDisabled", "dijitDisabled" ] ) : domClass.remove( this[ "increment_" + stat + "_" + prop ].domNode, [ "dijitButtonDisabled", "dijitDisabled" ] );
+            this._setDisabled([ "decrement_" + stat + "_" + prop ], ddis );
+            this._setDisabled([ "increment_" + stat + "_" + prop ], edis );
         },
         /**
          * Iterates through stats and writes each item's value into the matching input in template.
@@ -120,6 +117,10 @@ function( declare,
         {
             this[ stat ].value = val;
             this[ stat + "_floor" ] = val;
+            if( stat == "cypher_count" )
+            {
+                this._augmentCypherList( val );
+            }
         },
         _resetFloor : function( stat )
         {

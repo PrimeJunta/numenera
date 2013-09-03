@@ -1,7 +1,8 @@
-define([
-    {
+define({
+    "T0" : {
         "label" : "glaive",
         "description_text" : "Glaives are warriors: soldiers, mercenaries, bodyguards, and other masters of the martial arts.",
+        "notes_text" : "Glaive: Corebook, page 26",
         "special_list_label" : "Fighting Moves",
         "special_ability_name" : "Fighting Move",
         "stats" : {
@@ -31,7 +32,6 @@ define([
                 "Oddity: ${input:GM chooses}"
             ],
             "ability_list" : [ "Ⓣ ${select:1:Balancing|Climbing|Jumping|Swimming}" ],
-            "reference_list" : [ "Glaive: Corebook, page 26" ],
             "bonus_list" : [ "Ⓔ Practiced in Armor", "Ⓔ Practiced With All Weapons" ]
         },
         "advancement" : [
@@ -44,7 +44,7 @@ define([
         },
         {
             "stats" : {  "cypher_count" : 1 },
-            "bonus_perks" : [ "Ⓣ ${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged}" ], // no stack,
+            "bonus_perks" : [ "Ⓔ Expert Cypher Use", "Ⓣ ${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged}" ], // no stack,
             "perk_list" : "Ⓔ Experienced With Armor|Ⓐ Lunge (2 might)|Ⓐ Slice (2 speed)|Ⓐ Spray (2 speed)|Ⓐ Trick shot (2 speed)|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense" // no stack
         },
         {
@@ -54,7 +54,7 @@ define([
         {
             "skills_stack" : true,
             "stats" : { "cypher_count" : 1 },
-            "bonus_perks" : [ "Ⓣ ${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged}" ], //stacks,
+            "bonus_perks" : [ "Ⓔ Adept Cypher Use", "Ⓣ ${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged}" ], //stacks,
             "perk_list" : "Ⓐ Arc Spray (3 speed)|Ⓐ Jump Attack (5 might)|Ⓔ Mastery With Armor|Ⓔ Parry (5 speed)|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense" // stacks
         },
         {
@@ -63,9 +63,10 @@ define([
             "perk_list" : "Ⓔ Finishing Blow (5 might)|Ⓔ Slayer (3 might)|Ⓐ Spin Attack (5 speed)|Ⓐ Weapon and Body (5 speed)|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense" // stacks
         }]
     },
-    {
+    "T1" : {
         "label" : "nano",
         "description_text" : "Nanos are the 'wizards' of the Ninth World, performing miracles through the numenera.",
+        "notes_text" : "Nano: Corebook, page 32",
         "special_list_label" : "Esoteries",
         "special_ability_name" : "Esotery",
         "stats" : {
@@ -90,7 +91,6 @@ define([
                 "Clothing", "${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged} Weapon: ${input:choose}", "Book (numenera)", "Oddity: ${input:GM chooses}"
             ],
             "ability_list" : [ "Ⓣ Identifying/understanding the numenera" ],
-            "reference_list" : [ "Nano: Corebook, page 32" ],
             "bonus_list" : [ "Ⓔ Practiced With Light Weapons" ]
         },
         "advancement" : [{
@@ -101,6 +101,7 @@ define([
             },
             {
                 "stats" : { "cypher_count" : 1 },
+                "bonus_perks" : [ "Ⓔ Adept Cypher Use" ],
                 "perk_list" : "Ⓐ Barrier (3+ intellect)|Ⓐ Countermeasures (4 intellect)|Ⓐ Energy Protection (3+ intellect)|Ⓐ Sensor (4 intellect)|Ⓣ Targeting Eye"
             },
             {
@@ -108,15 +109,17 @@ define([
             },
             {
                 "stats" : { "cypher_count" : 1 },
+                "bonus_perks" : [ "Ⓔ Master Cypher Use" ],
                 "perk_list" : "Ⓐ Absorb Energy (7 intellect)|Ⓐ Dust to Dust (7 intellect)|Ⓐ Knowing the Unknown (6 intellect)|Ⓐ Teleportation (6+ intellect)|Ⓔ True Senses"
             },
             {
                 "perk_list" : "Ⓐ Control Weather (10 intellect)|Ⓐ Move Mountains (9 intellect)|Ⓐ Traverse the Worlds (8+ intellect)|Ⓐ Usurp Cypher"
             }]
     },
-    {
+    "T2" : {
         "label" : "jack",
         "description_text" : "The Jack-of-all trades, master of those of his choosing, is the most flexible of the character types.",
+        "notes_text" : "Jack: Corebook, page 40",
         "special_list_label" : "Tricks of the Trade",
         "special_ability_name" : "Trick of the Trade",
         "stats" : {
@@ -141,7 +144,6 @@ define([
                 "Clothing", "${select:2:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged} Weapon: ${input:choose}", "Light Armor: ${input:choose}", "Explorer's pack", "Bag of Light Tools", "Oddity: ${input:GM chooses}"
             ],
             "ability_list" : [ "Ⓣ ${input:choose any non-combat}" ],
-            "reference_list" : [ "Jack: Corebook, page 40" ],
             "bonus_list" : [ "Flex Skill", "Practiced With Light/Medium Weapons" ]
         },
         "advancement" : [{
@@ -153,7 +155,9 @@ define([
        },
        {
            "stats" : { "cypher_count" : 1 },
-           "bonus_perks" : [ "Ⓣ ${input:choose any non-combat}" ],
+           "bonus_perks" : [  ],
+
+           "bonus_perks" : [ "Ⓔ Expert Cypher Use", "Ⓣ ${input:choose any non-combat}" ],
            "perk_list" : "Ⓐ Enhancement (4 intellect)|Ⓐ Hover (3 intellect)|Ⓐ Mind Reading (4 intellect)|Ⓐ Onslaught (2 intellect)|Ⓣ Light Bashing|Ⓣ Light Bladed|Ⓣ Light Ranged|Ⓣ Medium Bashing|Ⓣ Medium Bladed|Ⓣ Medium Ranged|Ⓣ Heavy Bashing|Ⓣ Heavy Bladed|Ⓣ Heavy Ranged"
        },
        {
@@ -162,7 +166,7 @@ define([
        },
        {
            "stats" : { "cypher_count" : 1 },
-           "bonus_perks" : [ "Ⓣ ${input:choose any non-combat}" ],
+           "bonus_perks" : [ "Ⓔ Adept Cypher Use", "Ⓣ ${input:choose any non-combat}" ],
            "perk_list" : "Ⓐ Feint (3 speed)|Ⓐ Snipe (3 speed)|Ⓔ Successive Attack (2 speed)|Ⓣ Targeting Eye|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense"
        },
        {
@@ -170,4 +174,4 @@ define([
            "perk_list" : "Ⓐ Energy Protection (4+ intellect)|Ⓐ Invisibility (4 intellect)|Ⓔ Parry (6 speed)|Ⓐ Spin Attack (6 speed)|Ⓔ True Senses"
        }]
     }
-]);
+});

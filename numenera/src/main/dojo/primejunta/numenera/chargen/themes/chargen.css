@@ -19,6 +19,39 @@ select
 	font-size : large;
    font-family : 'Droid sans', 'avant garde', helvetica, helve, arial, sans-serif;
 }
+.cg-hiddenControl 
+{
+	display : none;
+	margin-left : 24px;
+	cursor : pointer;
+}
+.cg-deleteControl
+{
+	font-size : 22px;
+	font-weight : bold;
+	color : #990000;
+}
+.cg-deletedItem, .cg-deletedItem td, .cg-deletedItem select, .cg-deletedItem input
+{
+	text-decoration : line-through;
+	opacity : 0.5;
+}
+.cg-finalized .cg-deletedItem
+{
+	/* display : none; */
+}
+.cg-hoverControls:hover .cg-hiddenControl
+{
+	display : inline-block;
+	width : 24px;
+	height : 24px;
+	line-height : 24px;
+	vertical-align : middle;
+}
+.cg-finalized .cg-hiddenControl
+{
+	display : none !important;
+}
 .cg-tierRow td
 {
 	padding : 10px;
@@ -40,9 +73,16 @@ select
 .cg-statInput
 {
 	font-size : 18px;
-	height : 36px;
+	height : 38px;
 	width : 72px;
 	text-align : center;
+	border : 1px solid #848484;
+	border-radius : 3px;
+}
+input[readonly].cg-statInput
+{
+	border : 1px solid #b4b4b4;
+    background-color : #f5f5f5;
 }
 .cg-adjustButton .dijitButtonNode
 {
@@ -53,9 +93,9 @@ select
 {
 	padding-top : 7px;
 }
-.___dijitDisabled
+.dijitButton
 {
-	opacity : 0.4;
+	font-size : 18px;
 }
 h1, h2, h3
 {
@@ -82,7 +122,7 @@ th
 }
 li
 {
-	line-height : 26px;
+	line-height : 28px;
 }
 li div
 {

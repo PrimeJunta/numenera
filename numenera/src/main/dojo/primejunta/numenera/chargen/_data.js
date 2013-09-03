@@ -22,7 +22,7 @@ function( declare,
           _CharacterManager )
 {
     return declare([], {
-        dataVersion : "0.9.1",
+        dataVersion : "1.0.0",
         _listDelimiter : "-",
         postMixInProperties : function()
         {
@@ -103,7 +103,14 @@ function( declare,
         loadCharacter : function( key )
         {
             var val = this._storage.get( key ).data;
-            this._populateFromStoredData( val );
+            try
+            {
+                this._populateFromStoredData( val );
+            }
+            catch( e )
+            {
+                console.log( e );
+            }
             this.updateLink();
             this._dlog.hide();
         },
@@ -119,6 +126,10 @@ function( declare,
                 this._populating = [];
             }
             if( this._populating.length > 0 )
+            {
+                return;
+            }
+            if( !this.getType() || !this.getFocus() || !this.getDescriptor() )
             {
                 return;
             }
@@ -147,6 +158,7 @@ function( declare,
             var idxs = [];
             var vals = [];
             var disb = [];
+            var dels = [];
             for( var i = 0; i < sels.length; i++ )
             {
                 idxs.push( sels[ i ].selectedIndex );
@@ -164,7 +176,34 @@ function( declare,
                 }
                 disb.push( inps[ i ].disabled ? 1 : 0 );
             }
-            return "version=" + escape( this.dataVersion ) + "&finalized=" + this.finalized + "&tier=" + this.character_tier.value + "&selects=" + encodeURIComponent( idxs.join( this._listDelimiter ) ) + "&inputs=" + encodeURIComponent( vals.join( this._listDelimiter ) ) + "&description=" + encodeURIComponent( this.description_text.value ) + "&disabled=" + disb.join( "" );
+            for( var i = 0; i < this._controls.length; i++ )
+            {
+                if( this._controls[ i ].isDeletable )
+                {
+                    if( this._controls[ i ].deleted )
+                    {
+                        dels.push( 1 );
+                    }
+                    else
+                    {
+                        dels.push( 0 );
+                    }
+                }
+            }
+            return "version=" + escape( this.dataVersion )
+                + "&descriptor=" + this._selVal( this.descriptorSelect ).value
+                + "&type=" + this._selVal( this.typeSelect ).value
+                + "&focus=" + this._selVal( this.focusSelect ).value
+                + "&finalized=" + this.finalized
+                + "&tier=" + this.character_tier.value
+                + "&cyphers=" + this.cypher_count.value
+                + "&selects=" + encodeURIComponent( idxs.join( this._listDelimiter ) )
+                + "&inputs=" + encodeURIComponent( vals.join( this._listDelimiter ) )
+                + "&extra_equipment_text=" + encodeURIComponent( this.extra_equipment_text.value )
+                + "&notes_text=" + encodeURIComponent( this.notes_text.value )
+                + "&description_text=" + encodeURIComponent( this.description_text.value )
+                + "&disabled=" + disb.join( "" )
+                + "&deleted=" + dels.join( "" );
         },
         _escapeDelimiter : function( str )
         {
@@ -188,22 +227,28 @@ function( declare,
             var idxs = kwObj.selects.split( this._listDelimiter );
             var vals = kwObj.inputs.split( this._listDelimiter );
             var disb = kwObj.disabled ? kwObj.disabled : "";
-            this.descriptorSelect.selectedIndex = idxs[ 0 ];
-            this.typeSelect.selectedIndex = idxs[ 1 ];
-            this.focusSelect.selectedIndex = idxs[ 2 ];
+            var dels = kwObj.deleted ? kwObj.deleted : "";
+            this._selVal( this.descriptorSelect, kwObj.descriptor );
+            this._selVal( this.typeSelect, kwObj.type );
+            this._selVal( this.focusSelect, kwObj.focus );
             this.selectDescriptor();
+            this._augmentCypherList( kwObj.cyphers );
             if( kwObj.finalized == "true" )
             {
                 this.finalize( kwObj.tier );
             }
             var sels = domQuery( "select.cg-storeMe", this.domNode );
             var inps = domQuery( "input.cg-storeMe", this.domNode );
-            for( var i = 3; i < idxs.length; i++ )
+            for( var i = 0; i < idxs.length; i++ )
             {
                 if( sels[ i ] )
                 {
                     sels[ i ].selectedIndex = idxs[ i ];
-                    sels[ i ].disabled = ( disb[ i ] == "1" )
+                    sels[ i ].disabled = ( disb[ i ] == "1" );
+                }
+                else
+                {
+                    break;
                 }
             }
             for( var i = 0; i < vals.length; i++ )
@@ -226,7 +271,21 @@ function( declare,
                 this.moveCaps();
             }
             this.checkCaps();
-            this.description_text.set( "value", kwObj.description );
+            var d = 0;
+            for( var i = 0; i < this._controls.length; i++ )
+            {
+                if( this._controls[ i ].isDeletable )
+                {
+                    if( dels[ d ] == "1" )
+                    {
+                        this._controls[ i ].deleteMe();
+                    }
+                    d++;
+                }
+            }
+            this.description_text.set( "value", kwObj.description_text );
+            this.notes_text.set( "value", kwObj.notes_text );
+            this.extra_equipment_text.set( "value", kwObj.extra_equipment_text );
             this._populating.pop();
             topic.publish( "CharGen/pleaseCheckState" );
         }

@@ -1,6 +1,7 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "dojo/topic",
+         "dojo/query",
          "dojo/dom-class",
          "dojo/dom-construct",
          "dijit/_WidgetBase",
@@ -14,6 +15,7 @@ define([ "dojo/_base/declare",
 function( declare,
           lang,
           topic,
+          domQuery,
           domClass,
           domConstruct,
           _WidgetBase,
@@ -90,6 +92,22 @@ function( declare,
             {
                 this.applyButton.domNode.style.visibility = "hidden";
             }
+            if( !this._tierChoicesMade() )
+            {
+                this.purchasedBenefitsNode.style.display = "none";
+            }
+        },
+        _tierChoicesMade : function()
+        {
+            var elms = domQuery( ".cg-storeMe", this.freeBenefitsNode );
+            for( var i = 0; i < elms.length; i++ )
+            {
+                if( !elms[ i ].disabled )
+                {
+                    return false;
+                }
+            }
+            return true;
         },
         onFocusSkillInput : function()
         {
@@ -325,7 +343,10 @@ function( declare,
             var out = [];
             for( var i = 0; i < this._controls.length; i++ )
             {
-                out.push( this._controls[ i ].getText() );
+                if( this._controls[ i ].getText() )
+                {
+                    out.push( this._controls[ i ].getText() );
+                }
             }
             return out;
         },
