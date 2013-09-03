@@ -492,7 +492,7 @@ define({
             "equipment_list" : [ "Shield" ],
             "ability_list" : [ "Ⓣ Speed Defense (with shield)" ],
             "inability_list" : [ "Attack (with shield) (+1 level)", "Defense (without shield) (+1 level)" ],
-            "connection_list" : [ "Another PC saved your life" ]
+            "connection_list" : [ "One PC once saved your life." ]
         },
         "advancement" : [{
         },

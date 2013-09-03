@@ -21,6 +21,17 @@ select
 	font-size : large;
    font-family : 'Droid sans', 'avant garde', helvetica, helve, arial, sans-serif;
 }
+.cg-helpPage
+{
+    border-radius : 20px;
+    width : 800px;
+    margin-top : 50px;
+    margin-left : auto;
+    margin-right : auto;
+    margin-bottom : 50px;
+    padding : 40px;
+    background-color : #f5f5f5;
+}
 .cg-hiddenControl 
 {
 	display : none;
@@ -301,7 +312,8 @@ li td
 }
 .cg-closeButton .dijitButtonNode
 {
-	border-radius : 12px;
+	border-radius : 14px;
+	font-size : 16px;
 	height : 20px;
 	width : 20px;
 }

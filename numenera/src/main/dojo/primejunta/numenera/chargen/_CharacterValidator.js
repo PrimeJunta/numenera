@@ -117,7 +117,7 @@ function( declare,
             this._wl( "special_list", this._listAsText( "special_list") );
             this._wl( "cypher_list", this._listAsText( "cypher_list") );
             this._wl( "equipment_list", this._listAsText( "equipment_list" ).concat( this._textAsList( "extra_equipment_text") ) );
-            this._wl( "notes_list", this._textAsList( "notes_text" ) );
+            this._wl( "notes_list", this._textAsList( "notes_text" ).concat( this._listAsText( "connection_list" ) ) );
             this._wl( "attack_data", this._getAttacks() );
             this._processSpecialAbilities();
             this._processArmorValues();

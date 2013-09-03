@@ -1,7 +1,7 @@
 CACHE MANIFEST
 # Cache manifest for Numenera Character Creator.
 #
-# Version 1.0.0-b3
+# Version 1.0.0-b9
 index.html
 # Main stylesheet
 primejunta/numenera/chargen/themes/chargen.css
@@ -9,6 +9,11 @@ primejunta/numenera/chargen/themes/charrec.css
 # Scripts
 dojo/dojo.js
 primejunta/numenera.js
+dojo/resources/blank.gif
+# Localization
+primejunta/nls/numenera_en.js
+dijit/nls/loading.js
+dijit/nls/common.js
 # Fonts
 http://fonts.googleapis.com/css?family=Lato|Kreon|Droid+Sans|Prata
 http://themes.googleusercontent.com/static/fonts/droidsans/v3/s-BiyweUPV0v-yRb-cjciL3hpw3pgy2gAi-Ip7WPMi0.woff
@@ -21,10 +26,6 @@ dijit/themes/tundra/Dialog.css
 dijit/themes/tundra/Common.css
 dijit/themes/tundra/form/Common.css
 dijit/themes/tundra/form/Button.css
-primejunta/nls/numenera_en.js
-dojo/resources/blank.gif
-dijit/nls/loading.js
-dijit/nls/common.js
 primejunta/numenera/chargen/themes/images/Numenera_Logo.png
 dijit/themes/tundra/images/buttonDisabled.png
 dijit/themes/tundra/images/buttonEnabled.png

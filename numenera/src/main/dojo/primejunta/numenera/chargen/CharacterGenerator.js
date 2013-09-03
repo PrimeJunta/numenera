@@ -10,7 +10,10 @@ define([ "dojo/_base/declare",
          "dojo/on",
          "dojo/topic",
          "dojo/dom-class",
+         "dojo/dom-construct",
          "dojo/query",
+         "dojo/has",
+         "dojo/cookie",
          "dijit/Dialog",
          "dijit/form/Button",
          "dijit/form/Textarea",
@@ -26,7 +29,8 @@ define([ "dojo/_base/declare",
          "./data/descriptors",
          "./data/types",
          "./data/foci",
-         "dojo/text!./templates/CharacterGenerator.html" ],
+         "dojo/text!./templates/CharacterGenerator.html",
+         "dojo/text!./doc/about.html" ],
 function( declare,
           lang,
           array,
@@ -35,7 +39,10 @@ function( declare,
           on,
           topic,
           domClass,
+          domConstruct,
           domQuery,
+          has,
+          cookie,
           Dialog,
           Button,
           Textarea,
@@ -51,7 +58,8 @@ function( declare,
           descriptors,
           types,
           foci,
-          template )
+          template,
+          about )
 {
     return declare( "primejunta/numenera/chargen/CharacterGenerator", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _data, _stats, _lists ], {
         DEFAULT_VALUES : {
@@ -88,6 +96,11 @@ function( declare,
             this.inherited( arguments );
             document.body.className = "tundra";
             window.applicationCache.addEventListener( "updateready", lang.hitch( this, this.updateSite ), false);
+            if( !has( "ff" ) && !has( "webkit" ) && !cookie( "browserCheckAlert" ) )
+            {
+                alert( "This webapp has only been tested on Firefox, Google Chrome, and Apple Safari. Use at your own risk." );
+                cookie( "browserCheckAlert", "1", { expires : 30 });
+            }
         },
         updateSite : function( event )
         {
@@ -354,12 +367,21 @@ function( declare,
         },
         showHelp : function()
         {
-            this.helpDialog.show();
+            console.log( "HERP!" );
+            if( !this._helpNode )
+            {
+                this._helpNode = domConstruct.create( "div", { style : "display:none;" }, document.body );
+                this._helpNode.innerHTML = about;
+                on( this._helpNode, "click", lang.hitch( this, this.hideHelp ) );
+            }
+            this.domNode.style.display = "none";
+            this._helpNode.style.display = "block";
+            console.log( "DERP!" );
         },
         hideHelp : function( e )
         {
-            this.helpDialog.hide();
-            event.stop( e );
+            this._helpNode.style.display = "none";
+            this.domNode.style.display = "blocK";
         },
         tell : function( msg )
         {
