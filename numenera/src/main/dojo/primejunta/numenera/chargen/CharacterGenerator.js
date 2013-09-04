@@ -81,6 +81,9 @@ function( declare,
          * Default character name.
          */
         DEFAULT_CHARACTER_NAME : "a Hero of the Ninth World",
+        /**
+         * Public version number.
+         */
         version : "1.0.0-b15",
         finalized : false,
         /**
