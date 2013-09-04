@@ -1,6 +1,10 @@
 .cr-CharacterRecordBase
 {
-	font-size : 13px;
+	font-size : 10px;
+}
+.cr-listContent
+{
+	line-height : 14px;
 }
 .cr-CharacterRecordPage1, .cr-CharacterRecordPage2
 {
@@ -162,7 +166,8 @@ h2.cr-heading
     }
     .cr-CharacterRecordPage2,.cr-CharacterRecordPage1
     {
-        margin-top : 20px;
+        margin-top : 10px;
+        margin-bottom : 10px;
     }
     .cr-uiControl
     {
@@ -185,7 +190,6 @@ h2.cr-heading
     }
     .cr-skills
 	{
-	    height : 110mm; /* override for screen */
 	}
 	.cr-copyright
 	{
@@ -193,26 +197,18 @@ h2.cr-heading
 	}
 	.cr-cyphers 
 	{
-	   height : 70mm;
+	    height : 30mm;
 	}
     .cr-CharacterRecordPage1, .cr-CharacterRecordPage2
 	{
 	    height : 205mm; /* override for screen */
 	    width : 293mm;
+        font-size : 10pt;
 	}
-    
-    /*
-    .cg-printContainer, .cr-CharacterRecordBase
-    {
-        width : 296mm;
-        height : 419mm;
-    }
-    .cr-CharacterRecordContent, .cr-CharacterRecordPage1, .cr-CharacterRecordPage2
-    {
-        width : 290mm;
-        height : 205mm;
-    }
-    */
+	.cr-listContent
+	{
+	    line-height : 14pt;
+	}
     .cr-pageBreak
     {
         page-break-before : always;

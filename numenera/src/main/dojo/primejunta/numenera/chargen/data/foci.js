@@ -535,7 +535,7 @@ define({
             "bonus_perks" : [ "Ⓔ Extreme Mastery (4 might)" ]
         },
         {
-            "bonus_perks" : [ "Ⓔ Damage Dealer", "Death Dealer (5 might)" ]
+            "bonus_perks" : [ "Ⓔ Damage Dealer", "Ⓐ Death Dealer (5 might)" ]
         }]
     },
     "F20" : {
