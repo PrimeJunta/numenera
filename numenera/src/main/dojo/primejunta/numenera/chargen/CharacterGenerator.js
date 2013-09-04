@@ -1,6 +1,9 @@
 /**
  * Character generation utility for Monte Cook's Numenera RPG system. Numenera is (c) Monte Cook Games LLC, 2013.
  * This utility is an unofficial project by Petteri Sulonen. No rights reserved -- feel free to reuse as you wish.
+ * 
+ * $Id:$
+ * 
  */
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
@@ -167,6 +170,7 @@ function( declare,
         unlockFinalize : function()
         {
             this.finalizeButton.set( "disabled", false );
+            this.updateLink();
         },
         descriptionUpdated : function()
         {
@@ -209,18 +213,21 @@ function( declare,
             this.articleNode.innerHTML = _art;
             this.updateValues();
             this._populating.pop();
+            this.updateLink();
         },
         selectType : function()
         {
             this._populating.push( 4 );
             this.updateValues();
             this._populating.pop();
+            this.updateLink();
         },
         selectFocus : function()
         {
             this._populating.push( 5 );
             this.updateValues();
             this._populating.pop();
+            this.updateLink();
         },
         /**
          * Clears the UI, finds the data for the descriptor, type, and focus the user has picked, enables
@@ -353,9 +360,7 @@ function( declare,
                 this._printWidget.destroy();
             }
             this.domNode.style.display = "none";
-            try{
             this._printWidget = new _CharacterRecord({ manager : this }).placeAt( document.body );
-            }catch(e){console.log(e)}
         },
         clearAll : function()
         {
@@ -476,7 +481,7 @@ function( declare,
             this.result_pane.style.display = "none";
             this._setDisabled([ "descriptorSelect", "typeSelect", "focusSelect" ], false );
             this._setValues([ "character_tier", "character_effort", "might_pool", "speed_pool", "intellect_pool", "might_edge", "speed_edge", "intellect_edge", "free_pool", "free_edge", "shin_count", "cypher_count", "armor_bonus" ], "" );
-            var lists = [ "ability_list", "inability_list", "special_list", "equipment_list", "bonus_list", "connection_list" ];
+            var lists = [ "ability_list", "inability_list", "special_list", "equipment_list", "bonus_list" ];
             this.updateLink();
             this._setDisabled([ "saveButton", "printButton", "increment_might_pool", "decrement_might_pool", "increment_speed_pool", "decrement_speed_pool", "increment_intellect_pool", "decrement_intellect_pool","increment_might_edge", "decrement_might_edge", "increment_speed_edge", "decrement_speed_edge", "increment_intellect_edge", "decrement_intellect_edge" ], true );
         }

@@ -2,9 +2,9 @@ define({
     "F0" : {
         "label" : "Bears a Halo of Fire",
         "notes_text" : "Bears a Halo of Fire: Corebook, page 52",
+        "description_text" : "Fire abilities cannot harm one PC.",
         "lists" : {
             "equipment_list" : [ "Artifact (Fireproofer)" ],
-            "connection_list" : [ "Fire abilities cannot harm one PC" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Fire esoteries", "Shroud of Flame (1 intellect)" ]
@@ -28,10 +28,10 @@ define({
     "F1" : {
         "label" : "Carries a Quiver",
         "notes_text" : "Carries a Quiver: Corebook, page 54",
+        "description_text" : "One PC is true friend.\nOne PC is always hit on fumble.",
         "lists" : {
             "equipment_list" : [ "Well-Made Medium Ranged Weapon: Bow", "24 arrows" ],
             "ability_list" : [ "Ⓣ Fletcher" ],
-            "connection_list" : [ "One PC is true friend", "One PC always hit on fumble" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Archer (spend Speed or intellect Effort to increase bow damage)" ]
@@ -55,10 +55,10 @@ define({
     "F2" : {
         "label" : "Commands Mental Powers",
         "notes_text" : "Commands Mental Powers: Corebook, page 54",
+        "description_text" : "You have a telepathic connection to one PC.",
         "lists" : {
             "equipment_list" : [ "Intellect Crystal (+1 intellect Pool, -5 if lost)" ],
             "ability_list" : [ "Ⓣ Mind Control (if has it)", "Ⓣ Mind Reading (if has it)" ],
-            "connection_list" : [ "Telepathic connection to one PC" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓐ Telepathic (1+ intellect)" ]
@@ -82,9 +82,9 @@ define({
     "F3" : {
         "label" : "Controls Beasts",
         "notes_text" : "Controls Beasts: Corebook, page 55",
+        "description_text" : "One PC disturbs your creatures.",
         "lists" : {
             "equipment_list" : [ "3 days food for beast companion" ],
-            "connection_list" : [ "One PC disturbs your creatures" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Beast Companion" ]
@@ -108,9 +108,9 @@ define({
     "F4" : {
         "label" : "Controls Gravity",
         "notes_text" : "Controls Gravity: Corebook, page 56",
+        "description_text" : "One PC was once hurt by your use of your powers.",
         "lists" : {
             "equipment_list" : [ "Oddity (point to read weight of object)" ],
-            "connection_list" : [ "One PC was hurt by use of powers" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓐ Hover (1 intellect)" ]
@@ -135,9 +135,9 @@ define({
     "F5" : {
         "label" : "Crafts Illusions",
         "notes_text" : "Crafts Illusions: Corebook, page 57",
+        "description_text" : "One PC is never fooled by your illusions.",
         "lists" : {
             "equipment_list" : [ "Oddity (sphere that shows pictures)" ],
-            "connection_list" : [ "One PC never fooled by illusions" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Psychedelic esoteries", "Ⓐ Minor Illusion (1 intellect)" ]
@@ -161,10 +161,10 @@ define({
     "F6" : {
         "label" : "Crafts Unique Objects",
         "notes_text" : "Crafts Unique Objects: Corebook, page 58",
+        "description_text" : "One PC has an extra level 1/2 item made by you.",
         "lists" : {
             "equipment_list" : [ "Bag of Light Tools", "Self-made level 1/2 item: ${input:choose}", "Oddity: ${input:GM chooses}" ],
             "ability_list" : [ "Ⓣ Craft item type: ${input:choose}", "Ⓣ Craft item type: ${input:choose}", "Ⓣ Identifying function of device" ],
-            "connection_list" : [ "One PC has extra self-made level 1/2 item" ]
         },
         "advancement" : [{
         },
@@ -187,8 +187,8 @@ define({
     "F7" : {
         "label" : "Employs Magnetism",
         "notes_text" : "Employs Magnetism: Corebook, page 59",
+        "description_text" : "Your presence makes one PC's metallic items rattle.",
         "lists" : {
-            "connection_list" : [ "Makes one PC's metallic items rattle" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓐ Move Metal (1 intellect)" ]
@@ -212,10 +212,10 @@ define({
     "F8" : {
         "label" : "Entertains",
         "notes_text" : "Entertains: Corebook, page 60",
+        "description_text" : "One PC is your worst critic; your abilities don't work for him/her.",
         "lists" : {
             "equipment_list" : [ "Musical instrument: ${input:choose}" ],
             "ability_list" : [ "Ⓣ All social interactions except coercion, intimidation" ],
-            "connection_list" : [ "One PC is worst critic; abilities don't work for him/her" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ +1 to comrades' Recovery Rolls" ]
@@ -239,8 +239,8 @@ define({
     "F9" : {
         "label" : "Exists Partially Out of Phase",
         "notes_text" : "Exists Partially Out of Phase: Corebook, page 60",
+        "description_text" : "One PC is old friend who helped you get control of your abilities.",
         "lists" : {
-            "connection_list" : [ "One PC is old friend who helped get control of abilities" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓐ Walk through walls (2 intellect)" ]
@@ -264,10 +264,10 @@ define({
     "F10" : {
         "label" : "Explores Dark Places",
         "notes_text" : "Explores Dark Places: Corebook, page 61",
+        "description_text" : "One PC is an old companion, and always gets +1 on rolls when working with you.",
         "lists" : {
             "equipment_list" : [ "Explorer's Pack" ],
             "ability_list" : [ "Ⓣ Searching", "Ⓣ Listening", "Ⓣ Climbing", "Ⓣ Balancing", "Ⓣ Jumping" ],
-            "connection_list" : [ "One PC is old companion, always gets +1 on rolls when working with you" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Dark esoteries" ]
@@ -294,9 +294,9 @@ define({
     "F11" : {
         "label" : "Fights With Panache",
         "notes_text" : "Fights With Panache: Corebook, page 62",
+        "description_text" : "You are always trying to impress one PC.",
         "lists" : {
             "equipment_list" : [ "Extremely stylish clothes", "Jeweled ${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged} Weapon: ${input:choose}" ],
-            "connection_list" : [ "Always trying to impress one PC" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Attack Flourish" ]
@@ -320,9 +320,9 @@ define({
     "F12" : {
         "label" : "Focuses Mind over Matter",
         "notes_text" : "Focuses Mind over Matter: Corebook, page 63",
+        "description_text" : "One PC causes your mental powers to act strangely.",
         "lists" : {
             "bonus_list" : [ "Mental esoteries", "Deflect Attacks (1 intellect)" ],
-            "connection_list" : [ "One PC causes mental powers to act strangely" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Mental esoteries", "Ⓐ Deflect Attacks (1 intellect)" ]
@@ -346,6 +346,7 @@ define({
     "F13" : {
         "label" : "Fuses Flesh and Steel",
         "notes_text" : "Fuses Flesh and Steel: Corebook, page 64",
+        "description_text" : "One PC knows your nature or a command to temporarily disable your mechanical parts.",
         "stats" : {
             "might_pool" : 3,
             "speed_pool" : 3,
@@ -354,7 +355,6 @@ define({
         "lists" : {
             "equipment_list" : [ "Bag of Light Tools", "Spare parts (for self)" ],
             "inability_list" : [ "Special Healing (first 5 points need to be repaired)" ],
-            "connection_list" : [ "One PC knows your nature or a command to temporarily disable your mechanical parts" ]
         },
         "advancement" : [{
         },
@@ -383,9 +383,9 @@ define({
     "F14" : {
         "label" : "Howls at the Moon",
         "notes_text" : "Howls at the Moon: Corebook, page 64",
+        "description_text" : "One PC knows how to calm you in your beast state.",
         "lists" : {
             "equipment_list" : [ "Artifact (chronometer)" ],
-            "connection_list" : [ "One PC knows how to calm you" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Beast Form" ]
@@ -409,10 +409,10 @@ define({
     "F15" : {
         "label" : "Hunts With Great Skill",
         "notes_text" : "Hunts With Great Skill: Corebook, page 65",
+        "description_text" : "One PC once saw you let prey go.",
         "lists" : {
             "equipment_list" : [ "Silent Boots (+1 to sneaking)" ],
             "ability_list" : [ "Ⓣ Tracking", "Ⓣ Climbing", "Ⓣ Swimming", "Ⓣ Jumping", "Ⓣ Balancing", "Ⓣ Running" ],
-            "connection_list" : [ "One PC saw you let prey go" ]
         },
         "advancement" : [{
         },
@@ -435,10 +435,10 @@ define({
     "F16" : {
         "label" : "Leads",
         "notes_text" : "Leads: Corebook, page 66",
+        "description_text" : "One PC is a former follower, current equal.",
         "lists" : {
             "equipment_list" : [ "Artifact (tag Followers)" ],
             "ability_list" : [ "Ⓣ All social interactions" ],
-            "connection_list" : [ "One PC is former follower, current equal" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓐ Good Advice (1 intellect)" ]
@@ -462,10 +462,10 @@ define({
     "F17" : {
         "label" : "Lives in the Wilderness",
         "notes_text" : "Lives in the Wilderness: Corebook, page 67",
+        "description_text" : "You dislike one PC for his/her \"civilized\" ways.",
         "lists" : {
             "equipment_list" : [ "Compass" ],
             "ability_list" : [ "Ⓣ Climbing", "Ⓣ Swimming", "Ⓣ Wilderness Navigation", "Ⓣ Identifying plants", "Ⓣ Identifying animals" ],
-            "connection_list" : [ "Dislike one \"civilized\" PC" ]
         },
         "advancement" : [{
         },
@@ -488,11 +488,11 @@ define({
     "F18" : {
         "label" : "Masters Defense",
         "notes_text" : "Masters Defense: Corebook, page 68",
+        "description_text" : "One PC once saved your life.",
         "lists" : {
             "equipment_list" : [ "Shield" ],
             "ability_list" : [ "Ⓣ Speed Defense (with shield)" ],
             "inability_list" : [ "Attack (with shield) (+1 level)", "Defense (without shield) (+1 level)" ],
-            "connection_list" : [ "One PC once saved your life." ]
         },
         "advancement" : [{
         },
@@ -515,9 +515,9 @@ define({
     "F19" : {
         "label" : "Masters Weaponry",
         "notes_text" : "Masters Weaponry: Corebook, page 69",
+        "description_text" : "One PC shows promise in use of your chosen weapon.",
         "lists" : {
             "equipment_list" : [ "High-quality ${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged} Weapon: ${input:choose}" ],
-            "connection_list" : [ "One PC shows promise in use of chosen weapon" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Weapon Master: ${input:choose}", "Ⓔ Weaponry esoteries" ]
@@ -541,10 +541,10 @@ define({
     "F20" : {
         "label" : "Murders",
         "notes_text" : "Murders: Corebook, page 70",
+        "description_text" : "One PC knows your secret past.",
         "lists" : {
             "equipment_list" : [ "Disguise kit", "Level 2/5 DAM blade poison, (3 doses)" ],
             "ability_list" : [ "Ⓣ Stealth", "Ⓣ Disguise" ],
-            "connection_list" : [ "One PC knows your secret past" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Surprise Attack" ]
@@ -568,9 +568,9 @@ define({
     "F21" : {
         "label" : "Rages",
         "notes_text" : "Rages: Corebook, page 71",
+        "description_text" : "You feel protective about one PC.",
         "lists" : {
             "bonus_list" : [ "Frenzy (1 intellect)" ],
-            "connection_list" : [ "Feel protective about one PC" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Frenzy (1 intellect)" ]
@@ -601,9 +601,9 @@ define({
     "F22" : {
         "label" : "Rides the Lightning",
         "notes_text" : "Rides the Lightning: Corebook, page 71",
+        "description_text" : "One PC is an old friend, and can come along with Bolt Rider or Electrical Flight.",
         "lists" : {
             "equipment_list" : [ "Bag of miscellaneous batteries and power cells" ],
-            "connection_list" : [ "One PC is old friend, can come along with Bolt Rider or Electrical Flight" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Electrical esoteries", "Ⓐ Shock (1 intellect)", "Ⓐ Charge (1+ intellect)" ]
@@ -631,10 +631,10 @@ define({
     "F23" : {
         "label" : "Talks to Machines",
         "notes_text" : "Talks to Machines: Corebook, page 72",
+        "description_text" : "One PC is terrible with (your) machines.",
         "lists" : {
             "equipment_list" : [ "Bag of Light Tools" ],
             "ability_list" : [ "Ⓣ All tasks involving electrical machines" ],
-            "connection_list" : [ "One PC is terrible with machines" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓐ Distant Activation (1 intellect)" ]
@@ -658,9 +658,9 @@ define({
     "F24" : {
         "label" : "Wears a Sheen of Ice",
         "notes_text" : "Wears a Sheen of Ice: Corebook, page 73",
+        "description_text" : "One PC gets benefit of Ice Armor, if standing nearby.",
         "lists" : {
             "equipment_list" : [ "Stronglass ${select:1:Light Bladed|Medium Bladed|Heavy Bladed} Weapon: ${input:choose}" ],
-            "connection_list" : [ "One PC gets benefit of Ice Armor, if standing nearby" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Ice esoteries", "Ⓔ Ice Armor (1 intellect)" ]
@@ -684,12 +684,12 @@ define({
     "F25" : {
         "label" : "Wields Power with Precision",
         "notes_text" : "Wields Power with Precision: Corebook, page 74",
+        "description_text" : "One PC is immune to your esoteries, unless s/he allows them.",
         "stats" : {
             "intellect_pool" : 5
         },
         "lists" : {
             "equipment_list" : [ "Book (numenera)" ],
-            "connection_list" : [ "One PC immune to your esoteries, unless s/he allows them" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Genius" ]
@@ -717,9 +717,9 @@ define({
     "F26" : {
         "label" : "Wields Two Weapons at Once",
         "notes_text" : "Wields Two Weapons at Once: Corebook, page 75",
+        "description_text" : "One PC is your training companion; both get +1 to Speed Defense if fighting back to back.",
         "lists" : {
             "equipment_list" : [ "${select:1:Light Bashing|Light Bladed} Weapon: ${input:choose}" ],
-            "connection_list" : [ "One PC training companion; both get +1 to Speed Defense if fighting back to back" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Dual Light Wield" ]
@@ -743,9 +743,7 @@ define({
     "F27" : {
         "label" : "Works Miracles",
         "notes_text" : "Works Miracles: Corebook, page 75",
-        "lists" : {
-            "connection_list" : [ "One PC thinks you're a messiah or supernatural being" ]
-        },
+        "description_text" : "One PC thinks you're a messiah or supernatural being.",
         "advancement" : [{
             "bonus_perks" : [ "Ⓐ Healing Touch (1 intellect)" ]
         },
@@ -768,10 +766,10 @@ define({
     "F28" : {
         "label" : "Works the Back Alleys",
         "notes_text" : "Works the Back Alleys: Corebook, page 76",
+        "description_text" : "One PC knew you before, and convinced you to quit crime.",
         "lists" : {
             "equipment_list" : [ "Bag of Light Tools" ],
             "ability_list" : [ "Ⓣ Sneaking", "Ⓣ Pickpocketing", "Ⓣ Lockpicking" ],
-            "connection_list" : [ "One PC knew you before, convinced you to quit crime" ]
         },
         "advancement" : [{
         },

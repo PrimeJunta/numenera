@@ -45,12 +45,12 @@ function( declare,
             if( event.keyCode == 90 && event.ctrlKey && this._buffer.length > 1 )
             {
                 var prev = this._buffer.pop();
-                this._populateFromStoredData( this._buffer[ this._buffer.length - 1 ] );
+                this.populateFromStoredData( this._buffer[ this._buffer.length - 1 ] );
             }
         },
         populateFromQueryString : function()
         {
-            this._populateFromStoredData( window.location.search.substring( 1 ) );
+            this.populateFromStoredData( window.location.search.substring( 1 ) );
             this.updateLink();
         },
         storeCharacter : function()
@@ -103,16 +103,9 @@ function( declare,
         loadCharacter : function( key )
         {
             var val = this._storage.get( key ).data;
-            try
-            {
-                this._populateFromStoredData( val );
-            }
-            catch( e )
-            {
-                console.log( e );
-            }
-            this.updateLink();
             this._dlog.hide();
+            this.populateFromStoredData( val );
+            this.updateLink();
         },
         deleteCharacter : function( key )
         {
@@ -213,17 +206,46 @@ function( declare,
         {
             return str.replace( /\/\/\//g, this._listDelimiter );
         },
-        _populateFromStoredData : function( qString )
+        _validateData : function( qString )
         {
-            this._populating.push( 3 );
-            this.clearAll();
+            var fields = [ "version", "descriptor", "type", "focus", "finalized", "tier", "cyphers", "selects", "inputs", "extra_equipment_text", "notes_text", "description_text", "disabled", "deleted" ];
             var kwObj = ioQuery.queryToObject( qString );
             if( kwObj.version != this.dataVersion )
             {
                 this.tell( "The character was created with an incompatible version of this utility, and cannot be loaded. We apologize for the inconvenience." );
-                this._populating.pop();
+                return false;
+            }
+            for( var i = 0; i < fields.length; i++ )
+            {
+                if( kwObj[ fields[ i ] ] === undefined )
+                {
+                    throw( new Error( "Invalid data: expected " + fields[ i ] ) );
+                }
+            }
+            return true;
+        },
+        populateFromStoredData : function( qString )
+        {
+            try
+            {
+                this._populateFromStoredData( qString );
+            }
+            catch( e )
+            {
+                console.log( e );
+                this.clearAll();
+                this.tell( "An error occurred loading the character. Perhaps the link was corrupted.<br/><br/>Sorry about that." );
+            }
+        },
+        _populateFromStoredData : function( qString )
+        {
+            if( !this._validateData( qString ) )
+            {
                 return;
             }
+            this._populating.push( 3 );
+            this.clearAll();
+            var kwObj = ioQuery.queryToObject( qString );
             var idxs = kwObj.selects.split( this._listDelimiter );
             var vals = kwObj.inputs.split( this._listDelimiter );
             var disb = kwObj.disabled ? kwObj.disabled : "";

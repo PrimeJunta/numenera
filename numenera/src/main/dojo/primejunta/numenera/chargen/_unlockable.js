@@ -69,13 +69,12 @@ function( declare,
         },
         unlockControls : function()
         {
-            console.log( "should not see this!" );
+            console.log( "You should never get here!" );
         },
         showUnlockControls : function()
         {
             if( !this.unlockControlNode || !this.isUnlockable || !this.controlsAreLocked() )
             {
-                console.log( "isUnlockable", this.isUnlockable, "isLocked", this.controlsAreLocked() );
                 return;
             }
             this.unlockControlNode.style.display = "block";

@@ -90,7 +90,7 @@ define({
             "equipment_list" : [
                 "Clothing", "${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged} Weapon: ${input:choose}", "Book (numenera)", "Oddity: ${input:GM chooses}"
             ],
-            "ability_list" : [ "Ⓣ Identifying/understanding the numenera" ],
+            "ability_list" : [ "Ⓣ Identifying/Understanding the Numenera" ],
             "bonus_list" : [ "Ⓔ Practiced With Light Weapons" ]
         },
         "advancement" : [{
