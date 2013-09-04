@@ -7,7 +7,7 @@ define({
             "chosen_weapon_bonus" : 3
         },
         "Ⓔ Capable Warrior" : {
-            "damage_bonus" : 1,
+            "damage_bonus" : 1
         },
         "Ⓔ Practiced With All Weapons" : {
             "light" : 1,
