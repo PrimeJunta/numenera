@@ -33,7 +33,6 @@ function( declare,
         templateString : template,
         content : "",
         from : "",
-        selectedIndex : -1,
         manager : {},
         isUnlockable : false,
         remainsOpen : false,
@@ -77,10 +76,6 @@ function( declare,
             if( this._hasSelect )
             {
                 this.selectNode.innerHTML = this.selectOptions;
-                if( this.selectedIndex > 0 )
-                {
-                    this.selectNode.selectedIndex = this.selectedIndex;
-                }
             }
             if( this.baseText == "" && !this._hasSelect && this._hasInput )
             {

@@ -1,3 +1,6 @@
+/**
+ * Methods for handling lists in CharacterGenerator.
+ */
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "dojo/topic",
@@ -8,13 +11,18 @@ function( declare,
           _ListItem )
 {
     return declare([], {
-        listAsText : function( list )
+        /**
+         * Collects list data from the form. Merges in data from _AdvancementControl if present.
+         * 
+         * TODO: maybe move some or all of this logic to _CharacterValidator instead.
+         */
+        listAsText : function( /* String */  listName )
         {
-            if( !this._lists || !this._lists[ list ] )
+            if( !this._lists || !this._lists[ listName ] )
             {
                 return [];
             }
-            var _list = this._lists[ list ];
+            var _list = this._lists[ listName ];
             var out = [];
             for( var i = 0; i < _list.length; i++ )
             {
@@ -23,7 +31,7 @@ function( declare,
                     out.push( _list[ i ].getText() );
                 }
             }
-            if( list == "special_list"  )
+            if( listName == "special_list"  )
             {
                 out = out.concat( this.listAsText( "bonus_list" ) );
                 if( this._advancementControl )
@@ -38,7 +46,7 @@ function( declare,
                     }
                 }
             }
-            else if( list == "ability_list" && this._advancementControl )
+            else if( listName == "ability_list" && this._advancementControl )
             {
                 var alist = this._advancementControl.listAsText();
                 for( var i = 0; i < alist.length; i++ )
@@ -52,7 +60,11 @@ function( declare,
             out.sort();
             return out;
         },
-        createListItem : function( listName, itemText, from, selIdx )
+        /**
+         * Creates a _ListItem from itemText and from, and puts it in this[ listName ]. The from value ends
+         * up in a CSS class in it.
+         */
+        createListItem : function( /* String */ listName, /* String */ itemText, /* String */ from )
         {
             if( !this._controls )
             {
@@ -62,7 +74,6 @@ function( declare,
                 manager : this,
                 content : itemText,
                 from : from,
-                selectedIndex : selIdx,
                 isUnlockable : listName == "special_list" ? true : false,
                 isDeletable : listName == "equipment_list" ? true : false,
                 remainsOpen : ( listName == "equipment_list" || listName == "cypher_list" ) ? true : false
@@ -70,12 +81,21 @@ function( declare,
             this._lists[ listName ].push( itm );
             this._controls.push( itm );
         },
+        /**
+         * Special case: a starting character gets two special abilities, so we read the first-tier perk list
+         * and write in two selectors for that.
+         */
         _writeSpecialList : function( /* Object */ type )
         {
             this.special_list_label.style.display = "block";
             var item = "${select:2:" + type.advancement[ 0 ].perk_list + "}";
             this._writeItem( "special_list", item, "type" );
         },
+        /**
+         * Read bonus_perks from focus and write them into bonus_list. We keep the lists separate on the character
+         * creation screen to make it easier to see what comes from where; on the sheet they'll all be in the same
+         * place since it doesn't really matter anymore.
+         */
         _writeBonusList : function( /* Object */ focus )
         {
             this.bonus_list_label.style.display = "block";
@@ -84,7 +104,10 @@ function( declare,
                 this._writeItems( "bonus_list", focus.advancement[ 0 ].bonus_perks, "focus" );
             }
         },
-        _augmentCypherList : function( count )
+        /**
+         * Adds enough new rows in the cypher list to match count.
+         */
+        _augmentCypherList : function( /* String|int */ count )
         {
             if( !this._lists || !this._lists.cypher_list )
             {
@@ -120,6 +143,9 @@ function( declare,
             var lst = lists[ list ];
             this._writeItems( list, lst, from );
         },
+        /**
+         * Writes items from list into this[ listName ], flagged with from. 
+         */
         _writeItems : function( listName, list, from )
         {
             for( var i = 0; i < list.length; i++ )
@@ -129,7 +155,9 @@ function( declare,
         },
         /**
          * Writes a list item from what, appends it to list matching where, and tags it with a CSS class
-         * derived from from.
+         * derived from from. Also merges two identical Ⓣraineds into one Ⓢpecialized. Note that we will
+         * do further such merges when validating a character; however it's nice to see this "live" as it
+         * were when you pick your type, selector, and focus.
          */
         _writeItem : function( /* String */ where, /* String */ what, /* String */ from )
         {
@@ -175,6 +203,9 @@ function( declare,
                 });
             }
         },
+        /**
+         * Emits an event that nukes any existing list items and recreates the lists.
+         */
         _printLists : function()
         {
             topic.publish( "CharGen/destroyListItems" ); 

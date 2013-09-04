@@ -1,3 +1,6 @@
+/**
+ * Logic for the "stats" section of the CharacterGenerator.
+ */
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "dojo/dom-class",
@@ -16,6 +19,9 @@ function( declare,
          * Cap for edge.
          */
         edge_cap : 1,
+        /**
+         * Connects click event listeners to increment and decrement controls.
+         */
         postCreate : function()
         {
             this.inherited( arguments );
@@ -37,7 +43,7 @@ function( declare,
          * * stat = "might"|"speed"|"intellect"
          * * prop = "pool" | "edge"
          * * by = integer, normally 1 or -1.
-         * Disables decrement control if the new value hits the floor defined in type, and checkCpas..
+         * Disables decrement control if the new value hits the floor defined in type, checkCaps, and updateLink.
          */
         _adjust : function( /* String */ stat, /* String */ prop, /* int */ by )
         {
@@ -47,15 +53,20 @@ function( declare,
             _to += by;
             this[ "free_" + prop ].value = _from;
             this[ stat + "_" + prop ].value = _to;
-            // Check control states
             this._checkCaps( prop );
             this.updateLink();
         },
+        /**
+         * Just shorthand for checking caps on both pool and edge.
+         */
         checkCaps : function()
         {
             this._checkCaps( "pool" );
             this._checkCaps( "edge" );
         },
+        /**
+         * Resets floors for all stats, sets caps to a ridiculously high number, and checkCaps.
+         */
         moveCaps : function()
         {
             this._resetFloor( "might_pool" );
@@ -69,16 +80,19 @@ function( declare,
             this.checkCaps();
         },
         /**
-         * If there's no free pool to assign, disable increment pool controls. Else enable them if they're below
-         * 20.
+         * Shorthand for _checkLimits on might, speed, and intellect pool/edge (from prop).
          */
-        _checkCaps : function( prop )
+        _checkCaps : function( /* String */ prop )
         {
             this._checkLimits( "might", prop );
             this._checkLimits( "speed", prop );
             this._checkLimits( "intellect", prop );
         },
-        _checkLimits : function( stat, prop )
+        /**
+         * Checks if the field stat_prop (e.g. might_pool, speed_edge) has hit either its ceiling or _floor, and
+         * disables/enables its decrement_/increment_ buttons accordingly.
+         */
+        _checkLimits : function( /* String */ stat, /* String */ prop )
         {
             var _from = parseInt( this[ "free_" + prop ].value );
             var ddis = ( parseInt( this[ stat + "_" + prop ].value ) == this[ stat + "_" + prop + "_floor" ] );
@@ -111,9 +125,10 @@ function( declare,
             }
         },
         /**
-         * Writes val into field matching stat, and stores it as floor for adjustments.
+         * Writes val into field matching stat, and stores it as floor for adjustments. Calls _augmentCypherList
+         * if the stat in question was cypher_count; this way we'll get enough fields for cyphers on advancement.
          */
-        _setStat : function( stat, val )
+        _setStat : function( /* String */ stat, /* int */ val )
         {
             this[ stat ].value = val;
             this[ stat + "_floor" ] = val;
@@ -122,6 +137,9 @@ function( declare,
                 this._augmentCypherList( val );
             }
         },
+        /**
+         * Sets floor of stat to its current value.
+         */
         _resetFloor : function( stat )
         {
             this[ stat + "_floor" ] = parseInt( this[ stat ].value );
