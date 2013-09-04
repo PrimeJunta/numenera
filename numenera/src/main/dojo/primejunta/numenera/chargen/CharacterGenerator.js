@@ -416,8 +416,15 @@ function( declare,
             {
                 this._printWidget.destroy();
             }
-            this.domNode.style.display = "none";
-            this._printWidget = new _CharacterRecord({ manager : this }).placeAt( document.body );
+            try
+            {
+                this.domNode.style.display = "none";
+                this._printWidget = new _CharacterRecord({ manager : this }).placeAt( document.body );
+            }
+            catch( e )
+            {
+                console.log( e );
+            }
         },
         /**
          * Calls _clear, resets the descriptor, type, and focus selects, character name input, and link,

@@ -1,3 +1,7 @@
+/**
+ * Printable character record. Connected to CharacterGenerator, and uses _CharacterValidator to
+ * process and validate the data. Much of the beef is actually in the template.
+ */
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "dojo/cookie",
@@ -20,11 +24,30 @@ function( declare,
           template )
 {
     return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin ], {
+        /**
+         * If a string starts with this, it means a skill in which you're trained.
+         */
         TRAINED_STR : "Ⓣ",
+        /**
+         * If a string starts with this, it means a skill in which you're specialized.
+         */
         SPECIALIZED_STR: "Ⓢ",
+        /**
+         * Image source.
+         */
         iconSource : require.toUrl( "primejunta/numenera/chargen/themes/images" ),
+        /**
+         * CharacterGenerator which contains the data to be displayed.
+         */
         manager : {},
+        /**
+         * Template. A lot of the beef is here.
+         */
         templateString : template,
+        /**
+         * A boring method which mostly just gets data from CharacterGenerator and puts it in fields here,
+         * using utility methods.
+         */
         postCreate : function()
         {
             window.scroll( 0, 0 );
@@ -65,6 +88,17 @@ function( declare,
             this._wl( "notes_list", "notes_list" );
             this._updatePrint();
         },
+        /**
+         * Self-destructs and shows manager.domNode.
+         */
+        closeMe : function()
+        {
+            this.destroy();
+            this.manager.domNode.style.display = "block";
+        },
+        /**
+         * You can control a few print settings. They're stored in a cookie.
+         */
         printSettingsChanged : function()
         {
             cookie( "printSettings", json.stringify({
@@ -74,6 +108,9 @@ function( declare,
             }), { expires : 30 });
             this._updatePrint();
         },
+        /**
+         * Triggered after you've changed your print settings. Shows/hides some fields according to them.
+         */
         _updatePrint : function()
         {
             var settings = cookie( "printSettings" );
@@ -118,32 +155,29 @@ function( declare,
                 this.cypher_list.style.visibility = "visible";
             }
         },
-        closeMe : function()
-        {
-            this.destroy();
-            this.manager.domNode.style.display = "block";
-        },
-        _wl : function( to, ln )
+        /**
+         * Utility method. Writes contents of this.character[ ln ] into field matching to.
+         */
+        _wl : function( /* String */ fieldName, /* String */ listName )
         {
             var out = "";
-            var list = this.character[ ln ];
+            var list = this.character[ listName ];
             if( !list )
             {
                 return;
             }
             while( list.length > 0 )
             {
-                var itm = list.shift();
-                if( itm.indexOf( "-- choose --" ) == -1 ) // TODO: fix in the character validator
-                {
-                    out += itm + "<br/>";
-                }
+                out += list.shift() + "<br/>";
             }
-            this[ to ].innerHTML = out;
+            this[ fieldName ].innerHTML = out;
         },
-        _sv : function( to, from )
+        /**
+         * Writes data from character[ from ] into this[ fieldName ].
+         */
+        _sv : function( /* String */ fieldName, /* String */ from )
         {
-            this[ to ].innerHTML = this.character[ from ];
+            this[ fieldName ].innerHTML = this.character[ from ];
         }
     });
 });

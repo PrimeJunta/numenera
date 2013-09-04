@@ -4,7 +4,7 @@ define({
         "notes_text" : "Bears a Halo of Fire: Corebook, page 52",
         "description_text" : "Fire abilities cannot harm one PC.",
         "lists" : {
-            "equipment_list" : [ "Artifact (Fireproofer)" ],
+            "equipment_list" : [ "Artifact (Fireproofer)" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Fire esoteries", "Shroud of Flame (1 intellect)" ]
@@ -31,7 +31,7 @@ define({
         "description_text" : "One PC is true friend.\nOne PC is always hit on fumble.",
         "lists" : {
             "equipment_list" : [ "Well-Made Medium Ranged Weapon: Bow", "24 arrows" ],
-            "ability_list" : [ "Ⓣ Fletcher" ],
+            "ability_list" : [ "Ⓣ Fletcher" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Archer (spend Speed or intellect Effort to increase bow damage)" ]
@@ -58,7 +58,7 @@ define({
         "description_text" : "You have a telepathic connection to one PC.",
         "lists" : {
             "equipment_list" : [ "Intellect Crystal (+1 intellect Pool, -5 if lost)" ],
-            "ability_list" : [ "Ⓣ Mind Control (if has it)", "Ⓣ Mind Reading (if has it)" ],
+            "ability_list" : [ "Ⓣ Mind Control (if has it)", "Ⓣ Mind Reading (if has it)" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓐ Telepathic (1+ intellect)" ]
@@ -84,7 +84,7 @@ define({
         "notes_text" : "Controls Beasts: Corebook, page 55",
         "description_text" : "One PC disturbs your creatures.",
         "lists" : {
-            "equipment_list" : [ "3 days food for beast companion" ],
+            "equipment_list" : [ "3 days food for beast companion" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Beast Companion" ]
@@ -110,7 +110,7 @@ define({
         "notes_text" : "Controls Gravity: Corebook, page 56",
         "description_text" : "One PC was once hurt by your use of your powers.",
         "lists" : {
-            "equipment_list" : [ "Oddity (point to read weight of object)" ],
+            "equipment_list" : [ "Oddity (point to read weight of object)" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓐ Hover (1 intellect)" ]
@@ -137,7 +137,7 @@ define({
         "notes_text" : "Crafts Illusions: Corebook, page 57",
         "description_text" : "One PC is never fooled by your illusions.",
         "lists" : {
-            "equipment_list" : [ "Oddity (sphere that shows pictures)" ],
+            "equipment_list" : [ "Oddity (sphere that shows pictures)" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Psychedelic esoteries", "Ⓐ Minor Illusion (1 intellect)" ]
@@ -164,7 +164,7 @@ define({
         "description_text" : "One PC has an extra level 1/2 item made by you.",
         "lists" : {
             "equipment_list" : [ "Bag of Light Tools", "Self-made level 1/2 item: ${input:choose}", "Oddity: ${input:GM chooses}" ],
-            "ability_list" : [ "Ⓣ Craft item type: ${input:choose}", "Ⓣ Craft item type: ${input:choose}", "Ⓣ Identifying function of device" ],
+            "ability_list" : [ "Ⓣ Craft item type: ${input:choose}", "Ⓣ Craft item type: ${input:choose}", "Ⓣ Identifying function of device" ]
         },
         "advancement" : [{
         },
@@ -215,7 +215,7 @@ define({
         "description_text" : "One PC is your worst critic; your abilities don't work for him/her.",
         "lists" : {
             "equipment_list" : [ "Musical instrument: ${input:choose}" ],
-            "ability_list" : [ "Ⓣ All social interactions except coercion, intimidation" ],
+            "ability_list" : [ "Ⓣ All social interactions except coercion, intimidation" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ +1 to comrades' Recovery Rolls" ]
@@ -267,7 +267,7 @@ define({
         "description_text" : "One PC is an old companion, and always gets +1 on rolls when working with you.",
         "lists" : {
             "equipment_list" : [ "Explorer's Pack" ],
-            "ability_list" : [ "Ⓣ Searching", "Ⓣ Listening", "Ⓣ Climbing", "Ⓣ Balancing", "Ⓣ Jumping" ],
+            "ability_list" : [ "Ⓣ Searching", "Ⓣ Listening", "Ⓣ Climbing", "Ⓣ Balancing", "Ⓣ Jumping" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Dark esoteries" ]
@@ -296,7 +296,7 @@ define({
         "notes_text" : "Fights With Panache: Corebook, page 62",
         "description_text" : "You are always trying to impress one PC.",
         "lists" : {
-            "equipment_list" : [ "Extremely stylish clothes", "Jeweled ${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged} Weapon: ${input:choose}" ],
+            "equipment_list" : [ "Extremely stylish clothes", "Jeweled ${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged} Weapon: ${input:choose}" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Attack Flourish" ]
@@ -322,7 +322,7 @@ define({
         "notes_text" : "Focuses Mind over Matter: Corebook, page 63",
         "description_text" : "One PC causes your mental powers to act strangely.",
         "lists" : {
-            "bonus_list" : [ "Mental esoteries", "Deflect Attacks (1 intellect)" ],
+            "bonus_list" : [ "Mental esoteries", "Deflect Attacks (1 intellect)" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Mental esoteries", "Ⓐ Deflect Attacks (1 intellect)" ]
@@ -354,7 +354,7 @@ define({
         },
         "lists" : {
             "equipment_list" : [ "Bag of Light Tools", "Spare parts (for self)" ],
-            "inability_list" : [ "Special Healing (first 5 points need to be repaired)" ],
+            "inability_list" : [ "Special Healing (first 5 points need to be repaired)" ]
         },
         "advancement" : [{
         },
@@ -385,7 +385,7 @@ define({
         "notes_text" : "Howls at the Moon: Corebook, page 64",
         "description_text" : "One PC knows how to calm you in your beast state.",
         "lists" : {
-            "equipment_list" : [ "Artifact (chronometer)" ],
+            "equipment_list" : [ "Artifact (chronometer)" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Beast Form" ]
@@ -412,7 +412,7 @@ define({
         "description_text" : "One PC once saw you let prey go.",
         "lists" : {
             "equipment_list" : [ "Silent Boots (+1 to sneaking)" ],
-            "ability_list" : [ "Ⓣ Tracking", "Ⓣ Climbing", "Ⓣ Swimming", "Ⓣ Jumping", "Ⓣ Balancing", "Ⓣ Running" ],
+            "ability_list" : [ "Ⓣ Tracking", "Ⓣ Climbing", "Ⓣ Swimming", "Ⓣ Jumping", "Ⓣ Balancing", "Ⓣ Running" ]
         },
         "advancement" : [{
         },
@@ -438,7 +438,7 @@ define({
         "description_text" : "One PC is a former follower, current equal.",
         "lists" : {
             "equipment_list" : [ "Artifact (tag Followers)" ],
-            "ability_list" : [ "Ⓣ All social interactions" ],
+            "ability_list" : [ "Ⓣ All social interactions" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓐ Good Advice (1 intellect)" ]
@@ -465,7 +465,7 @@ define({
         "description_text" : "You dislike one PC for his/her \"civilized\" ways.",
         "lists" : {
             "equipment_list" : [ "Compass" ],
-            "ability_list" : [ "Ⓣ Climbing", "Ⓣ Swimming", "Ⓣ Wilderness Navigation", "Ⓣ Identifying plants", "Ⓣ Identifying animals" ],
+            "ability_list" : [ "Ⓣ Climbing", "Ⓣ Swimming", "Ⓣ Wilderness Navigation", "Ⓣ Identifying plants", "Ⓣ Identifying animals" ]
         },
         "advancement" : [{
         },
@@ -492,7 +492,7 @@ define({
         "lists" : {
             "equipment_list" : [ "Shield" ],
             "ability_list" : [ "Ⓣ Speed Defense (with shield)" ],
-            "inability_list" : [ "Attack (with shield) (+1 level)", "Defense (without shield) (+1 level)" ],
+            "inability_list" : [ "Attack (with shield) (+1 level)", "Defense (without shield) (+1 level)" ]
         },
         "advancement" : [{
         },
@@ -517,7 +517,7 @@ define({
         "notes_text" : "Masters Weaponry: Corebook, page 69",
         "description_text" : "One PC shows promise in use of your chosen weapon.",
         "lists" : {
-            "equipment_list" : [ "High-quality ${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged} Weapon: ${input:choose}" ],
+            "equipment_list" : [ "High-quality ${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged} Weapon: ${input:choose}" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Weapon Master: ${input:choose}", "Ⓔ Weaponry esoteries" ]
@@ -544,7 +544,7 @@ define({
         "description_text" : "One PC knows your secret past.",
         "lists" : {
             "equipment_list" : [ "Disguise kit", "Level 2/5 DAM blade poison, (3 doses)" ],
-            "ability_list" : [ "Ⓣ Stealth", "Ⓣ Disguise" ],
+            "ability_list" : [ "Ⓣ Stealth", "Ⓣ Disguise" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Surprise Attack" ]
@@ -570,7 +570,7 @@ define({
         "notes_text" : "Rages: Corebook, page 71",
         "description_text" : "You feel protective about one PC.",
         "lists" : {
-            "bonus_list" : [ "Frenzy (1 intellect)" ],
+            "bonus_list" : [ "Frenzy (1 intellect)" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Frenzy (1 intellect)" ]
@@ -603,7 +603,7 @@ define({
         "notes_text" : "Rides the Lightning: Corebook, page 71",
         "description_text" : "One PC is an old friend, and can come along with Bolt Rider or Electrical Flight.",
         "lists" : {
-            "equipment_list" : [ "Bag of miscellaneous batteries and power cells" ],
+            "equipment_list" : [ "Bag of miscellaneous batteries and power cells" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Electrical esoteries", "Ⓐ Shock (1 intellect)", "Ⓐ Charge (1+ intellect)" ]
@@ -634,7 +634,7 @@ define({
         "description_text" : "One PC is terrible with (your) machines.",
         "lists" : {
             "equipment_list" : [ "Bag of Light Tools" ],
-            "ability_list" : [ "Ⓣ All tasks involving electrical machines" ],
+            "ability_list" : [ "Ⓣ All tasks involving electrical machines" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓐ Distant Activation (1 intellect)" ]
@@ -660,7 +660,7 @@ define({
         "notes_text" : "Wears a Sheen of Ice: Corebook, page 73",
         "description_text" : "One PC gets benefit of Ice Armor, if standing nearby.",
         "lists" : {
-            "equipment_list" : [ "Stronglass ${select:1:Light Bladed|Medium Bladed|Heavy Bladed} Weapon: ${input:choose}" ],
+            "equipment_list" : [ "Stronglass ${select:1:Light Bladed|Medium Bladed|Heavy Bladed} Weapon: ${input:choose}" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Ice esoteries", "Ⓔ Ice Armor (1 intellect)" ]
@@ -689,7 +689,7 @@ define({
             "intellect_pool" : 5
         },
         "lists" : {
-            "equipment_list" : [ "Book (numenera)" ],
+            "equipment_list" : [ "Book (numenera)" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Genius" ]
@@ -719,7 +719,7 @@ define({
         "notes_text" : "Wields Two Weapons at Once: Corebook, page 75",
         "description_text" : "One PC is your training companion; both get +1 to Speed Defense if fighting back to back.",
         "lists" : {
-            "equipment_list" : [ "${select:1:Light Bashing|Light Bladed} Weapon: ${input:choose}" ],
+            "equipment_list" : [ "${select:1:Light Bashing|Light Bladed} Weapon: ${input:choose}" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Dual Light Wield" ]
@@ -769,7 +769,7 @@ define({
         "description_text" : "One PC knew you before, and convinced you to quit crime.",
         "lists" : {
             "equipment_list" : [ "Bag of Light Tools" ],
-            "ability_list" : [ "Ⓣ Sneaking", "Ⓣ Pickpocketing", "Ⓣ Lockpicking" ],
+            "ability_list" : [ "Ⓣ Sneaking", "Ⓣ Pickpocketing", "Ⓣ Lockpicking" ]
         },
         "advancement" : [{
         },

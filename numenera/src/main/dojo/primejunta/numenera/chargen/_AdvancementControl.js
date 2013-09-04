@@ -1,3 +1,6 @@
+/**
+ * Manager for _TierWidgets. Controls character advancement.
+ */
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "dojo/topic",
@@ -20,22 +23,48 @@ function( declare,
           template )
 {
     return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin ], {
+        /**
+         * The instantiating _CharacterRecord.
+         */
         manager : {},
+        /**
+         * Current tier.
+         */
         tier : 1,
+        /**
+         * Advancement data from type.
+         */
         typeData : {},
+        /**
+         * Advancement data from focus.
+         */
         focusData : {},
+        /**
+         * Template.
+         */
         templateString : template,
+        /**
+         * Initialize _controls.
+         */
         postMixInProperties : function()
         {
             this._controls = [];
         },
+        /**
+         * Connects manage.character_xp to this, for convenience.
+         */
         postCreate : function()
         {
             this.manager.character_xp = this.character_xp;
         },
+        /**
+         * If tier is provided, sets this.tier to it. Then publishes lockSheetControls and creates enough _TierWidgets
+         * for tier, populates manager.character_tier value from it, and manager.moveCaps() to reset the floors. Triggered
+         * when populating data programmatically or through a user Advancing a character eligible to the next tier.
+         */
         advanceTier : function( tier )
         {
-            if( !isNaN( tier ) )
+            if( !isNaN( parseInt( tier ) ) )
             {
                 this.tier = tier;
             }
@@ -54,6 +83,9 @@ function( declare,
             this.manager.character_tier.value = this.tier;
             this.manager.moveCaps();
         },
+        /**
+         * Checks if the previous tier is complete, and applies a new one.
+         */
         checkAdvancement : function()
         {
             topic.publish( "CharGen/showPurchasedBenefits" );
@@ -66,6 +98,9 @@ function( declare,
                 }
             }
         },
+        /**
+         * Concats contents of all _TierWidgets into one String[], and returns it.
+         */
         listAsText : function()
         {
             var out = [];
@@ -75,6 +110,9 @@ function( declare,
             }
             return out;
         },
+        /**
+         * Pops and destroys any contained _controls, and inherited.
+         */
         destroy : function()
         {
             while( this._controls.length > 0 )

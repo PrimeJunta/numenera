@@ -1,3 +1,9 @@
+/**
+ * Most of the "intelligence" of this utility is here. Assembles lists collected from CharacterGenerator,
+ * merges duplicate (T)rained skills into (S)pecialized, applies bonuses from special abilities, checks for
+ * duplicate perks and other stupidities, and so on. Writes the result into a cleaned-up object that can
+ * go into the _CharacterRecord. Also used to check that a character is ready for advancement.
+ */
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "dojo/_base/array",
@@ -14,15 +20,44 @@ function( declare,
           foci )
 {
     return declare([], {
+        /**
+         * Prefix of Trained skills.
+         */
         TRAINED_STR : "Ⓣ ",
+        /**
+         * Prefix of Specialized skills.
+         */
         SPECIALIZED_STR: "Ⓢ ",
+        /**
+         * String denoting a null item on a select.
+         */
         CHOOSE_STR : "-- choose --",
+        /**
+         * Items to be ignored when reading stuff from lists.
+         */
+        IGNORE_ITEMS : [ "",
+                         "Ⓣ",
+                         "Ⓢ",
+                         this.TRAINED_STR,
+                         this.SPECIALIZED_STR,
+                         this.CHOOSE_STR,
+                         this.TRAINED_STR + this.CHOOSE_STR,
+                         this.SPECIALIZED_STR + this.CHOOSE_STR ],
+        /**
+         * Parent CharacterGenerator.
+         */
         manager : {},
-        constructor : function( kwObj )
+        /**
+         * Mix in kwObj.
+         */
+        constructor : function( /* Object */ kwObj )
         {
             lang.mixin( this, kwObj );
         },
-        validateCharacter : function( silent )
+        /**
+         * Validate character. If silent, no alerts will be raised. We .analyzeCharacter first though.
+         */
+        validateCharacter : function( /* boolean? */ silent )
         {
             var errs = [];
             if( !this.manager.getType() || !this.manager.getDescriptor() || !this.manager.getFocus() )
@@ -89,10 +124,17 @@ function( declare,
             }
             else
             {
-                this.manager.tell( errs.join( "<br/><br/>" ) );
+                if( !silent )
+                {
+                    this.manager.tell( errs.join( "<br/><br/>" ) );
+                }
                 return false;
             }
         },
+        /**
+         * Copy values from CharacterGenerator, and apply bonuses with _getAttacks, _processSpecialAbilities, _processArmorValues,
+         * and _getAttackList.
+         */
         analyzeCharacter : function()
         {
             this._cdata = {};
@@ -124,6 +166,76 @@ function( declare,
             this._wl( "attack_list", this._getAttackList() );
             return this._cdata;
         },
+        /**
+         * We're parsing out weapons from equipment_list by keywords - Light, Medium, Heavy, Bashing, Bladed, Ranged.
+         * Then we create an object representing each of them, with description (the string we started with), short_name
+         * (anything after the category, type, and "Weapon:"), damage, category, type, and difficulty_adjustment (1 for Light).
+         */
+        _getAttacks : function()
+        {
+            var eq = this._listAsText( "equipment_list" );
+            var out = [];
+            var wpns = [];
+            var idstr = "Weapon:";
+            for( var i = 0; i < eq.length; i++ )
+            {
+                if( eq[ i ].indexOf( "Weapon:" ) != -1 )
+                {
+                    wpns.push( eq[ i ] );
+                }
+            }
+            for( var i = 0; i < wpns.length; i++ )
+            {
+                var wpn = {
+                    description : wpns[ i ],
+                    short_name : string.trim( wpns[ i ].substring( wpns[ i ].indexOf( idstr ) + idstr.length + 1 ) ),
+                    damage : 0,
+                    category : "",
+                    type : "",
+                    difficulty_adjustment : 1
+                }
+                var dmg = 0;
+                var diff = 1;
+                var type = "";
+                if( wpns[ i ].indexOf( "Light" ) != -1 )
+                {
+                    wpn.damage = 2;
+                    wpn.difficulty_adjustment = 0;
+                    wpn.category = "light";
+                }
+                else if( wpns[ i ].indexOf( "Medium" ) != -1  )
+                {
+                    wpn.damage = 4;
+                    wpn.category = "medium";
+                }
+                else if( wpns[ i ].indexOf( "Heavy" ) != -1  )
+                {
+                    wpn.damage = 6;
+                    wpn.category = "heavy";
+                }
+                if( wpns[ i ].indexOf( "Bashing" ) != -1 )
+                {
+                    wpn.type = "bashing";
+                }
+                else if( wpns[ i ].indexOf( "Bladed" ) != -1 )
+                {
+                    wpn.type = "bladed";
+                }
+                else if( wpns[ i ].indexOf( "Ranged" ) != -1 )
+                {
+                    wpn.type = "ranged";
+                }
+                out.push( wpn );
+            }
+            return out;
+        },
+        /**
+         * Collects bonuses derived from special abilities. This could probably be done more elegantly; as it is,
+         * we're just looking for known enablers and applying the stat bonuses when we find them. It would be nicer
+         * to have a separate map of enablers to bonuses, so we could add new ones more easily. For now, this will
+         * get the job done though. A couple will probably have to be handled here in any case, e.g. Weapon Master
+         * which is connected to a weapon name input by the user.
+         */
         _processSpecialAbilities : function()
         {
             var eq = this._cdata.special_list;
@@ -216,130 +328,10 @@ function( declare,
                 cur.difficulty_adjustment -= boosts[ cur.category + "_" + cur.type ];
             }
         },
-        _textAsList : function( textArea )
-        {
-            var dt = this.manager[ textArea ].get( "value" );
-            dt = dt.split( "\n" );
-            return dt;
-        },
-        _getSkillList : function()
-        {
-            var list = this._listAsText( "ability_list" );
-            list.sort();
-            if( list.length < 2 )
-            {
-                return list;
-            }
-            var out = [];
-            out.push( list[ 0 ] );
-            for( var i = 1; i < list.length; i++ )
-            {
-                if( list[ i ].toLowerCase() == list[ i - 1 ].toLowerCase() && list[ i ].indexOf( this.TRAINED_STR ) != -1 )
-                {
-                    var cur = out[ out.length - 1 ];
-                    out[ out.length - 1 ] = this.SPECIALIZED_STR + cur.substring( cur.indexOf( this.TRAINED_STR ) + this.TRAINED_STR.length );
-                }
-                else
-                {
-                    out.push( list[ i ] );
-                }
-            }
-            out.sort();
-            return out;
-        },
-        _getAttacks : function()
-        {
-            var eq = this._listAsText( "equipment_list" );
-            var out = [];
-            var wpns = [];
-            var idstr = "Weapon:";
-            for( var i = 0; i < eq.length; i++ )
-            {
-                if( eq[ i ].indexOf( "Weapon:" ) != -1 )
-                {
-                    wpns.push( eq[ i ] );
-                }
-            }
-            for( var i = 0; i < wpns.length; i++ )
-            {
-                var wpn = {
-                    description : wpns[ i ],
-                    short_name : string.trim( wpns[ i ].substring( wpns[ i ].indexOf( idstr ) + idstr.length + 1 ) ),
-                    damage : 0,
-                    category : "",
-                    type : "",
-                    difficulty_adjustment : 1
-                }
-                var dmg = 0;
-                var diff = 1;
-                var type = "";
-                if( wpns[ i ].indexOf( "Light" ) != -1 )
-                {
-                    wpn.damage = 2;
-                    wpn.difficulty_adjustment = 0;
-                    wpn.category = "light";
-                }
-                else if( wpns[ i ].indexOf( "Medium" ) != -1  )
-                {
-                    wpn.damage = 4;
-                    wpn.category = "medium";
-                }
-                else if( wpns[ i ].indexOf( "Heavy" ) != -1  )
-                {
-                    wpn.damage = 6;
-                    wpn.category = "heavy";
-                }
-                if( wpns[ i ].indexOf( "Bashing" ) != -1 )
-                {
-                    wpn.type = "bashing";
-                }
-                else if( wpns[ i ].indexOf( "Bladed" ) != -1 )
-                {
-                    wpn.type = "bladed";
-                }
-                else if( wpns[ i ].indexOf( "Ranged" ) != -1 )
-                {
-                    wpn.type = "ranged";
-                }
-                out.push( wpn );
-            }
-            return out;
-        },
-        _getAttackList : function()
-        {
-            var out = [];
-            for( var i = 0; i < this._cdata.attack_data.length; i++ )
-            {
-                var cur = this._cdata.attack_data[ i ];
-                var pf = "";
-                switch( cur.category )
-                {
-                    case "light" :
-                        pf = "Ⓛ";
-                        break;
-                    case "medium" : 
-                        pf = "Ⓜ";
-                        break;
-                    case "heavy" : 
-                        pf = "Ⓗ";
-                        break;
-                }
-                switch( cur.type )
-                {
-                    case "bashing" :
-                        pf += "Ⓑ";
-                        break;
-                    case "bladed" : 
-                        pf += "Ⓒ";
-                        break;
-                    case "ranged" : 
-                        pf += "Ⓡ";
-                        break;
-                }
-                out.push( pf + " " + cur.short_name + " (" + cur.difficulty_adjustment + "/" + cur.damage + ")" );
-            }
-            return out.sort();
-        },
+        /**
+         * We're going through our list of Enablers to find any that affect armor properties -- the armor value itself or
+         * the fatigue penalties for it. Then we write out the values for each armor type into _cdata.
+         */
         _processArmorValues : function()
         {
             var aBase = parseInt( this._gf( "armor_bonus" ) );
@@ -387,7 +379,93 @@ function( declare,
             this._cdata.armor_speed_cost_light = pBase + 2 > 0 ? pBase + 2 : 0;
             this._cdata.armor_might_cost_light = pBase + 1 > 0 ? pBase + 1 : 0;
         },
-        _has : function( feat )
+        /**
+         * We're merging any duplicate (T)rained skills into (S)pecialized and returning the result.
+         */
+        _getSkillList : function()
+        {
+            var list = this._listAsText( "ability_list" );
+            list.sort();
+            if( list.length < 2 )
+            {
+                return list;
+            }
+            var out = [];
+            out.push( list[ 0 ] );
+            for( var i = 1; i < list.length; i++ )
+            {
+                if( list[ i ].toLowerCase() == list[ i - 1 ].toLowerCase() && list[ i ].indexOf( this.TRAINED_STR ) != -1 )
+                {
+                    var cur = out[ out.length - 1 ];
+                    out[ out.length - 1 ] = this.SPECIALIZED_STR + cur.substring( cur.indexOf( this.TRAINED_STR ) + this.TRAINED_STR.length );
+                }
+                else
+                {
+                    out.push( list[ i ] );
+                }
+            }
+            out.sort();
+            return out;
+        },
+        /**
+         * Outputs contents of attack_data as String[] suitable for printing out in the sheet. Each attack
+         * is prefixed with (L)/(M)/(H) + (B)/(C)/(R), and suffixed with the difficulty adjustment and damage.
+         */
+        _getAttackList : function()
+        {
+            var out = [];
+            for( var i = 0; i < this._cdata.attack_data.length; i++ )
+            {
+                var cur = this._cdata.attack_data[ i ];
+                var pf = "";
+                switch( cur.category )
+                {
+                    case "light" :
+                        pf = "Ⓛ";
+                        break;
+                    case "medium" : 
+                        pf = "Ⓜ";
+                        break;
+                    case "heavy" : 
+                        pf = "Ⓗ";
+                        break;
+                }
+                switch( cur.type )
+                {
+                    case "bashing" :
+                        pf += "Ⓑ";
+                        break;
+                    case "bladed" : 
+                        pf += "Ⓒ";
+                        break;
+                    case "ranged" : 
+                        pf += "Ⓡ";
+                        break;
+                }
+                out.push( pf + " " + cur.short_name + " (" + cur.difficulty_adjustment + "/" + cur.damage + ")" );
+            }
+            return out.sort();
+        },
+        /**
+         * Split contents of Textarea matching textArea by newline, and return the result.
+         */
+        _textAsList : function( /* String */ textArea )
+        {
+            var dt = this.manager[ textArea ].get( "value" );
+            dt = dt.split( "\n" );
+            return dt;
+        },
+        /**
+         * Connects directly to manager.listAsText.
+         */
+        _listAsText : function( /* String */ listName )
+        {
+            return this.manager.listAsText( listName );
+        },
+        /**
+         * Checks if feat is present in special_list, and returns true or false.
+         */
+        _has : function( /* String */ feat )
         {
             var sl = this._cdata.special_list;
             if( array.indexOf( sl, feat ) != -1 )
@@ -399,15 +477,25 @@ function( declare,
                 return false;
             }
         },
-        _listAsText : function( list )
+        /**
+         * Copies srcList to property matching to, ignoring any items in IGNORE_ITEMS.
+         */
+        _wl : function( /* String */ to, /* String[]|Object[] */ srcList )
         {
-            return this.manager.listAsText( list );
+            this._cdata[ to ] = [];
+            var list = lang.clone( srcList );
+            for( var i = 0; i < list.length; i++ )
+            {
+                if( array.indexOf( this.IGNORE_ITEMS, list[ i ] ) == -1 )
+                {
+                    this._cdata[ to ].push( list[ i ] );
+                }
+            }
         },
-        _wl : function( to, list )
-        {
-            this._cdata[ to ] = lang.clone( list );
-        },
-        _gf : function( fld )
+        /**
+         * Returns field value of fld in character generator, if present, or false.
+         */
+        _gf : function( /* String */ fld )
         {
             if( !this.manager[ fld ] )
             {
@@ -415,22 +503,36 @@ function( declare,
             }
             return this.manager[ fld ].value;
         },
-        _gs : function( sel )
+        /**
+         * Returns display value of select matching sel as String.
+         */
+        _gs : function( /* String */ sel )
         {
             return this.manager._selVal( this.manager[ sel ] ).label;
         },
-        _sv : function( to, from, sel )
+        /**
+         * Sets value of property fieldName to value matching from in character generator. If sel is set, 
+         * reads select value, else reads input value.
+         */
+        _sv : function( /* String */ fieldName, /* String */ from, /* boolean? */ sel )
         {
-            this._cdata[ to ] = sel ? this._gs( from ) : this._gf( from );
+            this._cdata[ fieldName ] = sel ? this._gs( from ) : this._gf( from );
         },
-        _ss : function( to, from )
+        /**
+         * Sets stat value matching fieldName to integer parsed from character generator, or zero if not set or
+         * not a number.
+         */
+        _ss : function( /* String */ fieldName, /* String */ from )
         {
             var val = parseInt( this._gf( from ) );
-            this._cdata[ to ] = isNaN( val ) ? 0 : val;
+            this._cdata[ fieldName ] = isNaN( val ) ? 0 : val;
         },
-        _st : function( to, val )
+        /**
+         * Sets _cdata property fieldName to val.
+         */
+        _st : function( /* String */ fieldName, /* any */ val )
         {
-            this._cdata[ to ] = val;
+            this._cdata[ fieldName ] = val;
         }
     });
 });

@@ -1,3 +1,6 @@
+/**
+ * Widget representing a character tier. These are created by _AdvancementControl.
+ */
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "dojo/topic",
@@ -28,16 +31,43 @@ function( declare,
           template )
 {
     return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _unlockable ], {
-        tier : 1,
-        typeData : [],
-        focusData : [],
-        manager : {},
-        parent : {},
-        templateString : template,
+        /**
+         * Default skill name for that perk, if selected.
+         */
         DEFAULT_SKILL_NAME : "choose any non-combat",
+        /**
+         * Which tier is it?
+         */
+        tier : 1,
+        /**
+         * Advancement data from type.
+         */
+        typeData : [],
+        /**
+         * Advancement data from focus.
+         */
+        focusData : [],
+        /**
+         * CharacterGenerator.
+         */
+        manager : {},
+        /**
+         * _AdvancementControl.
+         */
+        parent : {},
+        /**
+         * Template.
+         */
+        templateString : template,
+        /**
+         * Standard benefits for advancing a tier. Will be applied to stats.
+         */
         standardBenefits : {
             recovery_roll : 1
         },
+        /**
+         * Connects listeners, initializes internal arrays, reads type and focus data and such.
+         */
         postMixInProperties : function()
         {
             this._subs = [];
@@ -52,6 +82,10 @@ function( declare,
             this.specialAbilityName = this.manager.getType().special_ability_name;
             this.DEFAULT_VALUES = this.manager.DEFAULT_VALUES;
         },
+        /**
+         * Initializes unlock controls (from _unlockable) and sets up some labels, then constructs list of available
+         * perks by iterating back to previous tiers. Continues with initBonusPerks.
+         */
         postCreate : function()
         {
             this.initializeUnlockControls();
@@ -65,69 +99,12 @@ function( declare,
                     domConstruct.create( "option", { innerHTML : opts[ o ] }, grp );
                 }
             }
-            this.applyBonusPerks();
+            this.initBonusPerks();
         },
-        getPrevVal : function()
-        {
-            return {
-                perkSelector : this.perkSelector.selectedIndex
-            };
-        },
-        rollBack : function( _prevVal )
-        {
-            this.perkSelector.selectedIndex = _prevVal.perkSelector;
-            this.checkSkillType();
-        },
-        lockControls : function()
-        {
-            this.perkSelector.disabled = true;
-        },
-        unlockControls : function()
-        {
-            this.perkSelector.disabled = false;
-        },
-        checkState : function()
-        {
-            this.checkSkillType();
-            if( this.canAdvance() )
-            {
-                this.applyButton.domNode.style.visibility = "hidden";
-            }
-            if( !this._tierChoicesMade() )
-            {
-                this.purchasedBenefitsNode.style.display = "none";
-            }
-            this.normalizeClass( this.skillInput );
-        },
-        _tierChoicesMade : function()
-        {
-            var elms = domQuery( ".cg-storeMe", this.freeBenefitsNode );
-            for( var i = 0; i < elms.length; i++ )
-            {
-                if( !elms[ i ].disabled )
-                {
-                    return false;
-                }
-            }
-            return true;
-        },
-        onFocusSkillInput : function()
-        {
-            if( this.skillInput.value == this.DEFAULT_SKILL_NAME )
-            {
-                this.skillInput.value = "";
-            }
-            this.normalizeClass( this.skillInput );
-        },
-        onBlurSkillInput : function()
-        {
-            if( this.skillInput.value == "" )
-            {
-                this.skillInput.value = this.DEFAULT_SKILL_NAME;
-            }
-            this.normalizeClass( this.skillInput );
-        },
-        applyBonusPerks : function()
+        /**
+         * If tier > 1, show the automatic tier perks and add content to them from typeData and focusData.
+         */
+        initBonusPerks : function()
         {
             if( this.tier == 1 )
             {
@@ -170,10 +147,27 @@ function( declare,
                 }
             }
         },
-        normalizeClass : function( node )
+        /**
+         * First .checkSkillType. Then check .canAdvance, and show/hide the apply button accordingly.
+         * Finally normalizeClass on .skillInput.
+         */
+        checkState : function()
         {
-            this.manager.normalizeClass( node );
+            this.checkSkillType();
+            if( this.canAdvance() )
+            {
+                this.applyButton.domNode.style.visibility = "hidden";
+            }
+            if( !this._tierChoicesMade() )
+            {
+                this.purchasedBenefitsNode.style.display = "none";
+            }
+            this.normalizeClass( this.skillInput );
         },
+        /**
+         * Shows/hides skillInputContainer and perkSelectorContainer depending on skillTypeSelector.
+         * Also incidentally unsets isUnlockable so the unlock button won't be shown for the last tier.
+         */
         checkSkillType : function()
         {
             this.isUnlockable = false;
@@ -194,12 +188,19 @@ function( declare,
                     break;
             }
         },
+        /**
+         * Triggered from the Apply button. Checks cost and then subtracts it from the XP field, and
+         * applies the bonuses to the matching stat fields; also locks sheet controls and unlocks the
+         * finalize button.
+         */
         applyAdvancement : function()
         {
-            if( !this._checkAdvancementCost() )
+            var cost = this._checkAdvancementCost();
+            if( cost < 0 )
             {
                 return;
             }
+            this.parent.character_xp.value = parseInt( this.parent.character_xp.value ) - cost;
             if( !this.skillTypeSelector.disabled ) switch( this.skillTypeSelector.selectedIndex )
             {
                 case 0 : 
@@ -215,11 +216,8 @@ function( declare,
                     this.skillTypeSelector.disabled = true;
                     break;
                 case 4 :
-                    if( !this._applyPerk() )
-                    {
-                        return;
-                    }
                     this.skillTypeSelector.disabled = true;
+                    this.perkSelector.disabled = true
                 default :
                     this.skillTypeSelector.disabled = true;
                     break;
@@ -235,6 +233,53 @@ function( declare,
             topic.publish( "CharGen/lockSheetControls" );
             this.manager.unlockFinalize();
         },
+        /**
+         * Do the usual field thing to skillInput.
+         */
+        onFocusSkillInput : function()
+        {
+            if( this.skillInput.value == this.DEFAULT_SKILL_NAME )
+            {
+                this.skillInput.value = "";
+            }
+            this.normalizeClass( this.skillInput );
+        },
+        /**
+         * Do the usual field thing to skillInput.
+         */
+        onBlurSkillInput : function()
+        {
+            if( this.skillInput.value == "" )
+            {
+                this.skillInput.value = this.DEFAULT_SKILL_NAME;
+            }
+            this.normalizeClass( this.skillInput );
+        },
+        /**
+         * Connect to manager.normalizeClass.
+         */
+        normalizeClass : function( node )
+        {
+            this.manager.normalizeClass( node );
+        },
+        /**
+         * Have all tier benefits been bought? Returns the answer as boolean.
+         */
+        _tierChoicesMade : function()
+        {
+            var elms = domQuery( ".cg-storeMe", this.freeBenefitsNode );
+            for( var i = 0; i < elms.length; i++ )
+            {
+                if( !elms[ i ].disabled )
+                {
+                    return false;
+                }
+            }
+            return true;
+        },
+        /**
+         * Cost for checkbox: 4 if it's checked and not disabled; 0 otherwise.
+         */
         _cbCost : function( cb )
         {
             if( !this[ cb ].disabled && this[ cb ].checked )
@@ -246,6 +291,11 @@ function( declare,
                 return 0;
             }
         },
+        /**
+         * Validates character. If it's OK, checks that you've made choices that make sense and you have
+         * enough XP to buy the benefits you want. Raises an informative alert and returns -1 if not;
+         * else returns the result.
+         */
         _checkAdvancementCost : function()
         {
             if( !this._validator )
@@ -254,17 +304,17 @@ function( declare,
             }
             if( !this._validator.validateCharacter() )
             {
-                return false;
+                return -1;
             }
             if( !this.skillTypeSelector.disabled && this.skillTypeSelector.selectedIndex == 1 && this.skillInput.value == this.DEFAULT_SKILL_NAME )
             {
                 this.manager.tell( "Please select any non-combat skill." );
-                return false;
+                return -1;
             }
             if( isNaN( parseInt( this.parent.character_xp.value ) ) )
             {
                 this.manager.tell( "You need a minimum of 4 XP to advance your character." );
-                return false;
+                return -1;
             }
             var cost = 0;
             if( !this.skillTypeSelector.disabled && this.skillTypeSelector.selectedIndex > 0 )
@@ -277,17 +327,19 @@ function( declare,
             if( parseInt( this.parent.character_xp.value ) < cost )
             {
                 this.manager.tell( "You need " + cost + " XP for your choices." );
-                return false;
+                return -1;
             }
             else
             {
-                this.parent.character_xp.value = parseInt( this.parent.character_xp.value ) - cost;
-                return true;
+                return cost;
             }
         },
+        /**
+         * Checks if all benefits have been bought and tier < 6; returns result as boolean.
+         */
         canAdvance : function()
         {
-            if( this.pool_checkbox.checked && this.edge_checkbox.checked && this.effort_checkbox.checked && this.skillTypeSelector.disabled )
+            if( this.pool_checkbox.checked && this.edge_checkbox.checked && this.effort_checkbox.checked && this.skillTypeSelector.disabled && this.tier < 6 )
             {
                 return true;
             }
@@ -296,6 +348,9 @@ function( declare,
                 return false;
             }
         },
+        /**
+         * Applies benefits from _typeData and _focusData to .manager, and showUnlock. Done when the character advances a tier.
+         */
         applyNewTier : function()
         {
             this.manager._augment( this.standardBenefits );
@@ -312,10 +367,47 @@ function( declare,
                 topic.publish( "CharGen/pleaseShowUnlock" );
             }
         },
+        /**
+         * Stores selected index of perkSelector. See _unlockable.
+         */
+        getPrevVal : function()
+        {
+            return {
+                perkSelector : this.perkSelector.selectedIndex
+            };
+        },
+        /**
+         * Rolls back to _prevVal. See _unlockable.
+         */
+        rollBack : function( _prevVal )
+        {
+            this.perkSelector.selectedIndex = _prevVal.perkSelector;
+            this.checkSkillType();
+        },
+        /**
+         * Locks perkSelector. See _unlockable.
+         */
+        lockControls : function()
+        {
+            this.perkSelector.disabled = true;
+        },
+        /**
+         * Unlocks perkSelector. See _unlockable.
+         */
+        unlockControls : function()
+        {
+            this.perkSelector.disabled = false;
+        },
+        /**
+         * Concatenates _perkAsText() and _bonusPerksAsText() and returns the result.
+         */
         listAsText : function()
         {
             return this._perkAsText().concat( this._bonusPerksAsText() );
         },
+        /**
+         * Removes listeners and destroys created _controls, then inherited.
+         */
         destroy : function()
         {
             while( this._subs.length > 0 )
@@ -328,6 +420,9 @@ function( declare,
             }
             this.inherited( arguments );
         },
+        /**
+         * Returns String[] representing selected (purchased) perk.
+         */
         _perkAsText : function()
         {
             switch( this.skillTypeSelector.selectedIndex )
@@ -344,6 +439,9 @@ function( declare,
                     return [];
             }
         },
+        /**
+         * Returns String[] from _controls.getText(). They're created for any bonus perks.
+         */
         _bonusPerksAsText : function()
         {
             var out = [];
@@ -356,16 +454,10 @@ function( declare,
             }
             return out;
         },
-        _applyPerk : function()
-        {
-            var perk = this.perkSelector.options[ this.perkSelector.selectedIndex ].text;
-            var perks = this.manager.listAsText( "special_list" );
-            var stack = this._typeData.skills_stack;
-            var found = false;
-            this.perkSelector.disabled = true;
-            return true;
-        },
-        _applyCheckbox : function( cb, prop, val )
+        /**
+         * Adjusts stat matching prop, val if checkbox cb is not disabled and is checked; then disables it.
+         */
+        _applyCheckbox : function( /* Checkbox */ cb, /* String */ prop, /* int */ val )
         {
             if( cb.disabled )
             {
@@ -378,7 +470,10 @@ function( declare,
             cb.disabled = true;
             this._adjust( prop, val );
         },
-        _adjust : function( prop, val )
+        /**
+         * Adjusts stat matching prop by val and _checkCaps if we adjusted free_pool or free_edge.
+         */
+        _adjust : function( /* String */ prop, /* int */ val )
         {
             this.manager[ prop ].value = parseInt( this.manager[ prop ].value ) + val;
             if( prop.indexOf( "free_" ) == 0 )
@@ -386,7 +481,10 @@ function( declare,
                 this.manager._checkCaps( prop.substring( 5 ) );
             }
         },
-        _show : function( what )
+        /**
+         * Show or hide domNode matching what.
+         */
+        _show : function( /* DOMElement */ what )
         {
             what.style.display = "list-item";
         },
