@@ -77,6 +77,9 @@ function( declare,
             "choose topic" : true,
             "choose any non-combat" : true
         },
+        /**
+         * Default character name.
+         */
         DEFAULT_CHARACTER_NAME : "a Hero of the Ninth World",
         version : "1.0.0-b15",
         finalized : false,
