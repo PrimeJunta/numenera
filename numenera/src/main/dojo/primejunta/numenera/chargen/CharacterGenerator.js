@@ -67,6 +67,9 @@ function( declare,
           changelog )
 {
     return declare( "primejunta/numenera/chargen/CharacterGenerator", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _data, _stats, _lists ], {
+        /**
+         * Default field values. Will be cleared on focus.
+         */
         DEFAULT_VALUES : {
             "a Hero of the Ninth World" : true,
             "choose" : true,
