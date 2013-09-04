@@ -169,7 +169,7 @@ function( declare,
             if( this._has( "Ⓔ Practiced With All Weapons" ) )
             {
                 boosts = lang.mixin( boosts, {
-                    light : 1,
+                    light : 2,
                     medium : 1,
                     heavy : 1
                 });
@@ -177,7 +177,7 @@ function( declare,
             else if( this._has( "Ⓔ Practiced With Light/Medium Weapons" ) )
             {
                 boosts = lang.mixin( boosts, {
-                    light : 1,
+                    light : 2,
                     medium : 1
                 })
             }

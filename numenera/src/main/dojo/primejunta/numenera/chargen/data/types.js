@@ -144,7 +144,7 @@ define({
                 "Clothing", "${select:2:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged} Weapon: ${input:choose}", "Light Armor: ${input:choose}", "Explorer's pack", "Bag of Light Tools", "Oddity: ${input:GM chooses}"
             ],
             "ability_list" : [ "Ⓣ ${input:choose any non-combat}" ],
-            "bonus_list" : [ "Flex Skill", "Practiced With Light/Medium Weapons" ]
+            "bonus_list" : [ "Ⓔ Flex Skill", "Ⓔ Practiced With Light/Medium Weapons" ]
         },
         "advancement" : [{
             "perk_list" : "Ⓐ Bash (1 might)|Ⓐ Hedge Magic (1 intellect)|Ⓐ Pierce (1 speed)|Ⓐ Thrust (1 might)|Ⓔ Practiced in Armor|Ⓣ Speed Defense (when not wearing armor)|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense"

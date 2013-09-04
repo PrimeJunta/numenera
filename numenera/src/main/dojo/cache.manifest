@@ -1,7 +1,8 @@
 CACHE MANIFEST
 # Cache manifest for Numenera Character Creator.
 #
-# Version 1.0.0-b10
+# Version 1.0.0-b15
+#
 index.html
 primejunta/numenera/chargen/themes/images/icon.png
 primejunta/numenera/chargen/themes/images/touch-icon-ipad.png

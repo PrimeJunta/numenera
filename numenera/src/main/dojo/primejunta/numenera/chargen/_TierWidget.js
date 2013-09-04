@@ -50,6 +50,7 @@ function( declare,
             this._typeData = this.typeData[ this.tier - 1 ];
             this._focusData = this.focusData[ this.tier - 1 ];
             this.specialAbilityName = this.manager.getType().special_ability_name;
+            this.DEFAULT_VALUES = this.manager.DEFAULT_VALUES;
         },
         postCreate : function()
         {
@@ -96,6 +97,7 @@ function( declare,
             {
                 this.purchasedBenefitsNode.style.display = "none";
             }
+            this.normalizeClass( this.skillInput );
         },
         _tierChoicesMade : function()
         {
@@ -115,7 +117,7 @@ function( declare,
             {
                 this.skillInput.value = "";
             }
-            this.manager.normalizeClass( this.skillInput );
+            this.normalizeClass( this.skillInput );
         },
         onBlurSkillInput : function()
         {
@@ -123,7 +125,7 @@ function( declare,
             {
                 this.skillInput.value = this.DEFAULT_SKILL_NAME;
             }
-            this.manager.normalizeClass( this.skillInput );
+            this.normalizeClass( this.skillInput );
         },
         applyBonusPerks : function()
         {
@@ -146,7 +148,7 @@ function( declare,
                 for( var i = 0; i < bps.length; i++ )
                 {
                     this._controls.push( new _ListItem({
-                        manager : this,
+                        manager : this.manager,
                         content : bps[ i ],
                         from : "type",
                         selectedIndex : 0
@@ -160,13 +162,17 @@ function( declare,
                 for( var i = 0; i < bps.length; i++ )
                 {
                     this._controls.push( new _ListItem({
-                        manager : this,
+                        manager : this.manager,
                         content : bps[ i ],
                         from : "focus",
                         selectedIndex : 0
                     }).placeAt( this.bonusPerksNode ) );
                 }
             }
+        },
+        normalizeClass : function( node )
+        {
+            this.manager.normalizeClass( node );
         },
         checkSkillType : function()
         {

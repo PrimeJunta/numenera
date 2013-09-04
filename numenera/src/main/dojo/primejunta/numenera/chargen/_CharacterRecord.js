@@ -46,7 +46,6 @@ function( declare,
             this._sv( "cypher_count", "cypher_count" );
             this._sv( "shin_count", "shin_count" );
             this._sv( "character_xp", "character_xp" );
-            this._sv( "description_text", "description_text" );
             this._sv( "armor_value_none", "armor_value_none" );
             this._sv( "armor_value_light", "armor_value_light" );
             this._sv( "armor_value_medium", "armor_value_medium" );
@@ -62,6 +61,7 @@ function( declare,
             this._wl( "special_list", "special_list" );
             this._wl( "cypher_list", "cypher_list" );
             this._wl( "equipment_list", "equipment_list" );
+            this._wl( "description_text", "description_text" );
             this._wl( "notes_list", "notes_list" );
             this._updatePrint();
         },

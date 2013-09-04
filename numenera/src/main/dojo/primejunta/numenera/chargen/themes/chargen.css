@@ -184,7 +184,6 @@ li td
 }
 .cg-baseTextNode
 {
-	___width : 275px;
 }
 .cg-noJavaScript
 {
@@ -212,6 +211,14 @@ li td
 	text-transform : uppercase;
 	color : gray;
 	letter-spacing : 12px;
+}
+.cg-versionInfo
+{
+	text-align : right;
+	margin-right : 30px;
+    font-size : 12px;
+    padding : 10px;
+    cursor : pointer;
 }
 .cg-copyright
 {

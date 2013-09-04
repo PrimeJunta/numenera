@@ -11,7 +11,7 @@ function( declare,
         /**
          * Cap for pools
          */
-        pool_cap : 20,
+        pool_cap : 99,
         /**
          * Cap for edge.
          */

@@ -30,7 +30,8 @@ define([ "dojo/_base/declare",
          "./data/types",
          "./data/foci",
          "dojo/text!./templates/CharacterGenerator.html",
-         "dojo/text!./doc/about.html" ],
+         "dojo/text!./doc/about.html",
+         "dojo/text!./doc/changelog.html" ],
 function( declare,
           lang,
           array,
@@ -59,7 +60,8 @@ function( declare,
           types,
           foci,
           template,
-          about )
+          about,
+          changelog )
 {
     return declare( "primejunta/numenera/chargen/CharacterGenerator", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _data, _stats, _lists ], {
         DEFAULT_VALUES : {
@@ -70,6 +72,7 @@ function( declare,
             "choose any non-combat" : true
         },
         DEFAULT_CHARACTER_NAME : "a Hero of the Ninth World",
+        version : "1.0.0-b15",
         finalized : false,
         /**
          * Descriptor data.
@@ -367,16 +370,22 @@ function( declare,
         },
         showHelp : function()
         {
-            console.log( "HERP!" );
+            this._showHelp( about );
+        },
+        showChangeLog : function()
+        {
+            this._showHelp( changelog );
+        },
+        _showHelp : function( content )
+        {
             if( !this._helpNode )
             {
                 this._helpNode = domConstruct.create( "div", { style : "display:none;" }, document.body );
-                this._helpNode.innerHTML = about;
                 on( this._helpNode, "click", lang.hitch( this, this.hideHelp ) );
             }
+            this._helpNode.innerHTML = content;
             this.domNode.style.display = "none";
             this._helpNode.style.display = "block";
-            console.log( "DERP!" );
         },
         hideHelp : function( e )
         {
