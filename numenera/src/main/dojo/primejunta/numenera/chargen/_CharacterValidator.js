@@ -10,14 +10,16 @@ define([ "dojo/_base/declare",
          "dojo/string",
          "./data/descriptors",
          "./data/types",
-         "./data/foci" ],
+         "./data/foci",
+         "./data/feats" ],
 function( declare,
           lang,
           array,
           string,
           descriptors,
           types,
-          foci )
+          foci,
+          feats )
 {
     return declare([], {
         /**
@@ -33,17 +35,6 @@ function( declare,
          */
         CHOOSE_STR : "-- choose --",
         /**
-         * Items to be ignored when reading stuff from lists.
-         */
-        IGNORE_ITEMS : [ "",
-                         "Ⓣ",
-                         "Ⓢ",
-                         this.TRAINED_STR,
-                         this.SPECIALIZED_STR,
-                         this.CHOOSE_STR,
-                         this.TRAINED_STR + this.CHOOSE_STR,
-                         this.SPECIALIZED_STR + this.CHOOSE_STR ],
-        /**
          * Parent CharacterGenerator.
          */
         manager : {},
@@ -52,6 +43,14 @@ function( declare,
          */
         constructor : function( /* Object */ kwObj )
         {
+            this.IGNORE_ITEMS = [ "",
+                                 "Ⓣ",
+                                 "Ⓢ",
+                                 this.TRAINED_STR,
+                                 this.SPECIALIZED_STR,
+                                 this.CHOOSE_STR,
+                                 this.TRAINED_STR + this.CHOOSE_STR,
+                                 this.SPECIALIZED_STR + this.CHOOSE_STR ];
             lang.mixin( this, kwObj );
         },
         /**
@@ -71,19 +70,22 @@ function( declare,
             this.analyzeCharacter();
             var _sl = this._cdata.special_list;
             var _al = this._cdata.ability_list;
-            var _el = this._cdata.equipment_list;
-            // Look for missing choices.
-            if( _sl.join( "," ).indexOf( this.CHOOSE_STR ) != -1 )
+            // Look for missing choices. We use the "raw" lists so the -- choose -- strings are included.
+            if( this._listAsText( "special_list" ).join( "," ).indexOf( this.CHOOSE_STR ) != -1 )
             {
                 errs.push( "Please make all your special ability choices." );
             }
-            if( _al.join( "," ).indexOf( this.CHOOSE_STR ) != -1 )
+            if( this._listAsText( "ability_list" ).join( "," ).indexOf( this.CHOOSE_STR ) != -1 )
             {
                 errs.push( "Please make all your skill choices." );
             }
-            if( _el.join( "," ).indexOf( this.CHOOSE_STR ) != -1 )
+            if( this._listAsText( "equipment_list" ).join( "," ).indexOf( this.CHOOSE_STR ) != -1 )
             {
                 errs.push( "Please make all equipment choices." );
+            }
+            if( array.indexOf( _sl, "Ⓔ Weapon Master: " ) != -1 )
+            {
+                errs.push( "Please select your chosen weapon, O Weapon Master." );
             }
             if( array.indexOf( _al, this.TRAINED_STR + "Knowledge area:" ) != -1 || array.indexOf( _al, this.SPECIALIZED_STR + "Knowledge area:" ) != -1 )
             {
@@ -132,7 +134,7 @@ function( declare,
             }
         },
         /**
-         * Copy values from CharacterGenerator, and apply bonuses with _getAttacks, _processSpecialAbilities, _processArmorValues,
+         * Copy values from CharacterGenerator, and apply bonuses with _getAttacks, _processAttackValues, _processArmorValues,
          * and _getAttackList.
          */
         analyzeCharacter : function()
@@ -156,12 +158,12 @@ function( declare,
             this._ss( "character_xp", "character_xp" );
             this._st( "description_text", this._textAsList( "description_text" ) );
             this._wl( "ability_list", this._getSkillList() );
-            this._wl( "special_list", this._listAsText( "special_list") );
+            this._wl( "special_list", this._getSpecialList() );
             this._wl( "cypher_list", this._listAsText( "cypher_list") );
             this._wl( "equipment_list", this._listAsText( "equipment_list" ).concat( this._textAsList( "extra_equipment_text") ) );
             this._wl( "notes_list", this._textAsList( "notes_text" ) );
             this._wl( "attack_data", this._getAttacks() );
-            this._processSpecialAbilities();
+            this._processAttackValues();
             this._processArmorValues();
             this._wl( "attack_list", this._getAttackList() );
             return this._cdata;
@@ -230,13 +232,10 @@ function( declare,
             return out;
         },
         /**
-         * Collects bonuses derived from special abilities. This could probably be done more elegantly; as it is,
-         * we're just looking for known enablers and applying the stat bonuses when we find them. It would be nicer
-         * to have a separate map of enablers to bonuses, so we could add new ones more easily. For now, this will
-         * get the job done though. A couple will probably have to be handled here in any case, e.g. Weapon Master
-         * which is connected to a weapon name input by the user.
+         * Collects bonuses derived from special abilities, read from feats (a dependency). We have to deal with Weapon Master
+         * here though since it isn't a fixed value but contains the chosen_weapon, which we also need to parse out..
          */
-        _processSpecialAbilities : function()
+        _processAttackValues : function()
         {
             var eq = this._cdata.special_list;
             var sl = this._cdata.ability_list;
@@ -253,45 +252,29 @@ function( declare,
                 "heavy_bashing" : 0,
                 "heavy_bladed" : 0,
                 "heavy_ranged" : 0,
-                "damage" : 0,
-                "light" : 1,
+                "damage_bonus" : 0,
+                "light" : 0,
                 "medium" : 0,
                 "heavy" : 0,
-                "chosen_weapon" : 0
+                "chosen_weapon_bonus" : 0
             };
-            // weapon mastery; since it includes a character input we have to find it this way
+            // Find the chosen weapon for weapon mastery.
             for( var i = 0; i < eq.length; i++ )
             {
                 var wms = "Ⓔ Weapon Master:";
                 if( eq[ i ].indexOf( wms ) != -1 )
                 {
                     this._cdata.chosen_weapon = string.trim( eq[ i ].substring( wms.length ) );
-                    boosts.chosen_weapon = 1;
+                    boosts = lang.mixin( boosts, feats.attack_adjustments[ "Ⓔ Weapon Master" ] );
                 }
             }
-            if( this._has( "Ⓔ Damage Dealer" ) )
+            // Bonuses from special abilities.
+            for( var o in feats.attack_adjustments )
             {
-                boosts.chosen_weapon = 3;
-            }
-            if( this._has( "Ⓔ Capable Warrior" ) )
-            {
-                boosts.damage = 1;
-            }
-            // enablers
-            if( this._has( "Ⓔ Practiced With All Weapons" ) )
-            {
-                boosts = lang.mixin( boosts, {
-                    light : 2,
-                    medium : 1,
-                    heavy : 1
-                });
-            }
-            else if( this._has( "Ⓔ Practiced With Light/Medium Weapons" ) )
-            {
-                boosts = lang.mixin( boosts, {
-                    light : 2,
-                    medium : 1
-                })
+                if( this._has( o ) )
+                {
+                    boosts = lang.mixin( boosts, feats.attack_adjustments[ o ] )
+                }
             }
             // training
             var cats = [ "heavy", "medium", "light" ];
@@ -318,10 +301,10 @@ function( declare,
                 // chosen weapon
                 if( cur.short_name == this._cdata.chosen_weapon )
                 {
-                    cur.damage += boosts.chosen_weapon;
+                    cur.damage += boosts.chosen_weapon_bonus;
                 }
                 // general damage bonus
-                cur.damage += boosts.damage;
+                cur.damage += boosts.damage_bonus;
                 // category
                 cur.difficulty_adjustment -= boosts[ cur.category ];
                 // type
@@ -344,29 +327,13 @@ function( declare,
                     pBase--;
                 }
             }
-            if( this._has( "Ⓔ Ward" ) )
+            for( var o in feats.armor_adjustments )
             {
-                aBase += 1;
-            }
-            if( this._has( "Ⓔ Experienced Defender" ) )
-            {
-                aBase += 1;
-            }
-            if( this._has( "Ⓔ Practiced in Armor" ) )
-            {
-                pBase -= 2;
-            }
-            if( this._has( "Ⓔ Armor Expert" ) )
-            {
-                pBase -= 1;
-            }
-            if( this._has( "Ⓔ Experienced With Armor" ) )
-            {
-                pBase -= 1;
-            }
-            if( this._has( "Ⓔ Armor Master" ) || this._has( "Ⓔ Mastery With Armor" ) )
-            {
-                pBase = -999;
+                if( this._has( o ) )
+                {
+                    aBase += feats.armor_adjustments[ o ].armor_adjustment ? feats.armor_adjustments[ o ].armor_adjustment : 0;
+                    pBase += feats.armor_adjustments[ o ].armor_penalty_adjustment ? feats.armor_adjustments[ o ].armor_penalty_adjustment : 0;
+                }
             }
             this._cdata.armor_value_none = aBase;
             this._cdata.armor_value_light = aBase + 1;
@@ -380,11 +347,21 @@ function( declare,
             this._cdata.armor_might_cost_light = pBase + 1 > 0 ? pBase + 1 : 0;
         },
         /**
-         * We're merging any duplicate (T)rained skills into (S)pecialized and returning the result.
+         * We're merging any duplicate (T)rained skills into (S)pecialized and returning the result. We're also merging
+         * in any skill received as special abilities (happens for certain foci).
          */
         _getSkillList : function()
         {
             var list = this._listAsText( "ability_list" );
+            var _slist = this._listAsText( "special_list" );
+            while( _slist.length > 0 )
+            {
+                var cur = _slist.shift();
+                if( this._isSkill( cur ) )
+                {
+                    list.push( cur );
+                }
+            }
             list.sort();
             if( list.length < 2 )
             {
@@ -406,6 +383,38 @@ function( declare,
             }
             out.sort();
             return out;
+        },
+        /**
+         * Filters out skills from special_list, since they're injected into skill list in _getSkillList.
+         */
+        _getSpecialList : function()
+        {
+            var _sl = this._listAsText( "special_list");
+            var out = [];
+            while( _sl.length > 0 )
+            {
+                var cur = _sl.shift();
+                if( !this._isSkill( cur ) )
+                {
+                    out.push( cur );
+                }
+            }
+            out.sort();
+            return out;
+        },
+        /**
+         * Checks if item is a skill and returns true or false accordingly.
+         */
+        _isSkill : function( /* String */ item )
+        {
+            if( item.indexOf( this.TRAINED_STR ) == 0 || item.indexOf( this.SPECIALIZED_STR ) == 0 )
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         },
         /**
          * Outputs contents of attack_data as String[] suitable for printing out in the sheet. Each attack

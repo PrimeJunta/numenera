@@ -105,7 +105,7 @@ define({
             "speed_pool" : 2
         },
         "lists" : {
-            "ability_list" : [ "Ⓣ Stealthy tasks", "Ⓣ Lies and trickery" ],
+            "ability_list" : [ "Ⓣ Stealth", "Ⓣ Lies and trickery" ],
             "inability_list" : [ "Slow (Movement tasks +1 step)" ]
         }
     },

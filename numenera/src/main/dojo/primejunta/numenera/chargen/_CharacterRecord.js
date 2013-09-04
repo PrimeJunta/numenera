@@ -166,9 +166,29 @@ function( declare,
             {
                 return;
             }
-            while( list.length > 0 )
+            var count = 1;
+            for( var i = 0; i < list.length; i++ )
             {
-                out += list.shift() + "<br/>";
+                if( i > 0 )
+                {
+                    if( list[ i ] == list[ i - 1 ] )
+                    {
+                        count++;
+                    }
+                    else if( count > 1 )
+                    {
+                        out+= " (× " + count + ")<br/>" + list[ i ];
+                        count = 0;
+                    }
+                    else
+                    {
+                        out += "<br/>" + list[ i ];
+                    }
+                }
+                else
+                {
+                    out += list[ i ];
+                }
             }
             this[ fieldName ].innerHTML = out;
         },

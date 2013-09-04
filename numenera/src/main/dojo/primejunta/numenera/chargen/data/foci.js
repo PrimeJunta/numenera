@@ -285,7 +285,7 @@ define({
             "bonus_perks" : [ "Ⓔ Resilient", "Ⓣ Might Defense" ]
         },
         {
-            "bonus_perks" : [ "Ⓣ Sneaking (in low light or darkness)", "Ⓔ Dark Explorer" ]
+            "bonus_perks" : [ "Ⓣ Stealth (in low light or darkness)", "Ⓔ Dark Explorer" ]
         },
         {
             "bonus_perks" : [ "Ⓐ Blinding Attack (3 speed)" ]
@@ -362,7 +362,7 @@ define({
             "bonus_perks" : [ "Ⓔ Interface" ]
         },
         {
-            "bonus_perks" : [ "Ⓔ Weaponization: ${input}" ]
+            "bonus_perks" : [ "Ⓔ Weaponization: ${input:choose}" ]
         },
         {
             "bonus_perks" : [ "Ⓔ Fusion" ]
@@ -411,7 +411,7 @@ define({
         "notes_text" : "Hunts With Great Skill: Corebook, page 65",
         "description_text" : "One PC once saw you let prey go.",
         "lists" : {
-            "equipment_list" : [ "Silent Boots (+1 to sneaking)" ],
+            "equipment_list" : [ "Silent Boots (+1 to Stealth)" ],
             "ability_list" : [ "Ⓣ Tracking", "Ⓣ Climbing", "Ⓣ Swimming", "Ⓣ Jumping", "Ⓣ Balancing", "Ⓣ Running" ]
         },
         "advancement" : [{
@@ -769,7 +769,7 @@ define({
         "description_text" : "One PC knew you before, and convinced you to quit crime.",
         "lists" : {
             "equipment_list" : [ "Bag of Light Tools" ],
-            "ability_list" : [ "Ⓣ Sneaking", "Ⓣ Pickpocketing", "Ⓣ Lockpicking" ]
+            "ability_list" : [ "Ⓣ Stealth", "Ⓣ Pickpocketing", "Ⓣ Lockpicking" ]
         },
         "advancement" : [{
         },

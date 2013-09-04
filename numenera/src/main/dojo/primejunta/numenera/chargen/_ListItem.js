@@ -228,7 +228,7 @@ function( declare,
          */
         getInputValue : function()
         {
-            return this.content.indexOf( "${input" ) != -1 ? this.content.substring( this.content.indexOf( "${input:" ) + 8, this.content.lastIndexOf( "}" ) ) : "";
+            return this.content.indexOf( "${input:" ) != -1 ? this.content.substring( this.content.indexOf( "${input:" ) + 8, this.content.lastIndexOf( "}" ) ) : "";
         },
         /**
          * Returns state as string, concatenated from baseText, select value, midText, and inputValue if present.

@@ -293,6 +293,10 @@ function( declare,
             tier = !isNaN( parseInt( tier ) ) ? parseInt( tier ) : parseInt( this.character_tier.value );
             if( !this.finalized )
             {
+                if( this._advancementControl )
+                {
+                    this._advancementControl.destroy();
+                }
                 this._advancementControl = new _AdvancementControl({
                     manager : this,
                     typeData : type.advancement,
@@ -570,6 +574,7 @@ function( declare,
                 this._advancementControl.destroy();
             }
             this.unlockFinalize();
+            this.finalized = false;
             delete this._listdata;
             this.description_text.set( "value", "" );
             this.notes_text.set( "value", "" );
