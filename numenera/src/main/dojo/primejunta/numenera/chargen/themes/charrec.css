@@ -55,7 +55,10 @@
 }
 h2.cr-heading
 {
-    border-bottom : 1px solid black;
+	margin-top : 12px;
+	padding : 4px 4px 2px 4px;
+	border-top : 1px solid black;
+	border-bottom : 1px solid black;
 }
 .cr-smallLabel
 {
@@ -63,11 +66,6 @@ h2.cr-heading
     font-family : Prata;
     font-size : 9px;
     text-transform : uppercase;
-}
-.cr-divider
-{
-    border-top : 1px solid black;
-    margin : 20px;
 }
 /* stats */
 .cr-statBoxContainer
@@ -208,10 +206,10 @@ h2.cr-heading
     {
         height : 205mm; /* override for screen */
         width : 293mm;
-        font-size : 12pt;
     }
     .cr-listContent
     {
+        font-size : 10pt;
         line-height : 14pt;
     }
     .cr-pageBreak

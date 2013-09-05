@@ -8,7 +8,7 @@
 @import url( '../../../../dijit/themes/tundra/form/Common.css' );
 @import url( '../../../../dijit/themes/tundra/form/Button.css' );
 @import url( 'charrec.css' );
-/* Fonts - these are originally from Google Web Fonts. I made copies because downloading them from Google was not reliable for offline use. */
+/* Fonts - these are originally from Google Web Fonts, and are used with permission [ https://developers.google.com/fonts/faq#Download_Fonts ]. */
 @font-face {
   font-family: 'Droid Sans';
   font-style: normal;

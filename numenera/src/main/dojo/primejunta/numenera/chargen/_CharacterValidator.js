@@ -300,7 +300,7 @@ function( declare,
             {
                 var cur = this._cdata.attack_data[ i ];
                 // chosen weapon
-                if( cur.short_name.toLowerCase() == this._cdata.chosen_weapon.toLowerCase() )
+                if( this._cdata.chosen_weapon && cur.short_name.toLowerCase() == this._cdata.chosen_weapon.toLowerCase() )
                 {
                     cur.damage += boosts.chosen_weapon_bonus;
                 }
