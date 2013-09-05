@@ -22,17 +22,17 @@ define({
             "recovery_roll" : 1
         },
         "lists" : {
-            "cypher_list" : [ "${input:GM chooses}", "${input:GM chooses}" ],
-            "equipment_list" : [
-                "Clothing", 
-                "${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged} Weapon: ${input:choose}", 
-                "${select:1:Shield|Light Bashing Weapon|Light Bladed Weapon|Light Ranged Weapon|Medium Bashing Weapon|Medium Bladed Weapon|Medium Ranged Weapon|Heavy Bashing Weapon|Heavy Bladed Weapon|Heavy Ranged}: ${input:choose}", 
-                "${select:1:Light armor|Medium armor}: ${input:choose}", 
-                "Explorer's pack", 
-                "Oddity: ${input:GM chooses}"
-            ],
+            "cypher_list" : [ "${input:GM chooses}",
+                              "${input:GM chooses}" ],
+            "equipment_list" : [ "Clothing", 
+                                 "${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged} Weapon: ${input:choose}", 
+                                 "${select:1:Shield|Light Bashing Weapon|Light Bladed Weapon|Light Ranged Weapon|Medium Bashing Weapon|Medium Bladed Weapon|Medium Ranged Weapon|Heavy Bashing Weapon|Heavy Bladed Weapon|Heavy Ranged}: ${input:choose}", 
+                                 "${select:1:Light armor|Medium armor}: ${input:choose}", 
+                                 "Explorer's pack", 
+                                 "Oddity: ${input:GM chooses}" ],
             "ability_list" : [ "Ⓣ ${select:1:Balancing|Climbing|Jumping|Swimming}" ],
-            "bonus_list" : [ "Ⓔ Practiced in Armor", "Ⓔ Practiced With All Weapons" ]
+            "bonus_list" : [ "Ⓔ Practiced in Armor",
+                             "Ⓔ Practiced With All Weapons" ]
         },
         "advancement" : [
          {
@@ -44,7 +44,8 @@ define({
         },
         {
             "stats" : {  "cypher_count" : 1 },
-            "bonus_perks" : [ "Ⓔ Expert Cypher Use", "Ⓣ ${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged}" ], // no stack,
+            "bonus_perks" : [ "Ⓔ Expert Cypher Use",
+                              "Ⓣ ${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged}" ], // no stack,
             "perk_list" : "Ⓔ Experienced With Armor|Ⓐ Lunge (2 might)|Ⓐ Slice (2 speed)|Ⓐ Spray (2 speed)|Ⓐ Trick shot (2 speed)|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense" // no stack
         },
         {
@@ -54,7 +55,8 @@ define({
         {
             "skills_stack" : true,
             "stats" : { "cypher_count" : 1 },
-            "bonus_perks" : [ "Ⓔ Adept Cypher Use", "Ⓣ ${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged}" ], //stacks,
+            "bonus_perks" : [ "Ⓔ Adept Cypher Use",
+                              "Ⓣ ${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged}" ], //stacks,
             "perk_list" : "Ⓐ Arc Spray (3 speed)|Ⓐ Jump Attack (5 might)|Ⓔ Mastery With Armor|Ⓔ Parry (5 speed)|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense" // stacks
         },
         {
@@ -86,10 +88,13 @@ define({
             "recovery_roll" : 1
         },
         "lists" : {
-            "cypher_list" : [ "${input:GM chooses}", "${input:GM chooses}", "${input:GM chooses}" ],
-            "equipment_list" : [
-                "Clothing", "${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged} Weapon: ${input:choose}", "Book (numenera)", "Oddity: ${input:GM chooses}"
-            ],
+            "cypher_list" : [ "${input:GM chooses}",
+                              "${input:GM chooses}",
+                              "${input:GM chooses}" ],
+            "equipment_list" : [ "Clothing",
+                                 "${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged} Weapon: ${input:choose}",
+                                 "Book (numenera)",
+                                 "Oddity: ${input:GM chooses}" ],
             "ability_list" : [ "Ⓣ Identifying/Understanding the Numenera" ],
             "bonus_list" : [ "Ⓔ Practiced With Light Weapons" ]
         },
@@ -139,12 +144,17 @@ define({
             "recovery_roll" : 1
         },
         "lists" : {
-            "cypher_list" : [ "${input:GM chooses}", "${input:GM chooses}" ],
-            "equipment_list" : [
-                "Clothing", "${select:2:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged} Weapon: ${input:choose}", "Light Armor: ${input:choose}", "Explorer's pack", "Bag of Light Tools", "Oddity: ${input:GM chooses}"
-            ],
+            "cypher_list" : [ "${input:GM chooses}",
+                              "${input:GM chooses}" ],
+            "equipment_list" : [ "Clothing",
+                                 "${select:2:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged} Weapon: ${input:choose}",
+                                 "Light Armor: ${input:choose}",
+                                 "Explorer's pack",
+                                 "Bag of Light Tools",
+                                 "Oddity: ${input:GM chooses}" ],
             "ability_list" : [ "Ⓣ ${input:choose any non-combat}" ],
-            "bonus_list" : [ "Ⓔ Flex Skill", "Ⓔ Practiced With Light/Medium Weapons" ]
+            "bonus_list" : [ "Ⓔ Flex Skill",
+                             "Ⓔ Practiced With Light/Medium Weapons" ]
         },
         "advancement" : [{
             "perk_list" : "Ⓐ Bash (1 might)|Ⓐ Hedge Magic (1 intellect)|Ⓐ Pierce (1 speed)|Ⓐ Thrust (1 might)|Ⓔ Practiced in Armor|Ⓣ Speed Defense (when not wearing armor)|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense"
@@ -157,7 +167,8 @@ define({
            "stats" : { "cypher_count" : 1 },
            "bonus_perks" : [  ],
 
-           "bonus_perks" : [ "Ⓔ Expert Cypher Use", "Ⓣ ${input:choose any non-combat}" ],
+           "bonus_perks" : [ "Ⓔ Expert Cypher Use",
+                             "Ⓣ ${input:choose any non-combat}" ],
            "perk_list" : "Ⓐ Enhancement (4 intellect)|Ⓐ Hover (3 intellect)|Ⓐ Mind Reading (4 intellect)|Ⓐ Onslaught (2 intellect)|Ⓣ Light Bashing|Ⓣ Light Bladed|Ⓣ Light Ranged|Ⓣ Medium Bashing|Ⓣ Medium Bladed|Ⓣ Medium Ranged|Ⓣ Heavy Bashing|Ⓣ Heavy Bladed|Ⓣ Heavy Ranged"
        },
        {
@@ -166,7 +177,8 @@ define({
        },
        {
            "stats" : { "cypher_count" : 1 },
-           "bonus_perks" : [ "Ⓔ Adept Cypher Use", "Ⓣ ${input:choose any non-combat}" ],
+           "bonus_perks" : [ "Ⓔ Adept Cypher Use",
+                             "Ⓣ ${input:choose any non-combat}" ],
            "perk_list" : "Ⓐ Feint (3 speed)|Ⓐ Snipe (3 speed)|Ⓔ Successive Attack (2 speed)|Ⓣ Targeting Eye|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense"
        },
        {

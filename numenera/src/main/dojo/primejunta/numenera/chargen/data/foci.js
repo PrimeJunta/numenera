@@ -7,10 +7,12 @@ define({
             "equipment_list" : [ "Artifact (Fireproofer)" ]
         },
         "advancement" : [{
-            "bonus_perks" : [ "Ⓔ Fire esoteries", "Shroud of Flame (1 intellect)" ]
+            "bonus_perks" : [ "Ⓔ Fire esoteries",
+                              "Ⓔ Shroud of Flame (1 intellect)" ]
         },
         {
-            "bonus_perks" : [ "Ⓐ Hurl Flame (2 intellect)", "Ⓔ Fiery Power" ]
+            "bonus_perks" : [ "Ⓐ Hurl Flame (2 intellect)",
+                              "Ⓔ Fiery Power" ]
         },
         {
             "bonus_perks" : [ "Ⓔ Fiery Hand of Doom (3 intellect)" ]
@@ -30,20 +32,24 @@ define({
         "notes_text" : "Carries a Quiver: Corebook, page 54",
         "description_text" : "One PC is true friend.\nOne PC is always hit on fumble.",
         "lists" : {
-            "equipment_list" : [ "Well-Made Medium Ranged Weapon: Bow", "24 arrows" ],
+            "equipment_list" : [ "Well-Made Medium Ranged Weapon: Bow",
+                                 "24 arrows" ],
             "ability_list" : [ "Ⓣ Fletcher" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Archer (spend Speed or intellect Effort to increase bow damage)" ]
         },
         {
-            "bonus_perks" : [ "Ⓐ Covering Fire (1 speed)", "Ⓣ Bowyer" ]
+            "bonus_perks" : [ "Ⓐ Covering Fire (1 speed)",
+                              "Ⓣ Bowyer" ]
         },
         {
-            "bonus_perks" : [ "Ⓣ Archery", "Ⓣ Fletcher" ]
+            "bonus_perks" : [ "Ⓣ Archery",
+                              "Ⓣ Fletcher" ]
         },
         {
-            "bonus_perks" : [ "Ⓔ Quick Shot", "Ⓣ Bowyer" ]
+            "bonus_perks" : [ "Ⓔ Quick Shot",
+                              "Ⓣ Bowyer" ]
         },
         {
             "bonus_perks" : [ "Ⓣ Archery" ]
@@ -58,7 +64,8 @@ define({
         "description_text" : "You have a telepathic connection to one PC.",
         "lists" : {
             "equipment_list" : [ "Intellect Crystal (+1 intellect Pool, -5 if lost)" ],
-            "ability_list" : [ "Ⓣ Mind Control (if has it)", "Ⓣ Mind Reading (if has it)" ]
+            "ability_list" : [ "Ⓣ Mind Control (if has it)",
+                               "Ⓣ Mind Reading (if has it)" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓐ Telepathic (1+ intellect)" ]
@@ -90,19 +97,22 @@ define({
             "bonus_perks" : [ "Ⓔ Beast Companion" ]
         },
         {
-            "bonus_perks" : [ "Ⓐ Soothe the Savage (2 intellect)", "Ⓐ Communication (2 intellect)" ]
+            "bonus_perks" : [ "Ⓐ Soothe the Savage (2 intellect)",
+                              "Ⓐ Communication (2 intellect)" ]
         },
         {
             "bonus_perks" : [ "Ⓔ Mount" ]
         },
         {
-            "bonus_perks" : [ "Ⓐ Beast Eyes (3 intellect)", "Ⓔ Improved Companion 1" ]
+            "bonus_perks" : [ "Ⓐ Beast Eyes (3 intellect)",
+                              "Ⓔ Improved Companion 1" ]
         },
         {
             "bonus_perks" : [ "Ⓐ Beast Call (5 intellect)" ]
         },
         {
-            "bonus_perks" : [ "Ⓐ Control the Savage (6 intellect)", "Ⓔ Improved Companion 2" ]
+            "bonus_perks" : [ "Ⓐ Control the Savage (6 intellect)",
+                              "Ⓔ Improved Companion 2" ]
         }]
     },
     "F4" : {
@@ -140,7 +150,8 @@ define({
             "equipment_list" : [ "Oddity (sphere that shows pictures)" ]
         },
         "advancement" : [{
-            "bonus_perks" : [ "Ⓔ Psychedelic esoteries", "Ⓐ Minor Illusion (1 intellect)" ]
+            "bonus_perks" : [ "Ⓔ Psychedelic esoteries",
+                              "Ⓐ Minor Illusion (1 intellect)" ]
         },
         {
             "bonus_perks" : [ "Ⓐ Disguise (2+ intellect)" ]
@@ -163,16 +174,22 @@ define({
         "notes_text" : "Crafts Unique Objects: Corebook, page 58",
         "description_text" : "One PC has an extra level 1/2 item made by you.",
         "lists" : {
-            "equipment_list" : [ "Bag of Light Tools", "Self-made level 1/2 item: ${input:choose}", "Oddity: ${input:GM chooses}" ],
-            "ability_list" : [ "Ⓣ Craft item type: ${input:choose}", "Ⓣ Craft item type: ${input:choose}", "Ⓣ Identifying function of device" ]
+            "equipment_list" : [ "Bag of Light Tools",
+                                 "Self-made level 1/2 item: ${input:choose}",
+                                 "Oddity: ${input:GM chooses}" ],
+            "ability_list" : [ "Ⓣ Craft item type: ${input:choose}",
+                               "Ⓣ Craft item type: ${input:choose}",
+                               "Ⓣ Identifying function of device" ]
         },
         "advancement" : [{
         },
         {
-            "bonus_perks" : [ "Ⓔ Tinkerer", "Ⓐ Quick Work (3+ intellect)" ]
+            "bonus_perks" : [ "Ⓔ Tinkerer",
+                              "Ⓐ Quick Work (3+ intellect)" ]
         },
         {
-            "bonus_perks" : [ "Ⓣ Craft item type: ${input:choose}", "Ⓣ Craft item type: ${input:choose}" ]
+            "bonus_perks" : [ "Ⓣ Craft item type: ${input:choose}",
+                              "Ⓣ Craft item type: ${input:choose}" ]
         },
         {
             "bonus_perks" : [ "Ⓔ Cyphersmith" ]
@@ -224,7 +241,8 @@ define({
             "bonus_perks" : [ "Ⓔ Inspiration" ]
         },
         {
-            "bonus_perks" : [ "Ⓣ Knowledge area: ${input:choose}", "Ⓣ Knowledge area: ${input:choose}" ]
+            "bonus_perks" : [ "Ⓣ Knowledge area: ${input:choose}",
+                              "Ⓣ Knowledge area: ${input:choose}" ]
         },
         {
             "bonus_perks" : [ "Ⓐ Calm (3 intellect)" ]
@@ -267,25 +285,34 @@ define({
         "description_text" : "One PC is an old companion, and always gets +1 on rolls when working with you.",
         "lists" : {
             "equipment_list" : [ "Explorer's Pack" ],
-            "ability_list" : [ "Ⓣ Searching", "Ⓣ Listening", "Ⓣ Climbing", "Ⓣ Balancing", "Ⓣ Jumping" ]
+            "ability_list" : [ "Ⓣ Searching",
+                               "Ⓣ Listening",
+                               "Ⓣ Climbing",
+                               "Ⓣ Balancing",
+                               "Ⓣ Jumping" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Dark esoteries" ]
         },
         {
-            "bonus_perks" : [ "Ⓣ Lockpicking", "Ⓣ Tinkering with devices", "Ⓔ Eyes Adjusted" ]
+            "bonus_perks" : [ "Ⓣ Lockpicking",
+                              "Ⓣ Tinkering with devices",
+                              "Ⓔ Eyes Adjusted" ]
         },
         {
-            "bonus_perks" : [ "Ⓣ Speed Defense (in light or no armor)", "Ⓣ Escape Artist" ]
+            "bonus_perks" : [ "Ⓣ Speed Defense (in light or no armor)",
+                              "Ⓣ Escape Artist" ]
         },
         {
             "stats" : {
                 "armor_bonus" : 1
             },
-            "bonus_perks" : [ "Ⓔ Resilient", "Ⓣ Might Defense" ]
+            "bonus_perks" : [ "Ⓔ Resilient",
+                              "Ⓣ Might Defense" ]
         },
         {
-            "bonus_perks" : [ "Ⓣ Stealth (in low light or darkness)", "Ⓔ Dark Explorer" ]
+            "bonus_perks" : [ "Ⓣ Stealth (in low light or darkness)",
+                              "Ⓔ Dark Explorer" ]
         },
         {
             "bonus_perks" : [ "Ⓐ Blinding Attack (3 speed)" ]
@@ -296,7 +323,8 @@ define({
         "notes_text" : "Fights With Panache: Corebook, page 62",
         "description_text" : "You are always trying to impress one PC.",
         "lists" : {
-            "equipment_list" : [ "Extremely stylish clothes", "Jeweled ${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged} Weapon: ${input:choose}" ]
+            "equipment_list" : [ "Extremely stylish clothes",
+                                 "Jeweled ${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged} Weapon: ${input:choose}" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Attack Flourish" ]
@@ -321,11 +349,9 @@ define({
         "label" : "Focuses Mind over Matter",
         "notes_text" : "Focuses Mind over Matter: Corebook, page 63",
         "description_text" : "One PC causes your mental powers to act strangely.",
-        "lists" : {
-            "bonus_list" : [ "Mental esoteries", "Deflect Attacks (1 intellect)" ]
-        },
         "advancement" : [{
-            "bonus_perks" : [ "Ⓔ Mental esoteries", "Ⓐ Deflect Attacks (1 intellect)" ]
+            "bonus_perks" : [ "Ⓔ Mental esoteries",
+                              "Ⓐ Deflect Attacks (1 intellect)" ]
         },
         {
             "bonus_perks" : [ "Ⓐ Telekinesis (2 intellect)" ]
@@ -353,7 +379,8 @@ define({
             "armor_bonus" : 1
         },
         "lists" : {
-            "equipment_list" : [ "Bag of Light Tools", "Spare parts (for self)" ],
+            "equipment_list" : [ "Bag of Light Tools",
+                                 "Spare parts (for self)" ],
             "inability_list" : [ "Special Healing (first 5 points need to be repaired)" ]
         },
         "advancement" : [{
@@ -412,12 +439,19 @@ define({
         "description_text" : "One PC once saw you let prey go.",
         "lists" : {
             "equipment_list" : [ "Silent Boots (+1 to Stealth)" ],
-            "ability_list" : [ "Ⓣ Tracking", "Ⓣ Climbing", "Ⓣ Swimming", "Ⓣ Jumping", "Ⓣ Balancing", "Ⓣ Running" ]
+            "ability_list" : [ "Ⓣ Tracking",
+                               "Ⓣ Climbing",
+                               "Ⓣ Swimming",
+                               "Ⓣ Jumping",
+                               "Ⓣ Balancing",
+                               "Ⓣ Running" ]
         },
         "advancement" : [{
         },
         {
-            "bonus_perks" : [ "Ⓣ Stealth", "Ⓣ Initiative", "Ⓐ Sprint and Grab (2 speed)" ]
+            "bonus_perks" : [ "Ⓣ Stealth",
+                              "Ⓣ Initiative",
+                              "Ⓐ Sprint and Grab (2 speed)" ]
         },
         {
             "bonus_perks" : [ "Ⓐ Quarry (2 intellect)" ]
@@ -450,13 +484,15 @@ define({
             "bonus_perks" : [ "Ⓐ Command (3 intellect)" ]
         },
         {
-            "bonus_perks" : [ "Ⓔ Capable Follower", "Ⓐ Captivate or Inspire (4 intellect)" ]
+            "bonus_perks" : [ "Ⓔ Capable Follower",
+                              "Ⓐ Captivate or Inspire (4 intellect)" ]
         },
         {
             "bonus_perks" : [ "Ⓔ Band of Followers" ]
         },
         {
-            "bonus_perks" : [ "Ⓐ Mind of a Leader (6 intellect)", "Ⓔ Capable Followers" ]
+            "bonus_perks" : [ "Ⓐ Mind of a Leader (6 intellect)",
+                              "Ⓔ Capable Followers" ]
         }]
     },
     "F17" : {
@@ -465,15 +501,24 @@ define({
         "description_text" : "You dislike one PC for his/her \"civilized\" ways.",
         "lists" : {
             "equipment_list" : [ "Compass" ],
-            "ability_list" : [ "Ⓣ Climbing", "Ⓣ Swimming", "Ⓣ Wilderness Navigation", "Ⓣ Identifying plants", "Ⓣ Identifying animals" ]
+            "ability_list" : [ "Ⓣ Climbing",
+                               "Ⓣ Swimming",
+                               "Ⓣ Wilderness Navigation",
+                               "Ⓣ Identifying plants",
+                               "Ⓣ Identifying animals" ]
         },
         "advancement" : [{
         },
         {
-            "bonus_perks" : [ "Ⓔ Immune to natural diseases", "Ⓔ Resist natural poisons", "Ⓔ Living off the Land" ]
+            "bonus_perks" : [ "Ⓔ Immune to natural diseases",
+                              "Ⓔ Resist natural poisons",
+                              "Ⓔ Living off the Land" ]
         },
         {
-            "bonus_perks" : [ "Ⓣ Spotting", "Ⓣ Listening", "Ⓔ Trap Sense", "Ⓔ Wilderness Explorer" ]
+            "bonus_perks" : [ "Ⓣ Spotting",
+                              "Ⓣ Listening",
+                              "Ⓔ Trap Sense",
+                              "Ⓔ Wilderness Explorer" ]
         },
         {
             "bonus_perks" : [ "Ⓐ Wilderness Awareness (4 intellect)" ]
@@ -482,7 +527,8 @@ define({
             "bonus_perks" : [ "Ⓐ The Wild Is On Your Side (5 intellect)" ]
         },
         {
-            "bonus_perks" : [ "Ⓐ One With the Wild (6 intellect)", "Ⓔ Master of the Wild" ]
+            "bonus_perks" : [ "Ⓐ One With the Wild (6 intellect)",
+                              "Ⓔ Master of the Wild" ]
         }]
     },
     "F18" : {
@@ -492,18 +538,21 @@ define({
         "lists" : {
             "equipment_list" : [ "Shield" ],
             "ability_list" : [ "Ⓣ Speed Defense (with shield)" ],
-            "inability_list" : [ "Attack (with shield) (+1 level)", "Defense (without shield) (+1 level)" ]
+            "inability_list" : [ "Attack (with shield) (+1 level)",
+                                 "Defense (without shield) (+1 level)" ]
         },
         "advancement" : [{
         },
         {
-            "bonus_perks" : [ "Ⓣ Might Defense", "Ⓔ Armor Expert" ]
+            "bonus_perks" : [ "Ⓣ Might Defense",
+                              "Ⓔ Armor Expert" ]
         },
         {
             "bonus_perks" : [ "Ⓔ Dodge and Resist (3 speed)" ]
         },
         {
-            "bonus_perks" : [ "Ⓣ Intellect Defense", "Ⓔ Armor Master" ]
+            "bonus_perks" : [ "Ⓣ Intellect Defense",
+                              "Ⓔ Armor Master" ]
         },
         {
             "bonus_perks" : [ "Ⓐ Nothing But Defend" ]
@@ -520,7 +569,8 @@ define({
             "equipment_list" : [ "High-quality ${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged} Weapon: ${input:choose}" ]
         },
         "advancement" : [{
-            "bonus_perks" : [ "Ⓔ Weapon Master: ${input:choose}", "Ⓔ Weaponry esoteries" ]
+            "bonus_perks" : [ "Ⓔ Weapon Master: ${input:choose}",
+                              "Ⓔ Weaponry esoteries" ]
         },
         {
             "bonus_perks" : [ "Ⓣ Speed Defense (with chosen weapon)" ]
@@ -535,7 +585,8 @@ define({
             "bonus_perks" : [ "Ⓔ Extreme Mastery (4 might)" ]
         },
         {
-            "bonus_perks" : [ "Ⓔ Damage Dealer", "Ⓐ Death Dealer (5 might)" ]
+            "bonus_perks" : [ "Ⓔ Damage Dealer",
+                              "Ⓐ Death Dealer (5 might)" ]
         }]
     },
     "F20" : {
@@ -543,8 +594,10 @@ define({
         "notes_text" : "Murders: Corebook, page 70",
         "description_text" : "One PC knows your secret past.",
         "lists" : {
-            "equipment_list" : [ "Disguise kit", "Level 2/5 DAM blade poison, (3 doses)" ],
-            "ability_list" : [ "Ⓣ Stealth", "Ⓣ Disguise" ]
+            "equipment_list" : [ "Disguise kit",
+                                 "Level 2/5 DAM blade poison, (3 doses)" ],
+            "ability_list" : [ "Ⓣ Stealth",
+                               "Ⓣ Disguise" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Surprise Attack" ]
@@ -553,7 +606,9 @@ define({
             "bonus_perks" : [ "Ⓐ Quick Death (2 speed)" ]
         },
         {
-            "bonus_perks" : [ "Ⓣ Lies, trickery", "Ⓣ Craft item type: Poisons", "Ⓣ Identify, Sense, Resist Poisons" ]
+            "bonus_perks" : [ "Ⓣ Lies, trickery",
+                              "Ⓣ Craft item type: Poisons",
+                              "Ⓣ Identify, Sense, Resist Poisons" ]
         },
         {
             "bonus_perks" : [ "Ⓔ Better Surprise Attack" ]
@@ -579,10 +634,13 @@ define({
             "stats" : {
                 "might_pool" : 5
             },
-            "bonus_perks" : [ "Ⓔ Hardy", "Ⓣ Climbing", "Ⓣ Jumping" ]
+            "bonus_perks" : [ "Ⓔ Hardy",
+                              "Ⓣ Climbing",
+                              "Ⓣ Jumping" ]
         },
         {
-            "bonus_perks" : [ "Ⓔ Power Strike (3+ might)", "Ⓣ Speed Defense (when not wearing armor)" ]
+            "bonus_perks" : [ "Ⓔ Power Strike (3+ might)",
+                              "Ⓣ Speed Defense (when not wearing armor)" ]
         },
         {
             "bonus_perks" : [ "Ⓔ Greater Frenzy (4 intellect)" ]
@@ -606,7 +664,9 @@ define({
             "equipment_list" : [ "Bag of miscellaneous batteries and power cells" ]
         },
         "advancement" : [{
-            "bonus_perks" : [ "Ⓔ Electrical esoteries", "Ⓐ Shock (1 intellect)", "Ⓐ Charge (1+ intellect)" ]
+            "bonus_perks" : [ "Ⓔ Electrical esoteries",
+                              "Ⓐ Shock (1 intellect)",
+                              "Ⓐ Charge (1+ intellect)" ]
         },
         {
             "bonus_perks" : [ "Ⓐ Bolt Rider (4 intellect)" ]
@@ -616,7 +676,8 @@ define({
                 "speed_pool" : 3,
                 "speed_edge" : 1
             },
-            "bonus_perks" : [ "Ⓔ Lightning Swift", "Ⓐ Drain Charge" ]
+            "bonus_perks" : [ "Ⓔ Lightning Swift",
+                              "Ⓐ Drain Charge" ]
         },
         {
             "bonus_perks" : [ "Ⓐ Bolts of Power (5+ intellect)" ]
@@ -640,13 +701,16 @@ define({
             "bonus_perks" : [ "Ⓐ Distant Activation (1 intellect)" ]
         },
         {
-            "bonus_perks" : [ "Ⓐ Coaxing Power (2 intellect)", "Ⓐ Charm Machine (2 intellect)" ]
+            "bonus_perks" : [ "Ⓐ Coaxing Power (2 intellect)",
+"Ⓐ Charm Machine (2 intellect)" ]
         },
         {
             "bonus_perks" : [ "Ⓔ Intelligent Interface (3 intellect)" ]
         },
         {
-            "bonus_perks" : [ "Ⓔ Machine Companion", "Ⓣ Attacks against automata", "Ⓣ Defense against automata" ]
+            "bonus_perks" : [ "Ⓔ Machine Companion",
+"Ⓣ Attacks against automata",
+"Ⓣ Defense against automata" ]
         },
         {
             "bonus_perks" : [ "Ⓐ Information Gathering (5 intellect)" ]
@@ -663,7 +727,8 @@ define({
             "equipment_list" : [ "Stronglass ${select:1:Light Bladed|Medium Bladed|Heavy Bladed} Weapon: ${input:choose}" ]
         },
         "advancement" : [{
-            "bonus_perks" : [ "Ⓔ Ice esoteries", "Ⓔ Ice Armor (1 intellect)" ]
+            "bonus_perks" : [ "Ⓔ Ice esoteries",
+"Ⓔ Ice Armor (1 intellect)" ]
         },
         {
             "bonus_perks" : [ "Ⓐ/Ⓔ  Frost Touch (1 intellect)" ]
@@ -701,7 +766,8 @@ define({
             "bonus_perks" : [ "Ⓔ Enhanced Esoteries" ]
         },
         {
-            "bonus_perks" : [ "Ⓔ Greater Repertoire", "${select:1:@perkSelector}" ]
+            "bonus_perks" : [ "Ⓔ Greater Repertoire",
+"${select:1:@perkSelector}" ]
         },
         {
             "bonus_perks" : [ "Ⓣ All Esoteries" ]
@@ -769,7 +835,9 @@ define({
         "description_text" : "One PC knew you before, and convinced you to quit crime.",
         "lists" : {
             "equipment_list" : [ "Bag of Light Tools" ],
-            "ability_list" : [ "Ⓣ Stealth", "Ⓣ Pickpocketing", "Ⓣ Lockpicking" ]
+            "ability_list" : [ "Ⓣ Stealth",
+                               "Ⓣ Pickpocketing",
+                               "Ⓣ Lockpicking" ]
         },
         "advancement" : [{
         },
@@ -780,7 +848,8 @@ define({
             "bonus_perks" : [ "Ⓔ Pull a Fast One (3 intellect)" ]
         },
         {
-            "bonus_perks" : [ "Ⓣ Climbing", "Ⓣ Escape Artist" ]
+            "bonus_perks" : [ "Ⓣ Climbing",
+                              "Ⓣ Escape Artist" ]
         },
         {
             "bonus_perks" : [ "Ⓐ Dirty Fighter (2 speed)" ]
