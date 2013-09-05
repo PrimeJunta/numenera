@@ -5,6 +5,8 @@ CACHE MANIFEST
 #
 index.html
 primejunta/numenera/chargen/themes/images/icon.png
+primejunta/numenera/chargen/themes/images/h-pixel.png
+primejunta/numenera/chargen/themes/images/v-pixel.png
 primejunta/numenera/chargen/themes/images/touch-icon-ipad.png
 primejunta/numenera/chargen/themes/images/touch-icon-ipad-retina.png
 # Main stylesheet
