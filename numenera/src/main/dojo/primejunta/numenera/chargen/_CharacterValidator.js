@@ -175,7 +175,7 @@ function( declare,
          */
         _getAttacks : function()
         {
-            var eq = this._listAsText( "equipment_list" );
+            var eq = this._cdata.equipment_list;
             var out = [];
             var wpns = [];
             var idstr = "Weapon:";

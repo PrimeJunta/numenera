@@ -1,27 +1,16 @@
+/**
+ * Stylesheet for character record sheet (printable).
+ */
+ 
+/* layout */
 .cr-CharacterRecordBase
 {
-	font-size : 10px;
-}
-.cr-listContent
-{
-	line-height : 14px;
+    font-size : 12px;
 }
 .cr-CharacterRecordPage1, .cr-CharacterRecordPage2
 {
     height : 683px; /* override for screen */
     width : 977px;
-}
-.cr-heading
-{
-    margin : 0px;
-    margin-bottom : 12px;
-    text-transform : uppercase;
-    font-size : 14px;
-    text-align : center;
-}
-h2.cr-heading
-{
-    border-bottom : 1px solid black;
 }
 .cr-CharacterRecordContent
 {
@@ -40,16 +29,33 @@ h2.cr-heading
 }
 .cr-centerFold
 {
-    border-right : 1px solid black;
-    border-left : 1px solid black;
+    border-right : 1px solid silver;
+    border-left : 1px solid silver;
 }
-
+/* containers */
+.cr-listContent
+{
+    line-height : 14px;
+}
 .cr-listBox
 {
 }
 .cr-content
 {
     margin : 20px;
+}
+/* labels and headings */
+.cr-heading
+{
+    margin : 0px;
+    margin-bottom : 12px;
+    text-transform : uppercase;
+    font-size : 14px;
+    text-align : center;
+}
+h2.cr-heading
+{
+    border-bottom : 1px solid black;
 }
 .cr-smallLabel
 {
@@ -58,15 +64,16 @@ h2.cr-heading
     font-size : 9px;
     text-transform : uppercase;
 }
-.cr-statBoxContainer
-{
-    width : 40px;
-    text-align : center;
-}
 .cr-divider
 {
     border-top : 1px solid black;
     margin : 20px;
+}
+/* stats */
+.cr-statBoxContainer
+{
+    width : 40px;
+    text-align : center;
 }
 .cr-statBox
 {
@@ -152,12 +159,9 @@ h2.cr-heading
     position : relative;
     top : 650px;
 }
+/* overrides for screen */
 @media screen
 {
-    .cg-printContainer
-    {
-       background-color : #343434 !important;
-    }
     .cr-CharacterRecordBase
     {
         width : 100%;
@@ -177,6 +181,7 @@ h2.cr-heading
        color : white;
     }
 }
+/* overrides for print */
 @media print
 {
     @page 
@@ -189,26 +194,26 @@ h2.cr-heading
         display : none;
     }
     .cr-skills
-	{
-	}
-	.cr-copyright
-	{
-	    top : 193mm; /* override for screen */
-	}
-	.cr-cyphers 
-	{
-	    height : 30mm;
-	}
+    {
+    }
+    .cr-copyright
+    {
+        top : 193mm; /* override for screen */
+    }
+    .cr-cyphers 
+    {
+        height : 30mm;
+    }
     .cr-CharacterRecordPage1, .cr-CharacterRecordPage2
-	{
-	    height : 205mm; /* override for screen */
-	    width : 293mm;
-        font-size : 10pt;
-	}
-	.cr-listContent
-	{
-	    line-height : 14pt;
-	}
+    {
+        height : 205mm; /* override for screen */
+        width : 293mm;
+        font-size : 12pt;
+    }
+    .cr-listContent
+    {
+        line-height : 14pt;
+    }
     .cr-pageBreak
     {
         page-break-before : always;

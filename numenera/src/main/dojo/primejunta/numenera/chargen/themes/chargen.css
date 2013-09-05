@@ -1,3 +1,7 @@
+/**
+ * Main Character Generator stylesheet.
+ */
+/* Import Google fonts, those Dijit themes we're actually using, and character record. */
 @import url( 'http://fonts.googleapis.com/css?family=Lato|Kreon|Droid+Sans|Prata' );
 @import url( '../../../../dijit/themes/dijit.css');
 @import url( '../../../../dijit/themes/tundra/Dialog.css');
@@ -5,283 +9,191 @@
 @import url( '../../../../dijit/themes/tundra/form/Common.css' );
 @import url( '../../../../dijit/themes/tundra/form/Button.css' );
 @import url( 'charrec.css' );
-
+/* HTML elements. */
 html, body
 {
-	margin : 0px;
-	padding : 0px;
-	font-family : 'Droid sans', 'avant garde', helvetica, helve, arial, sans-serif;
+    margin : 0px;
+    padding : 0px;
+    font-family : 'Droid sans', 'avant garde', helvetica, helve, arial, sans-serif;
 }
 body
 {
-	background-color : #142434;
+    background-color : #142434;
 }
 select 
 {
-	font-size : large;
+   font-size : 18px;
    font-family : 'Droid sans', 'avant garde', helvetica, helve, arial, sans-serif;
+   height : 28px;
+   vertical-align : middle;
 }
-.cg-helpPage
+h1, h2, h3
+{
+    font-family : Prata;
+    font-weight : normal;
+}
+h1
+{
+    text-align : center;
+}
+h1 a
+{
+    color : black;
+    text-decoration : none;
+}
+h1 a:hover
+{
+    color : blue;
+    text-decoration : underline;
+}
+th
+{
+    font-weight : normal;
+}
+li
+{
+    line-height : 28px;
+}
+li div
+{
+    display : inline-block;
+    vertical-align : top;
+}
+li td
+{
+    padding : 0px;
+}
+/* base layout elements */
+.cg-characterGenerator
+{
+    width : 100%;
+    height : 100%;
+    overflow : auto;
+    background-color : #142434;
+}
+.cg-characterGeneratorPane
 {
     border-radius : 20px;
-    width : 800px;
+    width : 900px;
     margin-top : 50px;
     margin-left : auto;
     margin-right : auto;
-    margin-bottom : 50px;
-    padding : 40px;
+    padding : 20px 0px 30px 0px;
     background-color : #f5f5f5;
 }
-.cg-hiddenControl 
+.cg-characterGeneratorContent
 {
-	display : none;
-	margin-left : 6px;
-    width : 24px;
-    height : 24px;
-    line-height : 24px;
-	cursor : pointer;
-	text-decoration : none;
-	border : none;
-	background-color : transparent;
-	vertical-align : top;
+    margin-top : 20px;
 }
-.cg-deleteControl
+.cg-resultsPane
 {
-	font-size : 22px;
-	color : #990000;
+    padding : 30px;
 }
-.cg-deletedItem .cg-deletable
+.cg-noJavaScript
 {
-	opacity : 0.2;
-    text-decoration : line-through;
+    padding : 50px;
+    color : #e4e4e4;
+    width : 700px;
+    margin-left:auto;
+    margin-right:auto;
 }
-.cg-deletedItem .cg-deletable select
+.cg-noJavaScript a
 {
-   text-decoration : line-through;	
+    color : #345c8c;
 }
-.cg-finalized .cg-deletedItem
+.cg-blurb
 {
+    font-family : Lato;
+    font-size : 18px;
+    text-transform : uppercase;
+    color : gray;
+    letter-spacing : 12px;
 }
-.cg-hoverControls .cg-hiddenControl
+.cg-linkNode
 {
-	display : inline-block;
+    padding : 20px;
 }
-.cg-finalized .cg-hiddenControl
-{
-	display : none !important;
-}
-.cg-tierRow td
-{
-}
-.cg-tierRow select, .cg-tierRow.input[type=text]
-{
-	width : 300px;
-}
-.cg-dialogContent 
-{
-	width : 580px;
-	padding : 10px;
-	overflow : auto; 
-}
-.cg-smallCell
-{
-	width : 65px;
-}
+/* stats */
 .cg-statInput
 {
-	font-size : 18px;
-	height : 38px;
-	width : 72px;
-	text-align : center;
-	border : 1px solid #848484;
-	border-radius : 3px;
+    font-size : 18px;
+    height : 38px;
+    width : 72px;
+    text-align : center;
+    border : 1px solid #848484;
+    border-radius : 3px;
 }
 input[readonly].cg-statInput
 {
-	border : 1px solid #b4b4b4;
+    border : 1px solid #b4b4b4;
     background-color : #f5f5f5;
 }
 .cg-adjustButton .dijitButtonNode
 {
-	font-size : 18px;
-	height : 36px;
+    font-size : 18px;
+    height : 36px;
 }
 .cg-adjustButton .dijitButtonContents
 {
-	padding-top : 7px;
+    padding-top : 7px;
 }
-.dijitButton
+/* other inputs */
+.cg-characterNameInput
 {
-	font-size : 18px;
-}
-h1, h2, h3
-{
-	font-family : Prata;
-	font-weight : normal;
-}
-h1
-{
-	text-align : center;
-}
-h1 a
-{
-	color : black;
-	text-decoration : none;
-}
-h1 a:hover
-{
-	color : blue;
-	text-decoration : underline;
-}
-th
-{
-	font-weight : normal;
-}
-li
-{
-	line-height : 28px;
-}
-li div
-{
-	display : inline-block;
-	vertical-align : top;
-}
-li td
-{
-	padding : 0px;
-}
-.cg-linkNode
-{
-	padding : 20px;
-}
-.cg-specialized
-{
-	font-weight : bold;
-	color : #990000;
+    text-align : center;
+    font-size : large;
+    width : 600px;
+    padding : 10px;
 }
 .cg-inputTextArea
 {
-	width : 800px;
-	font-family : 'Droid sans', 'avant garde', sans-serif;
-	font-size : 14px;
-}
-.cg-characterNameInput
-{
-	text-align : center;
-	font-size : large;
-	width : 600px;
-	padding : 10px;
+    width : 800px;
+    font-family : 'Droid sans', 'avant garde', sans-serif;
+    font-size : 14px;
 }
 .cg-valueNotSet
 {
     color : gray;
     font-style : italic;
 }
+/* list items */
 .cg-itemInput
 {
-	width : 350px;
-	display : block;
-	font-size : 14px;
-	text-align : left;
+    width : 350px;
+    display : block;
+    font-size : 14px;
+    text-align : left;
 }
 .cg-baseTextNode
 {
-	padding-right : 4px;
+    padding-right : 4px;
 }
-.cg-noJavaScript
-{
-	padding : 50px;
-	color : #e4e4e4;
-	width : 700px;
-	margin-left:auto;
-	margin-right:auto;
-}
-.cg-noJavaScript a
-{
-	color : #345c8c;
-}
-.cg-characterGenerator
-{
-	width : 100%;
-	height : 100%;
-	overflow : auto;
-    background-color : #142434;
-}
-.cg-blurb
-{
-	font-family : Lato;
-	font-size : 18px;
-	text-transform : uppercase;
-	color : gray;
-	letter-spacing : 12px;
-}
-.cg-versionInfo
-{
-	text-align : right;
-	margin-right : 30px;
-    font-size : 12px;
-    padding : 10px;
-    cursor : pointer;
-}
-.cg-copyright
-{
-	width : 900px;
-	padding : 20px;
-	text-align : center;
-	font-size : small;
-	margin-left : auto;
-	margin-right : auto;
-	color : #e4e4e4;
-}
-.cg-copyright a
-{
-	color : #345c8c;
-}
-.cg-characterGeneratorPane
-{
-	border-radius : 20px;
-	width : 900px;
-	margin-top : 50px;
-	margin-left : auto;
-	margin-right : auto;
-	padding : 20px 0px 30px 0px;
-	background-color : #f5f5f5;
-}
-.cg-characterGeneratorContent
-{
-	margin-top : 20px;
-}
-.cg-resultsPane
-{
-	padding : 30px;
-}
+/* color codes for type, description, and focus */
 .cg-type
 {
-	
+    
 }
 .cg-desc
 {
-	color : #8b1616 !important;
+    color : #8b1616 !important;
 }
 .cg-focus
 {
-	color : #345c8c !important;
+    color : #345c8c !important;
 }
-.cg-printButtonContainer
+/* advancement controls */
+.cg-tierRow select, .cg-tierRow.input[type=text]
 {
-	padding : 20px;
-	text-align:center;
+    width : 300px;
 }
-.cg-printContainer
+.cg-smallCell
 {
-	width : 100%;
-	height : 100%;
-	display : none;
-	background-color : #343434;
-	overflow : auto;
+    width : 65px;
 }
-.cg-functionButton
+/* buttons */
+.dijitButton
 {
+    font-size : 18px;
 }
 .cg-blueButton .dijitButtonNode
 {
@@ -299,56 +211,136 @@ li td
 }
 .cg-redButton .dijitButtonNode
 {
-	background-image: -webkit-gradient(
-	    linear,
-	    left top,
-	    left bottom,
-	    color-stop(0.00, #ff6d44),
-	    color-stop(1.00, #990000 )
-	);
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0.00, #ff6d44),
+        color-stop(1.00, #990000 )
+    );
     background-image : -webkit-linear-gradient(to bottom, #ff6d44 0%, #990000 100%);
     background-image : linear-gradient(to bottom, #ff6d44 0%, #990000 100%);
-	border : 1px solid black;
-	color : white;
+    border : 1px solid black;
+    color : white;
 }
 .cg-blueButton .dijitButtonDisabled .dijitButtonNode
 {
     background-image : -webkit-linear-gradient(to bottom, #FFFFFF 0%, #335C99 100%);
     background-image : linear-gradient(to bottom, #FFFFFF 0%, #335C99 100%);
 }
-.cg-closeButton
+.cg-roundButton
 {
-	z-index : 99999;
+    z-index : 99999;
 }
-.cg-closeButton .dijitButtonNode
+.cg-roundButton .dijitButtonNode
 {
-	border-radius : 14px;
-	font-size : 16px;
-	height : 20px;
-	width : 20px;
+    border-radius : 14px;
+    font-size : 16px;
+    height : 20px;
+    width : 20px;
 }
-.cg-warmBackground
+/* delete item button */
+.cg-hiddenControl 
 {
-	background-color : #FFFFFF;
+    display : none;
+    margin-left : 6px;
+    width : 24px;
+    height : 24px;
+    line-height : 24px;
+    cursor : pointer;
+    text-decoration : none;
+    border : none;
+    background-color : transparent;
+    vertical-align : top;
 }
-.cg-paleBackground
+.cg-hoverControls .cg-hiddenControl
 {
-	background-color : #e4e4e4;
+    display : inline-block;
 }
-.cg-highlightBackground
+.cg-finalized .cg-hiddenControl
 {
-	background-color : #d4d4d4;
+    display : none !important;
 }
-.cg-evenBackground
+.cg-deleteControl
 {
-	background-color : #efefef;
+    font-size : 22px;
+    color : #990000;
+}
+.cg-deletedItem .cg-deletable
+{
+    opacity : 0.2;
+    text-decoration : line-through;
+}
+.cg-deletedItem .cg-deletable select
+{
+   text-decoration : line-through;  
+}
+/* background panes (the td's are included because of an ipad retina rendering glitch) */
+.cg-warmBackground, .cg-warmBackground td
+{
+    background-color : #FFFFFF;
+}
+.cg-paleBackground, .cg-paleBackground td
+{
+    background-color : #e4e4e4;
+}
+.cg-highlightBackground, .cg-highlightBackground td
+{
+    background-color : #d4d4d4;
+}
+.cg-evenBackground, .cg-evenBackground td
+{
+    background-color : #efefef;
 }
 /* character manager */
 .cg-characterManager:hover
 {
-	background-color : #d4e4f4;
-	cursor : pointer;
+    background-color : #d4e4f4;
+    cursor : pointer;
 }
+/* help and dialogs */
+.cg-helpPage
+{
+    border-radius : 20px;
+    width : 800px;
+    margin-top : 50px;
+    margin-left : auto;
+    margin-right : auto;
+    margin-bottom : 50px;
+    padding : 40px;
+    background-color : #f5f5f5;
+}
+.cg-dialogContent 
+{
+    width : 580px;
+    padding : 10px;
+    overflow : auto; 
+}
+/* copyright notice */
+.cg-copyright
+{
+    width : 900px;
+    padding : 20px;
+    text-align : center;
+    font-size : small;
+    margin-left : auto;
+    margin-right : auto;
+    color : #e4e4e4;
+}
+.cg-copyright a
+{
+    color : #345c8c;
+}
+/* version info */
+.cg-versionInfo
+{
+    text-align : right;
+    margin-right : 30px;
+    font-size : 12px;
+    padding : 10px;
+    cursor : pointer;
+}
+
 /* Workaround Webkit rendering bug: styles not applied to selects at 100% zoom without this. */
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   select 
