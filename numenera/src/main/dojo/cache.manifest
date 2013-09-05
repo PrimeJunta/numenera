@@ -18,12 +18,10 @@ dojo/resources/blank.gif
 primejunta/nls/numenera_en.js
 dijit/nls/loading.js
 dijit/nls/common.js
-# Fonts - disabled for now because they don't cache reliably
-# http://fonts.googleapis.com/css?family=Lato|Kreon|Droid+Sans|Prata
-# http://themes.googleusercontent.com/static/fonts/droidsans/v3/s-BiyweUPV0v-yRb-cjciL3hpw3pgy2gAi-Ip7WPMi0.woff
-# http://themes.googleusercontent.com/static/fonts/kreon/v6/D9qk1GYStfykk6PrrE7M_aCWcynf_cDxXwCLxiixG1c.woff
-# http://themes.googleusercontent.com/static/fonts/lato/v6/qIIYRU-oROkIk8vfvxw6QvesZW2xOQ-xsNqO47m55DA.woff
-# http://themes.googleusercontent.com/static/fonts/prata/v3/I_zmCkAh0T_6teJq-bYQhKCWcynf_cDxXwCLxiixG1c.woff
+# Fonts
+primejunta/numenera/chargen/themes/fonts/Droid_Sans.woff
+primejunta/numenera/chargen/themes/fonts/Lato.woff
+primejunta/numenera/chargen/themes/fonts/Prata.woff
 # Themes
 dijit/themes/dijit.css
 dijit/themes/tundra/Dialog.css

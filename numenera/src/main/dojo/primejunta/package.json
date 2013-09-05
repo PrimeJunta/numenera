@@ -1,11 +1,11 @@
 {
     "name" : "numenera",
     "description" : "Numenera Character Creation Utility",
-    "version" : "1.0.0-b10",
+    "version" : "1.0.0",
     "main" : "",
     "dependencies" : {
-        "dojo" : "current",
-        "dijit" : "current",
-        "dojox" : "current"
+        "dojo" : "1.9.1",
+        "dijit" : "1.9.1",
+        "dojox" : "1.9.1"
     }
 }

@@ -1,19 +1,38 @@
 /**
  * Main Character Generator stylesheet.
  */
-/* Import Google fonts, those Dijit themes we're actually using, and character record. */
+/* Import those Dijit themes we're actually using, and character record. */
 @import url( '../../../../dijit/themes/dijit.css');
 @import url( '../../../../dijit/themes/tundra/Dialog.css');
 @import url( '../../../../dijit/themes/tundra/Common.css' );
 @import url( '../../../../dijit/themes/tundra/form/Common.css' );
 @import url( '../../../../dijit/themes/tundra/form/Button.css' );
 @import url( 'charrec.css' );
+/* Fonts - these are originally from Google Web Fonts. I made copies because downloading them from Google was not reliable for offline use. */
+@font-face {
+  font-family: 'Droid Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Droid Sans'), local('DroidSans'), url( fonts/Droid_Sans.woff ) format('woff');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Lato Regular'), local('Lato-Regular'), url( fonts/Lato.woff ) format('woff');
+}
+@font-face {
+  font-family: 'Prata';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Prata'), local('Prata-Regular'), url( fonts/Prata.woff ) format('woff');
+}
 /* HTML elements. */
 html, body
 {
     margin : 0px;
     padding : 0px;
-    font-family : Tahoma, Geneva, sans-serif;
+    font-family : 'Droid sans', 'avant garde', helvetica, helve, arial, sans-serif;
 }
 body
 {
@@ -22,13 +41,13 @@ body
 select 
 {
    font-size : 18px;
-   font-family : Tahoma, Geneva, sans-serif;
+   font-family : 'Droid sans', 'avant garde', helvetica, helve, arial, sans-serif;
    height : 28px;
    vertical-align : middle;
 }
 h1, h2, h3
 {
-    font-family : Georgia, serif;
+    font-family : Prata;
     font-weight : normal;
 }
 h1
@@ -102,7 +121,7 @@ li td
 }
 .cg-blurb
 {
-    font-family : 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+    font-family : Lato;
     font-size : 18px;
     text-transform : uppercase;
     color : gray;
