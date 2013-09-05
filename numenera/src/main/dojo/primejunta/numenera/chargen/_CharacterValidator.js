@@ -11,7 +11,8 @@ define([ "dojo/_base/declare",
          "./data/descriptors",
          "./data/types",
          "./data/foci",
-         "./data/feats" ],
+         "./data/feats",
+         "./data/exceptions" ],
 function( declare,
           lang,
           array,
@@ -19,7 +20,8 @@ function( declare,
           descriptors,
           types,
           foci,
-          feats )
+          feats,
+          exceptions )
 {
     return declare([], {
         /**
@@ -75,11 +77,11 @@ function( declare,
             {
                 errs.push( "Please make all your special ability choices." );
             }
-            if( this._listAsText( "ability_list" ).join( "," ).indexOf( this.CHOOSE_STR ) != -1 )
+            if( this._listAsText( "ability_list" ).join( "," ).indexOf( this.CHOOSE_STR ) != -1 || this._listAsText( "ability_list" ).join( "," ).indexOf( this.TRAINED_STR + "," ) != -1 )
             {
                 errs.push( "Please make all your skill choices." );
             }
-            if( this._listAsText( "equipment_list" ).join( "," ).indexOf( this.CHOOSE_STR ) != -1 )
+            if( this._listAsText( "equipment_list" ).join( "," ).indexOf( this.CHOOSE_STR ) != -1  )
             {
                 errs.push( "Please make all equipment choices." );
             }
@@ -120,6 +122,18 @@ function( declare,
                     }
                 }
             }
+            // Enforce defense skill specialization limit
+            if(  this._cdata.character_type == "nano" || this._cdata.character_tier < 5 )
+            {
+                var _cats = [ "Might", "Speed", "Intellect" ];
+                for( var i = 0; i < _cats.length; i++ )
+                {
+                    if( array.indexOf( _al, this.SPECIALIZED_STR + _cats[ i ] + " Defense" ) != -1 && !this._maySpecialize( _cats[ i ] + " Defense" ) )
+                    {
+                        errs.push( "You cannot specialize in " + _cats[ i ] + " Defense at your tier." );
+                    }
+                }
+            }
             if( errs.length == 0 )
             {
                 return true;
@@ -130,6 +144,31 @@ function( declare,
                 {
                     this.manager.tell( errs.join( "<br/><br/>" ) );
                 }
+                return false;
+            }
+        },
+        /**
+         * Checks if the character's focus or descriptor entitles him/her to specialize in a defense skill despite the usual
+         * restrictions. My interpretation is that if you get a Defense for free from a descriptor or focus, you're allowed
+         * to specialize in it starting from that point.
+         */
+        _maySpecialize : function( /* String */ defenseSkill )
+        {
+            try
+            {
+                if( exceptions[ defenseSkill ].descriptors && exceptions[ defenseSkill ].descriptors[ this._cdata.character_descriptor ] <= this._cdata.character_tier 
+                        || exceptions[ defenseSkill ].foci && exceptions[ defenseSkill ].foci[ this._cdata.character_focus ] <= this._cdata.character_tier )
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch( e )
+            {
+                console.log( e );
                 return false;
             }
         },

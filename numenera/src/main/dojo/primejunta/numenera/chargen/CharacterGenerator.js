@@ -83,7 +83,7 @@ function( declare,
         /**
          * Public version number.
          */
-        version : "1.0.0-b19",
+        version : "1.0.0-b22",
         /**
          * Set when a character is first advanced past creation.
          */
@@ -420,7 +420,7 @@ function( declare,
             {
                 this._printWidget.destroy();
             }
-            try
+            try // the try-catch block is here to make debugging easier, as for some reason the exceptions disappear otherwise.
             {
                 this.domNode.style.display = "none";
                 this._printWidget = new _CharacterRecord({ manager : this }).placeAt( document.body );
