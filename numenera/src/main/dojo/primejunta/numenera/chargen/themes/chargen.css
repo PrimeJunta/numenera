@@ -2,7 +2,6 @@
  * Main Character Generator stylesheet.
  */
 /* Import Google fonts, those Dijit themes we're actually using, and character record. */
-@import url( 'http://fonts.googleapis.com/css?family=Lato|Kreon|Droid+Sans|Prata' );
 @import url( '../../../../dijit/themes/dijit.css');
 @import url( '../../../../dijit/themes/tundra/Dialog.css');
 @import url( '../../../../dijit/themes/tundra/Common.css' );
@@ -14,7 +13,7 @@ html, body
 {
     margin : 0px;
     padding : 0px;
-    font-family : 'Droid sans', 'avant garde', helvetica, helve, arial, sans-serif;
+    font-family : Tahoma, Geneva, sans-serif;
 }
 body
 {
@@ -23,13 +22,13 @@ body
 select 
 {
    font-size : 18px;
-   font-family : 'Droid sans', 'avant garde', helvetica, helve, arial, sans-serif;
+   font-family : Tahoma, Geneva, sans-serif;
    height : 28px;
    vertical-align : middle;
 }
 h1, h2, h3
 {
-    font-family : Prata;
+    font-family : Georgia, serif;
     font-weight : normal;
 }
 h1
@@ -103,7 +102,7 @@ li td
 }
 .cg-blurb
 {
-    font-family : Lato;
+    font-family : 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
     font-size : 18px;
     text-transform : uppercase;
     color : gray;

@@ -83,7 +83,7 @@ function( declare,
         /**
          * Public version number.
          */
-        version : "1.0.0-b17",
+        version : "1.0.0-b19",
         /**
          * Set when a character is first advanced past creation.
          */

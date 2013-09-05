@@ -160,7 +160,7 @@ function( declare,
             this._wl( "ability_list", this._getSkillList() );
             this._wl( "special_list", this._getSpecialList() );
             this._wl( "cypher_list", this._listAsText( "cypher_list") );
-            this._wl( "equipment_list", this._listAsText( "equipment_list" ).concat( this._textAsList( "extra_equipment_text") ) );
+            this._wl( "equipment_list", this._getEquipmentList() );
             this._wl( "notes_list", this._textAsList( "notes_text" ) );
             this._wl( "attack_data", this._getAttacks() );
             this._processAttackValues();
@@ -178,19 +178,20 @@ function( declare,
             var eq = this._cdata.equipment_list;
             var out = [];
             var wpns = [];
-            var idstr = "Weapon:";
+            var idstr = "weapon:";
             for( var i = 0; i < eq.length; i++ )
             {
-                if( eq[ i ].indexOf( "Weapon:" ) != -1 )
+                if( eq[ i ].toLowerCase().indexOf( idstr ) != -1 )
                 {
                     wpns.push( eq[ i ] );
                 }
             }
             for( var i = 0; i < wpns.length; i++ )
             {
+                var cur = wpns[ i ].toLowerCase();
                 var wpn = {
                     description : wpns[ i ],
-                    short_name : string.trim( wpns[ i ].substring( wpns[ i ].indexOf( idstr ) + idstr.length + 1 ) ),
+                    short_name : string.trim( wpns[ i ].substring( cur.indexOf( idstr ) + idstr.length + 1 ) ),
                     damage : 0,
                     category : "",
                     type : "",
@@ -199,31 +200,31 @@ function( declare,
                 var dmg = 0;
                 var diff = 1;
                 var type = "";
-                if( wpns[ i ].indexOf( "Light" ) != -1 )
+                if( cur.indexOf( "light" ) != -1 )
                 {
                     wpn.damage = 2;
                     wpn.difficulty_adjustment = 0;
                     wpn.category = "light";
                 }
-                else if( wpns[ i ].indexOf( "Medium" ) != -1  )
+                else if( cur.indexOf( "medium" ) != -1  )
                 {
                     wpn.damage = 4;
                     wpn.category = "medium";
                 }
-                else if( wpns[ i ].indexOf( "Heavy" ) != -1  )
+                else if( cur.indexOf( "heavy" ) != -1  )
                 {
                     wpn.damage = 6;
                     wpn.category = "heavy";
                 }
-                if( wpns[ i ].indexOf( "Bashing" ) != -1 )
+                if( cur.indexOf( "bashing" ) != -1 )
                 {
                     wpn.type = "bashing";
                 }
-                else if( wpns[ i ].indexOf( "Bladed" ) != -1 )
+                else if( cur.indexOf( "bladed" ) != -1 )
                 {
                     wpn.type = "bladed";
                 }
-                else if( wpns[ i ].indexOf( "Ranged" ) != -1 )
+                else if( cur.indexOf( "ranged" ) != -1 )
                 {
                     wpn.type = "ranged";
                 }
@@ -264,7 +265,7 @@ function( declare,
                 var wms = "Ⓔ Weapon Master:";
                 if( eq[ i ].indexOf( wms ) != -1 )
                 {
-                    this._cdata.chosen_weapon = string.trim( eq[ i ].substring( wms.length ) );
+                    this._cdata.chosen_weapon = string.trim( eq[ i ].substring( wms.length ) ).toLowerCase();
                     boosts = lang.mixin( boosts, feats.attack_adjustments[ "Ⓔ Weapon Master" ] );
                 }
             }
@@ -299,7 +300,7 @@ function( declare,
             {
                 var cur = this._cdata.attack_data[ i ];
                 // chosen weapon
-                if( cur.short_name == this._cdata.chosen_weapon )
+                if( cur.short_name.toLowerCase() == this._cdata.chosen_weapon.toLowerCase() )
                 {
                     cur.damage += boosts.chosen_weapon_bonus;
                 }
@@ -395,6 +396,24 @@ function( declare,
             {
                 var cur = _sl.shift();
                 if( !this._isSkill( cur ) )
+                {
+                    out.push( cur );
+                }
+            }
+            out.sort();
+            return out;
+        },
+        /**
+         * Filters out "-- choose --" items from equipment list.
+         */
+        _getEquipmentList : function()
+        {
+            var list = this._listAsText( "equipment_list" ).concat( this._textAsList( "extra_equipment_text") );
+            var out = [];
+            while( list.length > 0 )
+            {
+                var cur = list.pop();
+                if( cur.indexOf( this.CHOOSE_STR ) == -1 )
                 {
                     out.push( cur );
                 }

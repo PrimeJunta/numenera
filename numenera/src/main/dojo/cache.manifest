@@ -1,9 +1,8 @@
 CACHE MANIFEST
 # Cache manifest for Numenera Character Creator.
 #
-# Version 1.0.0-b17.1
+# Version 1.0.0-b19
 #
-/
 index.html
 primejunta/numenera/chargen/themes/images/icon.png
 primejunta/numenera/chargen/themes/images/touch-icon-ipad.png
@@ -19,12 +18,12 @@ dojo/resources/blank.gif
 primejunta/nls/numenera_en.js
 dijit/nls/loading.js
 dijit/nls/common.js
-# Fonts
-http://fonts.googleapis.com/css?family=Lato|Kreon|Droid+Sans|Prata
-http://themes.googleusercontent.com/static/fonts/droidsans/v3/s-BiyweUPV0v-yRb-cjciL3hpw3pgy2gAi-Ip7WPMi0.woff
-http://themes.googleusercontent.com/static/fonts/kreon/v6/D9qk1GYStfykk6PrrE7M_aCWcynf_cDxXwCLxiixG1c.woff
-http://themes.googleusercontent.com/static/fonts/lato/v6/qIIYRU-oROkIk8vfvxw6QvesZW2xOQ-xsNqO47m55DA.woff
-http://themes.googleusercontent.com/static/fonts/prata/v3/I_zmCkAh0T_6teJq-bYQhKCWcynf_cDxXwCLxiixG1c.woff
+# Fonts - disabled for now because they don't cache reliably
+# http://fonts.googleapis.com/css?family=Lato|Kreon|Droid+Sans|Prata
+# http://themes.googleusercontent.com/static/fonts/droidsans/v3/s-BiyweUPV0v-yRb-cjciL3hpw3pgy2gAi-Ip7WPMi0.woff
+# http://themes.googleusercontent.com/static/fonts/kreon/v6/D9qk1GYStfykk6PrrE7M_aCWcynf_cDxXwCLxiixG1c.woff
+# http://themes.googleusercontent.com/static/fonts/lato/v6/qIIYRU-oROkIk8vfvxw6QvesZW2xOQ-xsNqO47m55DA.woff
+# http://themes.googleusercontent.com/static/fonts/prata/v3/I_zmCkAh0T_6teJq-bYQhKCWcynf_cDxXwCLxiixG1c.woff
 # Themes
 dijit/themes/dijit.css
 dijit/themes/tundra/Dialog.css
