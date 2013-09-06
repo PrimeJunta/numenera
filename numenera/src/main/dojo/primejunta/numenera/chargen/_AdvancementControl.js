@@ -9,6 +9,8 @@ define([ "dojo/_base/declare",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
          "dijit/form/Button",
+         "dijit/layout/BorderContainer",
+         "dijit/layout/ContentPane",
          "./_TierWidget",
          "dojo/text!./templates/_AdvancementControl.html" ],
 function( declare,
@@ -19,10 +21,14 @@ function( declare,
           _TemplatedMixin,
           _WidgetsInTemplateMixin,
           Button,
+          BorderContainer,
+          ContentPane,
           _TierWidget,
           template )
 {
-    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin ], {
+    return declare([ ContentPane, _TemplatedMixin, _WidgetsInTemplateMixin ], {
+        gutters : false,
+        title : "Advancement",
         /**
          * The instantiating _CharacterRecord.
          */
@@ -78,7 +84,7 @@ function( declare,
                     focusData : this.focusData,
                     tier : this._controls.length + 1
                 }).placeAt( this.tierContainerNode ) );
-                domClass.add( this._controls[ this._controls.length - 1 ].domNode, this._controls.length % 2 == 0 ? "cg-evenBackground" : "cg-warmBackground" );
+                domClass.add( this._controls[ this._controls.length - 1 ].domNode, this._controls.length % 2 == 0 ? "cg-evenBackground" : "cg-oddBackground" );
             }
             this.manager.character_tier.value = this.tier;
             this.manager.moveCaps();

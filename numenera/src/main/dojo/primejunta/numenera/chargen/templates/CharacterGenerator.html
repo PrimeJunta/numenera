@@ -1,285 +1,407 @@
-<div class="cg-characterGenerator" style="display:none;">
-<div data-dojo-attach-point="characterGeneratorPane">
-  <div class="cg-characterGeneratorPane">
-    <div style="text-align:center">
-      <a href="http://www.numenera.com"><img src="${iconSrc}/Numenera_Logo.png" alt="Numenera" style="border:none"/></a>
-      <div class="cg-blurb">Character Creation Utility</div>
+<div class="cg-characterGenerator" style="display: none;">
+  <!--  Main buttons, floating -->
+  <div class="cg-characterGeneratorContent cg-floatingControls"
+    data-dojo-attach-point="mainButtonsNode">
+    <div class="cg-mainButtonsNode cg-invisibleWhenFloating"
+      style="z-index: 99999">
+      <button data-dojo-attach-point="printButton"
+        data-dojo-type="dijit/form/Button"
+        data-dojo-attach-event="onClick:makePrint" class=""
+        disabled="true">Sheet</button>
+      <button data-dojo-attach-point="saveButton"
+        data-dojo-type="dijit/form/Button"
+        data-dojo-attach-event="onClick:storeCharacter" class=""
+        disabled="true">Save</button>
+    </div>
+  </div>
+
+  <div data-dojo-attach-point="characterGeneratorPane"
+    data-dojo-type="dijit/layout/BorderContainer"
+    data-dojo-props="gutters:false"
+    style="width: 100%; height: 100%; margin-left: auto; margin-right: auto;">
+    <div data-dojo-type="dijit/layout/ContentPane"
+      data-dojo-props="region:'top'">
       <div class="cg-characterGeneratorContent">
-        <div data-dojo-attach-point="phrase_pane" style="margin-bottom:20px;">
-          <table cellspacing="10" cellpadding="0" style="margin-left:auto;margin-right:auto;">
-            <tr>
-              <td><input data-dojo-attach-point="characterNameInput" type="text" value="${DEFAULT_CHARACTER_NAME}" class="cg-storeMe cg-characterNameInput cg-valueNotSet"/></td>
-            </tr>
-            <tr>
-            <td align="center">
-              is <span data-dojo-attach-point="articleNode">an</span> 
-            </td>
-            <tr>
-            <td>
-              <select class="cg-desc" data-dojo-attach-point="descriptorSelect"
-              data-dojo-attach-event="onchange:selectDescriptor">
-              <option value="">adjective</option>
-            </select> <select class="cg-type" data-dojo-attach-point="typeSelect"
-              data-dojo-attach-event="onchange:selectType">
-              <option value="">noun</option>
-            </select> who <select class="cg-focus" data-dojo-attach-point="focusSelect"
-              data-dojo-attach-event="onchange:selectFocus">
-              <option value="">verbs</option>
-            </select>.
-              </td>
-            </tr>
-          </table>
-          <table width="800" style="margin-left:auto;margin-right:auto;">
+        <div style="text-align: center">
+          <div data-dojo-attach-point="basicControlsNode"
+            class="cg-floatingControls">
+            <div data-dojo-attach-point="decorationNode"
+              class="cg-visibleWhenFloating">
+              <a href="http://www.numenera.com"><img
+                src="${iconSrc}/Numenera_Logo.png" alt="Numenera"
+                style="border: none" /></a>
+              <div class="cg-blurb">Character Creation Utility</div>
+            </div>
+            <div data-dojo-attach-point="phrase_pane">
+              <table width="100%" data-dojo-attach-point="controlsNode"
+                class="cg-invisibleWhenFloating"
+                style="margin-left: auto; margin-right: auto;">
+                <tbody>
+                  <tr>
+                    <td align="left" width="25%"></td>
+                    <td><a href="http://www.numenera.com"><img
+                        src="${iconSrc}/Numenera_Logo_neg.png"
+                        alt="Numenera"
+                        style="border: none; height: 40px; width: auto;" /></a>
+                    </td>
+                    <td align="right" width="25%">
+                      <div class="cg-linkNode">
+                        <a data-dojo-attach-point="helpButton"
+                          data-dojo-attach-event="onClick:showHelp"
+                          class="cg-infoLink">ⓘ</a>&nbsp;&nbsp;&nbsp; <a
+                          data-dojo-attach-point="linkNode">Share ➤</a>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table cellspacing="0" cellpadding="0"
+                style="margin-left: auto; margin-right: auto;"
+                class="cg-phraseSelectors">
+                <tr>
+                  <td><input
+                    data-dojo-attach-point="characterNameInput"
+                    type="text" value="${DEFAULT_CHARACTER_NAME}"
+                    spellcheck="false"
+                    class="cg-storeMe cg-characterNameInput cg-valueNotSet" /></td>
+                </tr>
+                <tr class="cg-visibleWhenFloating">
+                  <td align="center">is <span
+                    data-dojo-attach-point="articleNode">an</span> 
+                  </td>
+                <tr>
+                  <td><span class="cg-invisibleWhenFloating">the
+                  </span><select class="cg-desc"
+                    data-dojo-attach-point="descriptorSelect"
+                    data-dojo-attach-event="onChange:selectDescriptor">
+                      <option value="">adjective</option>
+                  </select> <select class="cg-type"
+                    data-dojo-attach-point="typeSelect"
+                    data-dojo-attach-event="onChange:selectType">
+                      <option value="">noun</option>
+                  </select> who <select class="cg-focus"
+                    data-dojo-attach-point="focusSelect"
+                    data-dojo-attach-event="onChange:selectFocus">
+                      <option value="">verbs</option>
+                  </select><span class="cg-visibleWhenFloating">.</span></td>
+                </tr>
+              </table>
+              <div class="cg-visibleWhenFloating">
+                <div class="cg-whiteKnot"></div>
+                <button data-dojo-type="dijit/form/Button"
+                  data-dojo-attach-event="onClick:openCharacter">Saved
+                  characters</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div data-dojo-type="dijit/layout/ContentPane"
+      data-dojo-props="region:'center'" style="visibility: hidden;"
+      data-dojo-attach-point="dataPane">
+      <div data-dojo-type="dijit/layout/TabContainer"
+        data-dojo-attach-point="mainTabContainer"
+        data-dojo-props="tabStrip:false" class="cg-mainTabContainer">
+        <div data-dojo-type="dijit/layout/ContentPane"
+          data-dojo-props="title:'Statistics'"
+          data-dojo-attach-point="statsPane">
+          <div class="cg-resultsPane">
+            <h2>Statistics</h2>
+          </div>
+          <div class="cg-statsPane cg-characterGeneratorContent">
+            <table cellspacing="0" cellpadding="10" width="100%"
+              class="cg-statisticsTable">
+              <tbody>
+                <tr class="cg-statisticsTop">
+                  <td>Free</td>
+                  <td align="right">Pool</td>
+                  <td align="center"><input
+                    class="cg-storeMe cg-statInput" type="number"
+                    readonly="readonly"
+                    data-dojo-attach-point="free_pool" size="3" /></td>
+                  <td align="right">Edge</td>
+                  <td align="center"><input
+                    class="cg-storeMe cg-statInput" type="number"
+                    readonly="readonly"
+                    data-dojo-attach-point="free_edge" size="3" /></td>
+                </tr>
+                <tr>
+                  <td>Might</td>
+                  <td align="right">Pool</td>
+                  <td align="center">
+                    <table cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td width="5">
+                          <button class="cg-adjustButton"
+                            data-dojo-type="dijit/form/Button"
+                            data-dojo-attach-point="decrement_might_pool">▼</button>
+                        </td>
+                        <td><input class="cg-storeMe cg-statInput"
+                          type="number" readonly="readonly"
+                          data-dojo-attach-point="might_pool" size="3" /></td>
+                        <td width="5">
+                          <button class="cg-adjustButton"
+                            data-dojo-type="dijit/form/Button"
+                            data-dojo-attach-point="increment_might_pool">▲</button>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td align="right">Edge</td>
+                  <td align="center">
+                    <table cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td width="5">
+                          <button class="cg-adjustButton"
+                            data-dojo-type="dijit/form/Button"
+                            data-dojo-attach-point="decrement_might_edge">▼</button>
+                        </td>
+                        <td><input class="cg-storeMe cg-statInput"
+                          type="number" readonly="readonly"
+                          data-dojo-attach-point="might_edge" size="3" />
+                        <td width="5">
+                          <button class="cg-adjustButton"
+                            data-dojo-type="dijit/form/Button"
+                            data-dojo-attach-point="increment_might_edge">▲</button>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Speed</td>
+                  <td align="right">Pool</td>
+                  <td align="center">
+                    <table cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td width="5">
+                          <button class="cg-adjustButton"
+                            data-dojo-type="dijit/form/Button"
+                            data-dojo-attach-point="decrement_speed_pool">▼</button>
+                        </td>
+                        <td><input class="cg-storeMe cg-statInput"
+                          type="number" readonly="readonly"
+                          data-dojo-attach-point="speed_pool" size="3" /></td>
+                        <td width="5">
+                          <button class="cg-adjustButton"
+                            data-dojo-type="dijit/form/Button"
+                            data-dojo-attach-point="increment_speed_pool">▲</button>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td align="right">Edge</td>
+                  <td align="center">
+                    <table cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td width="5">
+                          <button class="cg-adjustButton"
+                            data-dojo-type="dijit/form/Button"
+                            data-dojo-attach-point="decrement_speed_edge">▼</button>
+                        </td>
+                        <td><input class="cg-storeMe cg-statInput"
+                          type="number" readonly="readonly"
+                          data-dojo-attach-point="speed_edge" size="3" /></td>
+                        <td width="5">
+                          <button class="cg-adjustButton"
+                            data-dojo-type="dijit/form/Button"
+                            data-dojo-attach-point="increment_speed_edge">▲</button>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr class="cg-statisticsMiddle">
+                  <td>Intellect</td>
+                  <td align="right">Pool</td>
+                  <td align="center">
+                    <table cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td width="5">
+                          <button class="cg-adjustButton"
+                            data-dojo-type="dijit/form/Button"
+                            data-dojo-attach-point="decrement_intellect_pool">▼</button>
+                        </td>
+                        <td><input class="cg-storeMe cg-statInput"
+                          type="number" readonly="readonly"
+                          data-dojo-attach-point="intellect_pool"
+                          size="3" /></td>
+                        <td width="5">
+                          <button class="cg-adjustButton"
+                            data-dojo-type="dijit/form/Button"
+                            data-dojo-attach-point="increment_intellect_pool">▲</button>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td align="right">Edge</td>
+                  <td align="center">
+                    <table cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td width="5">
+                          <button class="cg-adjustButton"
+                            data-dojo-type="dijit/form/Button"
+                            data-dojo-attach-point="decrement_intellect_edge">▼</button>
+                        </td>
+                        <td><input class="cg-storeMe cg-statInput"
+                          type="number" readonly="readonly"
+                          data-dojo-attach-point="intellect_edge"
+                          size="3" /></td>
+                        <td width="5">
+                          <button class="cg-adjustButton"
+                            data-dojo-type="dijit/form/Button"
+                            data-dojo-attach-point="increment_intellect_edge">▲</button>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr class="cg-statisticsBottom">
+                  <td></td>
+                  <td align="right">Tier</td>
+                  <td align="center"><input
+                    class="cg-storeMe cg-statInput" type="number"
+                    readonly="readonly"
+                    data-dojo-attach-point="character_tier" value="1"
+                    size="3" /></td>
+                  <td align="right">Effort</td>
+                  <td align="center"><input
+                    class="cg-storeMe cg-statInput" type="number"
+                    readonly="readonly"
+                    data-dojo-attach-point="character_effort" value="1"
+                    size="3" /></td>
+                </tr>
+                <tr class="cg-statisticsBottom">
+                  <td></td>
+                  <td align="right">Shins</td>
+                  <td align="center"><input
+                    class="cg-storeMe cg-statInput" type="number"
+                    data-dojo-attach-point="shin_count" size="3" /></td>
+                  <td align="right">Cyphers</td>
+                  <td align="center"><input
+                    class="cg-storeMe cg-statInput" type="number"
+                    readonly="readonly"
+                    data-dojo-attach-point="cypher_count" size="3" /></td>
+                </tr>
+                <tr class="cg-statisticsBottom cg-statisticsBottomRow">
+                  <td></td>
+                  <td align="right">Armor bonus</td>
+                  <td align="center"><input
+                    class="cg-storeMe cg-statInput" type="number"
+                    readonly="readonly"
+                    data-dojo-attach-point="armor_bonus" size="3" /></td>
+                  <td align="right">Recovery roll: 1d6 +</td>
+                  <td align="center"><input
+                    class="cg-storeMe cg-statInput" type="number"
+                    readonly="readonly"
+                    data-dojo-attach-point="recovery_roll" size="3" /></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div data-dojo-type="dijit/layout/ContentPane"
+          data-dojo-props="title:'Possessions'">
+          <div class="cg-resultsPane cg-characterGeneratorContent">
+            <h2 data-dojo-attach-point="cypher_list_label">Cyphers</h2>
+            <ul data-dojo-attach-point="cypher_list"></ul>
+            <h2 data-dojo-attach-point="equipment_list_label">Starting
+              Possessions</h2>
+            <ul data-dojo-attach-point="equipment_list"></ul>
+            <h2>Extra Possessions</h2>
+            <textarea data-dojo-attach-point="extra_equipment_text"
+              class="cg-inputTextArea"
+              data-dojo-type="dijit/form/Textarea"
+              data-dojo-attach-event="onKeyUp:connectTextareaListener,onChange:descriptionUpdated"></textarea>
+          </div>
+        </div>
+        <div data-dojo-type="dijit/layout/ContentPane"
+          data-dojo-props="title:'Abilities'">
+          <div class="cg-resultsPane cg-characterGeneratorContent">
+            <h2 data-dojo-attach-point="ability_list_label">Skills</h2>
+            <ul data-dojo-attach-point="ability_list"></ul>
+            <h2 data-dojo-attach-point="inability_list_label"
+              style="display: none;">Inabilities and Drawbacks</h2>
+            <ul data-dojo-attach-point="inability_list"></ul>
+            <h2 data-dojo-attach-point="bonus_list_label"
+              style="display: none;">Special Abilities</h2>
+            <ul data-dojo-attach-point="bonus_list"></ul>
+            <h2 data-dojo-attach-point="special_list_label"></h2>
+            <ul data-dojo-attach-point="special_list"></ul>
+            <h2 data-dojo-attach-point="description_text_label">Background</h2>
+            <textarea data-dojo-attach-point="description_text"
+              class="cg-inputTextArea"
+              data-dojo-type="dijit/form/Textarea"
+              data-dojo-attach-event="onKeyUp:connectTextareaListener,onChange:descriptionUpdated"></textarea>
+            <h2>Notes</h2>
+            <textarea data-dojo-attach-point="notes_text"
+              class="cg-inputTextArea"
+              data-dojo-type="dijit/form/Textarea"
+              data-dojo-attach-event="onKeyUp:connectTextareaListener,onChange:descriptionUpdated"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div data-dojo-type="dijit/layout/ContentPane"
+      data-dojo-props="region:'bottom'" class="cg-footer"
+      data-dojo-attach-point="footerNode" style="display: none;">
+      <div class="cg-characterGeneratorContent">
+        <div>
+          <table width="100%">
             <tbody>
               <tr>
-                <td align="left" width="25%">
-                  <button data-dojo-attach-point="saveButton" data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:storeCharacter" class="" disabled="true">Save</button>
-                  <button data-dojo-attach-point="printButton" data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:makePrint" class="" disabled="true">Sheet</button>
-                  <button data-dojo-attach-point="helpButton" data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:showHelp" class="cg-blueButton cg-roundButton">?</button>
+                <td width="15%">
+                  <button data-dojo-type="dijit/form/Button"
+                    class="cg-redButton" style="visibility: hidden"
+                    data-dojo-attach-event="onClick:clearAll"
+                    data-dojo-attach-point="clearButton">Clear</button>
                 </td>
-                <td>
-                  <div class="cg-linkNode">
-                    <a data-dojo-attach-point="linkNode"></a>
-                  </div>
+                <td align="center">
+                  <button data-dojo-type="dijit/form/Button"
+                    data-dojo-attach-event="onClick:openCharacter">Saved
+                    characters</button>
                 </td>
-                <td align="right" width="25%">
-                  <button data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:openCharacter">Saved characters</button>
+                <td align="right" width="15%">
+                  <button data-dojo-type="dijit/form/Button"
+                    class="cg-blueButton" style="visibility: hidden"
+                    data-dojo-attach-point="finalizeButton"
+                    data-dojo-attach-event="onClick:finalize">Advance</button>
                 </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td align="right"></td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
-    </div>
-      <div data-dojo-attach-point="result_pane" style="display : none;" class="cg-resultsPane">
-        <table cellspacing="0" cellpadding="10" width="100%" class="cg-warmBackground">
-          <tbody >
-            <tr class="cg-paleBackground">
-              <th>Free</th>
-              <td align="right">
-                Pool
-              </td>
-              <td align="center">
-                <input class="cg-storeMe cg-statInput" type="number" readonly="readonly"
-                data-dojo-attach-point="free_pool" size="3" />
-              </td>
-              <td align="right">
-                Edge
-              </td>
-              <td align="center">
-                <input class="cg-storeMe cg-statInput" type="number" readonly="readonly"
-                data-dojo-attach-point="free_edge" size="3" />
-              </td>
-            </tr>
-            <tr>
-              <th>Might</th>
-              <td align="right">
-                Pool
-              </td>
-              <td align="center">
-                <table cellspacing="0" cellpadding="0">
-                  <tr>
-                    <td width="5">
-                      <button class="cg-adjustButton" data-dojo-type="dijit/form/Button" data-dojo-attach-point="decrement_might_pool">▼</button>
-                    </td>
-                    <td>
-                      <input class="cg-storeMe cg-statInput" type="number" readonly="readonly"
-                        data-dojo-attach-point="might_pool" size="3" />
-                    </td>
-                    <td width="5">
-                      <button class="cg-adjustButton" data-dojo-type="dijit/form/Button" data-dojo-attach-point="increment_might_pool">▲</button>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-              <td align="right">
-                Edge
-              </td>
-              <td align="center">
-                <table cellspacing="0" cellpadding="0">
-                  <tr>
-                    <td width="5">
-                      <button class="cg-adjustButton" data-dojo-type="dijit/form/Button" data-dojo-attach-point="decrement_might_edge">▼</button>
-                    </td>
-                    <td>
-                      <input class="cg-storeMe cg-statInput" type="number" readonly="readonly"
-                        data-dojo-attach-point="might_edge" size="3" />
-                    <td width="5">
-                      <button class="cg-adjustButton" data-dojo-type="dijit/form/Button" data-dojo-attach-point="increment_might_edge">▲</button>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-            <tr>
-              <th>Speed</th>
-              <td align="right">
-                Pool
-              </td>
-              <td align="center">
-                <table cellspacing="0" cellpadding="0">
-                  <tr>
-                    <td width="5">
-                      <button class="cg-adjustButton" data-dojo-type="dijit/form/Button" data-dojo-attach-point="decrement_speed_pool">▼</button>
-                    </td>
-                    <td>
-                      <input class="cg-storeMe cg-statInput" type="number" readonly="readonly"
-                        data-dojo-attach-point="speed_pool" size="3" />
-                    </td>
-                    <td width="5">
-                      <button class="cg-adjustButton" data-dojo-type="dijit/form/Button" data-dojo-attach-point="increment_speed_pool">▲</button>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-              <td align="right">
-                Edge
-              </td>
-              <td align="center">
-                <table cellspacing="0" cellpadding="0">
-                  <tr>
-                    <td width="5">
-                      <button class="cg-adjustButton" data-dojo-type="dijit/form/Button" data-dojo-attach-point="decrement_speed_edge">▼</button>
-                    </td>
-                    <td>
-                      <input class="cg-storeMe cg-statInput" type="number" readonly="readonly"
-                        data-dojo-attach-point="speed_edge" size="3" />
-                    </td>
-                    <td width="5">
-                      <button class="cg-adjustButton" data-dojo-type="dijit/form/Button" data-dojo-attach-point="increment_speed_edge">▲</button>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-            <tr>
-              <th>Intellect</th>
-              <td align="right">
-                Pool
-              </td>
-              <td align="center">
-                <table cellspacing="0" cellpadding="0">
-                  <tr>
-                    <td width="5">
-                      <button class="cg-adjustButton" data-dojo-type="dijit/form/Button" data-dojo-attach-point="decrement_intellect_pool">▼</button>
-                    </td>
-                    <td>
-                      <input class="cg-storeMe cg-statInput" type="number" readonly="readonly"
-                        data-dojo-attach-point="intellect_pool" size="3" />
-                    </td>
-                    <td width="5">
-                      <button class="cg-adjustButton" data-dojo-type="dijit/form/Button" data-dojo-attach-point="increment_intellect_pool">▲</button>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-              <td align="right">
-                Edge
-              </td>
-              <td align="center">
-                <table cellspacing="0" cellpadding="0">
-                  <tr>
-                    <td width="5">
-                      <button class="cg-adjustButton" data-dojo-type="dijit/form/Button" data-dojo-attach-point="decrement_intellect_edge">▼</button>
-                    </td>
-                    <td>
-                      <input class="cg-storeMe cg-statInput" type="number" readonly="readonly"
-                        data-dojo-attach-point="intellect_edge" size="3" />
-                    </td>
-                    <td width="5">
-                      <button class="cg-adjustButton" data-dojo-type="dijit/form/Button" data-dojo-attach-point="increment_intellect_edge">▲</button>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-            <tr class="cg-highlightBackground">
-              <td> </td>
-              <td align="right">Tier</td>
-              <td align="center">
-                <input class="cg-storeMe cg-statInput" type="number" readonly="readonly"
-                data-dojo-attach-point="character_tier" value="1" size="3" />
-              </td>
-              <td align="right">Effort</td>
-              <td align="center">
-                <input class="cg-storeMe cg-statInput" type="number" readonly="readonly"
-                data-dojo-attach-point="character_effort" value="1" size="3" />
-              </td>
-            </tr>
-            <tr class="cg-highlightBackground">
-              <td> </td>
-              <td align="right">Shins</td>
-              <td align="center">
-                <input class="cg-storeMe cg-statInput" type="number"
-                data-dojo-attach-point="shin_count" size="3" />
-              </td>
-              <td align="right">Cyphers</td>
-              <td align="center">
-                <input class="cg-storeMe cg-statInput" type="number" readonly="readonly"
-                data-dojo-attach-point="cypher_count" size="3" />
-              </td>
-            </tr>
-            <tr class="cg-highlightBackground">
-              <td> </td>
-              <td align="right">Armor bonus</td>
-              <td align="center">
-                <input class="cg-storeMe cg-statInput" type="number" readonly="readonly"
-                data-dojo-attach-point="armor_bonus" size="3" />
-              </td>
-              <td align="right">Recovery roll: 1d6 + </td>
-              <td align="center">
-                <input class="cg-storeMe cg-statInput" type="number" readonly="readonly"
-                data-dojo-attach-point="recovery_roll" size="3" />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <h2 data-dojo-attach-point="cypher_list_label">Cyphers</h2>
-        <ul data-dojo-attach-point="cypher_list"></ul>
-        <h2 data-dojo-attach-point="equipment_list_label">Starting Possessions</h2>
-        <ul data-dojo-attach-point="equipment_list"></ul>
-        <h2>Extra Possessions</h2>
-        <textarea data-dojo-attach-point="extra_equipment_text" class="cg-inputTextArea" data-dojo-type="dijit/form/Textarea" data-dojo-attach-event="onKeyUp:connectTextareaListener,onChange:descriptionUpdated"></textarea>
-        <h2 data-dojo-attach-point="ability_list_label">Skills</h2>
-        <ul data-dojo-attach-point="ability_list"></ul>
-        <h2 data-dojo-attach-point="inability_list_label" style="display : none;">Inabilities and Drawbacks</h2>
-        <ul data-dojo-attach-point="inability_list"></ul>
-        <h2 data-dojo-attach-point="bonus_list_label" style="display:none;">Special Abilities</h2>
-        <ul data-dojo-attach-point="bonus_list"></ul>
-        <h2 data-dojo-attach-point="special_list_label"></h2>
-        <ul data-dojo-attach-point="special_list"></ul>
-        <h2 data-dojo-attach-point="description_text_label">Background</h2>
-        <textarea data-dojo-attach-point="description_text" class="cg-inputTextArea" data-dojo-type="dijit/form/Textarea" data-dojo-attach-event="onKeyUp:connectTextareaListener,onChange:descriptionUpdated"></textarea>
-        <h2>Notes</h2>
-        <textarea data-dojo-attach-point="notes_text" class="cg-inputTextArea" data-dojo-type="dijit/form/Textarea" data-dojo-attach-event="onKeyUp:connectTextareaListener,onChange:descriptionUpdated"></textarea>
-        <div data-dojo-attach-point="advancementControlNode"></div>
-        <table width="100%">
-          <tbody>
-            <tr>
-              <td>
-                <button data-dojo-type="dijit/form/Button" class="cg-redButton" data-dojo-attach-event="onClick:clearAll">Clear</button>
-              </td>
-              <td align="right">
-                <button data-dojo-type="dijit/form/Button" class="cg-blueButton" data-dojo-attach-point="finalizeButton" data-dojo-attach-event="onClick:finalize">Advance</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="cg-copyright">
+        Numenera is &copy; <a href="http://www.montecookgames.com/">Monte
+          Cook Games LLC</a>. The Character Creation Utility is
+        an unofficial project by Petteri Sulonen. • <span
+          class="cg-versionInfo"> <a
+          data-dojo-attach-event="onClick:showChangeLog">Version
+            ${version}</a>
+        </span>
       </div>
-      <div class="cg-versionInfo">
-      <a data-dojo-attach-event="onClick:showChangeLog">Version ${version}</a>
-      </div>
-  </div>
-  <div class="cg-copyright">Numenera is &copy; <a href="http://www.montecookgames.com/">Monte Cook Games LLC</a>.
-  <br/>The Character Creation Utility is an unofficial project by Petteri Sulonen.</div>
-  </div>
-  <div style="display:none">
-    <!--  message node  -->
-    <div data-dojo-type="dijit/Dialog" data-dojo-attach-point="messageDialog" data-dojo-props="title:'Character Creation Utility'">
-      <div class="cg-dialogContent" data-dojo-attach-point="messageContentNode"></div>
-      <div style="text-align:center;" >
-        <button data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:hideMessage">OK</button>
+      <div style="display: none">
+        <!--  message node  -->
+        <div data-dojo-type="dijit/Dialog"
+          data-dojo-attach-point="messageDialog"
+          data-dojo-props="title:'Character Creation Utility'">
+          <div class="cg-dialogContent"
+            data-dojo-attach-point="messageContentNode"></div>
+          <div style="text-align: center;">
+            <button data-dojo-type="dijit/form/Button"
+              data-dojo-attach-event="onClick:hideMessage">OK</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+
+
 </div>

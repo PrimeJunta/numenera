@@ -18,6 +18,9 @@ var profile = {
             boot : true,
             customBase : true
         },
+        "dijit/dijit" : {
+            include : [ "dijit/dijit-all" ]
+        },
         "primejunta/numenera" : {
             include : [ "primejunta/numenera/chargen/CharacterGenerator" ]
         }

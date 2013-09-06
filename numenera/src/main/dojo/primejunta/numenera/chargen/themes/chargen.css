@@ -2,11 +2,14 @@
  * Main Character Generator stylesheet.
  */
 /* Import those Dijit themes we're actually using, and character record. */
+@import url( '../../../../dijit/themes/tundra/tundra.css' );
+/*
 @import url( '../../../../dijit/themes/dijit.css');
 @import url( '../../../../dijit/themes/tundra/Dialog.css');
 @import url( '../../../../dijit/themes/tundra/Common.css' );
 @import url( '../../../../dijit/themes/tundra/form/Common.css' );
 @import url( '../../../../dijit/themes/tundra/form/Button.css' );
+*/
 @import url( 'charrec.css' );
 /* Fonts - these are originally from Google Web Fonts, and are used with permission [ https://developers.google.com/fonts/faq#Download_Fonts ]. */
 @font-face {
@@ -32,7 +35,9 @@ html, body
 {
     margin : 0px;
     padding : 0px;
-    font-family : 'Droid sans', 'avant garde', helvetica, helve, arial, sans-serif;
+    width : 100%;
+    height : 100%;
+    font-family : 'Droid Sans', 'avant garde', helvetica, helve, arial, sans-serif;
 }
 body
 {
@@ -41,7 +46,7 @@ body
 select 
 {
    font-size : 18px;
-   font-family : 'Droid sans', 'avant garde', helvetica, helve, arial, sans-serif;
+   font-family : 'Droid Sans', 'avant garde', helvetica, helve, arial, sans-serif;
    height : 28px;
    vertical-align : middle;
 }
@@ -49,6 +54,11 @@ h1, h2, h3
 {
     font-family : Prata;
     font-weight : normal;
+    text-align : center;
+}
+h3
+{
+	text-align : left;
 }
 h1
 {
@@ -81,18 +91,66 @@ li td
 {
     padding : 0px;
 }
+/* floating controls */
+.cg-floatingControls
+{
+	margin-left : auto;
+	margin-right : auto;
+	margin-top : 40px;
+}
+.cg-visibleWhenFloating
+{
+	display : none;
+}
+.cg-floatingControls .cg-visibleWhenFloating
+{
+	display : block;
+}
+.cg-floatingControls tr.cg-visibleWhenFloating
+{
+	display : table-row;
+}
+.cg-floatingControls span.cg-visibleWhenFloating
+{
+	display : inline;
+}
+.cg-floatingControls .cg-invisibleWhenFloating
+{
+	display : none;
+}
+.cg-mainButtonsNode
+{
+	position : absolute;
+	top : 180px;
+}
+.cg-whiteKnot
+{
+	width : 100%;
+	background-image : url( 'images/knot.png' );
+	background-size : 75% auto;
+	background-repeat : no-repeat;
+	background-position : center;
+	height : 100px;
+	width : 100px;
+	margin : 40px;
+	margin-left : auto;
+	margin-right : auto;
+}
+.cg-phraseSelectors td
+{
+	padding : 10px;
+}
 /* base layout elements */
 .cg-characterGenerator
 {
     width : 100%;
     height : 100%;
-    overflow : auto;
-    background-color : #142434;
+    overflow : hidden;
+    background-color : #182838;
 }
 .cg-characterGeneratorPane
 {
     border-radius : 20px;
-    width : 900px;
     margin-top : 50px;
     margin-left : auto;
     margin-right : auto;
@@ -101,11 +159,23 @@ li td
 }
 .cg-characterGeneratorContent
 {
-    margin-top : 20px;
+	width : 900px;
+	margin-left : auto;
+	margin-right : auto;
+}
+.cg-mainTabContainer .dijitTabContainerTop-tabs
+{
+	width : 100% !important;
+	text-align : center;
+}
+.cg-mainTabContainer .dijitTab
+{
+	padding : 10px 20px 10px 20px;
+	font-family : Lato;
 }
 .cg-resultsPane
 {
-    padding : 30px;
+    padding : 10px 30px 10px 30px;
 }
 .cg-noJavaScript
 {
@@ -131,7 +201,36 @@ li td
 {
     padding : 20px;
 }
+.cg-linkNode a
+{
+	color : #e4e4e4;
+	font-size : 18px;
+	font-family : Lato;
+}
 /* stats */
+.cg-statsPane
+{
+	border-left : 1px solid silver;
+	border : 1px solid silver;
+}
+.cg-statisticsTable
+{
+}
+.cg-statisticsTop td
+{
+	border-bottom : 1px solid gray;
+}
+.cg-statisticsBottom
+{
+}
+.cg-statisticsMiddle td
+{
+	border-bottom : 1px solid gray;
+}
+.cg-statisticsMiddle td td
+{
+	border-bottom : none;
+}
 .cg-statInput
 {
     font-size : 18px;
@@ -158,14 +257,22 @@ input[readonly].cg-statInput
 /* other inputs */
 .cg-characterNameInput
 {
+	border : 1px;
     text-align : center;
     font-size : large;
-    width : 600px;
+    width : 850px;
     padding : 10px;
+    font-family : Prata;
+    background-color : #233343;
+    color : white;
+}
+.cg-phraseSelectors
+{
+	color : white;
 }
 .cg-inputTextArea
 {
-    width : 800px;
+    width : 100%;
     font-family : 'Droid sans', 'avant garde', sans-serif;
     font-size : 14px;
 }
@@ -189,7 +296,7 @@ input[readonly].cg-statInput
 /* color codes for type, description, and focus */
 .cg-type
 {
-    
+    color : black !important;
 }
 .cg-desc
 {
@@ -199,7 +306,39 @@ input[readonly].cg-statInput
 {
     color : #345c8c !important;
 }
+.cg-type:disabled, .cg-desc:disabled, .cg-focus:disabled
+{
+	opacity : 0.8;
+}
+/* background panes (the td's are included because of an ipad retina rendering glitch) */
+.cg-warmBackground, .cg-warmBackground td
+{
+    background-color : #FFFFFF;
+}
+.cg-paleBackground, .cg-paleBackground td
+{
+    background-color : #e4e4e4;
+}
+.cg-highlightBackground, .cg-highlightBackground td
+{
+    background-color : #d4d4d4;
+}
+.cg-evenBackground, .cg-evenBackground td
+{
+    background-color : #efefef;
+}
+.cg-oddBackground, .cg-oddBackground td
+{
+    background-color : #fafafa;
+}
+
 /* advancement controls */
+.cg-advancementHeader
+{
+}
+.cg-advancementContent
+{
+}
 .cg-tierRow select, .cg-tierRow.input[type=text]
 {
     width : 300px;
@@ -208,10 +347,30 @@ input[readonly].cg-statInput
 {
     width : 65px;
 }
+td.cg-tierTitleCell
+{
+	background-color : #a8a8a8;
+}
+.cg-oddBackground .cg-tierTitleCell
+{
+	opacity : 0.5;
+}
+.cg-tierTitle
+{
+	text-align : center;
+	transform : rotate( -90deg );
+	-ms-transform : rotate( -90deg ); /* IE 9 */
+	-webkit-transform : rotate( -90deg ); /* Safari and Chrome */
+}
+.cg-tierContent
+{
+	padding : 10px;
+}
 /* buttons */
 .dijitButton
 {
     font-size : 18px;
+    font-family : Lato;
 }
 .cg-blueButton .dijitButtonNode
 {
@@ -246,9 +405,13 @@ input[readonly].cg-statInput
     background-image : -webkit-linear-gradient(to bottom, #FFFFFF 0%, #335C99 100%);
     background-image : linear-gradient(to bottom, #FFFFFF 0%, #335C99 100%);
 }
-.cg-roundButton
+.cg-infoLink
 {
-    z-index : 99999;
+	display : inline-block;
+	padding-right : 10px;
+	cursor : pointer;
+	text-decoration : none;
+	color : #e4e4e4;
 }
 .cg-roundButton .dijitButtonNode
 {
@@ -293,23 +456,7 @@ input[readonly].cg-statInput
 {
    text-decoration : line-through;  
 }
-/* background panes (the td's are included because of an ipad retina rendering glitch) */
-.cg-warmBackground, .cg-warmBackground td
-{
-    background-color : #FFFFFF;
-}
-.cg-paleBackground, .cg-paleBackground td
-{
-    background-color : #e4e4e4;
-}
-.cg-highlightBackground, .cg-highlightBackground td
-{
-    background-color : #d4d4d4;
-}
-.cg-evenBackground, .cg-evenBackground td
-{
-    background-color : #efefef;
-}
+
 /* character manager */
 .cg-characterManager:hover
 {
@@ -334,16 +481,24 @@ input[readonly].cg-statInput
     padding : 10px;
     overflow : auto; 
 }
+/* footer */
+.cg-footer
+{
+	height : 90px;
+	overflow : hidden;
+	background-color : #ffffff;
+}
 /* copyright notice */
 .cg-copyright
 {
-    width : 900px;
-    padding : 20px;
+	font-family : Lato;
     text-align : center;
     font-size : small;
     margin-left : auto;
     margin-right : auto;
-    color : #e4e4e4;
+    padding : 15px;
+    color : #585858;
+    background-color : #e4e4e4;
 }
 .cg-copyright a
 {
@@ -353,9 +508,7 @@ input[readonly].cg-statInput
 .cg-versionInfo
 {
     text-align : right;
-    margin-right : 30px;
     font-size : 12px;
-    padding : 10px;
     cursor : pointer;
 }
 

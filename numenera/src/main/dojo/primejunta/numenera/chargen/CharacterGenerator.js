@@ -16,6 +16,9 @@ define([ "dojo/_base/declare",
          "dojo/query",
          "dojo/has",
          "dojo/cookie",
+         "dijit/layout/BorderContainer",
+         "dijit/layout/TabContainer",
+         "dijit/layout/ContentPane",
          "dijit/Dialog",
          "dijit/form/Button",
          "dijit/form/Textarea",
@@ -46,6 +49,9 @@ function( declare,
           domQuery,
           has,
           cookie,
+          BorderContainer,
+          TabContainer,
+          ContentPane,
           Dialog,
           Button,
           Textarea,
@@ -83,7 +89,7 @@ function( declare,
         /**
          * Public version number.
          */
-        version : "1.0.0-b23",
+        version : "1.1.0-b1",
         /**
          * Set when a character is first advanced past creation.
          */
@@ -247,11 +253,11 @@ function( declare,
             }
             else
             {
+                this._showCharacterData();
                 this._assign( type.stats );
                 this._appendToLists( type.lists, "type" );
                 this._writeSpecialList( type );
                 this.special_list_label.innerHTML = type.special_list_label;
-                this.result_pane.style.display = "block";
                 this._appendToText( "description_text", type.description_text );
                 this._appendToText( "notes_text", type.notes_text );
             }
@@ -293,15 +299,13 @@ function( declare,
             tier = !isNaN( parseInt( tier ) ) ? parseInt( tier ) : parseInt( this.character_tier.value );
             if( !this.finalized )
             {
-                if( this._advancementControl )
-                {
-                    this._advancementControl.destroy();
-                }
+                this._clearAdvancementControl();
                 this._advancementControl = new _AdvancementControl({
                     manager : this,
                     typeData : type.advancement,
                     focusData : focus.advancement
-                }).placeAt( this.advancementControlNode );
+                });
+                this.mainTabContainer.addChild( this._advancementControl );
                 this._advancementControl.advanceTier( tier );
             }
             this.moveCaps();
@@ -311,6 +315,10 @@ function( declare,
             }
             this.finalized = true;
             this._advancementControl.checkAdvancement();
+            if( this._populating.length == 0 )
+            {
+                this.mainTabContainer.selectChild( this._advancementControl )
+            }
         },
         /**
          * Checks that we're not in the middle of programmatic population; if not, validates the character
@@ -442,8 +450,8 @@ function( declare,
             this.focusSelect.selectedIndex = 0;
             this.characterNameInput.value = this.DEFAULT_CHARACTER_NAME;
             this.normalizeClass( this.characterNameInput );
-            this.linkNode.innerHTML = "";
             this._setDisabled([ "saveButton", "printButton" ], true );
+            this._hideCharacterData();
         },
         /**
          * Kinder, gentler alert.
@@ -554,6 +562,41 @@ function( declare,
                 "value" : sel.options[ sel.selectedIndex ].value
             }
         },
+        _showCharacterData : function()
+        {
+            this.controlsNode.style.visibility = "visible";
+            this.dataPane.domNode.style.visibility = "visible";
+            this.clearButton.domNode.style.visibility = "visible";
+            this.finalizeButton.domNode.style.visibility = "visible";
+            domClass.remove( this.basicControlsNode, "cg-floatingControls" );
+            domClass.remove( this.mainButtonsNode, "cg-floatingControls" );
+            this.footerNode.domNode.style.display = "block";
+            setTimeout( lang.hitch( this, this._kick ), 1 );
+        },
+        _kick : function()
+        {
+            this.characterGeneratorPane.layout();
+        },
+        _hideCharacterData : function()
+        {
+            this.controlsNode.style.visibility = "hidden";
+            this.dataPane.domNode.style.visibility = "hidden";
+            this.clearButton.domNode.style.visibility = "hidden";
+            this.finalizeButton.domNode.style.visibility = "hidden";
+            domClass.add( this.basicControlsNode, "cg-floatingControls" );
+            domClass.add( this.mainButtonsNode, "cg-floatingControls" );
+            this.footerNode.domNode.style.display = "none";
+            setTimeout( lang.hitch( this, this._kick ), 1 );
+        },
+        _clearAdvancementControl : function()
+        {
+            if( this._advancementControl )
+            {
+                this.mainTabContainer.removeChild( this._advancementControl );
+                this._advancementControl.destroy();
+                this._advancementControl = false;
+            }
+        },
         /**
          * Resets the control to its pristine state, except for the fields at top. We do this every time the user selects a
          * new descriptor/type/focus is selected, so we don't want to clear those. They're with clearAll.
@@ -569,17 +612,13 @@ function( declare,
                 }
             }
             this._controls = [];
-            if( this._advancementControl )
-            {
-                this._advancementControl.destroy();
-            }
+            this._clearAdvancementControl();
             this.unlockFinalize();
             this.finalized = false;
             delete this._listdata;
             this.description_text.set( "value", "" );
             this.notes_text.set( "value", "" );
             this.extra_equipment_text.set( "value", "" );
-            this.result_pane.style.display = "none";
             this._setDisabled([ "descriptorSelect", "typeSelect", "focusSelect" ], false );
             this._setValues([ "character_tier", "character_effort", "might_pool", "speed_pool", "intellect_pool", "might_edge", "speed_edge", "intellect_edge", "free_pool", "free_edge", "shin_count", "cypher_count", "armor_bonus" ], "" );
             var lists = [ "ability_list", "inability_list", "special_list", "equipment_list", "bonus_list" ];

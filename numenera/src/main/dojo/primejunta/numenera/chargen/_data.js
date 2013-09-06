@@ -193,7 +193,7 @@ function( declare,
             var href = window.location.origin + window.location.pathname + "?" + qString; 
             this._buffer.push( qString );
             this.linkNode.href = href;
-            this.linkNode.innerHTML = "Share " + this.characterNameInput.value;
+            //this.linkNode.innerHTML = "Share " + this.characterNameInput.value;
         },
         /**
          * Wraps _popualteFromStoredData in a try-catch block and displays a polite alert if something bad happened, e.g. because

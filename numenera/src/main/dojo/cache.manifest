@@ -1,7 +1,7 @@
 CACHE MANIFEST
 # Cache manifest for Numenera Character Creator.
 #
-# Version 1.0.0-b23
+# Version 1.1.0-b1-b
 #
 index.html
 primejunta/numenera/chargen/themes/images/icon.png
@@ -9,6 +9,9 @@ primejunta/numenera/chargen/themes/images/h-pixel.png
 primejunta/numenera/chargen/themes/images/v-pixel.png
 primejunta/numenera/chargen/themes/images/touch-icon-ipad.png
 primejunta/numenera/chargen/themes/images/touch-icon-ipad-retina.png
+primejunta/numenera/chargen/themes/images/Numenera_Logo.png
+primejunta/numenera/chargen/themes/images/Numenera_Logo_neg.png
+primejunta/numenera/chargen/themes/images/knot.png
 # Main stylesheet
 primejunta/numenera/chargen/themes/chargen.css
 primejunta/numenera/chargen/themes/charrec.css
@@ -25,12 +28,10 @@ primejunta/numenera/chargen/themes/fonts/Droid_Sans.woff
 primejunta/numenera/chargen/themes/fonts/Lato.woff
 primejunta/numenera/chargen/themes/fonts/Prata.woff
 # Themes
-dijit/themes/dijit.css
-dijit/themes/tundra/Dialog.css
-dijit/themes/tundra/Common.css
-dijit/themes/tundra/form/Common.css
-dijit/themes/tundra/form/Button.css
-primejunta/numenera/chargen/themes/images/Numenera_Logo.png
+dijit/themes/tundra/tundra.css
+
+dijit/themes/tundra/images/tabEnabled.png
+dijit/themes/tundra/images/spriteRoundedIconsSmall.png
 dijit/themes/tundra/images/buttonDisabled.png
 dijit/themes/tundra/images/buttonEnabled.png
 dijit/themes/tundra/images/validationInputBg.png
@@ -38,3 +39,4 @@ dijit/themes/tundra/images/buttonHover.png
 dijit/themes/tundra/images/buttonActive.png
 dijit/themes/tundra/images/titleBar.png
 dijit/themes/tundra/images/tabClose.png
+dijit/themes/tundra/images/tabHover.gif

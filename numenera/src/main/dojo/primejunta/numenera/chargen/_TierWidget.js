@@ -223,8 +223,9 @@ function( declare,
                     break;
             }
             this.manager.moveCaps();
-            this._applyCheckbox( this.pool_checkbox, "free_pool", 4 );
-            this._applyCheckbox( this.edge_checkbox, "free_edge", 1 );
+            var cbs = 0;
+            cbs += this._applyCheckbox( this.pool_checkbox, "free_pool", 4 ) ;
+            cbs += this._applyCheckbox( this.edge_checkbox, "free_edge", 1 );
             this._applyCheckbox( this.effort_checkbox, "character_effort", 1 );
             if( this.canAdvance() )
             {
@@ -232,6 +233,10 @@ function( declare,
             }
             topic.publish( "CharGen/lockSheetControls" );
             this.manager.unlockFinalize();
+            if( cbs > 0 )
+            {
+                this.manager.mainTabContainer.selectChild( this.manager.statsPane );
+            }
         },
         /**
          * Do the usual field thing to skillInput.
@@ -461,14 +466,15 @@ function( declare,
         {
             if( cb.disabled )
             {
-                return;
+                return 0;
             }
             if( !cb.checked )
             {
-                return;
+                return 0;
             }
             cb.disabled = true;
             this._adjust( prop, val );
+            return 1;
         },
         /**
          * Adjusts stat matching prop by val and _checkCaps if we adjusted free_pool or free_edge.

@@ -1,11 +1,21 @@
 <div>
-  <div style="float:right">
-    XP
-    <input class="cg-storeMe cg-statInput cg-doNotLock" type="number"
-      data-dojo-attach-point="character_xp" size="3" />
+  <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:false">
+    <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top'" class="cg-advancementHeader">
+      <div class="cg-characterGeneratorContent" style="">
+        <div style="float:right;padding:10px">
+          XP
+          <input class="cg-storeMe cg-statInput cg-doNotLock" type="number"
+            data-dojo-attach-point="character_xp" size="3" />
+        </div>
+        <h2 style="text-align:left;">Character Advancement</h2>
+      </div>
+    </div>
+    <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'" class="cg-advancementContent">
+      <div class="cg-characterGeneratorContent">
+        <table width="100%" class="cg-advancementTable" cellspacing="0">
+          <tbody data-dojo-attach-point="tierContainerNode"></tbody>
+        </table>
+      </div>
+    </div>
   </div>
-  <h2>Character Advancement</h2>
-  <table width="100%" class="cg-advancementTable" cellspacing="0">
-    <tbody data-dojo-attach-point="tierContainerNode"></tbody>
-  </table>
 </div>
