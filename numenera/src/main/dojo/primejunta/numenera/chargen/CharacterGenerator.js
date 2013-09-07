@@ -95,7 +95,7 @@ function( declare,
         /**
          * Public version number.
          */
-        version : "1.1.0-rc2",
+        version : "1.1.0-rc4",
         /**
          * Set when a character is first advanced past creation.
          */
@@ -128,39 +128,30 @@ function( declare,
         {
             this.inherited( arguments );
             document.body.className = "tundra";
-            window.applicationCache.addEventListener( "updateready", lang.hitch( this,  function( event )
-            {
-                console.log( "Updating application cache. Status is ", window.applicationCache.status );
-                if( has( "ff" ) && window.applicationCache.status == 4 )
-                {
-                    this._reloadTimeout();
-                    return;
-                }
-                else if( window.applicationCache.status == 4 ) try
-                {
-                    window.applicationCache.swapCache();
-                    console.log( "Application cache successfully updated." );
-                    this._reloadTimeout();
-                }
-                catch( e )
-                {
-                    console.log( "Failed to swap cache." );
-                    this._reloadTimeout();
-                }
-            }), false );
             if( !has( "ff" ) && !has( "webkit" ) && !cookie( "browserCheckAlert" ) )
             {
                 alert( "This webapp has only been tested on Firefox, Google Chrome, and Apple Safari. Use at your own risk." );
                 cookie( "browserCheckAlert", "1", { expires : 30 });
             }
-        },
-        _reloadTimeout : function()
-        {
-            if( this._cUpTo )
+            window.applicationCache.addEventListener( "updateready", lang.hitch( this, function( event )
             {
-                clearTimeout( this._cUpTo );
-            }
-            this._cUpTo = setTimeout( window.location.reload, 500 );
+                console.log( "Updating application cache. Status is ", window.applicationCache.status );
+                if( has( "ff" ) )
+                {
+                    this._reload(); // FF is a bastard. Just a bastard. It only listens to brute force.
+                }
+                else if( window.applicationCache.status == 4 ) try
+                {
+                    setTimeout( lang.hitch( this, this._reload ), 500 );
+                    window.applicationCache.swapCache();
+                    console.log( "Application cache successfully updated." );
+                }
+                catch( e )
+                {
+                    console.log( "Failed to swap cache." );
+                    setTimeout( lang.hitch( this, this._reload ), 500 );
+                }
+            }), false );
         },
         /**
          * Initialize internal arrays, initialize selects from data, and connect various event handlers to the UI buttons.
@@ -663,6 +654,13 @@ function( declare,
         _kick : function()
         {
             this.characterGeneratorPane.layout();
+        },
+        /**
+         * Reloads the window. Used with cache invalidation.
+         */
+        _reload : function()
+        {
+            window.location.reload();
         },
         /**
          * Resets the control to its pristine state, except for the fields at top. We do this every time the user selects a

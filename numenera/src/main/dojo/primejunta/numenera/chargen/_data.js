@@ -55,19 +55,13 @@ function( declare,
          */
         _listDelimiter : "-",
         /**
-         * Connects CharGen/dataChanged event to updateLink, and adds listener for keyups for the undo buffer.
-         */
-        postMixInProperties : function()
-        {
-            topic.subscribe( "CharGen/dataChanged", lang.hitch( this, this.updateLink ) );
-            on( document, "keyup", lang.hitch( this, this.handleKeyUp ) );
-        },
-        /**
          * Checks if we have a query string, and calls popualteFromQueryString if we do. As a little undocumented
          * feature we also allow the keyword &print=true to go directly to the character sheet.
          */
         checkForStartupQuery : function()
         {
+            topic.subscribe( "CharGen/dataChanged", lang.hitch( this, this.updateLink ) );
+            on( document, "keyup", lang.hitch( this, this.handleKeyUp ) );
             if( window.location.search != "" )
             {
                 this.populateFromQueryString();
@@ -93,8 +87,10 @@ function( declare,
          */
         populateFromQueryString : function()
         {
-            this.populateFromStoredData( window.location.search.substring( 1 ) );
-            this.updateLink();
+            if( !this._storage )
+            {
+                this._initStorage( this._doPopulateFromQueryString );
+            }
         },
         /**
          * Calls _initStorage if necessary to start up our local storage manager; then stores the character
@@ -195,8 +191,7 @@ function( declare,
             var qString = this._getCharacterData();
             var href = window.location.origin + window.location.pathname + "?" + qString; 
             this._buffer.push( qString );
-            this.linkNode.href = href;
-            //this.linkNode.innerHTML = "Share " + this.characterNameInput.value;
+            this.linkNode.setAttribute( "href", href );
         },
         /**
          * Wraps _popualteFromStoredData in a try-catch block and displays a polite alert if something bad happened, e.g. because
@@ -389,6 +384,27 @@ function( declare,
             return true;
         },
         /**
+         * Checks if the hero in the query string has been saved; if so, loads that version rather than the
+         * one in the query string.
+         */
+        _doPopulateFromQueryString : function()
+        {
+            var kwObj = ioQuery.queryToObject( window.location.search.substring( 1 ) );
+            if( kwObj.inputs )
+            {
+                var hName = kwObj.inputs.split( this._listDelimiter )[ 0 ];
+                var hero = this._storage.get( this._getKey( hName ) );
+                if( hero && hero.name == hName )
+                {
+                    this.populateFromStoredData( hero.data );
+                    this.updateLink();
+                    return;
+                }
+            }
+            this.populateFromStoredData( window.location.search.substring( 1 ) );
+            this.updateLink();
+        },
+        /**
          * Replaces everything that's not a letter between a and z in the character name with underscores, and
          * returns it. This is so our characters are stored by name, more or less. If you have two different
          * characters named Röbin Høød and Røbin Hööd, you're SOL though 'cuz both will be stored as R_bin_H__d.
@@ -398,13 +414,26 @@ function( declare,
             return nameStr.replace( /[^a-z|A-Z]+/g, "_" );
         },
         /**
-         * Initializes a dojox.storage.manager and puts a provider from it in this._storage.
+         * Initializes a dojox.storage.manager and puts a provider from it in this._storage. If handler is
+         * provided, continues with that.
          */
-        _initStorage : function()
+        _initStorage : function( handler )
         {
-            dojox.storage.manager.initialize(); // it's not ported to AMD, so...
-            this._storage = dojox.storage.manager.getProvider();
-            this._storage.initialize();
+            if( !dojox || !dojox.storage || !dojox.storage.manager )
+            {
+                setTimeout( lang.hitch( this, this._initStorage, handler ), 500 );
+                return;
+            }
+            else
+            {
+                dojox.storage.manager.initialize(); // it's not ported to AMD, so...
+                this._storage = dojox.storage.manager.getProvider();
+                this._storage.initialize();
+                if( handler )
+                {
+                    lang.hitch( this, handler )();
+                }
+            }
         },
         /**
          * Escapes our delimiter character in our stored values with three slashes. I'm assuming users won't type three slashes in
