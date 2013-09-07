@@ -148,7 +148,7 @@ define({
         "lists" : {
             "ability_list" : [ "Ⓣ Breaking things",
                                "Ⓣ Jumping" ],
-            "equipment_list" : [ "${select:1:Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged} Weapon: ${input:choose}" ]
+            "equipment_list" : [ "${select:1:Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged} Weapon: ${input:choose}" ]
         }
     },
     "D11" : {

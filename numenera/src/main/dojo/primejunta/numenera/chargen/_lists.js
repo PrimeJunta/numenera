@@ -167,7 +167,7 @@ function( declare,
             }
             if( !this._listdata[ where ] )
             {
-                this._listdata[ where ] = [];
+                this._listdata[ where ] = [];
             }
             var found = false;
             if( what.indexOf( "Ⓣ" ) != -1 && what.indexOf( "${" ) == -1 )

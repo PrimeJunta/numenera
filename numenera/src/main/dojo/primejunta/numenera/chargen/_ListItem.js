@@ -290,7 +290,7 @@ function( declare,
          */
         selectContent : function()
         {
-            if( this.manager.DEFAULT_VALUES[ this.inputNode.value ] )
+            if( this.manager.DEFAULT_VALUES[ this.inputNode.value ] )
             {
                 this.inputNode.value = "";
             }

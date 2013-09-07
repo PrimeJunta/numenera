@@ -193,7 +193,7 @@ function( declare,
             this[ fieldName ].innerHTML = out;
         },
         /**
-         * Writes data from character[ from ] into this[ fieldName ].
+         * Writes data from character[ from ] into this[ fieldName ].
          */
         _sv : function( /* String */ fieldName, /* String */ from )
         {

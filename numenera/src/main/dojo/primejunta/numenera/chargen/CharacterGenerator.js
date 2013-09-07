@@ -91,7 +91,7 @@ function( declare,
         /**
          * Public version number.
          */
-        version : "1.1.0-b4",
+        version : "1.1.0-b7",
         /**
          * Set when a character is first advanced past creation.
          */
@@ -126,8 +126,28 @@ function( declare,
             document.body.className = "tundra";
             window.applicationCache.addEventListener( "updateready", lang.hitch( this,  function( event )
             {
-                window.location.reload();
-            }), false);
+                console.log( "Updating application cache. Status is ", window.applicationCache.status );
+                if( has( "ff" ) && window.applicationCache.status == 4 )
+                {
+                    if( this._cUpTo )
+                    {
+                        clearTimeout( this._cUpTo );
+                    }
+                    this._cUpTo = setTimeout( window.location.reload, 300 ); // Firefox's cache swapping doesn't appear to always work. :-(
+                    return;
+                }
+                else if( window.applicationCache.status == 4 ) try
+                {
+                    window.applicationCache.swapCache();
+                    console.log( "Application cache successfully updated." );
+                    window.location.reload();
+                }
+                catch( e )
+                {
+                    console.log( "Failed to swap cache." );
+                    window.location.reload();
+                }
+            }), false );
             if( !has( "ff" ) && !has( "webkit" ) && !cookie( "browserCheckAlert" ) )
             {
                 alert( "This webapp has only been tested on Firefox, Google Chrome, and Apple Safari. Use at your own risk." );
@@ -344,6 +364,9 @@ function( declare,
             this.descriptorSelect.disabled = true;
             this.typeSelect.disabled = true;
             this.focusSelect.disabled = true;
+            this.phraseDisplayNode.innerHTML = "the " + this.getDescriptor().label + " " + this.getType().label + " who " + this.getFocus().label;
+            this.phraseSelectorNode.style.display = "none";
+            this.phraseDisplayNode.style.display = "block";
             this.updateLink();
         },
         /**
@@ -448,6 +471,9 @@ function( declare,
             this.descriptorSelect.selectedIndex = 0;
             this.typeSelect.selectedIndex = 0;
             this.focusSelect.selectedIndex = 0;
+            this.phraseDisplayNode.innerHTML = "";
+            this.phraseSelectorNode.style.display = "table-row";
+            this.phraseDisplayNode.style.display = "none";
             this.characterNameInput.value = this.DEFAULT_CHARACTER_NAME;
             this.normalizeClass( this.characterNameInput );
             this._setDisabled([ "saveButton", "printButton" ], true );

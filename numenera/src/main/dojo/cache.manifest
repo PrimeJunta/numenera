@@ -1,7 +1,7 @@
 CACHE MANIFEST
 # Cache manifest for Numenera Character Creator.
 #
-# Version 1.1.0-b4
+# Version 1.1.0-b7-3
 #
 index.html
 primejunta/numenera/chargen/themes/images/icon.png
@@ -17,10 +17,13 @@ primejunta/numenera/chargen/themes/chargen.css
 primejunta/numenera/chargen/themes/charrec.css
 # Scripts
 dojo/dojo.js
-primejunta/numenera.js
+dojo/dojo.js.map
 dojo/resources/blank.gif
+primejunta/numenera.js
+primejunta/numenera.js.map
 # Localization
 primejunta/nls/numenera_en.js
+primejunta/nls/numenera_en.js.map
 dijit/nls/loading.js
 dijit/nls/common.js
 # Fonts

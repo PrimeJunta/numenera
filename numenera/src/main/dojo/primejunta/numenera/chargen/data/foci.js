@@ -600,7 +600,7 @@ define({
                                "Ⓣ Disguise" ]
         },
         "advancement" : [{
-            "bonus_perks" : [ "Ⓔ Surprise Attack" ]
+            "bonus_perks" : [ "Ⓔ Surprise Attack" ]
         },
         {
             "bonus_perks" : [ "Ⓐ Quick Death (2 speed)" ]
@@ -628,7 +628,7 @@ define({
             "bonus_list" : [ "Frenzy (1 intellect)" ]
         },
         "advancement" : [{
-            "bonus_perks" : [ "Ⓔ Frenzy (1 intellect)" ]
+            "bonus_perks" : [ "Ⓔ Frenzy (1 intellect)" ]
         },
         {
             "stats" : {
@@ -698,7 +698,7 @@ define({
             "ability_list" : [ "Ⓣ All tasks involving electrical machines" ]
         },
         "advancement" : [{
-            "bonus_perks" : [ "Ⓐ Distant Activation (1 intellect)" ]
+            "bonus_perks" : [ "Ⓐ Distant Activation (1 intellect)" ]
         },
         {
             "bonus_perks" : [ "Ⓐ Coaxing Power (2 intellect)",
@@ -727,7 +727,7 @@ define({
             "equipment_list" : [ "Stronglass ${select:1:Light Bladed|Medium Bladed|Heavy Bladed} Weapon: ${input:choose}" ]
         },
         "advancement" : [{
-            "bonus_perks" : [ "Ⓔ Ice esoteries",
+            "bonus_perks" : [ "Ⓔ Ice esoteries",
 "Ⓔ Ice Armor (1 intellect)" ]
         },
         {
@@ -757,7 +757,7 @@ define({
             "equipment_list" : [ "Book (numenera)" ]
         },
         "advancement" : [{
-            "bonus_perks" : [ "Ⓔ Genius" ]
+            "bonus_perks" : [ "Ⓔ Genius" ]
         },
         {
             "bonus_perks" : [ "Ⓣ All Esoteries" ]
@@ -788,7 +788,7 @@ define({
             "equipment_list" : [ "${select:1:Light Bashing|Light Bladed} Weapon: ${input:choose}" ]
         },
         "advancement" : [{
-            "bonus_perks" : [ "Ⓔ Dual Light Wield" ]
+            "bonus_perks" : [ "Ⓔ Dual Light Wield" ]
         },
         {
             "bonus_perks" : [ "Ⓐ Double Strike (3 might)" ]
@@ -811,7 +811,7 @@ define({
         "notes_text" : "Works Miracles: Corebook, page 75",
         "description_text" : "One PC thinks you're a messiah or supernatural being.",
         "advancement" : [{
-            "bonus_perks" : [ "Ⓐ Healing Touch (1 intellect)" ]
+            "bonus_perks" : [ "Ⓐ Healing Touch (1 intellect)" ]
         },
         {
             "bonus_perks" : [ "Ⓐ Alleviate (3 intellect)" ]

@@ -91,31 +91,14 @@ li td
 {
     padding : 0px;
 }
-/* floating controls */
-.cg-floatingControls
+/* main controls */
+.cg-selectedPhrase
 {
-	margin-left : auto;
-	margin-right : auto;
-}
-.cg-visibleWhenFloating
-{
-	display : none;
-}
-.cg-floatingControls .cg-visibleWhenFloating
-{
-	display : block;
-}
-.cg-floatingControls tr.cg-visibleWhenFloating
-{
-	display : table-row;
-}
-.cg-floatingControls span.cg-visibleWhenFloating
-{
-	display : inline;
-}
-.cg-floatingControls .cg-invisibleWhenFloating
-{
-	display : none;
+	padding : 8px;
+	height : 28px;
+	color : #e4e4e4;
+	font-family : Prata;
+	font-style : italic;
 }
 .cg-mainButtonsNode
 {

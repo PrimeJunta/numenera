@@ -408,7 +408,7 @@ function( declare,
                 return list;
             }
             var out = [];
-            out.push( list[ 0 ] );
+            out.push( list[ 0 ] );
             for( var i = 1; i < list.length; i++ )
             {
                 if( list[ i ].toLowerCase() == list[ i - 1 ].toLowerCase() && list[ i ].indexOf( this.TRAINED_STR ) != -1 )
@@ -592,7 +592,7 @@ function( declare,
         _ss : function( /* String */ fieldName, /* String */ from )
         {
             var val = parseInt( this._gf( from ) );
-            this._cdata[ fieldName ] = isNaN( val ) ? 0 : val;
+            this._cdata[ fieldName ] = isNaN( val ) ? 0 : val;
         },
         /**
          * Sets _cdata property fieldName to val.
