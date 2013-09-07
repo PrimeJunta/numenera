@@ -25,6 +25,7 @@ define([ "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
+         "./_SplashCharacterPane",
          "./_data",
          "./_stats",
          "./_lists",
@@ -58,6 +59,7 @@ function( declare,
           _WidgetBase,
           _TemplatedMixin, 
           _WidgetsInTemplateMixin,
+          _SplashCharacterPane,
           _data,
           _stats,
           _lists,
@@ -89,7 +91,7 @@ function( declare,
         /**
          * Public version number.
          */
-        version : "1.1.0-b1",
+        version : "1.1.0-b4",
         /**
          * Set when a character is first advanced past creation.
          */
@@ -124,10 +126,7 @@ function( declare,
             document.body.className = "tundra";
             window.applicationCache.addEventListener( "updateready", lang.hitch( this,  function( event )
             {
-                if( confirm( "A new version is available. Reload now?" ) )
-                {
-                    window.location.reload();
-                }
+                window.location.reload();
             }), false);
             if( !has( "ff" ) && !has( "webkit" ) && !cookie( "browserCheckAlert" ) )
             {
@@ -146,11 +145,12 @@ function( declare,
             this.initializeSelect( "descriptorSelect", descriptors, true );
             this.initializeSelect( "typeSelect", types );
             this.initializeSelect( "focusSelect", foci );
+            this._splashPane = new _SplashCharacterPane({ manager : this }).placeAt( this.domNode );
             on( this.characterNameInput, "keydown", lang.hitch( this, this.normalizeClass, this.characterNameInput ) );
-            on( this.characterNameInput, "click", lang.hitch( this, this.onCharNameFocus ) );
+            on( this.characterNameInput, "click", lang.hitch( this, this.onCharNameFocus, this.characterNameInput ) );
             on( this.characterNameInput, "change", lang.hitch( this, this.updateLink ) );
-            on( this.characterNameInput, "focus", lang.hitch( this, this.onCharNameFocus ) );
-            on( this.characterNameInput, "blur", lang.hitch( this, this.onCharNameBlur ) );
+            on( this.characterNameInput, "focus", lang.hitch( this, this.onCharNameFocus, this.characterNameInput ) );
+            on( this.characterNameInput, "blur", lang.hitch( this, this.onCharNameBlur, this.characterNameInput ) );
             topic.subscribe( "CharGen/pleaseCheckState", lang.hitch( this, this.normalizeClass, this.characterNameInput ) );
             topic.subscribe( "CharGen/lockSheetControls", lang.hitch( this, this.lockControls ) );
             topic.subscribe( "CharGen/pleaseShowUnlock", lang.hitch( this, this.setFinalizedClass, false ) );
@@ -163,24 +163,24 @@ function( declare,
         /**
          * If the char name has not been set, clear the field and normalizeClass.
          */
-        onCharNameFocus : function()
+        onCharNameFocus : function( fld )
         {
-            if( this.characterNameInput.value == this.DEFAULT_CHARACTER_NAME )
+            if( fld.value == this.DEFAULT_CHARACTER_NAME )
             {
-                this.characterNameInput.value = "";
-                this.normalizeClass( this.characterNameInput );
+                fld.value = "";
+                this.normalizeClass( fld );
             }
         },
         /**
          * If no char name has been set, puts back the default name, and normalizeClass.
          */
-        onCharNameBlur : function()
+        onCharNameBlur : function( fld )
         {
-            if( this.characterNameInput.value == "" )
+            if( fld.value == "" )
             {
-                this.characterNameInput.value = this.DEFAULT_CHARACTER_NAME;
+                fld.value = this.DEFAULT_CHARACTER_NAME;
             }
-            this.normalizeClass( this.characterNameInput );
+            this.normalizeClass( fld );
         },
         /**
          * Iterate through data and write an option into select at attach point, with text = member.label and 
@@ -209,7 +209,7 @@ function( declare,
             {
                 _art = "a";
             }
-            this.articleNode.innerHTML = _art;
+            this._splashPane.articleNode.innerHTML = _art;
             this.updateValues();
             this._populating.pop();
             this.updateLink();
@@ -562,43 +562,44 @@ function( declare,
                 "value" : sel.options[ sel.selectedIndex ].value
             }
         },
+        /**
+         * Hides the splash pane and shows the character generator pane and its main buttons node.
+         */
         _showCharacterData : function()
         {
-            this.controlsNode.style.visibility = "visible";
-            this.dataPane.domNode.style.visibility = "visible";
-            this.clearButton.domNode.style.visibility = "visible";
-            this.finalizeButton.domNode.style.visibility = "visible";
-            domClass.remove( this.basicControlsNode, "cg-floatingControls" );
-            domClass.remove( this.mainButtonsNode, "cg-floatingControls" );
-            this.headerPane.style.height = "183px;";
-            this.footerNode.domNode.style.display = "block";
-            setTimeout( lang.hitch( this, this._kick ), 1 );
+            this._kick();
+            this._splashPane.domNode.style.display = "none";
+            this.characterGeneratorPane.domNode.style.visibility = "visible";
+            this.mainButtonsNode.style.visibility = "visible";
         },
-        _kick : function()
-        {
-            this.characterGeneratorPane.layout();
-        },
+        /**
+         * Hides the character generator pane and its main buttons node and resets and shows the splash pane.
+         */
         _hideCharacterData : function()
         {
-            this.controlsNode.style.visibility = "hidden";
-            this.dataPane.domNode.style.visibility = "hidden";
-            this.clearButton.domNode.style.visibility = "hidden";
-            this.finalizeButton.domNode.style.visibility = "hidden";
-            this.headerPane.style.height = "800px;";
-            domClass.add( this.basicControlsNode, "cg-floatingControls" );
-            domClass.add( this.mainButtonsNode, "cg-floatingControls" );
-            this.footerNode.domNode.style.display = "none";
-            this.mainTabContainer.selectChild( this.statsPane );
-            setTimeout( lang.hitch( this, this._kick ), 1 );
+            this.characterGeneratorPane.domNode.style.visibility = "hidden";
+            this.mainButtonsNode.style.visibility = "hidden";
+            this._splashPane.reset();
+            this._splashPane.domNode.style.display = "block";
         },
+        /**
+         * Removes _advancementControl from mainTabContainer, destroys it, and clears pointer to it.
+         */
         _clearAdvancementControl : function()
         {
             if( this._advancementControl )
             {
                 this.mainTabContainer.removeChild( this._advancementControl );
                 this._advancementControl.destroy();
-                this._advancementControl = false;
+                delete this._advancementControl;
             }
+        },
+        /**
+         * Kicks the layout.
+         */
+        _kick : function()
+        {
+            this.characterGeneratorPane.layout();
         },
         /**
          * Resets the control to its pristine state, except for the fields at top. We do this every time the user selects a

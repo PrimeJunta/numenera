@@ -96,7 +96,6 @@ li td
 {
 	margin-left : auto;
 	margin-right : auto;
-	margin-top : 40px;
 }
 .cg-visibleWhenFloating
 {
@@ -121,7 +120,7 @@ li td
 .cg-mainButtonsNode
 {
 	position : absolute;
-	top : 183px;
+	top : 163px;
 }
 .cg-whiteKnot
 {
@@ -139,7 +138,7 @@ li td
 }
 .cg-phraseSelectors td
 {
-	padding : 10px;
+	padding : 8px;
 }
 /* base layout elements */
 .cg-characterGenerator
@@ -200,7 +199,7 @@ li td
 }
 .cg-linkNode
 {
-    padding : 20px;
+    padding : 10px 20px 0px 0px;
 }
 .cg-linkNode a
 {
@@ -488,7 +487,7 @@ td.cg-tierTitleCell
 {
 	height : 90px;
 	overflow : hidden;
-	background-color : #ffffff;
+	background-color : #182838;
 }
 /* copyright notice */
 .cg-copyright
@@ -500,7 +499,7 @@ td.cg-tierTitleCell
     margin-right : auto;
     padding : 15px;
     color : #585858;
-    background-color : #e4e4e4;
+    background-color : #182838;
 }
 .cg-copyright a
 {

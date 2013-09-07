@@ -1,0 +1,44 @@
+<div data-dojo-attach-point="basicControlsNode" style="position:absolute;top:0px;left:0px;width:100%;height:100%;text-align:center;">
+  <div data-dojo-attach-point="decorationNode" style="padding-top:40px;">
+    <a href="http://www.numenera.com"><img
+      src="${manager.iconSrc}/Numenera_Logo.png" alt="Numenera"
+      style="border: none" /></a>
+    <div class="cg-blurb">Character Creation Utility</div>
+  </div>
+  <div data-dojo-attach-point="phrase_pane">
+    <table cellspacing="0" cellpadding="0"
+      style="margin-left: auto; margin-right: auto;"
+      class="cg-phraseSelectors">
+      <tr>
+        <td><input data-dojo-attach-point="characterNameInput"
+          type="text" value="${manager.DEFAULT_CHARACTER_NAME}"
+          spellcheck="false"
+          class="cg-characterNameInput cg-valueNotSet" /></td>
+      </tr>
+      <tr>
+        <td align="center">is <span
+          data-dojo-attach-point="articleNode">an</span> 
+        </td>
+      <tr>
+        <td><select class="cg-desc"
+          data-dojo-attach-point="descriptorSelect"
+          data-dojo-attach-event="onChange:selectDescriptor">
+            <option value="">adjective</option>
+        </select> <select class="cg-type" data-dojo-attach-point="typeSelect"
+          data-dojo-attach-event="onChange:selectType">
+            <option value="">noun</option>
+        </select> who <select class="cg-focus"
+          data-dojo-attach-point="focusSelect"
+          data-dojo-attach-event="onChange:selectFocus">
+            <option value="">verbs</option>
+        </select><span>.</span></td>
+      </tr>
+    </table>
+    <div>
+      <div class="cg-whiteKnot"></div>
+      <button data-dojo-type="dijit/form/Button"
+        data-dojo-attach-event="onClick:openCharacter">Saved
+        characters</button>
+    </div>
+  </div>
+</div>

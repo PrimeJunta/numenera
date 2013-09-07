@@ -169,8 +169,11 @@ function( declare,
          */
         deleteCharacter : function( /* String */ key )
         {
-            this._storage.remove( key );
-            this.openCharacter();
+            if( confirm( "Are you sure you want to delete " + this._storage.get( key ).name + "?" ) )
+            {
+                this._storage.remove( key );
+                this.openCharacter();
+            }
         },
         /**
          * Checks that we're not in the middle of something and that a type, focus, and descriptor are set;
