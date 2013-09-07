@@ -50,7 +50,7 @@ define({
         },
         {
             "bonus_perks" : [ "Ⓣ ${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged}" ], // no stack,
-            "perk_list" : "Ⓔ Capable Warrior|Ⓔ Experienced Defender|Ⓐ Feint (2 speed)|Ⓔ Minor to Major|Snipe (2 speed)|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense" // no stack
+            "perk_list" : "Ⓔ Capable Warrior|Ⓔ Experienced Defender|Ⓐ Feint (2 speed)|Ⓔ Minor to Major|Ⓐ Snipe (2 speed)|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense" // no stack
         },
         {
             "skills_stack" : true,
