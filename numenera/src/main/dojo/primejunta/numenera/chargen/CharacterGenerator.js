@@ -75,6 +75,10 @@ function( declare,
 {
     return declare( "primejunta/numenera/chargen/CharacterGenerator", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _data, _stats, _lists ], {
         /**
+         * Default title.
+         */
+        DEFAULT_DOCUMENT_TITLE : "9 Heroes",
+        /**
          * Default field values. Will be cleared on focus.
          */
         DEFAULT_VALUES : {
@@ -180,6 +184,7 @@ function( declare,
             topic.subscribe( "CharGen/pleaseShowUnlock", lang.hitch( this, this.setFinalizedClass, false ) );
             topic.subscribe( "CharGen/pleaseHideUnlock", lang.hitch( this, this.setFinalizedClass, true ) );
             this.inherited( arguments );
+            this.checkForStartupQuery();
             var loaderNode = domQuery( "div.cg-noJavaScript" )[ 0 ];
             loaderNode.style.display = "none";
             this.domNode.style.display = "block";
@@ -203,6 +208,14 @@ function( declare,
             if( fld.value == "" )
             {
                 fld.value = this.DEFAULT_CHARACTER_NAME;
+            }
+            if( fld.value == this.DEFAULT_CHARACTER_NAME )
+            {
+                document.title = this.DEFAULT_DOCUMENT_TITLE;
+            }
+            else
+            {
+                document.title = fld.value;
             }
             this.normalizeClass( fld );
         },

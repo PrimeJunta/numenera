@@ -66,7 +66,7 @@ function( declare,
          * Checks if we have a query string, and calls popualteFromQueryString if we do. As a little undocumented
          * feature we also allow the keyword &print=true to go directly to the character sheet.
          */
-        postCreate : function()
+        checkForStartupQuery : function()
         {
             if( window.location.search != "" )
             {
@@ -214,6 +214,7 @@ function( declare,
                 this.clearAll();
                 this.tell( "An error occurred loading the character. Perhaps the link was corrupted.<br/><br/>Sorry about that." );
             }
+            this.onCharNameBlur( this.characterNameInput )
         },
         /**
          * Okay, the beef. Or one of them. We generate the character data with this method. Since we transfer the
