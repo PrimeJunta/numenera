@@ -91,7 +91,7 @@ function( declare,
         /**
          * Public version number.
          */
-        version : "1.1.0-b7",
+        version : "1.1.0-rc1",
         /**
          * Set when a character is first advanced past creation.
          */
