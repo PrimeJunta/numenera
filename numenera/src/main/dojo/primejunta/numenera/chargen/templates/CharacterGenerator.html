@@ -15,7 +15,6 @@
         disabled="true">Save</button>
     </div>
   </div>
-
   <div data-dojo-attach-point="characterGeneratorPane"
     data-dojo-type="dijit/layout/BorderContainer"
     data-dojo-props="gutters:false"
@@ -48,33 +47,28 @@
                   </tr>
                 </tbody>
               </table>
-              <table cellspacing="0" cellpadding="0"
-                style="margin-left: auto; margin-right: auto;"
-                class="cg-phraseSelectors" >
-                <tr>
-                  <td><input
-                    data-dojo-attach-point="characterNameInput"
-                    type="text" value="${DEFAULT_CHARACTER_NAME}"
-                    spellcheck="false"
-                    class="cg-storeMe cg-characterNameInput cg-valueNotSet" /></td>
-                </tr>
-                <tr data-dojo-attach-point="phraseSelectorNode">
-                  <td><span class="">the
-                  </span><select class="cg-desc"
-                    data-dojo-attach-point="descriptorSelect"
-                    data-dojo-attach-event="onChange:selectDescriptor">
-                      <option value="">adjective</option>
-                  </select> <select class="cg-type"
-                    data-dojo-attach-point="typeSelect"
-                    data-dojo-attach-event="onChange:selectType">
-                      <option value="">noun</option>
-                  </select> who <select class="cg-focus"
-                    data-dojo-attach-point="focusSelect"
-                    data-dojo-attach-event="onChange:selectFocus">
-                      <option value="">verbs</option>
-                  </select></td>
-                </tr>
-              </table>
+              <div class="cg-characterNameInputBox" >
+                <input data-dojo-attach-point="characterNameInput"
+                  type="text" value="${DEFAULT_CHARACTER_NAME}"
+                  spellcheck="false"
+                  class="cg-storeMe cg-characterNameInput cg-valueNotSet" />
+              </div>
+              <div data-dojo-attach-point="phraseSelectorNode" class="cg-phraseSelectors">
+                <span class="">the
+                </span><select class="cg-desc"
+                  data-dojo-attach-point="descriptorSelect"
+                  data-dojo-attach-event="onChange:selectDescriptor">
+                    <option value="">adjective</option>
+                </select> <select class="cg-type"
+                  data-dojo-attach-point="typeSelect"
+                  data-dojo-attach-event="onChange:selectType">
+                    <option value="">noun</option>
+                </select> who <select class="cg-focus"
+                  data-dojo-attach-point="focusSelect"
+                  data-dojo-attach-event="onChange:selectFocus">
+                    <option value="">verbs</option>
+                </select>
+              </div>
               <div class="cg-selectedPhrase" data-dojo-attach-point="phraseDisplayNode"></div>
             </div>
           </div>

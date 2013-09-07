@@ -95,7 +95,7 @@ function( declare,
         /**
          * Public version number.
          */
-        version : "1.1.0-rc1",
+        version : "1.1.0-rc2",
         /**
          * Set when a character is first advanced past creation.
          */
@@ -188,6 +188,26 @@ function( declare,
             var loaderNode = domQuery( "div.cg-noJavaScript" )[ 0 ];
             loaderNode.style.display = "none";
             this.domNode.style.display = "block";
+            this.waitForLayout();
+        },
+        /**
+         * Workaround for minor rendering glitch on iPad Chrome and Safari: the main tab container's content pane is not 
+         * correctly lined up if shown immediately after postCreate.
+         */
+        waitForLayout : function()
+        {
+            if( this.mainTabContainer._started )
+            {
+                this.mainTabContainer.resize();
+            }
+            else
+            {
+                setTimeout( lang.hitch( this, this.waitForLayout ), 200 );
+                setTimeout( lang.hitch( this, this.waitForLayout ), 400 );
+                setTimeout( lang.hitch( this, this.waitForLayout ), 600 );
+                setTimeout( lang.hitch( this, this.waitForLayout ), 800 );
+                setTimeout( lang.hitch( this, this.waitForLayout ), 1000 );
+            }
         },
         /**
          * If the char name has not been set, clear the field and normalizeClass.

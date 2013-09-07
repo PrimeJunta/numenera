@@ -92,14 +92,6 @@ li td
     padding : 0px;
 }
 /* main controls */
-.cg-selectedPhrase
-{
-	padding : 8px;
-	height : 28px;
-	color : #e4e4e4;
-	font-family : Prata;
-	font-style : italic;
-}
 .cg-mainButtonsNode
 {
 	position : absolute;
@@ -118,10 +110,6 @@ li td
 	margin-left : auto;
 	margin-right : auto;
 	opacity : 0.8;
-}
-.cg-phraseSelectors td
-{
-	padding : 8px;
 }
 /* base layout elements */
 .cg-characterGenerator
@@ -239,6 +227,11 @@ input[readonly].cg-statInput
     padding-top : 7px;
 }
 /* other inputs */
+.cg-characterNameInputBox
+{
+	height : 36px;
+	padding : 8px;
+}
 .cg-characterNameInput
 {
 	border : 1px;
@@ -252,7 +245,19 @@ input[readonly].cg-statInput
 }
 .cg-phraseSelectors
 {
+	text-align:center;
+	height : 28px;
+	padding : 8px;
 	color : white;
+}
+.cg-selectedPhrase
+{
+	text-align : center;
+    height : 28px;
+    padding : 8px;
+    color : #e4e4e4;
+    font-family : Prata;
+    font-style : italic;
 }
 .cg-inputTextArea
 {
