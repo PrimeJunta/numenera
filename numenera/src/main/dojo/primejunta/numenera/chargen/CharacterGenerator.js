@@ -129,23 +129,19 @@ function( declare,
                 console.log( "Updating application cache. Status is ", window.applicationCache.status );
                 if( has( "ff" ) && window.applicationCache.status == 4 )
                 {
-                    if( this._cUpTo )
-                    {
-                        clearTimeout( this._cUpTo );
-                    }
-                    this._cUpTo = setTimeout( window.location.reload, 300 ); // Firefox's cache swapping doesn't appear to always work. :-(
+                    this._reloadTimeout();
                     return;
                 }
                 else if( window.applicationCache.status == 4 ) try
                 {
                     window.applicationCache.swapCache();
                     console.log( "Application cache successfully updated." );
-                    window.location.reload();
+                    this._reloadTimeout();
                 }
                 catch( e )
                 {
                     console.log( "Failed to swap cache." );
-                    window.location.reload();
+                    this._reloadTimeout();
                 }
             }), false );
             if( !has( "ff" ) && !has( "webkit" ) && !cookie( "browserCheckAlert" ) )
@@ -153,6 +149,14 @@ function( declare,
                 alert( "This webapp has only been tested on Firefox, Google Chrome, and Apple Safari. Use at your own risk." );
                 cookie( "browserCheckAlert", "1", { expires : 30 });
             }
+        },
+        _reloadTimeout : function()
+        {
+            if( this._cUpTo )
+            {
+                clearTimeout( this._cUpTo );
+            }
+            this._cUpTo = setTimeout( window.location.reload, 500 );
         },
         /**
          * Initialize internal arrays, initialize selects from data, and connect various event handlers to the UI buttons.
@@ -472,7 +476,7 @@ function( declare,
             this.typeSelect.selectedIndex = 0;
             this.focusSelect.selectedIndex = 0;
             this.phraseDisplayNode.innerHTML = "";
-            this.phraseSelectorNode.style.display = "table-row";
+            this.phraseSelectorNode.style.display = "block";
             this.phraseDisplayNode.style.display = "none";
             this.characterNameInput.value = this.DEFAULT_CHARACTER_NAME;
             this.normalizeClass( this.characterNameInput );
