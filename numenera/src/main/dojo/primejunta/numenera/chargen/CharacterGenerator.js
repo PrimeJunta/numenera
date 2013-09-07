@@ -570,6 +570,7 @@ function( declare,
             this.finalizeButton.domNode.style.visibility = "visible";
             domClass.remove( this.basicControlsNode, "cg-floatingControls" );
             domClass.remove( this.mainButtonsNode, "cg-floatingControls" );
+            this.headerPane.style.height = "183px;";
             this.footerNode.domNode.style.display = "block";
             setTimeout( lang.hitch( this, this._kick ), 1 );
         },
@@ -583,9 +584,11 @@ function( declare,
             this.dataPane.domNode.style.visibility = "hidden";
             this.clearButton.domNode.style.visibility = "hidden";
             this.finalizeButton.domNode.style.visibility = "hidden";
+            this.headerPane.style.height = "800px;";
             domClass.add( this.basicControlsNode, "cg-floatingControls" );
             domClass.add( this.mainButtonsNode, "cg-floatingControls" );
             this.footerNode.domNode.style.display = "none";
+            this.mainTabContainer.selectChild( this.statsPane );
             setTimeout( lang.hitch( this, this._kick ), 1 );
         },
         _clearAdvancementControl : function()

@@ -80,7 +80,7 @@ th
 }
 li
 {
-    line-height : 28px;
+    line-height : 32px;
 }
 li div
 {
@@ -121,7 +121,7 @@ li td
 .cg-mainButtonsNode
 {
 	position : absolute;
-	top : 180px;
+	top : 183px;
 }
 .cg-whiteKnot
 {
@@ -135,6 +135,7 @@ li td
 	margin : 40px;
 	margin-left : auto;
 	margin-right : auto;
+	opacity : 0.8;
 }
 .cg-phraseSelectors td
 {
@@ -159,7 +160,7 @@ li td
 }
 .cg-characterGeneratorContent
 {
-	width : 900px;
+	width : 850px;
 	margin-left : auto;
 	margin-right : auto;
 }
@@ -247,6 +248,7 @@ input[readonly].cg-statInput
 }
 .cg-adjustButton .dijitButtonNode
 {
+	font-family : 'Droid Sans';
     font-size : 18px;
     height : 36px;
 }
