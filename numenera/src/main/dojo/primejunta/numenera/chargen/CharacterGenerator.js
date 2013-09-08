@@ -95,7 +95,7 @@ function( declare,
         /**
          * Public version number.
          */
-        version : "1.1.0-rc4",
+        version : "1.1.0",
         /**
          * Set when a character is first advanced past creation.
          */
@@ -138,7 +138,7 @@ function( declare,
                 console.log( "Updating application cache. Status is ", window.applicationCache.status );
                 if( has( "ff" ) )
                 {
-                    this._reload(); // FF is a bastard. Just a bastard. It only listens to brute force.
+                    this._reload();
                 }
                 else if( window.applicationCache.status == 4 ) try
                 {
