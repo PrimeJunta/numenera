@@ -87,6 +87,10 @@ function( declare,
             this._wl( "equipment_list", "equipment_list" );
             this._wl( "description_text", "description_text" );
             this._wl( "notes_list", "notes_list" );
+            if( this.character.inability_list.length > 0 )
+            {
+                this.inabilityContainer.style.display = "block";
+            }
             this._updatePrint();
         },
         /**
