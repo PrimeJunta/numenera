@@ -81,6 +81,7 @@ function( declare,
             this._sv( "armor_might_cost_light", "armor_might_cost_light" );
             this._wl( "attack_list", "attack_list" );
             this._wl( "ability_list", "ability_list" );
+            this._wl( "inability_list", "inability_list" );
             this._wl( "special_list", "special_list" );
             this._wl( "cypher_list", "cypher_list" );
             this._wl( "equipment_list", "equipment_list" );

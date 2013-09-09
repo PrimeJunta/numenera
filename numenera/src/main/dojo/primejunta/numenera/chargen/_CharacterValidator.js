@@ -199,6 +199,7 @@ function( declare,
             this._wl( "ability_list", this._getSkillList() );
             this._wl( "special_list", this._getSpecialList() );
             this._wl( "cypher_list", this._listAsText( "cypher_list") );
+            this._wl( "inability_list", this._listAsText( "inability_list") );
             this._wl( "equipment_list", this._getEquipmentList() );
             this._wl( "notes_list", this._textAsList( "notes_text" ) );
             this._wl( "attack_data", this._getAttacks() );

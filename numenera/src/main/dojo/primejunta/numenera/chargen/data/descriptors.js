@@ -9,8 +9,8 @@ define({
         "lists" : {
             "ability_list" : [ "Ⓣ Pleasant Social Interaction",
                                "Ⓣ Mind-Affecting Esoteries/Special Abilities" ],
-            "inability_list" : [ "Poor at Studying (Knowledge tasks +1 step)",
-                                 "Weak Will (Intellect Defense +1 step)" ]
+            "inability_list" : [ "Ⓘ Poor at Studying (Knowledge tasks +1 step)",
+                                 "Ⓘ Weak Will (Intellect Defense +1 step)" ]
         }
     },
     "D1" : {
@@ -24,7 +24,7 @@ define({
             "ability_list" : [ "Ⓣ Lies and trickery",
                                "Ⓣ Intellect Defense",
                                "Ⓣ Assessing danger, lies, quality, importance, function, or power" ],
-            "inability_list" : [ "Poor at Studying (Knowledge tasks +1 step)" ]
+            "inability_list" : [ "Ⓘ Poor at Studying (Knowledge tasks +1 step)" ]
         }
     },
     "D2" : {
@@ -64,11 +64,11 @@ define({
                                "Ⓣ Perceiving (bursk)",
                                "Ⓣ All interactions (neem)",
                                "Ⓣ Study, contemplation, concentration, including esoteries (neem)" ],
-            "inability_list" : [ "Lore, knowledge, understanding (+1 step/bursk)",
-                                 "Pleasant interactions (+1 step/bursk)",
-                                 "Contemplation, study, concentration, including esoteries (+1 step/bursk)",
-                                 "All combat tasks (+1 step/neem)",
-                                 "Perceiving anything unexpected (+1 step/neem)" ],
+            "inability_list" : [ "Ⓘ Lore, knowledge, understanding (+1 step/bursk)",
+                                 "Ⓘ Pleasant interactions (+1 step/bursk)",
+                                 "Ⓘ Contemplation, study, concentration, including esoteries (+1 step/bursk)",
+                                 "Ⓘ All combat tasks (+1 step/neem)",
+                                 "Ⓘ Perceiving anything unexpected (+1 step/neem)" ],
             "bonus_list" : [ "Ⓐ Change State (fugue/bursk/neem)" ]
         }
     },
@@ -82,7 +82,7 @@ define({
             "ability_list" : [ "Ⓣ Knowledge area: ${input:choose}",
                                "Ⓣ Knowledge area: ${input:choose}",
                                "Ⓣ Knowledge area: ${input:choose}" ],
-            "inability_list" : [ "Poor at charm, persuasion, etiquette (+1 step)" ],
+            "inability_list" : [ "Ⓘ Poor at charm, persuasion, etiquette (+1 step)" ],
             "equipment_list" : [ "Book: ${input:choose topic}",
                                  "Book: ${input:choose topic}" ]
         }
@@ -106,7 +106,7 @@ define({
             "equipment_list" : [ "Oddity: ${input:GM chooses}" ],
             "ability_list" : [ "Ⓣ Identifying/Understanding the Numenera",
                                "Ⓣ Sense Magic" ],
-            "inability_list" : [ "Unnerving aura (Charm, persuasion, deception tasks +1 step)" ],
+            "inability_list" : [ "Ⓘ Unnerving aura (Charm, persuasion, deception tasks +1 step)" ],
             "bonus_list" : [ "Ⓐ Hedge Magic (1 intellect)" ]
         }
     },
@@ -123,7 +123,7 @@ define({
                                "Ⓣ Placating animals",
                                "Ⓣ Identifying plants",
                                "Ⓣ Using plants" ],
-            "inability_list" : [ "No social graces (Charm, persuasion, deception tasks +1 step)" ],
+            "inability_list" : [ "Ⓘ No social graces (Charm, persuasion, deception tasks +1 step)" ],
             "equipment_list" : [ "Explorer's pack" ]
         }
     },
@@ -136,7 +136,7 @@ define({
         "lists" : {
             "ability_list" : [ "Ⓣ Stealth",
                                "Ⓣ Lies and trickery" ],
-            "inability_list" : [ "Slow (Movement tasks +1 step)" ]
+            "inability_list" : [ "Ⓘ Slow (Movement tasks +1 step)" ]
         }
     },
     "D10" : {
@@ -160,7 +160,7 @@ define({
         "lists" : {
             "ability_list" : [ "Ⓣ Resist mental effects",
                                "Ⓣ Concentration or focus" ],
-            "inability_list" : [ "Not very bright (puzzles, problems, memorization, lore tasks +1 step)" ]
+            "inability_list" : [ "Ⓘ Not very bright (puzzles, problems, memorization, lore tasks +1 step)" ]
         }
     },
     "D12" : {
@@ -172,7 +172,7 @@ define({
         "lists" : {
             "ability_list" : [ "Ⓣ Initiative",
                                "Ⓣ Running" ],
-            "inability_list" : [ "Poor balance (Balancing +1 step)" ]
+            "inability_list" : [ "Ⓘ Poor balance (Balancing +1 step)" ]
         }
     },
     "D13" : {
@@ -200,9 +200,9 @@ define({
         "lists" : {
             "ability_list" : [ "Ⓣ Identifying/Understanding the Numenera",
                                "Ⓣ Visually perceiving" ],
-            "inability_list" : [ "History (+1 step)",
-                                 "Poetry and oratory (+1 step)",
-                                 "Hearing (+1 step)" ],
+            "inability_list" : [ "Ⓘ History (+1 step)",
+                                 "Ⓘ Poetry and oratory (+1 step)",
+                                 "Ⓘ Hearing (+1 step)" ],
             "bonus_list" : [ "Ⓐ Reforging (rearrange Pools freely once every day)" ]
         }
     }

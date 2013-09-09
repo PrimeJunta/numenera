@@ -381,7 +381,7 @@ define({
         "lists" : {
             "equipment_list" : [ "Bag of Light Tools",
                                  "Spare parts (for self)" ],
-            "inability_list" : [ "Special Healing (first 5 points need to be repaired)" ]
+            "inability_list" : [ "Ⓘ Special Healing (first 5 points need to be repaired)" ]
         },
         "advancement" : [{
         },
@@ -538,8 +538,8 @@ define({
         "lists" : {
             "equipment_list" : [ "Shield" ],
             "ability_list" : [ "Ⓣ Speed Defense (with shield)" ],
-            "inability_list" : [ "Attack (with shield) (+1 level)",
-                                 "Defense (without shield) (+1 level)" ]
+            "inability_list" : [ "Ⓘ Attack (with shield) (+1 level)",
+                                 "Ⓘ Defense (without shield) (+1 level)" ]
         },
         "advancement" : [{
         },

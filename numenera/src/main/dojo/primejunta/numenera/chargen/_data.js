@@ -122,14 +122,9 @@ function( declare,
                 this._initStorage();
             }
             var chars = this._storage.getKeys();
-            if( !this._dlog )
-            {
-                this._dlog = new Dialog({ title : "Manage characters" }).placeAt( document.body );
-                this._dlog.startup();
-            }
             this._cwa = [];
-            this._dlog.set( "content", "" );
-            var nde = domConstruct.create( "div", { style : "width:400px;padding:10px;" } );
+            domConstruct.empty( this.characterManagerContentNode );
+            var nde = domConstruct.create( "div", { style : "width:400px;padding:10px;" }, this.characterManagerContentNode );
             for( var i = 0; i < chars.length; i++ )
             {
                 var _char = this._storage.get( chars[ i ] );
@@ -140,15 +135,37 @@ function( declare,
             }
             if( this._cwa.length == 0 )
             {
-                nde.innerHTML = "No stored characters.";
+                nde.innerHTML = "No saved characters.";
             }
-            var btn = new Button({
-                "style" : "display:block;text-align:center;",
-                "label" : "Close",
-                onClick : lang.hitch( this._dlog, this._dlog.hide )
-            }).placeAt( nde );
-            this._dlog.set( "content", nde );
-            this._dlog.show();
+            this.characterManagerDialog.show();
+        },
+        /**
+         * Clears character manager widgets and closes character manager dialog.
+         */
+        closeCharacterManager : function()
+        {
+            while( this._cwa.length > 0 )
+            {
+                this._cwa.pop().destroy();
+            }
+            this.characterManagerDialog.hide();
+        },
+        /**
+         * Displays list of saved characters as links for saving or pasting into a mail or something.
+         */
+        displayCharacterLinks : function()
+        {
+            var loc = window.location.origin + window.location.pathname;
+            var characterList = "<div>\n<h2>My Numenera Characters</h2>\n"
+                + "<ul>\n";
+            for( var i = 0; i < this._cwa.length; i++ )
+            {
+                characterList += "<li><a href=\"" + loc + "?" + this._cwa[ i ].character.data + "\">" + this._cwa[ i ].character.name + "</a></li>\n";
+            }
+            characterList += "</ul>\n</div>\n";
+            characterList += "<p>Copy-paste and save this list in case something bad happens to your browser, or if you want to mail them to someone.</p>";
+            this.characterManagerDialog.hide();
+            this.tell( characterList );
         },
         /**
          * Loads character matching key from local store and hides dialog.
@@ -156,7 +173,7 @@ function( declare,
         loadCharacter : function( /* String */ key )
         {
             var val = this._storage.get( key ).data;
-            this._dlog.hide();
+            this.closeCharacterManager();
             this.populateFromStoredData( val );
             this.updateLink();
         },
