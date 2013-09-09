@@ -1,9 +1,10 @@
 CACHE MANIFEST
 # Cache manifest for Numenera Character Creator.
 #
-# Version 1.1.1
+# Version 1.1.1-a
 #
-# index.html has to be included for Firefox
+# including chargen.html to allow redirects to proceed correctly
+chargen.html
 index.html
 primejunta/numenera/chargen/themes/images/icon.png
 primejunta/numenera/chargen/themes/images/h-pixel.png
