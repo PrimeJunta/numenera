@@ -2,20 +2,24 @@
   <div>
     <table cellspacing="0" cellpadding="0">
       <tr>
-        <td class="cg-baseTextNode cg-deletable">
-          <span data-dojo-attach-point="baseTextNode">${baseText}</span>
-          <select class="cg-storeMe" data-dojo-attach-point="selectNode" data-dojo-attach-event="onChange:dataChanged"></select>
-          <span data-dojo-attach-point="midTextNode">${midText}</span>
+        <td style="width: 20px;">
+          <input type="checkbox" data-dojo-attach-point="deleteControl"
+            class="cg-hiddenControl cg-deleteControl"
+            data-dojo-attach-event="onClick:deleteMe" checked="checked"/>
+        </td>
+        <td class="cg-baseTextNode cg-deletable"><span
+          data-dojo-attach-point="baseTextNode">${baseText}</span> <select
+          class="cg-storeMe" data-dojo-attach-point="selectNode"
+          data-dojo-attach-event="onChange:dataChanged"></select> <span
+          data-dojo-attach-point="midTextNode">${midText}</span></td>
+        <td><input type="text" data-dojo-attach-point="inputNode"
+          class="cg-storeMe cg-itemInput cg-valueNotSet cg-deletable"
+          value="${inputValue}"
+          data-dojo-attach-event="onKeyDown:normalizeClass,onClick:selectContent,onFocus:selectContent,onChange:dataChanged,onBlur:onBlurInput" />
         </td>
         <td>
-          <input type="text" data-dojo-attach-point="inputNode" class="cg-storeMe cg-itemInput cg-valueNotSet cg-deletable" value="${inputValue}" data-dojo-attach-event="onKeyDown:normalizeClass,onClick:selectContent,onFocus:selectContent,onChange:dataChanged,onBlur:onBlurInput"/>
-        </td>
-        <td>
-          <button data-dojo-attach-point="deleteControl" class="cg-hiddenControl cg-deleteControl" data-dojo-attach-event="onClick:deleteMe">
-          ⊖
-          </button>
-          <div data-dojo-attach-point="unlockControlNode" style="display:none">
-          </div>
+          <div data-dojo-attach-point="unlockControlNode"
+            style="display: none"></div>
         </td>
       </tr>
     </table>

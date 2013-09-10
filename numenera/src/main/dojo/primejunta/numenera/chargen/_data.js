@@ -124,7 +124,7 @@ function( declare,
             var chars = this._storage.getKeys();
             this._cwa = [];
             domConstruct.empty( this.characterManagerContentNode );
-            var nde = domConstruct.create( "div", { style : "width:400px;padding:10px;" }, this.characterManagerContentNode );
+            var nde = domConstruct.create( "div", { style : "width:100%;margin-bottom:30px;" }, this.characterManagerContentNode );
             for( var i = 0; i < chars.length; i++ )
             {
                 var _char = this._storage.get( chars[ i ] );

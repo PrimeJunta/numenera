@@ -3,13 +3,6 @@
  */
 /* Import those Dijit themes we're actually using, and character record. */
 @import url( '../../../../dijit/themes/tundra/tundra.css' );
-/*
-@import url( '../../../../dijit/themes/dijit.css');
-@import url( '../../../../dijit/themes/tundra/Dialog.css');
-@import url( '../../../../dijit/themes/tundra/Common.css' );
-@import url( '../../../../dijit/themes/tundra/form/Common.css' );
-@import url( '../../../../dijit/themes/tundra/form/Button.css' );
-*/
 @import url( 'charrec.css' );
 /* Fonts - these are originally from Google Web Fonts, and are used with permission [ https://developers.google.com/fonts/faq#Download_Fonts ]. */
 @font-face {

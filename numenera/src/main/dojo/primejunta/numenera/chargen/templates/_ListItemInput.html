@@ -2,16 +2,21 @@
   <div>
     <table cellspacing="0" cellpadding="0">
       <tr>
-        <td data-dojo-attach-point="baseTextNode" class="cg-baseTextNode cg-deletable">${baseText}</td>
-        <td>
-          <input type="text" data-dojo-attach-point="inputNode" class="cg-itemInput cg-storeMe cg-valueNotSet cg-deletable" value="${inputValue}" data-dojo-attach-event="onKeyDown:normalizeClass,onClick:selectContent,onFocus:selectContent,onChange:dataChanged,onBlur:onBlurInput"/>
+        <td style="width: 20px;">
+          <input type="checkbox" data-dojo-attach-point="deleteControl"
+            class="cg-hiddenControl cg-deleteControl"
+            data-dojo-attach-event="onClick:deleteMe" checked="checked"/>
+        </td>
+        <td data-dojo-attach-point="baseTextNode"
+          class="cg-baseTextNode cg-deletable">${baseText}</td>
+        <td><input type="text" data-dojo-attach-point="inputNode"
+          class="cg-itemInput cg-storeMe cg-valueNotSet cg-deletable"
+          value="${inputValue}"
+          data-dojo-attach-event="onKeyDown:normalizeClass,onClick:selectContent,onFocus:selectContent,onChange:dataChanged,onBlur:onBlurInput" />
         </td>
         <td>
-          <button data-dojo-attach-point="deleteControl" class="cg-hiddenControl cg-deleteControl" data-dojo-attach-event="onClick:deleteMe">
-          ⊖
-          </button>
-          <div data-dojo-attach-point="unlockControlNode" style="display:none">
-          </div>
+          <div data-dojo-attach-point="unlockControlNode"
+            style="display: none"></div>
         </td>
       </tr>
     </table>

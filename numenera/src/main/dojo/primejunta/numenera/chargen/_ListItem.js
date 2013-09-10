@@ -140,6 +140,7 @@ function( declare,
                 this.deleted = true;
                 domClass.add( this.domNode, "cg-deletedItem" );
             }
+            this.deleteControl.checked = this.deleted ? false : true;
         },
         /**
          * Disables inputNode unless remainsOpen is set.
