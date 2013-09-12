@@ -95,7 +95,7 @@ function( declare,
         /**
          * Public version number.
          */
-        version : "1.1.3",
+        version : "1.1.4",
         /**
          * Set when a character is first advanced past creation.
          */
@@ -505,6 +505,7 @@ function( declare,
             this.characterNameInput.value = this.DEFAULT_CHARACTER_NAME;
             this.normalizeClass( this.characterNameInput );
             this._setDisabled([ "saveButton", "printButton" ], true );
+            this.mainTabContainer.selectChild( this.abilityPane );
             this._hideCharacterData();
         },
         /**
@@ -622,7 +623,6 @@ function( declare,
         _showCharacterData : function()
         {
             this._kick();
-            this.mainTabContainer.selectChild( this.abilityPane );
             this._splashPane.domNode.style.display = "none";
             this.characterGeneratorPane.domNode.style.visibility = "visible";
             this.mainButtonsNode.style.visibility = "visible";

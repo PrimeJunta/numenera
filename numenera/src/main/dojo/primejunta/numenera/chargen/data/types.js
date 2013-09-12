@@ -26,7 +26,7 @@ define({
                               "${input:GM chooses}" ],
             "equipment_list" : [ "Clothing", 
                                  "${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged} Weapon: ${input:choose}", 
-                                 "${select:1:Shield|Light Bashing Weapon|Light Bladed Weapon|Light Ranged Weapon|Medium Bashing Weapon|Medium Bladed Weapon|Medium Ranged Weapon|Heavy Bashing Weapon|Heavy Bladed Weapon|Heavy Ranged}: ${input:choose}", 
+                                 "${select:1:Shield|Light Bashing Weapon|Light Bladed Weapon|Light Ranged Weapon|Medium Bashing Weapon|Medium Bladed Weapon|Medium Ranged Weapon|Heavy Bashing Weapon|Heavy Bladed Weapon|Heavy Ranged Weapon}: ${input:choose}", 
                                  "${select:1:Light armor|Medium armor}: ${input:choose}", 
                                  "Explorer's pack", 
                                  "Oddity: ${input:GM chooses}" ],
