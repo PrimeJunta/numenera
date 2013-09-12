@@ -154,15 +154,56 @@ function( declare,
         checkState : function()
         {
             this.checkSkillType();
-            if( this.canAdvance() )
-            {
-                this.applyButton.domNode.style.visibility = "hidden";
-            }
+            this.checkApplyButton();
             if( !this._tierChoicesMade() )
             {
                 this.purchasedBenefitsNode.style.display = "none";
             }
             this.normalizeClass( this.skillInput );
+        },
+        checkApplyButton : function()
+        {
+            if( this.canAdvance() )
+            {
+                this.applyButton.domNode.style.visibility = "hidden";
+            }
+            else if( this.hasChangesToApply() )
+            {
+                this.applyButton.set( "disabled", false );
+            }
+            else
+            {
+                this.applyButton.set( "disabled", true );
+            }
+        },
+        hasChangesToApply : function()
+        {
+            var ctrls = domQuery( ".cg-storeMe", this.domNode );
+            for( var i = 0; i < ctrls.length; i++ )
+            {
+                if( !ctrls[ i ].disabled )
+                {
+                    if( ctrls[ i ].type == "checkbox" )
+                    {
+                        if( ctrls[ i ].checked )
+                        {
+                            return true;
+                        }
+                    }
+                    else if( ctrls[ i ].tagName.toUpperCase() == "SELECT" )
+                    {
+                        if( ctrls[ i ].selectedIndex > 0 )
+                        {
+                            return true;
+                        }
+                    }
+                    else if( ctrls[ i ].className.indexOf( "cg-valueNotSet" ) == -1 )
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         },
         /**
          * Shows/hides skillInputContainer and perkSelectorContainer depending on skillTypeSelector.
@@ -176,17 +217,24 @@ function( declare,
                 case 1 :
                     this._show( this.skillInputContainer );
                     this._hide( this.perkSelectorContainer );
+                    this.perkSelector.selectedIndex = 0;
                     break;
                 case 4 : 
                     this._hide( this.skillInputContainer );
                     this._show( this.perkSelectorContainer );
+                    this.skillInput.value = "";
+                    this.onBlurSkillInput();
                     this.isUnlockable = true;
                     break;
                 default :
                     this._hide( this.skillInputContainer );
                     this._hide( this.perkSelectorContainer );
+                    this.perkSelector.selectedIndex = 0;
+                    this.skillInput.value = "";
+                    this.onBlurSkillInput();
                     break;
             }
+            this.checkApplyButton();
         },
         /**
          * Triggered from the Apply button. Checks cost and then subtracts it from the XP field, and
@@ -227,12 +275,9 @@ function( declare,
             cbs += this._applyCheckbox( this.pool_checkbox, "free_pool", 4 ) ;
             cbs += this._applyCheckbox( this.edge_checkbox, "free_edge", 1 );
             this._applyCheckbox( this.effort_checkbox, "character_effort", 1 );
-            if( this.canAdvance() )
-            {
-                this.applyButton.domNode.style.visibility = "hidden";
-            }
             topic.publish( "CharGen/lockSheetControls" );
             this.manager.unlockFinalize();
+            this.checkApplyButton();
             if( cbs > 0 )
             {
                 this.manager.mainTabContainer.selectChild( this.manager.statsPane );
@@ -259,6 +304,7 @@ function( declare,
                 this.skillInput.value = this.DEFAULT_SKILL_NAME;
             }
             this.normalizeClass( this.skillInput );
+            this.checkApplyButton();
         },
         /**
          * Connect to manager.normalizeClass.

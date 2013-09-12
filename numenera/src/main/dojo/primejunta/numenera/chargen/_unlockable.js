@@ -56,21 +56,21 @@ function( declare,
             this._subs.push( topic.subscribe( "CharGen/pleaseHideUnlock", lang.hitch( this, this.hideUnlockControls ) ) );
             this._subs.push( topic.subscribe( "CharGen/pleaseLockUnlock", lang.hitch( this, this.lockUnlockControls ) ) );
             this.unlockButton = new Button({
-                label : "Unlock",
+                label : "<i class=\"icon-lock\"></i>",
                 onClick : lang.hitch( this, this.unlock )
             }).placeAt( this.unlockControlNode );
             this.cancelButton = new Button({
                 style : "display:none",
-                label : "Cancel",
+                label : "<i class=\"icon-unlock-alt\"></i>",
                 onClick : lang.hitch( this, this.cancelChange )
             }).placeAt( this.unlockControlNode );
             this.applyChangeButton = new Button({
                 style : "display:none",
-                label : "Apply",
+                label : "<i class=\"icon-ok-circle\"></i>",
                 onClick : lang.hitch( this, this.applyChange )
             }).placeAt( this.unlockControlNode );
-            domClass.add( this.cancelButton.domNode, "cg-redButton" );
-            domClass.add( this.applyChangeButton.domNode, "cg-blueButton" );
+            //domClass.add( this.cancelButton.domNode, "cg-redButton" );
+            domClass.add( this.applyChangeButton.domNode, "cg-greenButton" );
         },
         /**
          * Stores previous value on _prevVal and .unlockControls; also changes state of unlock controls accordingly.

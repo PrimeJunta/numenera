@@ -4,6 +4,7 @@
 /* Import those Dijit themes we're actually using, and character record. */
 @import url( '../../../../dijit/themes/tundra/tundra.css' );
 @import url( 'charrec.css' );
+@import url( '../../../../font-awesome/css/font-awesome.css' );
 /* Fonts - these are originally from Google Web Fonts, and are used with permission [ https://developers.google.com/fonts/faq#Download_Fonts ]. */
 @font-face {
   font-family: 'Droid Sans';
@@ -171,6 +172,11 @@ li td
 	font-size : 18px;
 	font-family : Lato;
 }
+a.cg-infoLink
+{
+    text-decoration : none;
+    cursor : pointer;
+}
 /* stats */
 .cg-statsPane
 {
@@ -331,6 +337,7 @@ input[readonly].cg-statInput
 }
 td.cg-tierTitleCell
 {
+	width : 100px;
 	background-color : #a8a8a8;
 }
 .cg-oddBackground .cg-tierTitleCell
@@ -365,7 +372,7 @@ td.cg-tierTitleCell
     );
     background-image : -webkit-linear-gradient(to bottom, #446dff 0%, #335C99 100%);
     background-image : linear-gradient(to bottom, #446dff 0%, #335C99 100%);
-    border : 1px solid black;
+    border : 1px solid #446dff;
     color : white;
 }
 .cg-redButton .dijitButtonNode
@@ -379,7 +386,7 @@ td.cg-tierTitleCell
     );
     background-image : -webkit-linear-gradient(to bottom, #ff6d44 0%, #990000 100%);
     background-image : linear-gradient(to bottom, #ff6d44 0%, #990000 100%);
-    border : 1px solid black;
+    border : 1px solid #ff6d44;
     color : white;
 }
 .cg-blueButton .dijitButtonDisabled .dijitButtonNode
@@ -387,20 +394,16 @@ td.cg-tierTitleCell
     background-image : -webkit-linear-gradient(to bottom, #FFFFFF 0%, #335C99 100%);
     background-image : linear-gradient(to bottom, #FFFFFF 0%, #335C99 100%);
 }
-.cg-infoLink
-{
-	display : inline-block;
-	padding-right : 10px;
-	cursor : pointer;
-	text-decoration : none;
-	color : #e4e4e4;
-}
 .cg-roundButton .dijitButtonNode
 {
     border-radius : 14px;
     font-size : 16px;
     height : 20px;
     width : 20px;
+}
+.cg-greenButton
+{
+    color : #345C8C;
 }
 /* delete item button */
 .cg-hiddenControl 

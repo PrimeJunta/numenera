@@ -6,11 +6,11 @@
       <button data-dojo-attach-point="printButton"
         data-dojo-type="dijit/form/Button"
         data-dojo-attach-event="onClick:makePrint" class=""
-        disabled="true">Sheet</button>
+        disabled="true"><i class="icon-print"></i></button>
       <button data-dojo-attach-point="saveButton"
         data-dojo-type="dijit/form/Button"
-        data-dojo-attach-event="onClick:storeCharacter" class="cg-blueButton"
-        disabled="true">Save</button>
+        data-dojo-attach-event="onClick:storeCharacter"
+        disabled="true"><i class="icon-save"></i></button>
     </div>
   </div>
   <div data-dojo-attach-point="characterGeneratorPane"
@@ -38,7 +38,7 @@
                       <div class="cg-linkNode">
                         <a data-dojo-attach-point="helpButton"
                           data-dojo-attach-event="onClick:showHelp"
-                          class="cg-infoLink">ⓘ</a>
+                          class="cg-infoLink"><i class="icon-question-sign"></i></a>
                         &nbsp;&nbsp;&nbsp;
                         <a data-dojo-attach-point="linkNode">Share ➤</a>
                       </div>
@@ -80,7 +80,7 @@
       data-dojo-attach-point="dataPane">
       <div data-dojo-type="dijit/layout/TabContainer"
         data-dojo-attach-point="mainTabContainer"
-        data-dojo-props="tabStrip:false" class="cg-mainTabContainer">
+        data-dojo-props="tabStrip:false,persist:false" class="cg-mainTabContainer">
         <div data-dojo-type="dijit/layout/ContentPane"
           data-dojo-props="title:'Statistics'"
           data-dojo-attach-point="statsPane">
@@ -113,7 +113,7 @@
                         <td width="5">
                           <button class="cg-adjustButton"
                             data-dojo-type="dijit/form/Button"
-                            data-dojo-attach-point="decrement_might_pool">▼</button>
+                            data-dojo-attach-point="decrement_might_pool"><i class="icon-chevron-down"></i></button>
                         </td>
                         <td><input class="cg-storeMe cg-statInput"
                           type="number" readonly="readonly"
@@ -121,7 +121,7 @@
                         <td width="5">
                           <button class="cg-adjustButton"
                             data-dojo-type="dijit/form/Button"
-                            data-dojo-attach-point="increment_might_pool">▲</button>
+                            data-dojo-attach-point="increment_might_pool"><i class="icon-chevron-up"></i></button>
                         </td>
                       </tr>
                     </table>
@@ -133,7 +133,7 @@
                         <td width="5">
                           <button class="cg-adjustButton"
                             data-dojo-type="dijit/form/Button"
-                            data-dojo-attach-point="decrement_might_edge">▼</button>
+                            data-dojo-attach-point="decrement_might_edge"><i class="icon-chevron-down"></i></button>
                         </td>
                         <td><input class="cg-storeMe cg-statInput"
                           type="number" readonly="readonly"
@@ -141,7 +141,7 @@
                         <td width="5">
                           <button class="cg-adjustButton"
                             data-dojo-type="dijit/form/Button"
-                            data-dojo-attach-point="increment_might_edge">▲</button>
+                            data-dojo-attach-point="increment_might_edge"><i class="icon-chevron-up"></i></button>
                         </td>
                       </tr>
                     </table>
@@ -156,7 +156,7 @@
                         <td width="5">
                           <button class="cg-adjustButton"
                             data-dojo-type="dijit/form/Button"
-                            data-dojo-attach-point="decrement_speed_pool">▼</button>
+                            data-dojo-attach-point="decrement_speed_pool"><i class="icon-chevron-down"></i></button>
                         </td>
                         <td><input class="cg-storeMe cg-statInput"
                           type="number" readonly="readonly"
@@ -164,7 +164,7 @@
                         <td width="5">
                           <button class="cg-adjustButton"
                             data-dojo-type="dijit/form/Button"
-                            data-dojo-attach-point="increment_speed_pool">▲</button>
+                            data-dojo-attach-point="increment_speed_pool"><i class="icon-chevron-up"></i></button>
                         </td>
                       </tr>
                     </table>
@@ -176,7 +176,7 @@
                         <td width="5">
                           <button class="cg-adjustButton"
                             data-dojo-type="dijit/form/Button"
-                            data-dojo-attach-point="decrement_speed_edge">▼</button>
+                            data-dojo-attach-point="decrement_speed_edge"><i class="icon-chevron-down"></i></button>
                         </td>
                         <td><input class="cg-storeMe cg-statInput"
                           type="number" readonly="readonly"
@@ -184,7 +184,7 @@
                         <td width="5">
                           <button class="cg-adjustButton"
                             data-dojo-type="dijit/form/Button"
-                            data-dojo-attach-point="increment_speed_edge">▲</button>
+                            data-dojo-attach-point="increment_speed_edge"><i class="icon-chevron-up"></i></button>
                         </td>
                       </tr>
                     </table>
@@ -199,7 +199,7 @@
                         <td width="5">
                           <button class="cg-adjustButton"
                             data-dojo-type="dijit/form/Button"
-                            data-dojo-attach-point="decrement_intellect_pool">▼</button>
+                            data-dojo-attach-point="decrement_intellect_pool"><i class="icon-chevron-down"></i></button>
                         </td>
                         <td><input class="cg-storeMe cg-statInput"
                           type="number" readonly="readonly"
@@ -208,7 +208,7 @@
                         <td width="5">
                           <button class="cg-adjustButton"
                             data-dojo-type="dijit/form/Button"
-                            data-dojo-attach-point="increment_intellect_pool">▲</button>
+                            data-dojo-attach-point="increment_intellect_pool"><i class="icon-chevron-up"></i></button>
                         </td>
                       </tr>
                     </table>
@@ -220,7 +220,7 @@
                         <td width="5">
                           <button class="cg-adjustButton"
                             data-dojo-type="dijit/form/Button"
-                            data-dojo-attach-point="decrement_intellect_edge">▼</button>
+                            data-dojo-attach-point="decrement_intellect_edge"><i class="icon-chevron-down"></i></button>
                         </td>
                         <td><input class="cg-storeMe cg-statInput"
                           type="number" readonly="readonly"
@@ -229,7 +229,7 @@
                         <td width="5">
                           <button class="cg-adjustButton"
                             data-dojo-type="dijit/form/Button"
-                            data-dojo-attach-point="increment_intellect_edge">▲</button>
+                            data-dojo-attach-point="increment_intellect_edge"><i class="icon-chevron-up"></i></button>
                         </td>
                       </tr>
                     </table>
@@ -295,7 +295,7 @@
           </div>
         </div>
         <div data-dojo-type="dijit/layout/ContentPane"
-          data-dojo-props="title:'Abilities'">
+          data-dojo-props="title:'Abilities'" data-dojo-attach-point="abilityPane">
           <div class="cg-resultsPane cg-characterGeneratorContent">
             <h2 data-dojo-attach-point="ability_list_label">Skills</h2>
             <ul data-dojo-attach-point="ability_list"></ul>
@@ -333,18 +333,17 @@
                   <button data-dojo-type="dijit/form/Button"
                     class="cg-redButton"
                     data-dojo-attach-event="onClick:clearAll"
-                    data-dojo-attach-point="clearButton">Clear</button>
+                    data-dojo-attach-point="clearButton"><i class="icon-refresh"></i> Clear</button>
                 </td>
                 <td align="center">
                   <button data-dojo-type="dijit/form/Button"
-                    data-dojo-attach-event="onClick:openCharacter">Saved
-                    characters</button>
+                    data-dojo-attach-event="onClick:openCharacter">Remembered Heroes</button>
                 </td>
                 <td align="right" width="15%">
                   <button data-dojo-type="dijit/form/Button"
                     class="cg-blueButton"
                     data-dojo-attach-point="finalizeButton"
-                    data-dojo-attach-event="onClick:finalize">Advance</button>
+                    data-dojo-attach-event="onClick:finalize"><i class="icon-double-angle-up"></i> Advance</button>
                 </td>
               </tr>
               <tr>
@@ -386,11 +385,10 @@
             <table width="100%">
               <tr>
                 <td><button data-dojo-type="dijit/form/Button"
-                    data-dojo-attach-event="onClick:displayCharacterLinks"
-                    class="cg-blueButton">List links</button></td>
+                    data-dojo-attach-event="onClick:displayCharacterLinks">List links</button></td>
                 <td align="right">
                   <button data-dojo-type="dijit/form/Button"
-                    data-dojo-attach-event="onClick:closeCharacterManager">OK</button>
+                    data-dojo-attach-event="onClick:closeCharacterManager">Close</button>
                 </td>
               </tr>
             </table>

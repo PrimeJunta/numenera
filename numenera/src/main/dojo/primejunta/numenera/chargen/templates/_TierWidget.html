@@ -15,9 +15,9 @@
       <ul>
         <li>
           <div style="vertical-align:bottom;">
-            Raise: <label><input class="cg-storeMe" type="checkbox" data-dojo-attach-point="pool_checkbox"/> Pools</label>
-            <label><input class="cg-storeMe" type="checkbox" data-dojo-attach-point="edge_checkbox"/> Edge</label>
-            <label><input class="cg-storeMe" type="checkbox" data-dojo-attach-point="effort_checkbox"/> Effort</label>
+            Raise: <label><input class="cg-storeMe" type="checkbox" data-dojo-attach-point="pool_checkbox" data-dojo-attach-event="onChange:checkApplyButton"/> Pools</label>
+            <label><input class="cg-storeMe" type="checkbox" data-dojo-attach-point="edge_checkbox" data-dojo-attach-event="onChange:checkApplyButton"/> Edge</label>
+            <label><input class="cg-storeMe" type="checkbox" data-dojo-attach-point="effort_checkbox" data-dojo-attach-event="onChange:checkApplyButton"/> Effort</label>
           </div>
         </li>
         <li>
@@ -50,7 +50,7 @@
             <table cellspacing="0" cellpadding="0">
               <tr>
                 <td>
-                  <select class="cg-storeMe" data-dojo-attach-point="perkSelector">
+                  <select class="cg-storeMe" data-dojo-attach-point="perkSelector" data-dojo-attach-event="onChange:checkApplyButton">
                     <option>-- choose --</option>
                   </select>
                 </td>
@@ -66,6 +66,6 @@
     
   </td>
   <td class="cg-smallCell">
-    <button data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:applyAdvancement" data-dojo-attach-point="applyButton" class="cg-blueButton">Apply</button>
+    <button data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:applyAdvancement" data-dojo-attach-point="applyButton"><i class="icon-ok-circle cg-greenButton"></i> Apply</button>
   </td>
 </tr>
