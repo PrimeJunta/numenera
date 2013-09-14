@@ -36,7 +36,7 @@ function( declare,
         /**
          * Default skill name for that perk, if selected.
          */
-        DEFAULT_SKILL_NAME : "choose any non-combat",
+        inputValue : "choose any non-combat",
         /**
          * Which tier is it?
          */
@@ -151,17 +151,17 @@ function( declare,
         },
         /**
          * First .checkSkillType. Then check .canAdvance, and show/hide the apply button accordingly.
-         * Finally normalizeClass on .skillInput.
+         * Finally normalizeClass on .inputNode.
          */
         checkState : function()
         {
             this.checkSkillType();
             this.checkApplyButton();
+            this.onBlurInput( this.inputNode );
             if( !this._tierChoicesMade() )
             {
                 this.purchasedBenefitsNode.style.display = "none";
             }
-            this.normalizeClass( this.skillInput );
         },
         checkApplyButton : function()
         {
@@ -208,7 +208,7 @@ function( declare,
             return false;
         },
         /**
-         * Shows/hides skillInputContainer and perkSelectorContainer depending on skillTypeSelector.
+         * Shows/hides inputNodeContainer and perkSelectorContainer depending on skillTypeSelector.
          * Also incidentally unsets isUnlockable so the unlock button won't be shown for the last tier.
          */
         checkSkillType : function()
@@ -217,23 +217,23 @@ function( declare,
             switch( this.skillTypeSelector.selectedIndex )
             {
                 case 1 :
-                    this._show( this.skillInputContainer );
+                    this._show( this.inputNodeContainer );
                     this._hide( this.perkSelectorContainer );
                     this.perkSelector.selectedIndex = 0;
                     break;
                 case 4 : 
-                    this._hide( this.skillInputContainer );
+                    this._hide( this.inputNodeContainer );
                     this._show( this.perkSelectorContainer );
-                    this.skillInput.value = "";
-                    this.onBlurSkillInput();
+                    this.inputNode.value = "";
+                    this.onBlurinputNode();
                     this.isUnlockable = true;
                     break;
                 default :
-                    this._hide( this.skillInputContainer );
+                    this._hide( this.inputNodeContainer );
                     this._hide( this.perkSelectorContainer );
                     this.perkSelector.selectedIndex = 0;
-                    this.skillInput.value = "";
-                    this.onBlurSkillInput();
+                    this.inputNode.value = "";
+                    this.onBlurinputNode();
                     break;
             }
             this.checkApplyButton();
@@ -256,7 +256,7 @@ function( declare,
                 case 0 : 
                     break;
                 case 1 : 
-                    this.skillInput.disabled = true;
+                    this.inputNode.disabled = true;
                     this.skillTypeSelector.disabled = true;
                 case 2 : 
                     this.skillTypeSelector.disabled = true;
@@ -286,26 +286,26 @@ function( declare,
             }
         },
         /**
-         * Do the usual field thing to skillInput.
+         * Do the usual field thing to inputNode.
          */
-        onFocusSkillInput : function()
+        onFocusinputNode : function()
         {
-            if( this.skillInput.value == this.DEFAULT_SKILL_NAME )
+            if( this.inputNode.value == this.inputValue )
             {
-                this.skillInput.value = "";
+                this.inputNode.value = "";
             }
-            this.normalizeClass( this.skillInput );
+            this.normalizeClass( this.inputNode );
         },
         /**
-         * Do the usual field thing to skillInput.
+         * Do the usual field thing to inputNode.
          */
-        onBlurSkillInput : function()
+        onBlurinputNode : function()
         {
-            if( this.skillInput.value == "" )
+            if( this.inputNode.value == "" )
             {
-                this.skillInput.value = this.DEFAULT_SKILL_NAME;
+                this.inputNode.value = this.inputValue;
             }
-            this.normalizeClass( this.skillInput );
+            this.normalizeClass( this.inputNode );
             this.checkApplyButton();
         },
         /**
@@ -352,7 +352,7 @@ function( declare,
             {
                 return -1;
             }
-            if( !this.skillTypeSelector.disabled && this.skillTypeSelector.selectedIndex == 1 && this.skillInput.value == this.DEFAULT_SKILL_NAME )
+            if( !this.skillTypeSelector.disabled && this.skillTypeSelector.selectedIndex == 1 && this.inputNode.value == this.inputValue )
             {
                 this.manager.tell( "Please select any non-combat skill." );
                 return -1;
@@ -474,7 +474,7 @@ function( declare,
             switch( this.skillTypeSelector.selectedIndex )
             {
                 case 1 :
-                    return [ "Ⓣ " + this.skillInput.value ];
+                    return [ "Ⓣ " + this.inputNode.value ];
                 case 2 :
                     return [ "Ⓔ Reduce Armor Cost" ];
                 case 3 :

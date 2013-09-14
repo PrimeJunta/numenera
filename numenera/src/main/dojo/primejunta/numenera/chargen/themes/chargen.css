@@ -290,7 +290,7 @@ input[readonly].cg-statInput
 }
 .cg-mutationTextNode
 {
-	width : 80px;
+	width : 55px;
 }
 /* color codes for type, description, and focus */
 .cg-type

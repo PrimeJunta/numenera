@@ -94,7 +94,7 @@ function( declare,
             this._subs.push( topic.subscribe( "CharGen/destroyListItems", lang.hitch( this, this.destroy ) ) );
             if( this._hasInput )
             {
-                this._subs.push( topic.subscribe( "CharGen/pleaseCheckState", lang.hitch( this, this.normalizeClass ) ) );
+                this._subs.push( topic.subscribe( "CharGen/pleaseCheckState", lang.hitch( this, this.onBlurInput ) ) );
                 this._subs.push( topic.subscribe( "CharGen/lockSheetControls", lang.hitch( this, this.lockInput ) ) );
             }
             if( this._hasSelect )
@@ -290,11 +290,12 @@ function( declare,
             }
             return out;
         },
+        /**
+         * Method connected to select if it contains an item marked with !topic.
+         */
         selectChanged : function()
         {
-            console.log( "selectChange called" );
             topic.publish( this._selectChangeMsg, this.selectNode );
-            console.log( "topic published" );
         },
         /**
          * Removes all listeners plus inherited.

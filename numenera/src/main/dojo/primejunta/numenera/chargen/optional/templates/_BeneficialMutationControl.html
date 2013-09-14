@@ -12,14 +12,24 @@
             data-dojo-attach-event="onKeyDown:normalizeClass,onClick:selectContent,onFocus:selectContent,onChange:dataChanged,onBlur:onBlurInput" />
         </td>
       </tr>
-      <tr>
+      <tr data-dojo-attach-point="bonusNode">
         <td colspan="2">
           Bonuses:
+          <span data-dojo-attach-point="mightAdjustmenContainer">
           Might: <input type="number" data-dojo-attach-event="onChange:checkState" style="width:30px;" data-dojo-attach-point="mightAdjustmentNode" class="cg-storeMe cg-adjust-might-pool"/>
+          </span>
+          <span data-dojo-attach-point="speedAdjustmenContainer">
           Speed: <input type="number" data-dojo-attach-event="onChange:checkState" style="width:30px;" data-dojo-attach-point="speedAdjustmentNode" class="cg-storeMe cg-adjust-speed-pool"/>
+          </span>
+          <span data-dojo-attach-point="intellectAdjustmenContainer">
           Intellect: <input type="number" data-dojo-attach-event="onChange:checkState" style="width:30px;" data-dojo-attach-point="intellectAdjustmentNode" class="cg-storeMe cg-adjust-intellect-pool"/>
+          </span>
+          <span data-dojo-attach-point="armorAdjustmenContainer">
           Armor: <input type="number" data-dojo-attach-event="onChange:checkState" style="width:30px;" data-dojo-attach-point="armorAdjustmentNode" class="cg-storeMe cg-adjust-armor"/>
+          </span>
+          <span data-dojo-attach-point="recoveryAdjustmenContainer">
           Recovery: <input type="number" data-dojo-attach-event="onChange:checkState" style="width:30px;" data-dojo-attach-point="recoveryAdjustmentNode" class="cg-storeMe cg-adjust-recovery"/>
+          </span>
         </td>
       </tr>
     </table>

@@ -62,6 +62,43 @@ function( declare,
             lang.mixin( this, kwObj );
         },
         /**
+         * Copy values from CharacterGenerator, and apply bonuses with _getAttacks, _processAttackValues, _processArmorValues,
+         * and _getAttackList.
+         */
+        analyzeCharacter : function()
+        {
+            this._cdata = {};
+            this._sv( "character_name", "characterNameInput" );
+            this._sv( "character_descriptor", "descriptorSelect", 1 );
+            this._sv( "character_type", "typeSelect", 1 );
+            this._sv( "character_focus", "focusSelect", 1 );
+            this._ss( "character_tier", "character_tier" );
+            this._ss( "character_effort", "character_effort" );
+            this._ss( "might_pool", "might_pool" );
+            this._ss( "might_edge", "might_edge" );
+            this._ss( "speed_pool", "speed_pool" );
+            this._ss( "speed_edge", "speed_edge" );
+            this._ss( "intellect_pool", "intellect_pool" );
+            this._ss( "intellect_edge", "intellect_edge" );
+            this._ss( "recovery_roll", "recovery_roll" );
+            this._ss( "cypher_count", "cypher_count" );
+            this._ss( "shin_count", "shin_count" );
+            this._ss( "character_xp", "character_xp" );
+            this._st( "description_text", this._textAsList( "description_text" ) );
+            this._wl( "ability_list", this._getSkillList() );
+            this._wl( "special_list", this._getSpecialList() );
+            this._wl( "inability_list", this._getInabilityList() );
+            this._wl( "equipment_list", this._getEquipmentList() );
+            this._wl( "cypher_list", this._listAsText( "cypher_list") );
+            this._wl( "notes_list", this._textAsList( "notes_text" ) );
+            this._wl( "attack_data", this._getAttacks() );
+            this._processAdjustments();
+            this._processAttackValues();
+            this._processArmorValues();
+            this._wl( "attack_list", this._getAttackList() );
+            return this._cdata;
+        },
+        /**
          * Validate character. If silent, no alerts will be raised. We .analyzeCharacter first though.
          */
         validateCharacter : function( /* boolean? */ silent )
@@ -179,42 +216,8 @@ function( declare,
             }
         },
         /**
-         * Copy values from CharacterGenerator, and apply bonuses with _getAttacks, _processAttackValues, _processArmorValues,
-         * and _getAttackList.
+         * Look for any adjustments that should be made to armor bonus, the pools, or recovery. Also set _data.armor_value_none here.
          */
-        analyzeCharacter : function()
-        {
-            this._cdata = {};
-            this._sv( "character_name", "characterNameInput" );
-            this._sv( "character_descriptor", "descriptorSelect", 1 );
-            this._sv( "character_type", "typeSelect", 1 );
-            this._sv( "character_focus", "focusSelect", 1 );
-            this._ss( "character_tier", "character_tier" );
-            this._ss( "character_effort", "character_effort" );
-            this._ss( "might_pool", "might_pool" );
-            this._ss( "might_edge", "might_edge" );
-            this._ss( "speed_pool", "speed_pool" );
-            this._ss( "speed_edge", "speed_edge" );
-            this._ss( "intellect_pool", "intellect_pool" );
-            this._ss( "intellect_edge", "intellect_edge" );
-            this._ss( "recovery_roll", "recovery_roll" );
-            this._ss( "cypher_count", "cypher_count" );
-            this._ss( "shin_count", "shin_count" );
-            this._ss( "character_xp", "character_xp" );
-            this._st( "description_text", this._textAsList( "description_text" ) );
-            this._wl( "ability_list", this._getSkillList() );
-            this._wl( "special_list", this._getSpecialList() );
-            this._wl( "inability_list", this._getInabilityList() );
-            this._wl( "equipment_list", this._getEquipmentList() );
-            this._wl( "cypher_list", this._listAsText( "cypher_list") );
-            this._wl( "notes_list", this._textAsList( "notes_text" ) );
-            this._wl( "attack_data", this._getAttacks() );
-            this._processAdjustments();
-            this._processAttackValues();
-            this._processArmorValues();
-            this._wl( "attack_list", this._getAttackList() );
-            return this._cdata;
-        },
         _processAdjustments : function()
         {
             this._cdata.armor_value_none = parseInt( this._gf( "armor_bonus" ) );
@@ -223,8 +226,10 @@ function( declare,
             this._cdata.intellect_pool += this._collectAdjustments( "intellect-pool" );
             this._cdata.armor_value_none += this._collectAdjustments( "armor" );
             this._cdata.recovery_roll += this._collectAdjustments( "recovery" );
-            console.log( this._cdata );
         },
+        /**
+         * Do a DOM query for any inputs marked .cg-adjust- + feature, sum them, and return the value.
+         */
         _collectAdjustments : function( feature )
         {
             var inps = domQuery( ".cg-adjust-" + feature );
@@ -456,7 +461,7 @@ function( declare,
             return out;
         },
         /**
-         * Filters out skills from special_list, since they're injected into skill list in _getSkillList.
+         * Filters out skills and inabilities from special_list, since they're injected into skill list and inability list.
          */
         _getSpecialList : function()
         {
@@ -473,6 +478,9 @@ function( declare,
             out.sort();
             return out;
         },
+        /**
+         * Merges inabilities from special_list (acquired through mutations), into inability_list, sorts, and returns it.
+         */
         _getInabilityList : function()
         {
             var _il = this._listAsText( "inability_list");
@@ -485,6 +493,7 @@ function( declare,
                     _il.push( cur );
                 }
             }
+            _il.sort();
             return _il;
         },
         /**
@@ -519,6 +528,9 @@ function( declare,
                 return false;
             }
         },
+        /**
+         * Checks if item contains the INABILITY_STRING, and returns the result.
+         */
         _isInability : function( /* String */ item )
         {
             if( item.indexOf( this.INABILITY_STR ) != -1 )

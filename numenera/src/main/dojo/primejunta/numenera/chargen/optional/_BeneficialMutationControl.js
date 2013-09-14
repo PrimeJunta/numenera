@@ -13,7 +13,7 @@ function( declare,
 {
     return declare([ _MutationControlBase, _TemplatedMixin, _WidgetsInTemplateMixin ], {
         type : "beneficial",
-        baseText : "ⓂⒺ",
+        baseText : "Ⓔ",
         templateString : template
     });
 });

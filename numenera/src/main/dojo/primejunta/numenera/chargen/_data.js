@@ -264,7 +264,7 @@ function( declare,
                 }
                 else
                 {
-                    vals.push( this._escapeDelimiter( inps[ i ].value ) );
+                    vals.push( this._preprocessInput( inps[ i ] ) );
                 }
                 disb.push( inps[ i ].disabled ? 1 : 0 );
             }
@@ -476,6 +476,21 @@ function( declare,
                 {
                     lang.hitch( this, handler )();
                 }
+            }
+        },
+        /**
+         * Checks if inputElem.value is a default, and if so, returns "". Else returns _escapeDelimiter on it.
+         */
+        _preprocessInput : function( /* Input */ inputElem )
+        {
+            var val = inputElem.value;
+            if( this.DEFAULT_VALUES[ val ] )
+            {
+                return "";
+            }
+            else
+            {
+                return this._escapeDelimiter( val );
             }
         },
         /**

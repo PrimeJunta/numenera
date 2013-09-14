@@ -13,7 +13,7 @@ function( declare,
 {
     return declare([ _MutationControlBase, _TemplatedMixin, _WidgetsInTemplateMixin ], {
         type : "harmful",
-        baseText : "ⓂⒾ",
+        baseText : "Ⓘ",
         templateString : template
     });
 });

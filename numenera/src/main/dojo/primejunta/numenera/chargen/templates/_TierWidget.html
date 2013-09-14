@@ -31,14 +31,14 @@
             </select>
           </div>
         </li>
-        <li data-dojo-attach-point="skillInputContainer" style="display:none;">
+        <li data-dojo-attach-point="inputNodeContainer" style="display:none;">
           <div>
             <table>
               <tbody>
                 <tr>
                   <td class="cg-baseTextNode">Ⓣ</td>
                   <td>
-                    <input type="text" class="cg-storeMe cg-itemInput cg-valueNotSet" data-dojo-attach-point="skillInput" value="${DEFAULT_SKILL_NAME}" data-dojo-attach-event="onFocus:onFocusSkillInput,onBlur:onBlurSkillInput"/>
+                    <input type="text" class="cg-storeMe cg-itemInput cg-valueNotSet" data-dojo-attach-point="inputNode" value="${inputValue}" data-dojo-attach-event="onFocus:onFocusinputNode,onBlur:onBlurinputNode"/>
                   </td>
                 </tr>
               </tbody>
