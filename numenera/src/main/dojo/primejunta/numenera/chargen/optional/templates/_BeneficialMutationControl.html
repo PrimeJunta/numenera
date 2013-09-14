@@ -1,0 +1,27 @@
+<li class="cg-${from}">
+  <div>
+    <table cellspacing="0" cellpadding="0">
+      <tr valign="top">
+        <td class="cg-baseTextNode cg-mutationTextNode">
+          ${baseText}
+        </td>
+        <td>
+          <input type="text" data-dojo-attach-point="inputNode"
+            class="cg-itemInput cg-storeMe cg-valueNotSet"
+            value="${inputValue}"
+            data-dojo-attach-event="onKeyDown:normalizeClass,onClick:selectContent,onFocus:selectContent,onChange:dataChanged,onBlur:onBlurInput" />
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          Bonuses:
+          Might: <input type="number" data-dojo-attach-event="onChange:checkState" style="width:30px;" data-dojo-attach-point="mightAdjustmentNode" class="cg-storeMe cg-adjust-might-pool"/>
+          Speed: <input type="number" data-dojo-attach-event="onChange:checkState" style="width:30px;" data-dojo-attach-point="speedAdjustmentNode" class="cg-storeMe cg-adjust-speed-pool"/>
+          Intellect: <input type="number" data-dojo-attach-event="onChange:checkState" style="width:30px;" data-dojo-attach-point="intellectAdjustmentNode" class="cg-storeMe cg-adjust-intellect-pool"/>
+          Armor: <input type="number" data-dojo-attach-event="onChange:checkState" style="width:30px;" data-dojo-attach-point="armorAdjustmentNode" class="cg-storeMe cg-adjust-armor"/>
+          Recovery: <input type="number" data-dojo-attach-event="onChange:checkState" style="width:30px;" data-dojo-attach-point="recoveryAdjustmentNode" class="cg-storeMe cg-adjust-recovery"/>
+        </td>
+      </tr>
+    </table>
+  </div>
+</li>
