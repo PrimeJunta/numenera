@@ -19,7 +19,8 @@ function( declare,
             "GM chooses" : true,
             "choose topic" : true,
             "choose any non-combat" : true,
-            "enter description" : true
+            "enter description" : true,
+            "enter the URL of your image" : true
         },
         /**
          * If inputNode.value is one of the defaults, adds valueNotSet class to it; else removes it.
@@ -98,6 +99,17 @@ function( declare,
                 inputNode = this.inputNode;
             }
             topic.publish( "CharGen/dataChanged", inputNode );
+        },
+        /**
+         * Sanitizes str before injection as innerHTML, to block script injection attacks.
+         */
+        _sanitize : function( str )
+        {
+            str = "" + str;
+            var out = str.replace( /\&/g, "&amp;" );
+            var out = out.replace( /</g, "&lt;" );
+            var out = out.replace( />/g, "&gt;" );
+            return out;
         },
         /**
          * Returns value of selected item in sel as object with label and value properties.

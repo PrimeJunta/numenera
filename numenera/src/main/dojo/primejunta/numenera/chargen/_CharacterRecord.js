@@ -7,6 +7,7 @@ define([ "dojo/_base/declare",
          "dojo/cookie",
          "dojo/json",
          "dijit/form/Button",
+         "./_util",
          "./_CharacterValidator",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -17,13 +18,14 @@ function( declare,
           cookie,
           json,
           Button,
+          _util,
           _CharacterValidator,
           _WidgetBase,
           _TemplatedMixin,
           _WidgetsInTemplateMixin,
           template )
 {
-    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin ], {
+    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _util ], {
         /**
          * If a string starts with this, it means a skill in which you're trained.
          */
@@ -87,6 +89,16 @@ function( declare,
             this._wl( "equipment_list", "equipment_list" );
             this._wl( "description_text", "description_text" );
             this._wl( "notes_list", "notes_list" );
+            this.portrait_src = this.manager.portraitWidget.getHref();
+            if( this.portrait_src )
+            {
+                this.portraitImage.setAttribute( "src", this.portrait_src );
+                this.portraitImage.style.visibility = "visible";
+            }
+            else
+            {
+                this.portraitImage.style.visibility = "hidden";
+            }
             if( this.character.inability_list.length > 0 )
             {
                 this.inabilityContainer.style.display = "block";
@@ -182,17 +194,17 @@ function( declare,
                     }
                     else if( count > 1 )
                     {
-                        out+= " (× " + count + ")<br/>" + list[ i ];
+                        out += " (× " + count + ")<br/>" + this._sanitize( list[ i ] );
                         count = 0;
                     }
                     else
                     {
-                        out += "<br/>" + list[ i ];
+                        out += "<br/>" + this._sanitize( list[ i ] );
                     }
                 }
                 else
                 {
-                    out += list[ i ];
+                    out += this._sanitize( list[ i ] );
                 }
             }
             this[ fieldName ].innerHTML = out;
@@ -202,7 +214,7 @@ function( declare,
          */
         _sv : function( /* String */ fieldName, /* String */ from )
         {
-            this[ fieldName ].innerHTML = this.character[ from ];
+            this[ fieldName ].innerHTML = this._sanitize( this.character[ from ] );
         }
     });
 });

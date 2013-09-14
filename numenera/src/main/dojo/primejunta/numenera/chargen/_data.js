@@ -106,7 +106,7 @@ function( declare,
             }
             var key = this._getKey( this.characterNameInput.value );
             var val = {
-                name : this.characterNameInput.value,
+                name : this._sanitize( this.characterNameInput.value ),
                 data : this._getCharacterData()
             };
             this._storage.put( key, val, lang.hitch( this, function() {
@@ -294,6 +294,7 @@ function( declare,
                 + "&extra_equipment_text=" + encodeURIComponent( this.extra_equipment_text.value )
                 + "&notes_text=" + encodeURIComponent( this.notes_text.value )
                 + "&description_text=" + encodeURIComponent( this.description_text.value )
+                + "&img=" + encodeURIComponent( this.portraitWidget.getHref() )
                 + "&disabled=" + disb.join( "" )
                 + "&deleted=" + dels.join( "" );
         },
@@ -315,6 +316,10 @@ function( declare,
             this._populating.push( 3 );
             this.clearAll();
             var kwObj = ioQuery.queryToObject( qString );
+            if( kwObj.img )
+            {
+                this.portraitWidget.setHref( kwObj.img );
+            }
             var idxs = kwObj.selects.split( this._listDelimiter );
             var vals = kwObj.inputs.split( this._listDelimiter );
             var disb = kwObj.disabled ? kwObj.disabled : "";

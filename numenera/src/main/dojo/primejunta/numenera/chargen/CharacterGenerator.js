@@ -33,6 +33,7 @@ define([ "dojo/_base/declare",
          "./_AdvancementControl",
          "./_CharacterRecord",
          "./_CharacterValidator",
+         "./_CharacterPortrait",
          "./data/descriptors",
          "./data/types",
          "./data/foci",
@@ -69,6 +70,7 @@ function( declare,
           _AdvancementControl,
           _CharacterRecord,
           _CharacterValidator,
+          _CharacterPortrait,
           descriptors,
           types,
           foci,
@@ -89,7 +91,7 @@ function( declare,
         /**
          * Public version number.
          */
-        version : "1.2.3",
+        version : "1.2.4",
         /**
          * Set when a character is first advanced past creation.
          */

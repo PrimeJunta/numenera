@@ -188,6 +188,7 @@ a.cg-infoLink
 {
 	border-left : 1px solid silver;
 	border : 1px solid silver;
+	margin-bottom : 20px;
 }
 .cg-statisticsTable
 {
@@ -476,6 +477,11 @@ td.cg-tierTitleCell
     background-color : #d4e4f4;
     cursor : pointer;
 }
+.cg-imageContainer
+{
+	text-align : center;
+	margin : 20px;
+}
 /* help and dialogs */
 .cg-helpPage
 {
@@ -500,9 +506,9 @@ td.cg-tierTitleCell
 {
 	height : 70px;
 	overflow : hidden;
-    color : #585858;
 	
 	/*
+    color : #585858;
     background-color : #D18761;
     background-image : url( 'images/cloudbg.jpg' );
     */
