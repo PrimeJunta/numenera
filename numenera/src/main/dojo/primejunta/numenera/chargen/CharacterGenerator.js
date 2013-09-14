@@ -25,6 +25,7 @@ define([ "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
+         "./_util",
          "./_SplashCharacterPane",
          "./_data",
          "./_stats",
@@ -35,6 +36,7 @@ define([ "dojo/_base/declare",
          "./data/descriptors",
          "./data/types",
          "./data/foci",
+         "./optional/optionals",
          "dojo/text!./templates/CharacterGenerator.html",
          "dojo/text!./doc/about.html",
          "dojo/text!./doc/changelog.html" ],
@@ -59,6 +61,7 @@ function( declare,
           _WidgetBase,
           _TemplatedMixin, 
           _WidgetsInTemplateMixin,
+          _util,
           _SplashCharacterPane,
           _data,
           _stats,
@@ -69,25 +72,16 @@ function( declare,
           descriptors,
           types,
           foci,
+          optionals,
           template,
           about,
           changelog )
 {
-    return declare( "primejunta/numenera/chargen/CharacterGenerator", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _data, _stats, _lists ], {
+    return declare( "primejunta/numenera/chargen/CharacterGenerator", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _util, _data, _stats, _lists, optionals ], {
         /**
          * Default title.
          */
         DEFAULT_DOCUMENT_TITLE : "9 Heroes",
-        /**
-         * Default field values. Will be cleared on focus.
-         */
-        DEFAULT_VALUES : {
-            "a Hero of the Ninth World" : true,
-            "choose" : true,
-            "GM chooses" : true,
-            "choose topic" : true,
-            "choose any non-combat" : true
-        },
         /**
          * Default character name.
          */
@@ -95,7 +89,7 @@ function( declare,
         /**
          * Public version number.
          */
-        version : "1.1.4",
+        version : "1.2.0",
         /**
          * Set when a character is first advanced past creation.
          */
@@ -161,6 +155,7 @@ function( declare,
             this._buffer = [];
             this._populating = [];
             this._controls = [];
+            this.setupOptionals(); // from optionals
             this.initializeSelect( "descriptorSelect", descriptors, true );
             this.initializeSelect( "typeSelect", types );
             this.initializeSelect( "focusSelect", foci );
@@ -457,20 +452,6 @@ function( declare,
             return foci[  this._selVal( this.focusSelect ).value ];
         },
         /**
-         * If inputNode.value is one of the defaults, adds valueNotSet class to it; else removes it.
-         */
-        normalizeClass : function( inputNode )
-        {
-            if( this.DEFAULT_VALUES[ inputNode.value ] )
-            {
-                domClass.add( inputNode, "cg-valueNotSet" );
-            }
-            else
-            {
-                domClass.remove( inputNode, "cg-valueNotSet" );
-            }
-        },
-        /**
          * (Re)creates a _CharacterRecord for the record, places it, hides this widget and shows it.
          */
         makePrint : function()
@@ -594,27 +575,6 @@ function( declare,
             for( var i = 0; i < fields.length; i++ )
             {
                 this[ fields[ i ] ].value = value;
-            }
-        },
-        /**
-         * Returns value of selected item in sel as object with label and value properties.
-         */
-        _selVal : function( sel, /* String? */ val )
-        {
-            if( val )
-            {
-                for( var i = 0; i < sel.options.length; i++ )
-                {
-                    if( sel.options[ i ].value == val )
-                    {
-                        sel.options[ i ].selected = true;
-                        break;
-                    }
-                }
-            }
-            return {
-                "label" : sel.options[ sel.selectedIndex ].text,
-                "value" : sel.options[ sel.selectedIndex ].value
             }
         },
         /**

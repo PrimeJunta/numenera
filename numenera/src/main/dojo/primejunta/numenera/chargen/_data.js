@@ -9,6 +9,7 @@ define([ "dojo/_base/declare",
          "dojo/io-query",
          "dojo/query",
          "dijit/Dialog",
+         "dijit/registry",
          "dojo/on",
          "dojo/topic",
          "dijit/form/Button",
@@ -20,6 +21,7 @@ function( declare,
           ioQuery,
           domQuery,
           Dialog,
+          registry,
           on,
           topic, 
           Button,
@@ -30,7 +32,7 @@ function( declare,
         /**
          * Version of the data format understood by this implementation.
          */
-        DATA_VERSION : "1.0.0",
+        DATA_VERSION : "1.1.0",
         /**
          * Fields in the character data. There are rather a lot of these. Perhaps for a future version I'll replace
          * them with shorter ones. For now, clarity is king.
@@ -334,6 +336,12 @@ function( declare,
                 {
                     sels[ i ].selectedIndex = idxs[ i ];
                     sels[ i ].disabled = ( disb[ i ] == "1" );
+                    if( sels[ i ].getAttribute( "data-parent-widget-id" ) )
+                    {
+                        registry.byId( sels[ i ].getAttribute( "data-parent-widget-id" ) ).selectChanged();
+                        sels = domQuery( "select.cg-storeMe", this.domNode );
+                        inps = domQuery( "input.cg-storeMe", this.domNode );
+                    }
                 }
                 else
                 {
@@ -386,7 +394,7 @@ function( declare,
         {
             var fields = this.DATA_FIELDS;
             var kwObj = ioQuery.queryToObject( qString );
-            if( kwObj.version != this.DATA_VERSION )
+            if( !this._checkDataVersion( kwObj ) )
             {
                 this.tell( "The character was created with an incompatible version of this utility, and cannot be loaded. We apologize for the inconvenience." );
                 return false;
@@ -399,6 +407,24 @@ function( declare,
                 }
             }
             return true;
+        },
+        _checkDataVersion : function( kwObj )
+        {
+            if( kwObj.version == this.DATA_VERSION )
+            {
+                return true;
+            }
+            else if( kwObj.version == "1.0.0" )
+            {
+                if( kwObj.descriptor == "D6" ) // we're incompatible with 1.0.0 mutants
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
         },
         /**
          * Checks if the hero in the query string has been saved; if so, loads that version rather than the

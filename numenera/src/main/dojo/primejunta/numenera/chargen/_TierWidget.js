@@ -13,6 +13,7 @@ define([ "dojo/_base/declare",
          "dijit/form/Button",
          "./_CharacterValidator",
          "./_ListItem",
+         "./_util",
          "./_unlockable",
          "dojo/text!./templates/_TierWidget.html" ],
 function( declare,
@@ -27,10 +28,11 @@ function( declare,
           Button,
           _CharacterValidator,
           _ListItem,
+          _util,
           _unlockable,
           template )
 {
-    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _unlockable ], {
+    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _util, _unlockable ], {
         /**
          * Default skill name for that perk, if selected.
          */
@@ -305,13 +307,6 @@ function( declare,
             }
             this.normalizeClass( this.skillInput );
             this.checkApplyButton();
-        },
-        /**
-         * Connect to manager.normalizeClass.
-         */
-        normalizeClass : function( node )
-        {
-            this.manager.normalizeClass( node );
         },
         /**
          * Have all tier benefits been bought? Returns the answer as boolean.

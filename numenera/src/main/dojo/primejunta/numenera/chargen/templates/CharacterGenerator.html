@@ -19,7 +19,7 @@
     style="width: 100%; height: 100%; margin-left: auto; margin-right: auto; visibility: hidden;">
     <div data-dojo-type="dijit/layout/ContentPane"
       data-dojo-props="region:'top'" data-dojo-attach-point="headerPane"
-      style="height: 165px; overflow: hidden;">
+      style="height: 150px; overflow: hidden;">
       <div class="cg-characterGeneratorContent">
         <div style="text-align: center">
           <div data-dojo-attach-point="basicControlsNode">
@@ -269,7 +269,7 @@
                     class="cg-storeMe cg-statInput" type="number"
                     readonly="readonly"
                     data-dojo-attach-point="armor_bonus" size="3" /></td>
-                  <td align="right">Recovery roll: 1d6 +</td>
+                  <td align="right">Recovery bonus</td>
                   <td align="center"><input
                     class="cg-storeMe cg-statInput" type="number"
                     readonly="readonly"
@@ -326,7 +326,7 @@
       data-dojo-attach-point="footerNode">
       <div class="cg-characterGeneratorContent">
         <div>
-          <table width="100%">
+          <table width="100%" cellspacing="0" cellpadding="0" style="margin-top:5px;">
             <tbody>
               <tr>
                 <td width="15%">
@@ -345,11 +345,6 @@
                     data-dojo-attach-point="finalizeButton"
                     data-dojo-attach-event="onClick:finalize"><i class="icon-double-angle-up"></i> Advance</button>
                 </td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td align="right"></td>
               </tr>
             </tbody>
           </table>

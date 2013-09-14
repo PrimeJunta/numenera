@@ -8,6 +8,7 @@ define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "dojo/_base/array",
          "dojo/string",
+         "dojo/query",
          "./data/descriptors",
          "./data/types",
          "./data/foci",
@@ -17,6 +18,7 @@ function( declare,
           lang,
           array,
           string,
+          domQuery,
           descriptors,
           types,
           foci,
@@ -32,6 +34,10 @@ function( declare,
          * Prefix of Specialized skills.
          */
         SPECIALIZED_STR: "Ⓢ ",
+        /**
+         * Prefix of Inabilities.
+         */
+        INABILITY_STR : "Ⓘ",
         /**
          * String denoting a null item on a select.
          */
@@ -198,15 +204,39 @@ function( declare,
             this._st( "description_text", this._textAsList( "description_text" ) );
             this._wl( "ability_list", this._getSkillList() );
             this._wl( "special_list", this._getSpecialList() );
-            this._wl( "cypher_list", this._listAsText( "cypher_list") );
-            this._wl( "inability_list", this._listAsText( "inability_list") );
+            this._wl( "inability_list", this._getInabilityList() );
             this._wl( "equipment_list", this._getEquipmentList() );
+            this._wl( "cypher_list", this._listAsText( "cypher_list") );
             this._wl( "notes_list", this._textAsList( "notes_text" ) );
             this._wl( "attack_data", this._getAttacks() );
+            this._processAdjustments();
             this._processAttackValues();
             this._processArmorValues();
             this._wl( "attack_list", this._getAttackList() );
             return this._cdata;
+        },
+        _processAdjustments : function()
+        {
+            this._cdata.armor_value_none = parseInt( this._gf( "armor_bonus" ) );
+            this._cdata.might_pool += this._collectAdjustments( "might-pool" );
+            this._cdata.speed_pool += this._collectAdjustments( "speed-pool" );
+            this._cdata.intellect_pool += this._collectAdjustments( "intellect-pool" );
+            this._cdata.armor_value_none += this._collectAdjustments( "armor" );
+            this._cdata.recovery_roll += this._collectAdjustments( "recovery" );
+            console.log( this._cdata );
+        },
+        _collectAdjustments : function( feature )
+        {
+            var inps = domQuery( ".cg-adjust-" + feature );
+            var adj = 0;
+            for( var i = 0; i < inps.length; i++ )
+            {
+                if( !isNaN( parseInt( inps[ i ].value ) ) )
+                {
+                    adj += parseInt( inps[ i ].value );
+                }
+            }
+            return adj;
         },
         /**
          * We're parsing out weapons from equipment_list by keywords - Light, Medium, Heavy, Bashing, Bladed, Ranged.
@@ -358,7 +388,7 @@ function( declare,
          */
         _processArmorValues : function()
         {
-            var aBase = parseInt( this._gf( "armor_bonus" ) );
+            var aBase = this._cdata.armor_value_none; 
             var pBase = 0;
             var _sl = this._cdata.special_list;
             for( var i = 0; i < _sl.length; i++ )
@@ -435,13 +465,27 @@ function( declare,
             while( _sl.length > 0 )
             {
                 var cur = _sl.shift();
-                if( !this._isSkill( cur ) )
+                if( !this._isSkill( cur ) && !this._isInability( cur ) )
                 {
                     out.push( cur );
                 }
             }
             out.sort();
             return out;
+        },
+        _getInabilityList : function()
+        {
+            var _il = this._listAsText( "inability_list");
+            var _sl = this._listAsText( "special_list" );
+            while( _sl.length > 0 )
+            {
+                var cur = _sl.shift();
+                if( this._isInability( cur ) )
+                {
+                    _il.push( cur );
+                }
+            }
+            return _il;
         },
         /**
          * Filters out "-- choose --" items from equipment list.
@@ -474,6 +518,14 @@ function( declare,
             {
                 return false;
             }
+        },
+        _isInability : function( /* String */ item )
+        {
+            if( item.indexOf( this.INABILITY_STR ) != -1 )
+            {
+                return true;
+            }
+            return false;
         },
         /**
          * Outputs contents of attack_data as String[] suitable for printing out in the sheet. Each attack

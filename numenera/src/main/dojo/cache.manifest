@@ -1,7 +1,7 @@
 CACHE MANIFEST
 # Cache manifest for Numenera Character Creator.
 #
-# Version 1.1.4
+# Version 1.2.0-e
 #
 # including chargen.html to allow redirects to proceed correctly
 chargen.html
@@ -14,6 +14,9 @@ primejunta/numenera/chargen/themes/images/touch-icon-ipad-retina.png
 primejunta/numenera/chargen/themes/images/Numenera_Logo.png
 primejunta/numenera/chargen/themes/images/Numenera_Logo_neg.png
 primejunta/numenera/chargen/themes/images/knot.png
+primejunta/numenera/chargen/themes/images/cloudbg.jpg
+primejunta/numenera/chargen/themes/images/grain.png
+primejunta/numenera/chargen/themes/images/grain-l.png
 # Main stylesheet
 primejunta/numenera/chargen/themes/chargen.css
 primejunta/numenera/chargen/themes/charrec.css

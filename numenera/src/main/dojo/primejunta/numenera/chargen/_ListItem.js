@@ -14,6 +14,7 @@ define([ "dojo/_base/declare",
          "dijit/_WidgetsInTemplateMixin",
          "dijit/form/Button",
          "./_unlockable",
+         "./_util",
          "dojo/text!./templates/_ListItem.html",
          "dojo/text!./templates/_ListItemSelect.html",
          "dojo/text!./templates/_ListItemInput.html",
@@ -29,12 +30,13 @@ function( declare,
           _WidgetsInTemplateMixin,
           Button,
           _unlockable,
+          _util,
           template,
           templateSelect,
           templateInput,
           templateSelectInput )
 {
-    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _unlockable ], {
+    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _util, _unlockable ], {
         /**
          * Template
          */
@@ -69,6 +71,7 @@ function( declare,
          */
         postMixInProperties : function()
         {
+            this._subs = [];
             if( this.content.indexOf( "${input" ) != -1 && this.content.indexOf( "${select" ) != -1 )
             {
                 this._hasSelect = true;
@@ -88,8 +91,7 @@ function( declare,
             this.midText = this.getMidText();
             this.baseText = this.getBaseText();
             this.inputValue = this.getInputValue();
-            this.selectOptions = this.getSelectOptions();
-            this._subs = [ topic.subscribe( "CharGen/destroyListItems", lang.hitch( this, this.destroy ) ) ];
+            this._subs.push( topic.subscribe( "CharGen/destroyListItems", lang.hitch( this, this.destroy ) ) );
             if( this._hasInput )
             {
                 this._subs.push( topic.subscribe( "CharGen/pleaseCheckState", lang.hitch( this, this.normalizeClass ) ) );
@@ -109,6 +111,7 @@ function( declare,
             this.inherited( arguments );
             if( this._hasSelect )
             {
+                this.selectOptions = this.getSelectOptions();
                 this.selectNode.innerHTML = this.selectOptions;
             }
             if( this.baseText == "" && !this._hasSelect && this._hasInput )
@@ -236,7 +239,7 @@ function( declare,
          */
         getText : function()
         {
-            return this.deleted ? false : this.baseText + ( this._hasSelect ? this.selectNode.options[ this.selectNode.selectedIndex ].text + this.midText : "" ) + ( this._hasInput ? ( this.manager.DEFAULT_VALUES[ this.inputNode.value ] ? "" : this.inputNode.value ) : "" );
+            return ( this.deleted || this._destroyed ) ? false : this.baseText + ( this._hasSelect ? this.selectNode.options[ this.selectNode.selectedIndex ].text + this.midText : "" ) + ( this._hasInput ? ( this.manager.DEFAULT_VALUES[ this.inputNode.value ] ? "" : this.inputNode.value ) : "" );
         },
         /**
          * Checks if any select or input are present, and if so, if they're disabled.
@@ -273,46 +276,25 @@ function( declare,
                 var out = "<option>-- choose --</option>";
                 for( var i = 0; i < items.length; i++ )
                 {
-                    out +="<option>" + items[ i ] + "</options>";
+                    if( items[ i ].indexOf( "!topic:" ) == 0 )
+                    {
+                        this.selectNode.setAttribute( "data-parent-widget-id", this.id );
+                        this._selectChangeMsg = items[ i ].substring( "!topic:".length );
+                        this._subs.push( on( this.selectNode, "change", lang.hitch( this, this.selectChanged ) ) );
+                    }
+                    else
+                    {
+                        out +="<option>" + items[ i ] + "</options>";
+                    }
                 }
             }
             return out;
         },
-        /**
-         * Connects to manager.normalizeClass.
-         * TODO: maybe move it to a shared utility library?
-         */
-        normalizeClass : function()
+        selectChanged : function()
         {
-            this.manager.normalizeClass( this.inputNode );
-        },
-        /**
-         * Clears inputNode.value if it's one of the defaults defined in .manager.
-         */
-        selectContent : function()
-        {
-            if( this.manager.DEFAULT_VALUES[ this.inputNode.value ] )
-            {
-                this.inputNode.value = "";
-            }
-        },
-        /**
-         * If no inputValue has been provided, sets it back to the original, and .normalizeClass.
-         */
-        onBlurInput : function()
-        {
-            if( this.inputNode.value == "" )
-            {
-                this.inputNode.value = this.inputValue;
-            }
-            this.manager.normalizeClass( this.inputNode );
-        },
-        /**
-         * Publish event dataChanged, which will be picked up by _data.
-         */
-        dataChanged : function()
-        {
-            topic.publish( "CharGen/dataChanged" );
+            console.log( "selectChange called" );
+            topic.publish( this._selectChangeMsg, this.selectNode );
+            console.log( "topic published" );
         },
         /**
          * Removes all listeners plus inherited.

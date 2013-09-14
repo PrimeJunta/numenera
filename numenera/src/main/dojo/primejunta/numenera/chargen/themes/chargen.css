@@ -35,7 +35,8 @@ html, body
 }
 body
 {
-    background-color : #142434;
+    background-color : #182838;
+    background-image : url( 'images/grain.png' );
 }
 select 
 {
@@ -48,7 +49,11 @@ h1, h2, h3
 {
     font-family : Prata;
     font-weight : normal;
-    text-align : center;
+    text-align : center;	
+}
+.cg-characterGeneratorContent h1, .cg-characterGeneratorContent h2, .cg-characterGeneratorContent h3
+{
+    color : #424242;
 }
 h3
 {
@@ -89,7 +94,7 @@ li td
 .cg-mainButtonsNode
 {
 	position : absolute;
-	top : 163px;
+	top : 148px;
 }
 .cg-whiteKnot
 {
@@ -108,10 +113,11 @@ li td
 /* base layout elements */
 .cg-characterGenerator
 {
-    width : 100%;
+    width : 850px;
     height : 100%;
     overflow : hidden;
-    background-color : #182838;
+    margin-left : auto;
+    margin-right : auto;
 }
 .cg-characterGeneratorPane
 {
@@ -124,7 +130,7 @@ li td
 }
 .cg-characterGeneratorContent
 {
-	width : 850px;
+	width : 700px;
 	margin-left : auto;
 	margin-right : auto;
 }
@@ -229,31 +235,32 @@ input[readonly].cg-statInput
 .cg-characterNameInputBox
 {
 	height : 36px;
-	padding : 8px;
+	padding : 0 0 8px 0;
 }
 .cg-characterNameInput
 {
 	border : 1px;
     text-align : center;
     font-size : large;
-    width : 850px;
+    width : 100%;
     padding : 10px;
     font-family : Prata;
     background-color : #233343;
+    background-image : url( 'images/grain-l.png' );
     color : white;
 }
 .cg-phraseSelectors
 {
 	text-align:center;
 	height : 28px;
-	padding : 8px;
+	padding : 12px 0 4px;
 	color : white;
 }
 .cg-selectedPhrase
 {
 	text-align : center;
-    height : 28px;
-    padding : 8px;
+    height : 24px;
+    padding : 14px 0 2px 0;
     color : #e4e4e4;
     font-family : Prata;
     font-style : italic;
@@ -281,6 +288,10 @@ input[readonly].cg-statInput
 {
     padding-right : 4px;
 }
+.cg-mutationTextNode
+{
+	width : 80px;
+}
 /* color codes for type, description, and focus */
 .cg-type
 {
@@ -293,6 +304,14 @@ input[readonly].cg-statInput
 .cg-focus
 {
     color : #345c8c !important;
+}
+.cg-mutation
+{
+    color : #168b16 !important;
+}
+.cg-harmful
+{
+	color : #A3A300;
 }
 .cg-type:disabled, .cg-desc:disabled, .cg-focus:disabled
 {
@@ -313,7 +332,7 @@ input[readonly].cg-statInput
 }
 .cg-evenBackground, .cg-evenBackground td
 {
-    background-color : #efefef;
+    background-color : #fcfcfc;
 }
 .cg-oddBackground, .cg-oddBackground td
 {
@@ -333,16 +352,21 @@ input[readonly].cg-statInput
 }
 .cg-smallCell
 {
-    width : 65px;
+    width : 55px;
+    padding-right : 15px;
 }
 td.cg-tierTitleCell
 {
 	width : 100px;
-	background-color : #a8a8a8;
+	background-image : url( 'images/cloudbg.jpg' );
 }
-.cg-oddBackground .cg-tierTitleCell
+.cg-evenBackground .cg-tierTitleCell
 {
-	opacity : 0.5;
+	opacity : 0.75;
+}
+.cg-evenBackground .cg-tierTitleCell h3
+{
+	color : black;
 }
 .cg-tierTitle
 {
@@ -423,6 +447,10 @@ td.cg-tierTitleCell
 {
     display : inline-block;
 }
+.cg-hoverControls td.cg-hiddenControl
+{
+    display : table-cell;
+}
 .cg-finalized .cg-hiddenControl
 {
     display : none !important;
@@ -459,6 +487,7 @@ td.cg-tierTitleCell
     margin-bottom : 50px;
     padding : 40px;
     background-color : #f5f5f5;
+    color : black;
 }
 .cg-dialogContent 
 {
@@ -469,9 +498,14 @@ td.cg-tierTitleCell
 /* footer */
 .cg-footer
 {
-	height : 90px;
+	height : 70px;
 	overflow : hidden;
-	background-color : #182838;
+    color : #585858;
+	
+	/*
+    background-color : #D18761;
+    background-image : url( 'images/cloudbg.jpg' );
+    */
 }
 /* copyright notice */
 .cg-copyright
@@ -481,9 +515,8 @@ td.cg-tierTitleCell
     font-size : small;
     margin-left : auto;
     margin-right : auto;
-    padding : 15px;
+    padding : 3px;
     color : #585858;
-    background-color : #182838;
 }
 .cg-copyright a
 {
