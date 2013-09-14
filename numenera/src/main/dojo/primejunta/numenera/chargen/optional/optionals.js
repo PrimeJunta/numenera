@@ -64,7 +64,11 @@ function( declare,
             for( var i = 0; i < n; i++ )
             {
                 var ctrl = this._getMutationControl( type ).placeAt( this.bonus_list );
+                // This does leak some mutants, but both arrays will get cleared relatively
+                // frequently, so I'm not babying them here.
+                // Will be cleared if the user picks some other mutation
                 this._mutationControls.push( ctrl );
+                // Will be cleared if the user picks some other descriptor, type, or focus
                 this._lists.bonus_list.push( ctrl );
             }
         },

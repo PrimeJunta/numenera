@@ -385,7 +385,14 @@ function( declare,
          */
         canAdvance : function()
         {
-            if( this.pool_checkbox.checked && this.edge_checkbox.checked && this.effort_checkbox.checked && this.skillTypeSelector.disabled && this.tier < 6 )
+            if( this.pool_checkbox.checked 
+             && this.pool_checkbox.disabled
+             && this.edge_checkbox.checked
+             && this.edge_checkbox.disabled
+             && this.effort_checkbox.checked
+             && this.effort_checkbox.disabled
+             && this.skillTypeSelector.disabled
+             && this.tier < 6 )
             {
                 return true;
             }
