@@ -48,7 +48,7 @@ define({
         },
         {
             "roll" : 36,
-            "description" : "Ⓔ Adhesion pads ⓐ",
+            "description" : "Ⓔ Adhesion pads ⓐ"
         },
         {
             "roll" : 39,
