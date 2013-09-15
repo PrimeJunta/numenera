@@ -5,15 +5,21 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "dojo/topic",
+         "./data/mutations",
          "dijit/_WidgetBase",
          "../_util" ],
 function( declare,
           lang,
           topic,
+          mutations,
           _WidgetBase,
           _util )
 {
     return declare([ _WidgetBase, _util ], {
+        /**
+         * Pointer to creator widget.
+         */
+        manager : {},
         /**
          * Type, e.g. "beneficial", "harmful", "distinctive", or "powerful."
          */
@@ -72,6 +78,10 @@ function( declare,
             {
                 this.domNode.style.display = "none";
             }
+            if( this.inputNode.disabled )
+            {
+                this.randomizeButton.domNode.style.display = "none";
+            }
             this.dataChanged();
         },
         /**
@@ -87,6 +97,48 @@ function( declare,
             this._lock( this.recoveryAdjustmentNode );
             this._lock( this.abilityTypeSelect );
             this.checkState();
+        },
+        randomizeMutation : function()
+        {
+            var n = Math.floor( Math.random() * 100 ) + 1;
+            var itms = mutations[ this.type ];
+            var mutation;
+            for( var i = 0; i < itms.length; i++ )
+            {
+                if( itms[ i ].roll >= n )
+                {
+                    mutation = itms[ i ];
+                    break;
+                }
+            }
+            this.setMutation( mutation );
+        },
+        setMutation : function( mutation )
+        {
+            var pf = mutation.description.substring( 0, mutation.description.indexOf( " " ) );
+            var txt = mutation.description.substring( mutation.description.indexOf( " " ) + 1 );
+            this.setPrefix( pf );
+            this.setBonuses( mutation );
+            this.inputNode.value = txt;
+            this.checkState();
+        },
+        setPrefix : function( pf )
+        {
+            if( this.abilityTypeSelect )
+            {
+                for( var i = 0; i < this.abilityTypeSelect.options.length; i++ )
+                {
+                    if( this.abilityTypeSelect.options[ i ].value == pf )
+                    {
+                        this.abilityTypeSelect.options[ i ].selected = true;
+                        return;
+                    }
+                }
+            }
+        },
+        setBonuses : function( mutation )
+        {
+            
         },
         /**
          * Removes all listeners plus inherited.

@@ -39,6 +39,10 @@ function( declare,
          */
         INABILITY_STR : "Ⓘ",
         /**
+         * Prefix of Mutations.
+         */
+        MUTATION_STR : "Ⓜ",
+        /**
          * String denoting a null item on a select.
          */
         CHOOSE_STR : "-- choose --",
@@ -470,7 +474,7 @@ function( declare,
             while( _sl.length > 0 )
             {
                 var cur = _sl.shift();
-                if( !this._isSkill( cur ) && !this._isInability( cur ) )
+                if( !this._isSkill( cur ) && !this._isInability( cur ) && !this._isMutation( cur ) )
                 {
                     out.push( cur );
                 }
@@ -534,6 +538,17 @@ function( declare,
         _isInability : function( /* String */ item )
         {
             if( item.indexOf( this.INABILITY_STR ) != -1 )
+            {
+                return true;
+            }
+            return false;
+        },
+        /**
+         * Checks if item contains the INABILITY_STRING, and returns the result.
+         */
+        _isMutation : function( /* String */ item )
+        {
+            if( item.indexOf( this.MUTATION_STR ) != -1 )
             {
                 return true;
             }
