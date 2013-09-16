@@ -296,7 +296,8 @@ function( declare,
                 + "&description_text=" + encodeURIComponent( this.description_text.value )
                 + "&img=" + encodeURIComponent( this.portraitWidget.getHref() )
                 + "&disabled=" + disb.join( "" )
-                + "&deleted=" + dels.join( "" );
+                + "&deleted=" + dels.join( "" )
+                + this.getOptionalData();
         },
         /**
          * Validates qString wtih _validateData. Then pushes something into the _populating stack, clearAll, parse out the
@@ -329,6 +330,7 @@ function( declare,
             this._selVal( this.focusSelect, kwObj.focus );
             this.selectDescriptor();
             this._augmentCypherList( kwObj.cyphers );
+            this.populateOptionalData( kwObj );
             if( kwObj.finalized == "true" )
             {
                 this.finalize( kwObj.tier );

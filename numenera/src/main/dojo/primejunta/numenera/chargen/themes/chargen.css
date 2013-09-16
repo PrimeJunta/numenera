@@ -318,6 +318,10 @@ input[readonly].cg-statInput
 {
 	color : #A3A300;
 }
+.cg-cust
+{
+	color : salmon;
+}
 .cg-type:disabled, .cg-desc:disabled, .cg-focus:disabled
 {
 	opacity : 0.8;

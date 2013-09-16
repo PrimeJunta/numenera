@@ -70,6 +70,10 @@ function( declare,
             {
                 this._controls = [];
             }
+            if( !this._lists[ listName ] )
+            {
+                this._lists[ listName ] = [];
+            }
             var itm =  new _ListItem({
                 manager : this,
                 content : itemText,
@@ -80,6 +84,16 @@ function( declare,
             }).placeAt( this[ listName ] );
             this._lists[ listName ].push( itm );
             this._controls.push( itm );
+            return itm;
+        },
+        updateCypherList : function()
+        {
+            var n = parseInt( this.cypher_count.value );
+            while( this._lists.cypher_list.length > n )
+            {
+                this._lists.cypher_list.pop().destroy();
+            }
+            this._augmentCypherList( n );
         },
         /**
          * Special case: a starting character gets two special abilities, so we read the first-tier perk list

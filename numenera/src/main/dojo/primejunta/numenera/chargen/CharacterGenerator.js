@@ -324,6 +324,7 @@ function( declare,
             this.checkCaps();
             this._printLists();
             this._populating.pop();
+            topic.publish( "CharGen/valuesUpdated" );
             this.updateLink();
         },
         /**
@@ -631,6 +632,7 @@ function( declare,
          */
         _clear : function()
         {
+            this.inherited( arguments );
             for( var o in this._lists )
             {
                 this[ o + "_label" ].style.display = "none";

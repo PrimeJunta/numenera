@@ -1,18 +1,5 @@
 <div class="cg-characterGenerator" style="display: none;">
   <!--  Main buttons, floating -->
-  <div class="cg-characterGeneratorContent"
-    data-dojo-attach-point="mainButtonsNode" style="visibility: hidden">
-    <div class="cg-mainButtonsNode " style="z-index: 99999">
-      <button data-dojo-attach-point="printButton"
-        data-dojo-type="dijit/form/Button"
-        data-dojo-attach-event="onClick:makePrint" class=""
-        disabled="true"><i class="icon-print"></i></button>
-      <button data-dojo-attach-point="saveButton"
-        data-dojo-type="dijit/form/Button"
-        data-dojo-attach-event="onClick:storeCharacter"
-        disabled="true"><i class="icon-save"></i></button>
-    </div>
-  </div>
   <div data-dojo-attach-point="characterGeneratorPane"
     data-dojo-type="dijit/layout/BorderContainer"
     data-dojo-props="gutters:false"
@@ -391,6 +378,20 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="cg-characterGeneratorContent"
+    data-dojo-attach-point="mainButtonsNode" style="visibility: hidden">
+    <div class="cg-mainButtonsNode" >
+      <button data-dojo-attach-point="printButton"
+        data-dojo-type="dijit/form/Button"
+        data-dojo-attach-event="onClick:makePrint" class=""
+        disabled="true"><i class="icon-print"></i></button>
+      <button data-dojo-attach-point="saveButton"
+        data-dojo-type="dijit/form/Button"
+        data-dojo-attach-event="onClick:storeCharacter"
+        disabled="true"><i class="icon-save"></i></button>
+      <span data-dojo-attach-point="customizeButtonNode"></span>
     </div>
   </div>
 </div>
