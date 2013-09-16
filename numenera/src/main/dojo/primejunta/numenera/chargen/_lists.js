@@ -72,6 +72,7 @@ function( declare,
             }
             if( !this._lists[ listName ] )
             {
+                this[ listName + "_label" ].style.display = "block";
                 this._lists[ listName ] = [];
             }
             var itm =  new _ListItem({
