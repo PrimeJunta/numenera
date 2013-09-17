@@ -5,12 +5,14 @@ define([ "dojo/_base/declare",
          "dojo/topic",
          "dojo/on",
          "dojo/query",
+         "../../_util",
          "./_AlternativePerkSelector",
          "./data/advancement",
          "dijit/registry",
          "dijit/form/Button",
          "dijit/form/TextBox",
          "dijit/form/CheckBox",
+         "dijit/form/Select",
          "dijit/Dialog",
          "dojo/text!./templates/dialogContent.html"],
 function( declare,
@@ -20,16 +22,18 @@ function( declare,
           topic,
           on,
           domQuery,
+          _util,
           _AlternativePerkSelector,
           advancement,
           registry,
           Button,
           TextBox,
           CheckBox,
+          Select,
           Dialog,
           dialogContent )
 {
-    return declare([ Button ], {
+    return declare([ Button, _util ], {
         label : "<i class=\"icon-gears\"></i>",
         _customizations : {
             pool : false,
@@ -86,14 +90,7 @@ function( declare,
         applyChanges : function()
         {
             var custs = this._toCustomizations( this._dlog.get( "value" ).customizations );
-            try
-            {
-                this.applyCustomizations( custs, this._getAbilityToSwap(), this._getWeaknessToSwap() );
-            }
-            catch( e )
-            {
-                console.log( "ERROR", e );
-            }
+            this.applyCustomizations( custs, this._getAbilityToSwap(), this._getWeaknessToSwap() );
             this._dlog.hide();
         },
         _toCustomizations : function( formData )
@@ -209,18 +206,6 @@ function( declare,
         {
             /* pool, edge, skill_for_cypher, cypher_for_skill, ability_for_skill, inability_for_skill, customize_focus */
             var found = false;
-            for( var o in this._customizations )
-            {
-                if( this._customizations[ o ] )
-                {
-                    found = true;
-                    break;
-                }
-            }
-            if( !found )
-            {
-                return "";
-            }
             var out = "&cust=";
             out += this._customizations.pool ? "1" : "0";
             out += this._customizations.edge ? "1" : "0";
@@ -232,6 +217,14 @@ function( declare,
             out += this._customizations.customize_focus ? "1" : "0";
             out += this._getAbilityToSwap();
             out += this._swappedStat ? this._swappedStat.charAt( 0 ) : "m";
+            if( this.manager._advancementControl )
+            {
+                // loop through tier widgets, read their "customized" status
+                for( var i = 0; i < this.manager._advancementControl._controls.length; i++ )
+                {
+                    out += this.manager._advancementControl._controls[ i ].customize ? "1" : "0"; 
+                }
+            }
             return out;
         },
         populateFromData : function( data )
@@ -258,7 +251,16 @@ function( declare,
                     stat = stat == "m" ? "might" : stat == "s" ? "speed" : stat == "i" ? "intellect" : false;
                     this._swappedStat = stat;
                 }
-                this.applyCustomizations( _customizations, abi, stat )
+                this.applyCustomizations( _customizations, abi, stat );
+                if( this.manager._advancementControl )
+                {
+                    // loop through tier widgets, set their "customized" status
+                    for( var i = 0; i < this.manager._advancementControl._controls.length; i++ )
+                    {
+                        this.manager._advancementControl._controls[ i ].customize = data.charAt( 10 + i ) == "1" ? true : false; 
+                        this.manager._advancementControl._controls[ i ].checkState();
+                    }
+                }
             }
         },
         clear : function()
@@ -339,10 +341,9 @@ function( declare,
                         this._swappedStat = stat;
                         break;
                     case "customize_focus" :
-                        this._toggleDeletedAbilities( "ability_list", "focus" );
-                        this._toggleDeletedAbilities( "special_list", "focus" );
-                        this._toggleDeletedAbilities( "bonus_list", "focus" );
-                        this._toggleDeletedAbilities( "inability_list", "focus" );
+                        this._toggleDeletedAbilities( this.manager._lists.ability_list, "focus" );
+                        this._toggleDeletedAbilities( this.manager._lists.special_list, "focus" );
+                        this._toggleDeletedAbilities( this.manager._lists.bonus_list, "focus" );
                         this._perkSelector = new _AlternativePerkSelector({
                             manager : this.manager,
                             from : "cust",
@@ -399,36 +400,12 @@ function( declare,
                         this._swappedStat = false;
                         break;
                     case "customize_focus" :
-                        this._toggleDeletedAbilities( "ability_list", "focus" );
-                        this._toggleDeletedAbilities( "special_list", "focus" );
-                        this._toggleDeletedAbilities( "bonus_list", "focus" );
+                        this._toggleDeletedAbilities( this.manager._lists.ability_list, "focus" );
+                        this._toggleDeletedAbilities( this.manager._lists.special_list, "focus" );
+                        this._toggleDeletedAbilities( this.manager._lists.bonus_list, "focus" );
                         this.manager._augment( this.manager.getFocus().advancement[ 0 ].stats );
                         this._perkSelector.destroy();
                         break;
-                }
-            }
-        },
-        _invert : function( stats )
-        {
-            if( !stats )
-            {
-                return;
-            }
-            var out = {};
-            for( var o in stats )
-            {
-                out[ o ] = -stats[ o ];
-            }
-            return out;
-        },
-        _toggleDeletedAbilities : function( list, from )
-        {
-            for( var i = 0; i < this.manager._lists[ list ].length; i++ )
-            {
-                var cur = this.manager._lists[ list ][ i ];
-                if( cur.from == from )
-                {
-                    cur.deleteMe();
                 }
             }
         },

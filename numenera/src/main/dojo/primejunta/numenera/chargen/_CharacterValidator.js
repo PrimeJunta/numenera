@@ -189,7 +189,14 @@ function( declare,
             {
                 if( !silent )
                 {
-                    this.manager.tell( errs.join( "<br/><br/>" ) );
+                    if( errs.length == 1 && errs[ 0 ] == "Please assign all of your character points." && this.manager.mainTabContainer.selectedChildWidget != this.manager.statsPane )
+                    {
+                        this.manager.mainTabContainer.selectChild( this.manager.statsPane );
+                    }
+                    else
+                    {
+                        this.manager.tell( errs.join( "<br/><br/>" ) );
+                    }
                 }
                 return false;
             }
@@ -366,9 +373,10 @@ function( declare,
             // Bonuses from special abilities.
             for( var o in feats.attack_adjustments )
             {
-                if( this._has( o ) )
+                var count = this._has( o );
+                if( count > 0 )
                 {
-                    boosts = lang.mixin( boosts, feats.attack_adjustments[ o ] )
+                    boosts = this._merge( boosts, feats.attack_adjustments[ o ], 2 );
                 }
             }
             // training
@@ -405,6 +413,22 @@ function( declare,
                 // type
                 cur.difficulty_adjustment -= boosts[ cur.category + "_" + cur.type ];
             }
+        },
+        _merge : function( into, from, times )
+        {
+            times = times ? times : 1;
+            for( var o in from )
+            {
+                if( into[ o ] )
+                {
+                    into[ o ] += from[ o ] * times;
+                }
+                else
+                {
+                    into[ o ] = from[ o ] * times;
+                }
+            }
+            return into;
         },
         /**
          * We're going through our list of Enablers to find any that affect armor properties -- the armor value itself or
@@ -630,14 +654,15 @@ function( declare,
         _has : function( /* String */ feat )
         {
             var sl = this._cdata.special_list;
-            if( array.indexOf( sl, feat ) != -1 )
+            var count = 0;
+            for( var i = 0; i < sl.length; i++ )
             {
-                return true;
+                if( sl[ i ] == feat )
+                {
+                    count++;
+                }
             }
-            else
-            {
-                return false;
-            }
+            return count;
         },
         /**
          * Copies srcList to property matching to, ignoring any items in IGNORE_ITEMS.

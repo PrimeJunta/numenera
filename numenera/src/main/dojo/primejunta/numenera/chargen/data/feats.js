@@ -20,6 +20,9 @@ define({
         },
         "Ⓔ Practiced With Light Weapons" : {
             "light" : 1
+        },
+        "Ⓔ Bringing the Pain" : {
+            "damage_bonus" : 1
         }
     },
     "armor_adjustments" : {
@@ -43,6 +46,15 @@ define({
         },
         "Ⓔ Mastery With Armor" : {
             "armor_penalty_adjustment" : -999
+        },
+        "Ⓔ Fusion Armor" : {
+            "armor_adjustment" : 1
+        },
+        "Ⓔ Defensive Field" : {
+            "armor_adjustment" : 2
+        },
+        "Ⓔ Reactive Field" : {
+            "armor_adjustment" : 2
         }
     }
 });

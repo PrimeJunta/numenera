@@ -1,28 +1,48 @@
 <tr class="cg-tierRow">
-  <td class="cg-tierTitleCell" style="text-align:center">
+  <td class="cg-tierTitleCell" style="text-align: center">
     <h3 class="cg-tierTitle">Tier ${tier}</h3>
   </td>
   <td class="cg-tierContent">
     <div data-dojo-attach-point="freeBenefitsNode">
-      <h3 style="display:none;" data-dojo-attach-point="tierPerkTitleNode">${specialAbilityName}</h3>
+      <h3 style="display: none;"
+        data-dojo-attach-point="tierPerkTitleNode">${specialAbilityName}</h3>
       <ul data-dojo-attach-point="characterTierAbility">
       </ul>
     </div>
-    <h3 style="display:none;" data-dojo-attach-point="bonusPerksTitleNode">Other Benefits</h3>
+    <h3 style="display: none;"
+      data-dojo-attach-point="bonusPerksTitleNode">
+      Other Benefits
+      <button style="display: none" data-dojo-type="dijit/form/Button"
+        data-dojo-attach-point="customizeFocusButton"
+        data-dojo-attach-event="onClick:customizeFocus"
+        class="cg-smallButton">
+        <i class="icon-cogs"></i>
+      </button>
+    </h3>
     <ul data-dojo-attach-point="bonusPerksNode"></ul>
-    <div data-dojo-attach-point="purchasedBenefitsNode" style="display:none">
+    <div data-dojo-attach-point="purchasedBenefitsNode"
+      style="display: none">
       <h3>Purchased Benefits</h3>
       <ul>
         <li>
-          <div style="vertical-align:bottom;">
-            Raise: <label><input class="cg-storeMe" type="checkbox" data-dojo-attach-point="pool_checkbox" data-dojo-attach-event="onChange:checkApplyButton"/> Pools</label>
-            <label><input class="cg-storeMe" type="checkbox" data-dojo-attach-point="edge_checkbox" data-dojo-attach-event="onChange:checkApplyButton"/> Edge</label>
-            <label><input class="cg-storeMe" type="checkbox" data-dojo-attach-point="effort_checkbox" data-dojo-attach-event="onChange:checkApplyButton"/> Effort</label>
+          <div style="vertical-align: bottom;">
+            Raise: <label><input class="cg-storeMe"
+              type="checkbox" data-dojo-attach-point="pool_checkbox"
+              data-dojo-attach-event="onChange:checkApplyButton" />
+              Pools</label> <label><input class="cg-storeMe"
+              type="checkbox" data-dojo-attach-point="edge_checkbox"
+              data-dojo-attach-event="onChange:checkApplyButton" /> Edge</label>
+            <label><input class="cg-storeMe" type="checkbox"
+              data-dojo-attach-point="effort_checkbox"
+              data-dojo-attach-event="onChange:checkApplyButton" />
+              Effort</label>
           </div>
         </li>
         <li>
           <div>
-            <select class="cg-storeMe" data-dojo-attach-point="skillTypeSelector" data-dojo-attach-event="onChange:checkSkillType">
+            <select class="cg-storeMe"
+              data-dojo-attach-point="skillTypeSelector"
+              data-dojo-attach-event="onChange:checkSkillType">
               <option>-- choose --</option>
               <option>Skill</option>
               <option>Reduce Armor Cost</option>
@@ -31,31 +51,37 @@
             </select>
           </div>
         </li>
-        <li data-dojo-attach-point="inputNodeContainer" style="display:none;">
+        <li data-dojo-attach-point="inputNodeContainer"
+          style="display: none;">
           <div>
             <table>
               <tbody>
                 <tr>
                   <td class="cg-baseTextNode">Ⓣ</td>
-                  <td>
-                    <input type="text" class="cg-storeMe cg-itemInput cg-valueNotSet" data-dojo-attach-point="inputNode" value="${inputValue}" data-dojo-attach-event="onFocus:onFocusinputNode,onBlur:onBlurinputNode"/>
+                  <td><input type="text"
+                    class="cg-storeMe cg-itemInput cg-valueNotSet"
+                    data-dojo-attach-point="inputNode"
+                    value="${inputValue}"
+                    data-dojo-attach-event="onFocus:onFocusinputNode,onBlur:onBlurinputNode" />
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
         </li>
-        <li data-dojo-attach-point="perkSelectorContainer" style="display:none;">
+        <li data-dojo-attach-point="perkSelectorContainer"
+          style="display: none;">
           <div>
             <table cellspacing="0" cellpadding="0">
               <tr>
-                <td>
-                  <select class="cg-storeMe" data-dojo-attach-point="perkSelector" data-dojo-attach-event="onChange:checkApplyButton">
+                <td><select class="cg-storeMe"
+                  data-dojo-attach-point="perkSelector"
+                  data-dojo-attach-event="onChange:checkApplyButton">
                     <option>-- choose --</option>
-                  </select>
-                </td>
+                </select></td>
                 <td>
-                  <div data-dojo-attach-point="unlockControlNode" style="display:none"></div>
+                  <div data-dojo-attach-point="unlockControlNode"
+                    style="display: none"></div>
                 </td>
               </tr>
             </table>
@@ -63,9 +89,13 @@
         </li>
       </ul>
     </div>
-    
+
   </td>
   <td class="cg-smallCell">
-    <button data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:applyAdvancement" data-dojo-attach-point="applyButton"><i class="icon-ok-circle cg-greenButton"></i> Apply</button>
+    <button data-dojo-type="dijit/form/Button"
+      data-dojo-attach-event="onClick:applyAdvancement"
+      data-dojo-attach-point="applyButton">
+      <i class="icon-ok-circle cg-greenButton"></i> Apply
+    </button>
   </td>
 </tr>

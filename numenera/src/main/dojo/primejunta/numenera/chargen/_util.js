@@ -122,6 +122,30 @@ function( declare,
                 }
             }
         },
+        _invert : function( stats )
+        {
+            if( !stats )
+            {
+                return;
+            }
+            var out = {};
+            for( var o in stats )
+            {
+                out[ o ] = -stats[ o ];
+            }
+            return out;
+        },
+        _toggleDeletedAbilities : function( list, from )
+        {
+            for( var i = 0; i < list.length; i++ )
+            {
+                var cur = list[ i ];
+                if( cur.from == from )
+                {
+                    cur.deleteMe();
+                }
+            }
+        },
         /**
          * Sanitizes str before injection as innerHTML, to block script injection attacks.
          */

@@ -11,6 +11,8 @@ define([ "dojo/_base/declare",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
          "dijit/form/Button",
+         "dijit/form/ToggleButton",
+         "primejunta/numenera/chargen/optional/customize/_focus",
          "./_CharacterValidator",
          "./_ListItem",
          "./_util",
@@ -26,13 +28,15 @@ function( declare,
           _TemplatedMixin,
           _WidgetsInTemplateMixin,
           Button,
+          ToggleButton,
+          _focus,
           _CharacterValidator,
           _ListItem,
           _util,
           _unlockable,
           template )
 {
-    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _util, _unlockable ], {
+    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _focus, _util, _unlockable ], {
         /**
          * Default skill name for that perk, if selected.
          */
@@ -93,6 +97,7 @@ function( declare,
             this.initializeUnlockControls();
             this.populatePerkSelector( this.typeData, this.tier, this.perkSelector );
             this.initBonusPerks();
+            this.checkState();
         },
         /**
          * If tier > 1, show the automatic tier perks and add content to them from typeData and focusData.
@@ -109,7 +114,8 @@ function( declare,
                 content : "${select:1:@perkSelector}",
                 isUnlockable : true,
                 from : "type",
-                selectedIndex : 0
+                selectedIndex : 0,
+                dataChanged : lang.hitch( this, this.checkApplyButton )
             }).placeAt( this.characterTierAbility ) );
             if( this._typeData.bonus_perks )
             {
@@ -152,7 +158,13 @@ function( declare,
             if( !this._tierChoicesMade() )
             {
                 this.purchasedBenefitsNode.style.display = "none";
+                this.customizeFocusButton.domNode.style.display = "inline-block";
             }
+            else
+            {
+                this.customizeFocusButton.domNode.style.display = "none";
+            }
+            this.inherited( arguments );
         },
         checkApplyButton : function()
         {
@@ -270,7 +282,7 @@ function( declare,
             this._applyCheckbox( this.effort_checkbox, "character_effort", 1 );
             topic.publish( "CharGen/lockSheetControls" );
             this.manager.unlockFinalize();
-            this.checkApplyButton();
+            this.checkState();
             if( cbs > 0 )
             {
                 this.manager.mainTabContainer.selectChild( this.manager.statsPane );

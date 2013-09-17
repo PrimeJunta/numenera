@@ -4,7 +4,6 @@
 /* Import those Dijit themes we're actually using, and character record. */
 @import url( '../../../../dijit/themes/tundra/tundra.css' );
 @import url( 'charrec.css' );
-@import url( '../../../../font-awesome/css/font-awesome.css' );
 /* Fonts - these are originally from Google Web Fonts, and are used with permission [ https://developers.google.com/fonts/faq#Download_Fonts ]. */
 @font-face {
   font-family: 'Droid Sans';
@@ -422,21 +421,32 @@ td.cg-tierTitleCell
     border : 1px solid #ff6d44;
     color : white;
 }
+.cg-selectedButton .dijitButtonNode
+{
+	color : #66C2FF !important;
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0.00, #303030),
+        color-stop(1.00, #606060 )
+    ) !important;
+    background-image : -webkit-linear-gradient(to bottom, #303030 0%, #606060 100%) !important;
+    background-image : linear-gradient(to bottom, #303030 0%, #606060 100%) !important;
+    border : 1px solid #484848 !important;
+}
 .cg-blueButton .dijitButtonDisabled .dijitButtonNode
 {
     background-image : -webkit-linear-gradient(to bottom, #FFFFFF 0%, #335C99 100%);
     background-image : linear-gradient(to bottom, #FFFFFF 0%, #335C99 100%);
 }
-.cg-roundButton .dijitButtonNode
-{
-    border-radius : 14px;
-    font-size : 16px;
-    height : 20px;
-    width : 20px;
-}
 .cg-greenButton
 {
     color : #345C8C;
+}
+.cg-smallButton .dijitButtonNode
+{
+	width : 30px;
 }
 /* delete item button */
 .cg-hiddenControl 

@@ -38,6 +38,7 @@ function( declare,
             if( sel == "Ⓔ Self-Improvement" )
             {
                 this.manager._augment({ free_pool : 6 });
+                this.manager.checkCaps();
             }
             this.checkState();
             this._selection = sel;
@@ -73,13 +74,25 @@ function( declare,
             if( selection == "Ⓔ Self-Improvement" )
             {
                 this.manager._augment({ free_pool : -6 });
+                this.manager.checkCaps();
             }
             this.checkState();
             return;
         },
         getText : function()
         {
-            return "";
+            if( this._destroyed )
+            {
+                return "";
+            }
+            else if( this._selVal( this.selectNode ).value == "Ⓔ More Training")
+            {
+                return( "Ⓣ " + this.inputNode.value );
+            }
+            else
+            {
+                return this._selVal( this.selectNode ).value;
+            }
         }
     });
 });

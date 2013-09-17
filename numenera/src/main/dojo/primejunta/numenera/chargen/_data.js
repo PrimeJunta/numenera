@@ -330,11 +330,11 @@ function( declare,
             this._selVal( this.focusSelect, kwObj.focus );
             this.selectDescriptor();
             this._augmentCypherList( kwObj.cyphers );
-            this.populateOptionalData( kwObj );
             if( kwObj.finalized == "true" )
             {
                 this.finalize( kwObj.tier );
             }
+            this.populateOptionalData( kwObj );
             var sels = domQuery( "select.cg-storeMe", this.domNode );
             var inps = domQuery( "input.cg-storeMe", this.domNode );
             for( var i = 0; i < idxs.length; i++ )
