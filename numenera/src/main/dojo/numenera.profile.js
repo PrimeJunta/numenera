@@ -7,6 +7,7 @@ var profile = {
     ],
     basePath : ".",
     action : "release",
+    cssOptimize : "comments",
     mini : true,
     optimize : "closure",
     layerOptimize : "closure",

@@ -145,7 +145,7 @@ function( declare,
                 errs.push( "Please choose all your skills." );
             }
             // Look for duplicate perks.
-            var _plist = [ "Ⓔ Reduce Armor Cost", "Ⓔ Recovery Roll +2", this.CHOOSE_STR ];
+            var _plist = exceptions.stacking_abilities;
             for( var i = 1; i < _sl.length; i++ )
             {
                 if( _sl[ i ] == _sl[ i - 1 ] && array.indexOf( _plist, _sl[ i ] ) == -1 )
@@ -226,8 +226,11 @@ function( declare,
         {
             this._cdata.armor_value_none = parseInt( this._gf( "armor_bonus" ) );
             this._cdata.might_pool += this._collectAdjustments( "might-pool" );
-            this._cdata.speed_pool += this._collectAdjustments( "speed-pool" );
+            this._cdata.might_edge -= this._collectWeaknesses( "might" );
+            this._cdata.speed_pool += this._collectAdjustments( "speed-pool" ); 
+            this._cdata.speed_edge -= this._collectWeaknesses( "speed" );
             this._cdata.intellect_pool += this._collectAdjustments( "intellect-pool" );
+            this._cdata.intellect_edge -=  this._collectWeaknesses( "intellect" );
             this._cdata.armor_value_none += this._collectAdjustments( "armor" );
             this._cdata.recovery_roll += this._collectAdjustments( "recovery" );
         },
@@ -246,6 +249,18 @@ function( declare,
                 }
             }
             return adj;
+        },
+        _collectWeaknesses : function( stat )
+        {
+            var _il = this._cdata.inability_list;
+            if( array.indexOf( _il, "Ⓘ Weakness in " + stat ) != -1 )
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
         },
         /**
          * We're parsing out weapons from equipment_list by keywords - Light, Medium, Heavy, Bashing, Bladed, Ranged.

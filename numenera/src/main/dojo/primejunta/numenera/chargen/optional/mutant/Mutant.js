@@ -98,7 +98,7 @@ function( declare,
                 case "powerful" :
                     return new _PowerfulMutationControl({ manager : this.manager });
                 case "distinctive" :
-                    return new _DistinctiveMutationControl({ manager : this.manager });
+                    return new _DistinctiveMutationControl({ manager : this.manager, parent : this });
             }
         },
         _clearMutations : function()

@@ -1,10 +1,12 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
+         "dojo/dom-construct",
          "dojo/dom-class",
          "dojo/dom-style",
          "dojo/topic" ],
 function( declare,
           lang,
+          domConstruct,
           domClass,
           domStyle,
           topic )
@@ -99,6 +101,26 @@ function( declare,
                 inputNode = this.inputNode;
             }
             topic.publish( "CharGen/dataChanged", inputNode );
+        },
+        /**
+         * Iteratest through advancement up to tier, and creates options in selectNode from perk_lists in it.
+         */
+        populatePerkSelector : function( /* Object[] */ advancement, /* int */ tier, /* Element */ selectNode )
+        {
+            var tNode = selectNode;
+            for( var i = tier; i > 0; i-- )
+            {
+                var opts = advancement[ i - 1 ].perk_list.split( "|" );
+                var lbl =  "Tier " + i;
+                if( tier > 1 )
+                {
+                    tNode = domConstruct.create( "optgroup", { label : lbl }, selectNode );
+                }
+                for( var o = 0; o < opts.length; o++ )
+                {
+                    domConstruct.create( "option", { innerHTML : opts[ o ] }, tNode );
+                }
+            }
         },
         /**
          * Sanitizes str before injection as innerHTML, to block script injection attacks.

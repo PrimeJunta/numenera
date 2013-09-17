@@ -1,0 +1,15 @@
+<div>
+  <select data-dojo-attach-point="selectNode" class="cg-storeMe" data-dojo-attach-event="onChange:selectionMade">
+      <option>-- choose --</option>
+  </select>
+  <table data-dojo-attach-point="inputWrapper" style="display:none">
+    <tr>
+      <td width="5">
+        Ⓣ
+      </td>
+      <td>
+        <input data-dojo-attach-point="inputNode" class="cg-storeMe cg-itemInput cg-valueNotSet" value="${inputValue}" data-dojo-attach-event="onKeyDown:normalizeClass,onClick:selectContent,onFocus:selectContent,onChange:dataChanged,onBlur:onBlurInput"/>
+      </td>
+    </tr>
+  </table>
+</div>

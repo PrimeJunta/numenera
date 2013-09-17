@@ -91,16 +91,7 @@ function( declare,
         postCreate : function()
         {
             this.initializeUnlockControls();
-            for( var i = this.tier; i > 0; i-- )
-            {
-                var opts = this.typeData[ i - 1 ].perk_list.split( "|" );
-                var lbl =  "Tier " + i;
-                var grp = domConstruct.create( "optgroup", { label : lbl }, this.perkSelector );
-                for( var o = 0; o < opts.length; o++ )
-                {
-                    domConstruct.create( "option", { innerHTML : opts[ o ] }, grp );
-                }
-            }
+            this.populatePerkSelector( this.typeData, this.tier, this.perkSelector );
             this.initBonusPerks();
         },
         /**

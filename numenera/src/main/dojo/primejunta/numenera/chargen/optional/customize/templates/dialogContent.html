@@ -32,16 +32,16 @@
     </label>
     <div>
       <select data-dojo-type="dijit/form/Select" id="nanoAbility" name="nanoAbility" style="display:none">
-        <option value="cs">Ⓣ Identifying/Understanding the Numenera</option>
-        <option value="wt">Ⓔ Practiced With Light Weapons</option>
+        <option value="c">Ⓣ Identifying/Understanding the Numenera</option>
+        <option value="w">Ⓔ Practiced With Light Weapons</option>
       </select>
       <select data-dojo-type="dijit/form/Select" id="glaiveAbility" name="glaiveAbility" style="display:none">
-        <option value="cs">Ⓔ Practiced in Armor</option>
-        <option value="wt">Ⓔ Practiced With All Weapons</option>
+        <option value="c">Ⓔ Practiced in Armor</option>
+        <option value="w">Ⓔ Practiced With All Weapons</option>
       </select>
       <select data-dojo-type="dijit/form/Select" id="jackAbility" name="jackAbility" style="display:none">
-        <option value="cs">Ⓔ Flex Skill</option>
-        <option value="wt">Ⓔ Practiced With Light/Medium Weapons</option>
+        <option value="c">Ⓔ Flex Skill</option>
+        <option value="w">Ⓔ Practiced With Light/Medium Weapons</option>
       </select>
     </div>
   </p>
@@ -53,8 +53,19 @@
   </p>
   <p>
     <label>
-      <input data-dojo-type="dijit/form/CheckBox" type="checkbox" name="customizations" value="focus_customizations" checked="${focus_customizations}" data-dojo-props="onClick:function(){this.getParent().checkState()}"/>
-      Unlock focus customization
+      <input data-dojo-type="dijit/form/CheckBox" type="checkbox" name="customizations" value="weakness_for_skill" checked="${weakness_for_skill}" data-dojo-props="onClick:function(){this.getParent().checkState()}"/>
+      Weakness in <select data-dojo-type="dijit/form/Select" id="weaknessSelect" name="weaknessSelect">
+        <option value="might">might</option>
+        <option value="speed">speed</option>
+        <option value="intellect">intellect</option>
+      </select>,
+      get skill
+    </label>
+  </p>
+  <p>
+    <label>
+      <input data-dojo-type="dijit/form/CheckBox" type="checkbox" name="customizations" value="customize_focus" checked="${customize_focus}" data-dojo-props="onClick:function(){this.getParent().checkState()}"/>
+      Customize focus
     </label>
   </p>
   <p style="text-align:right">

@@ -5,6 +5,8 @@ define([ "dojo/_base/declare",
          "dojo/topic",
          "dojo/on",
          "dojo/query",
+         "./_AlternativePerkSelector",
+         "./data/advancement",
          "dijit/registry",
          "dijit/form/Button",
          "dijit/form/TextBox",
@@ -18,6 +20,8 @@ function( declare,
           topic,
           on,
           domQuery,
+          _AlternativePerkSelector,
+          advancement,
           registry,
           Button,
           TextBox,
@@ -34,7 +38,8 @@ function( declare,
             cypher_for_skill : false,
             ability_for_skill : false,
             inability_for_skill : false,
-            focus_customizations : false
+            weakness_for_skill : false,
+            customize_focus : false
         },
         _poolfloors : {},
         _pools : {},
@@ -50,32 +55,49 @@ function( declare,
                 this.domNode.style.display = "inline-block";
             }));
         },
+        postCreate : function()
+        {
+            this.inherited( arguments );
+            this._dlog = new Dialog({ title : "Customize character", style : "z-index:9999" }).placeAt( document.body );
+            this._dlog.applyChanges = lang.hitch( this, this.applyChanges );
+            this._dlog.showAbilitySelect = lang.hitch( this, this.showAbilitySelect );
+            this._dlog.checkState = lang.hitch( this, this.checkState );
+            this._dlog.set( "content", string.substitute( dialogContent, this._customizations ) );
+            this._dlog.startup();
+        },
         onClick : function()
         {
-            if( !this._dlog )
-            {
-                this._dlog = new Dialog({ title : "Customize character", style : "z-index:9999" }).placeAt( document.body );
-                this._dlog.applyChanges = lang.hitch( this, this.applyChanges );
-                this._dlog.showAbilitySelect = lang.hitch( this, this.showAbilitySelect );
-                this._dlog.checkState = lang.hitch( this, this.checkState );
-            }
             this._dlog.set( "content", string.substitute( dialogContent, this._customizations ) );
             var state = this._dlog.get( "value" );
-            if( array.indexOf( state.customizations, "ability_for_skill" ) != -1 )
+            if( this._customizations.ability_for_skill )
             {
                 this.showAbilitySelect( true, this._swappedAbility );
+            }
+            if( this._customizations.weakness_for_skill )
+            {
+                registry.byId( "weaknessSelect" ).set( "disabled", true );
+                if( this._swappedStat )
+                {
+                    registry.byId( "weaknessSelect" ).set( "value", this._swappedStat );
+                }
             }
             this._dlog.show();
         },
         applyChanges : function()
         {
             var custs = this._toCustomizations( this._dlog.get( "value" ).customizations );
-            this.applyCustomizations( custs, this._getAbilityToSwap() );
+            try
+            {
+                this.applyCustomizations( custs, this._getAbilityToSwap(), this._getWeaknessToSwap() );
+            }
+            catch( e )
+            {
+                console.log( "ERROR", e );
+            }
             this._dlog.hide();
         },
         _toCustomizations : function( formData )
         {
-            console.log( "TOC",formData );
             var out = {
                 pool : false,
                 edge : false,
@@ -83,7 +105,8 @@ function( declare,
                 cypher_for_skill : false,
                 ability_for_skill : false,
                 inability_for_skill : false,
-                focus_customizations : false
+                weakness_for_skill : false,
+                customize_focus : false
             };
             for( var o in out )
             {
@@ -92,44 +115,42 @@ function( declare,
                     out[ o ] = true;
                 }
             }
-            console.log( out );
             return out;
         },
-        applyCustomizations : function( custs, abi )
+        applyCustomizations : function( custs, abi, stat )
         {
-            console.log( "APPLY!", custs, abi );
-            try{ // TODO: remove this block
-                for( var o in this._customizations )
+            for( var o in this._customizations )
+            {
+                if( custs[ o ] )
                 {
-                    if( custs[ o ] )
+                    if( !this._customizations[ o ] )
                     {
-                        if( !this._customizations[ o ] )
-                        {
-                            this._setCustomization( o, true, abi );
-                        }
-                        this._customizations[ o ] = true;
+                        this._setCustomization( o, true, abi, stat );
                     }
-                    else
-                    {
-                        if( this._customizations[ o ] )
-                        {
-                            this._setCustomization( o, false, abi );
-                        }
-                        this._customizations[ o ] = false;
-                    }
+                    this._customizations[ o ] = true;
                 }
-                if( custs.ability_for_skill )
+                else
                 {
-                    if( this._swappedAbility != abi )
+                    if( this._customizations[ o ] )
                     {
-                        this._toggleSwapAbility( this.manager.getType().label, this._swappedAbility );
-                        this._swappedAbility = abi;
-                        this._toggleSwapAbility( this.manager.getType().label, this._swappedAbility );
+                        this._setCustomization( o, false, abi, stat );
                     }
+                    this._customizations[ o ] = false;
                 }
-                }catch(e){console.log( "?", e )}
-
-
+            }
+            if( custs.ability_for_skill )
+            {
+                if( this._swappedAbility != abi )
+                {
+                    this._toggleSwapAbility( this.manager.getType().label, this._swappedAbility );
+                    this._swappedAbility = abi;
+                    this._toggleSwapAbility( this.manager.getType().label, this._swappedAbility );
+                }
+            }
+            if( custs.weakness_for_skill )
+            {
+                this._swappedStat = stat;
+            }
         },
         checkState : function()
         {
@@ -140,7 +161,7 @@ function( declare,
             {
                 sel.options[ 0 ].disabled = true;
                 sel.startup();
-                sel.set( "value", "wt" );
+                sel.set( "value", "w" );
             }
             else
             {
@@ -186,7 +207,7 @@ function( declare,
         },
         getData : function()
         {
-            /* pool, edge, skill_for_cypher, cypher_for_skill, ability_for_skill, inability_for_skill, focus_customizations */
+            /* pool, edge, skill_for_cypher, cypher_for_skill, ability_for_skill, inability_for_skill, customize_focus */
             var found = false;
             for( var o in this._customizations )
             {
@@ -207,12 +228,10 @@ function( declare,
             out += this._customizations.cypher_for_skill ? "1" : "0";
             out += this._customizations.ability_for_skill ? "1" : "0";
             out += this._customizations.inability_for_skill ? "1" : "0";
-            out += this._customizations.focus_customizations ? "1" : "0";
-            out += "-";
-            if( this._customizations.ability_for_skill )
-            {
-                out += this._getAbilityToSwap();
-            }
+            out += this._customizations.weakness_for_skill ? "1" : "0";
+            out += this._customizations.customize_focus ? "1" : "0";
+            out += this._getAbilityToSwap();
+            out += this._swappedStat ? this._swappedStat.charAt( 0 ) : "m";
             return out;
         },
         populateFromData : function( data )
@@ -226,13 +245,20 @@ function( declare,
                     cypher_for_skill : data.charAt( 3 ) == "1",
                     ability_for_skill : data.charAt( 4 ) == "1",
                     inability_for_skill : data.charAt( 5 ) == "1",
-                    focus_customizations : data.charAt( 6 ) == "1"
+                    weakness_for_skill : data.charAt( 6 ) == "1",
+                    customize_focus : data.charAt( 7 ) == "1"
                 }
                 if( _customizations.ability_for_skill )
                 {
-                    var abi = data.substring( 8 );
+                    var abi = data.charAt( 8 );
                 }
-                this.applyCustomizations( _customizations, abi )
+                if( _customizations.weakness_for_skill )
+                {
+                    var stat = data.charAt( 9 );
+                    stat = stat == "m" ? "might" : stat == "s" ? "speed" : stat == "i" ? "intellect" : false;
+                    this._swappedStat = stat;
+                }
+                this.applyCustomizations( _customizations, abi, stat )
             }
         },
         clear : function()
@@ -242,7 +268,7 @@ function( declare,
                 this._customizations[ o ] = false;
             }
         },
-        _setCustomization : function( cust, state, abi )
+        _setCustomization : function( cust, state, abi, stat )
         {
             if( state )
             {
@@ -305,7 +331,27 @@ function( declare,
                         break;
                     case "inability_for_skill" :
                         this.manager.createListItem( "ability_list", "Ⓣ ${input:choose any non-combat}", "cust" );
-                        this.manager.createListItem( "inability_list", "Ⓘ ${input:enter description}", "cust" );
+                        this._inabilityWidget = this.manager.createListItem( "inability_list", "Ⓘ ${input:enter description}", "cust" );
+                        break;
+                    case "weakness_for_skill" :
+                        this.manager.createListItem( "ability_list", "Ⓣ ${input:choose any non-combat}", "cust" );
+                        this._weaknessWidget = this.manager.createListItem( "inability_list", "Ⓘ Weakness in " + stat, "cust" );
+                        this._swappedStat = stat;
+                        break;
+                    case "customize_focus" :
+                        this._toggleDeletedAbilities( "ability_list", "focus" );
+                        this._toggleDeletedAbilities( "special_list", "focus" );
+                        this._toggleDeletedAbilities( "bonus_list", "focus" );
+                        this._toggleDeletedAbilities( "inability_list", "focus" );
+                        this._perkSelector = new _AlternativePerkSelector({
+                            manager : this.manager,
+                            from : "cust",
+                            tier : 1,
+                            advancement : advancement
+                        }).placeAt( this.manager.bonus_list );
+                        this.manager._lists.bonus_list.push( this._perkSelector );
+                        this.manager._augment( this._invert( this.manager.getFocus().advancement[ 0 ].stats ) );
+                        break;
                 }
             }
             else
@@ -340,13 +386,49 @@ function( declare,
                         break;
                     case "ability_for_skill" :
                         var type = this.manager.getType().label;
-                        //var abi = this._getAbilityToSwap();
                         this._toggleSwapAbility( type, abi );
                         this.manager._lists.ability_list.pop().destroy();
                         break;
                     case "inability_for_skill" :
                         this.manager._lists.ability_list.pop().destroy();
-                        this.manager._lists.inability_list.pop().destroy();
+                        this._inabilityWidget.destroy(); // FIXME: remove also from manager lists
+                        break;
+                    case "weakness_for_skill" :
+                        this.manager._lists.ability_list.pop().destroy();
+                        this._weaknessWidget.destroy(); // FIXME: remove also from manager lists
+                        this._swappedStat = false;
+                        break;
+                    case "customize_focus" :
+                        this._toggleDeletedAbilities( "ability_list", "focus" );
+                        this._toggleDeletedAbilities( "special_list", "focus" );
+                        this._toggleDeletedAbilities( "bonus_list", "focus" );
+                        this.manager._augment( this.manager.getFocus().advancement[ 0 ].stats );
+                        this._perkSelector.destroy();
+                        break;
+                }
+            }
+        },
+        _invert : function( stats )
+        {
+            if( !stats )
+            {
+                return;
+            }
+            var out = {};
+            for( var o in stats )
+            {
+                out[ o ] = -stats[ o ];
+            }
+            return out;
+        },
+        _toggleDeletedAbilities : function( list, from )
+        {
+            for( var i = 0; i < this.manager._lists[ list ].length; i++ )
+            {
+                var cur = this.manager._lists[ list ][ i ];
+                if( cur.from == from )
+                {
+                    cur.deleteMe();
                 }
             }
         },
@@ -354,13 +436,17 @@ function( declare,
         {
             var type = this.manager.getType().label;
             var mySel = registry.byId( type + "Ability" );
-            return mySel ? mySel.get( "value" ) : false;
+            return mySel ? mySel.get( "value" ) : "c";
+        },
+        _getWeaknessToSwap : function()
+        {
+            return registry.byId( "weaknessSelect" ).get( "value" );
         },
         _toggleSwapAbility : function( type, abi )
         {
             if( type == "glaive" || type == "jack" )
             {
-                if( abi == "cs" )
+                if( abi == "c" )
                 {
                     this.manager._lists.bonus_list[ 0 ].deleteMe();
                 }
@@ -371,7 +457,7 @@ function( declare,
             }
             else
             {
-                if( abi == "cs" )
+                if( abi == "c" )
                 {
                     this.manager._lists.ability_list[ 0 ].deleteMe();
                 }

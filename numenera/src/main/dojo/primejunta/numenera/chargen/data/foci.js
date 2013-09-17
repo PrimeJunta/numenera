@@ -373,17 +373,18 @@ define({
         "label" : "Fuses Flesh and Steel",
         "notes_text" : "Fuses Flesh and Steel: Corebook, page 64",
         "description_text" : "Connection: One PC knows your nature or a command to temporarily disable your mechanical parts.",
-        "stats" : {
-            "might_pool" : 3,
-            "speed_pool" : 3,
-            "armor_bonus" : 1
-        },
         "lists" : {
             "equipment_list" : [ "Bag of Light Tools",
                                  "Spare parts (for self)" ],
             "inability_list" : [ "Ⓘ Special Healing (first 5 points need to be repaired)" ]
         },
         "advancement" : [{
+            "stats" : {
+                "might_pool" : 3,
+                "speed_pool" : 3,
+                "armor_bonus" : 1
+            },
+            "bonus_perks" : [ "Ⓔ Enhanced Body" ]
         },
         {
             "bonus_perks" : [ "Ⓔ Interface" ]
@@ -750,13 +751,13 @@ define({
         "label" : "Wields Power with Precision",
         "notes_text" : "Wields Power with Precision: Corebook, page 74",
         "description_text" : "Connection: One PC is immune to your esoteries, unless s/he allows them.",
-        "stats" : {
-            "intellect_pool" : 5
-        },
         "lists" : {
             "equipment_list" : [ "Book (numenera)" ]
         },
         "advancement" : [{
+            "stats" : {
+                "intellect_pool" : 5
+            },
             "bonus_perks" : [ "Ⓔ Genius" ]
         },
         {

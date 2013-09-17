@@ -315,7 +315,7 @@ function( declare,
             }
             if( focus )
             {
-                this._augment( focus.stats );
+                this._augment( focus.advancement[ 0 ].stats );
                 this._appendToLists( focus.lists, "focus" );
                 this._writeBonusList( focus );
                 this._appendToText( "description_text", focus.description_text );

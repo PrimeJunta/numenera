@@ -12,13 +12,12 @@ function( declare,
           template )
 {
     return declare([ _MutationControlBase, _TemplatedMixin, _WidgetsInTemplateMixin ], {
+        parent : {},
         type : "distinctive",
         templateString : template,
         setBonuses : function( mutation )
         {
-            var _bc = this.manager.getNextMutationControl( this );
-            try{
-                
+            var _bc = this.parent.getNextMutationControl( this );
             if( mutation.beneficial == 1 )
             {
                 _bc.randomizeMutation();
@@ -36,7 +35,6 @@ function( declare,
             {
                 _bc.domNode.style.display = "none";
             }
-            }catch(e){console.log(e)}
         }
     });
 });
