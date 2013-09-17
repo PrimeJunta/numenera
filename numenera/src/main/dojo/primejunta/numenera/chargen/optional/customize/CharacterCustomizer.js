@@ -62,7 +62,7 @@ function( declare,
         postCreate : function()
         {
             this.inherited( arguments );
-            this._dlog = new Dialog({ title : "Customize character", style : "z-index:9999" }).placeAt( document.body );
+            this._dlog = new Dialog({ title : "Customize character", style : "z-index:9999;width:600px;" }).placeAt( document.body );
             this._dlog.applyChanges = lang.hitch( this, this.applyChanges );
             this._dlog.showAbilitySelect = lang.hitch( this, this.showAbilitySelect );
             this._dlog.checkState = lang.hitch( this, this.checkState );
