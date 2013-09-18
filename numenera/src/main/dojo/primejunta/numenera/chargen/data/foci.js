@@ -641,7 +641,7 @@ define({
         },
         {
             "bonus_perks" : [ "Ⓔ Power Strike (3+ might)",
-                              "Ⓣ Speed Defense (when not wearing armor)" ]
+                              "Ⓔ Trained Without Armor" ]
         },
         {
             "bonus_perks" : [ "Ⓔ Greater Frenzy (4 intellect)" ]

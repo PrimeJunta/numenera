@@ -7,10 +7,11 @@ define({
             "shin_count" : 10
         },
         "lists" : {
+            "bonus_list" : [ "Ⓔ Personable" ],
             "ability_list" : [ "Ⓣ Pleasant Social Interaction",
                                "Ⓣ Mind-Affecting Esoteries/Special Abilities" ],
             "inability_list" : [ "Ⓘ Poor at Studying (Knowledge tasks +1 step)",
-                                 "Ⓘ Weak Will (Intellect Defense +1 step)" ]
+                                 "Ⓘ Weak Will (Resisting mental effects +1 step)" ]
         }
     },
     "D1" : {
@@ -21,8 +22,9 @@ define({
             "shin_count" : 10
         },
         "lists" : {
+            "bonus_list" : [ "Ⓔ Smart" ],
             "ability_list" : [ "Ⓣ Lies and trickery",
-                               "Ⓣ Intellect Defense",
+                               "Ⓣ Resisting mental effects",
                                "Ⓣ Assessing danger, lies, quality, importance, function, or power" ],
             "inability_list" : [ "Ⓘ Poor at Studying (Knowledge tasks +1 step)" ]
         }
@@ -34,8 +36,10 @@ define({
             "speed_pool" : 2
         },
         "lists" : {
+            "bonus_list" : [ "Ⓔ Agile" ],
             "ability_list" : [ "Ⓣ Balancing",
                                "Ⓣ Careful movement",
+                               "Ⓣ Physical performing arts",
                                "Ⓣ Speed Defense" ]
         }
     },
@@ -46,6 +50,7 @@ define({
             "intellect_pool" : 2
         },
         "lists" : {
+            "bonus_list" : [ "Ⓔ Smart" ],
             "ability_list" : [ "Ⓣ Knowledge area: ${input:choose}",
                                "Ⓣ Memory of direct experiences" ]
         }
@@ -79,10 +84,11 @@ define({
             "intellect_pool" : 2
         },
         "lists" : {
+            "bonus_list" : [ "Ⓔ Smart" ],
             "ability_list" : [ "Ⓣ Knowledge area: ${input:choose}",
                                "Ⓣ Knowledge area: ${input:choose}",
                                "Ⓣ Knowledge area: ${input:choose}" ],
-            "inability_list" : [ "Ⓘ Poor at charm, persuasion, etiquette (+1 step)" ],
+            "inability_list" : [ "Ⓘ No social graces (Charm, persuasion, etiquette +1 step)" ],
             "equipment_list" : [ "Book: ${input:choose topic}",
                                  "Book: ${input:choose topic}" ]
         }
@@ -103,10 +109,11 @@ define({
             "intellect_pool" : 2
         },
         "lists" : {
+            "bonus_list" : [ "Ⓔ Smart" ],
             "equipment_list" : [ "Oddity: ${input:GM chooses}" ],
-            "ability_list" : [ "Ⓣ Identifying/Understanding the Numenera",
+            "ability_list" : [ "Ⓣ Numenera Training",
                                "Ⓣ Sense Magic" ],
-            "inability_list" : [ "Ⓘ Unnerving aura (Charm, persuasion, deception tasks +1 step)" ],
+            "inability_list" : [ "Ⓘ Unnerving aura (Charm, persuasion, deception +1 step)" ],
             "bonus_list" : [ "Ⓐ Hedge Magic (1 intellect)" ]
         }
     },
@@ -123,7 +130,7 @@ define({
                                "Ⓣ Placating animals",
                                "Ⓣ Identifying plants",
                                "Ⓣ Using plants" ],
-            "inability_list" : [ "Ⓘ No social graces (Charm, persuasion, deception tasks +1 step)" ],
+            "inability_list" : [ "Ⓘ No social graces (Charm, persuasion, deception +1 step)" ],
             "equipment_list" : [ "Explorer's pack" ]
         }
     },
@@ -134,8 +141,10 @@ define({
             "speed_pool" : 2
         },
         "lists" : {
+            "bonus_list" : [ "Ⓔ Quick" ],
             "ability_list" : [ "Ⓣ Stealth",
-                               "Ⓣ Lies and trickery" ],
+                               "Ⓣ Lies and trickery",
+                               "Ⓣ Esoteries/special abilities involving illusions or trickery" ],
             "inability_list" : [ "Ⓘ Slow (Movement tasks +1 step)" ]
         }
     },
@@ -146,6 +155,7 @@ define({
             "might_pool" : 4
         },
         "lists" : {
+            "bonus_list" : [ "Ⓔ Very Powerful" ],
             "ability_list" : [ "Ⓣ Breaking things",
                                "Ⓣ Jumping" ],
             "equipment_list" : [ "${select:1:Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged} Weapon: ${input:choose}" ]
@@ -158,7 +168,8 @@ define({
             "intellect_pool" : 4
         },
         "lists" : {
-            "ability_list" : [ "Ⓣ Resist mental effects",
+            "bonus_list" : [ "Ⓔ Willful" ],
+            "ability_list" : [ "Ⓣ Resisting mental effects",
                                "Ⓣ Concentration or focus" ],
             "inability_list" : [ "Ⓘ Not very bright (puzzles, problems, memorization, lore tasks +1 step)" ]
         }
@@ -170,6 +181,7 @@ define({
             "speed_pool" : 4
         },
         "lists" : {
+            "bonus_list" : [ "Ⓔ Fast" ],
             "ability_list" : [ "Ⓣ Initiative",
                                "Ⓣ Running" ],
             "inability_list" : [ "Ⓘ Poor balance (Balancing +1 step)" ]
@@ -183,6 +195,7 @@ define({
             "recovery_roll" : 1
         },
         "lists" : {
+            "bonus_list" : [ "Ⓔ Resilient", "Ⓔ Healthy" ],
             "ability_list" : [ "Ⓣ Might Defense" ],
             "equipment_list" : [ "${select:1:Light Bashing|Light Bladed|Light Ranged} Weapon: ${input:choose}" ],
             "bonus_list" : [ "Ⓔ Resilient",
@@ -198,7 +211,7 @@ define({
             "recovery_roll" : -1
         },
         "lists" : {
-            "ability_list" : [ "Ⓣ Identifying/Understanding the Numenera",
+            "ability_list" : [ "Ⓣ Numenera Training",
                                "Ⓣ Visually perceiving" ],
             "inability_list" : [ "Ⓘ History (+1 step)",
                                  "Ⓘ Poetry and oratory (+1 step)",

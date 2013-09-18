@@ -60,6 +60,7 @@ function( declare,
             topic.subscribe( "CharGen/valuesUpdated", lang.hitch( this, function() {
                 this.domNode.style.display = "inline-block";
             }));
+            topic.subscribe( "CharGen/pleaseCheckState", lang.hitch( this, this.checkState ) );
         },
         postCreate : function()
         {
@@ -152,19 +153,21 @@ function( declare,
             {
                 this._swappedStat = stat;
             }
-            if( _has )
-            {
-                domClass.add( this.domNode, "cg-selectedButton" );
-            }
-            else
-            {
-                domClass.remove( this.domNode, "cg-selectedButton" );
-            }
+            this.checkState();
          },
         checkState : function()
         {
             var state = this._dlog.get( "value" );
-            var type = this.manager.getType().label;
+            var type = this.manager.getType();
+            if( !type )
+            {
+                domClass.remove( this.domNode, "cg-selectedButton" );
+                return;
+            }
+            else
+            {
+                type = type.label;
+            }
             var sel = registry.byId( type + "Ability" );
             if( array.indexOf( state.customizations, "skill_for_cypher" ) != -1 && type == "nano" )
             {
@@ -177,6 +180,25 @@ function( declare,
                 sel.options[ 0 ].disabled = false;
                 sel.startup();
             }
+            if( this._hasCustomizations() )
+            {
+                domClass.add( this.domNode, "cg-selectedButton" );
+            }
+            else
+            {
+                domClass.remove( this.domNode, "cg-selectedButton" );
+            }
+        },
+        _hasCustomizations : function()
+        {
+            for( var o in this._customizations )
+            {
+                if( this._customizations[ o ] == true )
+                {
+                    return true;
+                }
+            }
+            return false;
         },
         showAbilitySelect : function( checked, val )
         {
@@ -281,6 +303,7 @@ function( declare,
             {
                 this._customizations[ o ] = false;
             }
+            this.checkState();
         },
         _setCustomization : function( cust, state, abi, stat )
         {

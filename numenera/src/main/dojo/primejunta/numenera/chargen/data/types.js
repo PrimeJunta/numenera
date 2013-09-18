@@ -36,7 +36,7 @@ define({
         },
         "advancement" : [
          {
-             "perk_list" : "Ⓐ Bash (1 might)|Ⓔ No Need for Weapons|Ⓐ Pierce (1 speed)|Ⓐ Thrust (1 might)|Ⓣ Speed Defense (when not wearing armor)"
+             "perk_list" : "Ⓐ Bash (1 might)|Ⓔ No Need for Weapons|Ⓐ Pierce (1 speed)|Ⓐ Thrust (1 might)|Ⓔ Trained Without Armor"
          },
          {
             "bonus_perks" : [ "Ⓣ ${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged}" ], // no stack,
@@ -95,7 +95,7 @@ define({
                                  "${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged} Weapon: ${input:choose}",
                                  "Book (numenera)",
                                  "Oddity: ${input:GM chooses}" ],
-            "ability_list" : [ "Ⓣ Identifying/Understanding the Numenera" ],
+            "ability_list" : [ "Ⓣ Numenera Training" ],
             "bonus_list" : [ "Ⓔ Practiced With Light Weapons" ]
         },
         "advancement" : [{
@@ -157,7 +157,7 @@ define({
                              "Ⓔ Practiced With Light/Medium Weapons" ]
         },
         "advancement" : [{
-            "perk_list" : "Ⓐ Bash (1 might)|Ⓐ Hedge Magic (1 intellect)|Ⓐ Pierce (1 speed)|Ⓐ Thrust (1 might)|Ⓔ Practiced in Armor|Ⓣ Speed Defense (when not wearing armor)|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense"
+            "perk_list" : "Ⓐ Bash (1 might)|Ⓐ Hedge Magic (1 intellect)|Ⓐ Pierce (1 speed)|Ⓐ Thrust (1 might)|Ⓔ Practiced in Armor|Ⓔ Trained Without Armor|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense"
         },
         {
            "bonus_perks" : [ "Ⓣ ${input:choose any non-combat}" ],

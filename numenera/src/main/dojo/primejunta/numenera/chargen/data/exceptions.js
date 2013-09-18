@@ -14,9 +14,6 @@ define({
         }
     },
     "Intellect Defense" : {
-        "descriptors" : {
-            "Clever" : 1
-        },
         "foci" : {
             "Masters Defense" : 4
         }
