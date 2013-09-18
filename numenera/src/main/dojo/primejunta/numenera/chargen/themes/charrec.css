@@ -172,10 +172,11 @@ h2.cr-heading
 }
 .cr-copyright
 {
-    font-size : 9px;
-    text-align : center;
+	padding : 5px;
+    font-size : 7px;
+    text-align : justify;
     position : relative;
-    top : 650px;
+    top : 620px;
 }
 /* overrides for screen */
 @media screen
@@ -217,7 +218,7 @@ h2.cr-heading
     }
     .cr-copyright
     {
-        top : 193mm; /* override for screen */
+        top : 183mm; /* override for screen */
     }
     .cr-cyphers 
     {

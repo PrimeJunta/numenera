@@ -40,7 +40,8 @@ define([ "dojo/_base/declare",
          "./optional/optionals",
          "dojo/text!./templates/CharacterGenerator.html",
          "dojo/text!./doc/about.html",
-         "dojo/text!./doc/changelog.html" ],
+         "dojo/text!./doc/changelog.html",
+         "dojo/text!./doc/licenses.html" ],
 function( declare,
           lang,
           array,
@@ -77,7 +78,8 @@ function( declare,
           optionals,
           template,
           about,
-          changelog )
+          changelog,
+          licenses )
 {
     return declare( "primejunta/numenera/chargen/CharacterGenerator", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _util, _data, _stats, _lists, optionals ], {
         /**
@@ -513,6 +515,10 @@ function( declare,
         showHelp : function()
         {
             this._showHelp( about );
+        },
+        showLicenses : function()
+        {
+            this._showHelp( licenses );
         },
         /**
          * Calls _showHelp with changelog (that's an included text module).

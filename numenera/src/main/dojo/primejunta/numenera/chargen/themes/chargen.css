@@ -522,14 +522,8 @@ td.cg-tierTitleCell
 /* footer */
 .cg-footer
 {
-	height : 70px;
+	height : 110px;
 	overflow : hidden;
-	
-	/*
-    color : #585858;
-    background-color : #D18761;
-    background-image : url( 'images/cloudbg.jpg' );
-    */
 }
 /* copyright notice */
 .cg-copyright

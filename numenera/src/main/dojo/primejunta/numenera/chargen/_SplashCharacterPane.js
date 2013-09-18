@@ -80,6 +80,14 @@ function( declare,
         {
             this.manager.openCharacter();
         },
+        showLicenses : function()
+        {
+            this.manager.showLicenses();
+        },
+        showChangeLog : function()
+        {
+            this.manager.showChangeLog();
+        },
         /**
          * Resets selectedIndices to 0.
          */

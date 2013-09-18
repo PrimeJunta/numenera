@@ -5,6 +5,7 @@ define([ "dojo/_base/declare",
          "dojo/topic",
          "dojo/on",
          "dojo/query",
+         "dojo/dom-class",
          "../../_util",
          "./_AlternativePerkSelector",
          "./data/advancement",
@@ -22,6 +23,7 @@ function( declare,
           topic,
           on,
           domQuery,
+          domClass,
           _util,
           _AlternativePerkSelector,
           advancement,
@@ -116,10 +118,12 @@ function( declare,
         },
         applyCustomizations : function( custs, abi, stat )
         {
+            var _has = false;
             for( var o in this._customizations )
             {
                 if( custs[ o ] )
                 {
+                    _has = true;
                     if( !this._customizations[ o ] )
                     {
                         this._setCustomization( o, true, abi, stat );
@@ -148,7 +152,15 @@ function( declare,
             {
                 this._swappedStat = stat;
             }
-        },
+            if( _has )
+            {
+                domClass.add( this.domNode, "cg-selectedButton" );
+            }
+            else
+            {
+                domClass.remove( this.domNode, "cg-selectedButton" );
+            }
+         },
         checkState : function()
         {
             var state = this._dlog.get( "value" );
