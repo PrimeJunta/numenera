@@ -378,7 +378,7 @@
         the U.S.A. and other countries. All Monte Cook Games characters
         and character names, and the distinctive likenesses thereof, are
         trademarks of Monte Cook Games, LLC. Content derived from Monte
-        Cook Games publications is © 2013 Monte Cook Games, LLC. <br/>The
+        Cook Games publications is © 2013 Monte Cook Games, LLC. <br />The
         Character Creation Utility is an unofficial project by Petteri
         Sulonen. • <a class="cg-versionInfo"
           data-dojo-attach-event="onClick:showLicenses">Licenses</a> • <span
@@ -394,29 +394,39 @@
           data-dojo-props="title:'Character Creation Utility'">
           <div class="cg-dialogContent"
             data-dojo-attach-point="messageContentNode"></div>
-          <div style="text-align: center;">
+          <div style="text-align: right;">
             <button data-dojo-type="dijit/form/Button"
               data-dojo-attach-event="onClick:hideMessage">OK</button>
           </div>
         </div>
         <div data-dojo-type="dijit/Dialog"
           data-dojo-attach-point="characterManagerDialog"
-          data-dojo-props="title:'Saved Characters'">
+          data-dojo-props="title:'Character Creation Utility'">
           <div class="cg-dialogContent">
+            <h3>Remembered Heroes</h3>
+            <p>Click (or tap) to load a remembered hero.</p>
             <div data-dojo-attach-point="characterManagerContentNode">
             </div>
-            <table width="100%">
-              <tr>
-                <td><button data-dojo-type="dijit/form/Button"
-                    data-dojo-attach-event="onClick:displayCharacterLinks">List
-                    links</button></td>
-                <td align="right">
-                  <button data-dojo-type="dijit/form/Button"
-                    data-dojo-attach-event="onClick:closeCharacterManager">Close</button>
-                </td>
-              </tr>
-            </table>
+            <p>You cannot restore a deleted hero, so be careful.</p>
           </div>
+          <table width="100%">
+            <tr>
+              <td>
+                <button data-dojo-type="dijit/form/Button"
+                  data-dojo-attach-event="onClick:deleteSelectedCharacters"
+                  class="cg-redButton">
+                  <i class="icon-trash"></i> Delete marked
+                </button>
+              </td>
+              <td align="right">
+                <button data-dojo-type="dijit/form/Button"
+                  data-dojo-attach-event="onClick:displayCharacterLinks">List
+                  links</button>
+                <button data-dojo-type="dijit/form/Button"
+                  data-dojo-attach-event="onClick:closeCharacterManager">Close</button>
+              </td>
+            </tr>
+          </table>
         </div>
       </div>
     </div>

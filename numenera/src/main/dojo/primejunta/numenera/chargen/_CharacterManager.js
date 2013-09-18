@@ -34,13 +34,6 @@ function( declare,
          */
         templateString : template,
         /**
-         * Calls manager.deleteCharacter (from _data).
-         */
-        deleteMe : function()
-        {
-            this.manager.deleteCharacter( this.key );
-        },
-        /**
          * Calls manager.loadCharacter (from _data).
          */
         loadMe : function()

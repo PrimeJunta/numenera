@@ -180,15 +180,18 @@ function( declare,
             this.updateLink();
         },
         /**
-         * Deletes character matching key from local store.
+         * Deletes checked characters from local store.
          */
-        deleteCharacter : function( /* String */ key )
+        deleteSelectedCharacters : function()
         {
-            if( confirm( "Are you sure you want to delete " + this._storage.get( key ).name + "?" ) )
+            for( var i = 0; i < this._cwa.length; i++ )
             {
-                this._storage.remove( key );
-                this.openCharacter();
+                if( this._cwa[ i ].deletionCheckbox.checked )
+                {
+                    this._storage.remove( this._cwa[ i ].key );
+                }
             }
+            this.openCharacter();
         },
         /**
          * Checks that we're not in the middle of something and that a type, focus, and descriptor are set;

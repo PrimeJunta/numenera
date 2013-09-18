@@ -195,7 +195,7 @@ function( declare,
                     }
                     else
                     {
-                        this.manager.tell( errs.join( "<br/><br/>" ) );
+                        this.manager.tell( "<h3>Check your choices</h3>" + errs.join( "<br/><br/>" ) );
                     }
                 }
                 return false;

@@ -2,13 +2,11 @@
   <table width="100%" class="cg-characterManager">
     <tbody>
       <tr>
+        <td width="10">
+          <input type="checkbox" data-dojo-attach-point="deletionCheckbox"/>
+        </td>
         <td width="300" data-dojo-attach-event="onClick:loadMe"><a
           class="cg-characterLink">${character.name}</a></td>
-        <td align="right">
-          <button class="cg-redButton"
-            data-dojo-type="dijit/form/Button"
-            data-dojo-attach-event="onClick:deleteMe"><i class="icon-trash"></i></button>
-        </td>
       </tr>
     </tbody>
   </table>

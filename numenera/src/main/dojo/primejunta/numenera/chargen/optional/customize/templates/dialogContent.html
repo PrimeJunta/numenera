@@ -1,74 +1,99 @@
-<div style="padding:0 20px 0 20px;">
-  <h3>Customize Character</h3>
-  <p>See Numenera Corebook, p. 117-118, for the optional character customization rules.</p>
-  <p>
-    <label>
-      <input data-dojo-type="dijit/form/CheckBox" type="checkbox" name="customizations" value="pool" checked="${pool}" data-dojo-props="onClick:function(){this.getParent().checkState()}"/>
-      Unlock pools
-    </label>
-  </p>
-  <p>
-    <label>
-      <input data-dojo-type="dijit/form/CheckBox" type="checkbox" name="customizations" value="edge" checked="${edge}" data-dojo-props="onClick:function(){this.getParent().checkState()}"/>
-      Unlock edge
-    </label>
-  </p>
-  <p>
-    <label>
-      <input data-dojo-type="dijit/form/CheckBox" type="checkbox" name="customizations" value="skill_for_cypher" checked="${skill_for_cypher}" data-dojo-props="onClick:function(){this.getParent().checkState()}"/>
-      Swap skill for cypher
-    </label>
-  </p>
-  <p>
-    <label>
-      <input data-dojo-type="dijit/form/CheckBox" type="checkbox" name="customizations" value="cypher_for_skill" checked="${cypher_for_skill}" data-dojo-props="onClick:function(){this.getParent().checkState()}"/>
-      Swap cypher for skill
-    </label>
-  </p>
-  <p>
-    <label>
-      <input data-dojo-type="dijit/form/CheckBox" type="checkbox" name="customizations" value="ability_for_skill" checked="${ability_for_skill}" data-dojo-props="onClick:function(){this.getParent().showAbilitySelect( this.checked )}"/>
-      Swap ability for skill
-    </label>
+<div>
+  <div class="cg-dialogContent">
+    <h3>Customize Character</h3>
+    <p>See Numenera Corebook, p. 117-118, for the optional character
+      customization rules.</p>
+    <p>
+      <label> <input data-dojo-type="dijit/form/CheckBox"
+        type="checkbox" name="customizations" value="pool"
+        checked="${pool}"
+        data-dojo-props="onClick:function(){this.getParent().checkState()}" />
+        Unlock pools
+      </label>
+    </p>
+    <p>
+      <label> <input data-dojo-type="dijit/form/CheckBox"
+        type="checkbox" name="customizations" value="edge"
+        checked="${edge}"
+        data-dojo-props="onClick:function(){this.getParent().checkState()}" />
+        Unlock edge
+      </label>
+    </p>
+    <p>
+      <label> <input data-dojo-type="dijit/form/CheckBox"
+        type="checkbox" name="customizations" value="skill_for_cypher"
+        checked="${skill_for_cypher}"
+        data-dojo-props="onClick:function(){this.getParent().checkState()}" />
+        Swap skill for cypher
+      </label>
+    </p>
+    <p>
+      <label> <input data-dojo-type="dijit/form/CheckBox"
+        type="checkbox" name="customizations" value="cypher_for_skill"
+        checked="${cypher_for_skill}"
+        data-dojo-props="onClick:function(){this.getParent().checkState()}" />
+        Swap cypher for skill
+      </label>
+    </p>
+    <p>
+      <label> <input data-dojo-type="dijit/form/CheckBox"
+        type="checkbox" name="customizations" value="ability_for_skill"
+        checked="${ability_for_skill}"
+        data-dojo-props="onClick:function(){this.getParent().showAbilitySelect( this.checked )}" />
+        Swap ability for skill
+      </label>
     <div>
-      <select data-dojo-type="dijit/form/Select" id="nanoAbility" name="nanoAbility" style="display:none">
+      <select data-dojo-type="dijit/form/Select" id="nanoAbility"
+        name="nanoAbility" style="display: none">
         <option value="c">Ⓣ Numenera Training</option>
         <option value="w">Ⓔ Practiced With Light Weapons</option>
-      </select>
-      <select data-dojo-type="dijit/form/Select" id="glaiveAbility" name="glaiveAbility" style="display:none">
+      </select> <select data-dojo-type="dijit/form/Select" id="glaiveAbility"
+        name="glaiveAbility" style="display: none">
         <option value="c">Ⓔ Practiced in Armor</option>
         <option value="w">Ⓔ Practiced With All Weapons</option>
-      </select>
-      <select data-dojo-type="dijit/form/Select" id="jackAbility" name="jackAbility" style="display:none">
+      </select> <select data-dojo-type="dijit/form/Select" id="jackAbility"
+        name="jackAbility" style="display: none">
         <option value="c">Ⓔ Flex Skill</option>
         <option value="w">Ⓔ Practiced With Light/Medium Weapons</option>
       </select>
     </div>
-  </p>
-  <p>
-    <label>
-      <input data-dojo-type="dijit/form/CheckBox" type="checkbox" name="customizations" value="inability_for_skill" checked="${inability_for_skill}" data-dojo-props="onClick:function(){this.getParent().checkState()}"/>
-      Take inability, get skill
-    </label>
-  </p>
-  <p>
-    <label>
-      <input data-dojo-type="dijit/form/CheckBox" type="checkbox" name="customizations" value="weakness_for_skill" checked="${weakness_for_skill}" data-dojo-props="onClick:function(){this.getParent().checkState()}"/>
-      Weakness in <select data-dojo-type="dijit/form/Select" id="weaknessSelect" name="weaknessSelect">
-        <option value="might">might</option>
-        <option value="speed">speed</option>
-        <option value="intellect">intellect</option>
-      </select>,
-      get skill
-    </label>
-  </p>
-  <p>
-    <label>
-      <input data-dojo-type="dijit/form/CheckBox" type="checkbox" name="customizations" value="customize_focus" checked="${customize_focus}" data-dojo-props="onClick:function(){this.getParent().checkState()}"/>
-      Customize focus
-    </label>
-  </p>
-  <p style="text-align:right">
-    <button data-dojo-type="dijit/form/Button" data-dojo-props="onClick:function(){this.getParent().applyChanges()}"><i class="icon-ok-circle cg-greenButton"></i> Apply</button>
-  </p>
+    </p>
+    <p>
+      <label> <input data-dojo-type="dijit/form/CheckBox"
+        type="checkbox" name="customizations"
+        value="inability_for_skill" checked="${inability_for_skill}"
+        data-dojo-props="onClick:function(){this.getParent().checkState()}" />
+        Take inability, get skill
+      </label>
+    </p>
+    <p>
+      <label> <input data-dojo-type="dijit/form/CheckBox"
+        type="checkbox" name="customizations" value="weakness_for_skill"
+        checked="${weakness_for_skill}"
+        data-dojo-props="onClick:function(){this.getParent().checkState()}" />
+        Weakness in <select data-dojo-type="dijit/form/Select"
+        id="weaknessSelect" name="weaknessSelect">
+          <option value="might">might</option>
+          <option value="speed">speed</option>
+          <option value="intellect">intellect</option>
+      </select>, get skill
+      </label>
+    </p>
+    <p>
+      <label> <input data-dojo-type="dijit/form/CheckBox"
+        type="checkbox" name="customizations" value="customize_focus"
+        checked="${customize_focus}"
+        data-dojo-props="onClick:function(){this.getParent().checkState()}" />
+        Customize focus
+      </label>
+    </p>
+  </div>
+  <div style="text-align: right">
+    <button data-dojo-type="dijit/form/Button"
+      data-dojo-props="onClick:function(){this.getParent().hide()}">Close</button>
+    <button data-dojo-type="dijit/form/Button"
+      data-dojo-props="onClick:function(){this.getParent().applyChanges()}">
+      <i class="icon-ok-circle cg-greenButton"></i> Apply
+    </button>
+  </div>
 </div>
