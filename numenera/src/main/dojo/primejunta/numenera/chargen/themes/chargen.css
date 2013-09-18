@@ -530,7 +530,7 @@ td.cg-tierTitleCell
 {
 	font-family : Lato;
     text-align : center;
-    font-size : small;
+    font-size : 10px;
     margin-left : auto;
     margin-right : auto;
     padding : 3px;
