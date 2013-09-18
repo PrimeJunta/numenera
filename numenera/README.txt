@@ -6,7 +6,13 @@ on it.
 
 DEPENDENCIES
 
-The project depends on Dojo 1.9.1.
+    The Dojo toolkit, used under Academic Free License, Version 2.1
+    Font Awesome, used under MIT License and SIL Open Font License,
+        Version 1.1
+    The Lato font, used under SIL Open Font License, Version 1.1
+    The Droid Sans font, used under SIL Open Font License,
+        Version 1.1
+    The Prata font, used under Apache License, Version 2.0
 
 BUILD INSTRUCTIONS
 
@@ -25,9 +31,10 @@ If everything went as expected, your build will appear one directory up, under
 INSTALLATION INSTRUCTIONS
 
 Put the contents of ../release/ on your web server at any suitable point, and
-surf to {webhome}/index.html. All paths in the webapp are relative to that
-point so it should work from the get-go. Your browser's security features may
-prevent running it directly from the filesystem, though.
+surf to {webhome}/index.html. 
+
+Unpack the Font Awesome package into a directory at the same level you put
+{webhome}.
 
 OTHER NOTES
 

@@ -1,3 +1,48 @@
+The Monte Cook Games Fan Use Policy
+
+The Monte Cook Games logo, Numenera, and the Numenera logo are
+trademarks of Monte Cook Games, LLC in the U.S.A. and other
+countries. All Monte Cook Games characters and character names, and
+the distinctive likenesses thereof, are trademarks of Monte Cook
+Games, LLC. Content on this site or associated files derived from
+Monte Cook Games publications is © 2013 Monte Cook Games, LLC. Monte
+Cook Games permits web sites and similar fan-created publications
+for their games, subject to the policy given at
+http://www.numenera.com/fan-use-policy/. The contents of this site
+are for personal, non-commercial use only. Use of Monte Cook Games’s
+trademarks and copyrighted materials anywhere on this site and its
+associated files should not be construed as a challenge to those
+trademarks or copyrights. Materials on this site may not be
+reproduced or distributed except with the permission of the site
+owner and in compliance with Monte Cook Games policy given at
+http://www.numenera.com/fan-use-policy/.
+
+License for the Character Generation Utility
+
+This webapp is an unofficial fan project by Petteri Sulonen. It uses 
+features of Numenera under the Numenera Fan Use Policy, which 
+explicitly permits distributing "character sheets (including 
+character sheets that autofill or calculate numerical values)" free
+of charge.
+
+I hereby grant permission to use, modify, and redistribute it, as
+long as compliance with the Numenera Fan Use Policy is maintained.
+
+I license the parts not falling under the Numenera Fan Use Policy
+under the MIT License.
+
+Dependencies
+
+The Character Generation Utility has the following dependencies:
+
+    The Dojo toolkit, used under Academic Free License, Version 2.1
+    Font Awesome, used under MIT License and SIL Open Font License,
+        Version 1.1
+    The Lato font, used under SIL Open Font License, Version 1.1
+    The Droid Sans font, used under SIL Open Font License,
+        Version 1.1
+    The Prata font, used under Apache License, Version 2.0
+
 The MIT License (MIT)
 
 Copyright (c) 2013 PrimeJunta
