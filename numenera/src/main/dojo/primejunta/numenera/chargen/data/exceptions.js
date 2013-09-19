@@ -1,3 +1,6 @@
+/**
+ * Data for exceptions to advancement and stacking limitations for martial training and enablers.
+ */
 define({
     "Speed Defense" : {
         "descriptors" : {

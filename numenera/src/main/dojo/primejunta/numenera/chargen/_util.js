@@ -143,7 +143,8 @@ function( declare,
         },
         /**
          * Toggles the deleted property of every _ListItem in list whose .from property matches from.
-         * So you can switch on/off e.g. everything from focus.
+         * So you can switch on/off e.g. everything from focus. If the relevant ability is a skill
+         * upgraded to Specialized, downgrades/upgrades it to Trained instead.
          */
         _toggleDeletedAbilities : function( /* _ListItem[] */ list, /* String */ from )
         {
@@ -152,7 +153,23 @@ function( declare,
                 var cur = list[ i ];
                 if( cur.from == from )
                 {
-                    cur.deleteMe();
+                    var txt = cur.getText();
+                    if( txt && cur.downgraded && txt.indexOf( "Ⓣ" ) == 0 )
+                    {
+                        cur.downgraded = false;
+                        cur.baseText = "Ⓢ" + cur.baseText.substring( 1 );
+                        cur.baseTextNode.innerHTML = cur.baseText;
+                    }
+                    else if( txt && txt.indexOf( "Ⓢ" ) == 0 )
+                    {
+                        cur.downgraded = true;
+                        cur.baseText = "Ⓣ" + cur.baseText.substring( 1 );
+                        cur.baseTextNode.innerHTML = cur.baseText;
+                    }
+                    else
+                    {
+                        cur.deleteMe();
+                    }
                 }
             }
         },

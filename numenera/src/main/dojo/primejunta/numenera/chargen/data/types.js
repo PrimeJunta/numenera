@@ -1,3 +1,6 @@
+/**
+ * Data for types.
+ */
 define({
     "T0" : {
         "label" : "glaive",

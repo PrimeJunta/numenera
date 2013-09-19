@@ -1,3 +1,6 @@
+/**
+ * Data for attack and armor adjustments from perks.
+ */
 define({
     "attack_adjustments" : {
         "Ⓔ Weapon Master" : {

@@ -1,3 +1,6 @@
+/**
+ * Data for descriptors.
+ */
 define({
     "D0" : {
         "label" : "Charming",
@@ -195,7 +198,8 @@ define({
             "recovery_roll" : 1
         },
         "lists" : {
-            "bonus_list" : [ "Ⓔ Resilient", "Ⓔ Healthy" ],
+            "bonus_list" : [ "Ⓔ Resilient",
+                             "Ⓔ Healthy" ],
             "ability_list" : [ "Ⓣ Might Defense" ],
             "equipment_list" : [ "${select:1:Light Bashing|Light Bladed|Light Ranged} Weapon: ${input:choose}" ],
             "bonus_list" : [ "Ⓔ Resilient",
@@ -216,7 +220,8 @@ define({
             "inability_list" : [ "Ⓘ History (+1 step)",
                                  "Ⓘ Poetry and oratory (+1 step)",
                                  "Ⓘ Hearing (+1 step)" ],
-            "bonus_list" : [ "Ⓐ Reforging (rearrange Pools freely once every day)" ]
+            "bonus_list" : [ "Ⓘ Diminished",
+                             "Ⓐ Reforging" ]
         }
     }
 });

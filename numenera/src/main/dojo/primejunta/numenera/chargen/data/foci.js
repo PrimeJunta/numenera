@@ -1,3 +1,6 @@
+/**
+ * Data for foci.
+ */
 define({
     "F0" : {
         "label" : "Bears a Halo of Fire",
@@ -37,7 +40,7 @@ define({
             "ability_list" : [ "Ⓣ Fletcher" ]
         },
         "advancement" : [{
-            "bonus_perks" : [ "Ⓔ Archer (spend Speed or intellect Effort to increase bow damage)" ]
+            "bonus_perks" : [ "Ⓔ Archer" ]
         },
         {
             "bonus_perks" : [ "Ⓐ Covering Fire (1 speed)",
@@ -64,8 +67,8 @@ define({
         "description_text" : "Connection: You have a telepathic connection to one PC.",
         "lists" : {
             "equipment_list" : [ "Intellect Crystal (+1 intellect Pool, -5 if lost)" ],
-            "ability_list" : [ "Ⓣ Mind Control (if has it)",
-                               "Ⓣ Mind Reading (if has it)" ]
+            "ability_list" : [ "Ⓣ Mind Control",
+                               "Ⓣ Mind Reading" ]
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓐ Telepathic (1+ intellect)" ]
@@ -130,7 +133,7 @@ define({
             "bonus_perks" : [ "Ⓔ Lessening Gravity's Pull" ]
         },
         {
-            "bonus_perks" : [ "Ⓐ Gravity Cleave"]
+            "bonus_perks" : [ "Ⓐ Gravity Cleave (3 intellect)"]
         },
         {
             "bonus_perks" : [ "Ⓔ Field of Gravity (4 intellect)" ]
@@ -182,6 +185,8 @@ define({
                                "Ⓣ Identifying function of device" ]
         },
         "advancement" : [{
+            "bonus_perks" : [ "Ⓔ Crafter",
+                              "Ⓔ Master Identifier" ]
         },
         {
             "bonus_perks" : [ "Ⓔ Tinkerer",
@@ -235,7 +240,7 @@ define({
             "ability_list" : [ "Ⓣ All social interactions except coercion, intimidation" ]
         },
         "advancement" : [{
-            "bonus_perks" : [ "Ⓔ +1 to comrades' Recovery Rolls" ]
+            "bonus_perks" : [ "Ⓔ Levity" ]
         },
         {
             "bonus_perks" : [ "Ⓔ Inspiration" ]
@@ -292,7 +297,8 @@ define({
                                "Ⓣ Jumping" ]
         },
         "advancement" : [{
-            "bonus_perks" : [ "Ⓔ Dark esoteries" ]
+            "bonus_perks" : [ "Ⓔ Trained Explorer",
+                              "Ⓔ Dark esoteries" ]
         },
         {
             "bonus_perks" : [ "Ⓣ Lockpicking",
@@ -448,6 +454,7 @@ define({
                                "Ⓣ Running" ]
         },
         "advancement" : [{
+            "bonus_perks" : [ "Ⓔ Tracker", "Ⓔ Stalker" ]
         },
         {
             "bonus_perks" : [ "Ⓣ Stealth",
@@ -476,7 +483,7 @@ define({
             "ability_list" : [ "Ⓣ All social interactions" ]
         },
         "advancement" : [{
-            "bonus_perks" : [ "Ⓐ Good Advice (1 intellect)" ]
+            "bonus_perks" : [ "Ⓔ Natural Charisma", "Ⓐ Good Advice (1 intellect)" ]
         },
         {
             "bonus_perks" : [ "Ⓔ Follower" ]
@@ -509,6 +516,7 @@ define({
                                "Ⓣ Identifying animals" ]
         },
         "advancement" : [{
+            "bonus_perks" : [ "Ⓔ Wilderness Life", "Ⓔ Wilderness Lore" ]
         },
         {
             "bonus_perks" : [ "Ⓔ Immune to natural diseases",
@@ -537,12 +545,10 @@ define({
         "notes_text" : "Masters Defense: Corebook, page 68",
         "description_text" : "Connection: One PC once saved your life.",
         "lists" : {
-            "equipment_list" : [ "Shield" ],
-            "ability_list" : [ "Ⓣ Speed Defense (with shield)" ],
-            "inability_list" : [ "Ⓘ Attack (with shield) (+1 level)",
-                                 "Ⓘ Defense (without shield) (+1 level)" ]
+            "equipment_list" : [ "Shield" ]
         },
         "advancement" : [{
+            "bonus_perks" : [ "Ⓔ Shield Master" ]
         },
         {
             "bonus_perks" : [ "Ⓣ Might Defense",
@@ -699,19 +705,19 @@ define({
             "ability_list" : [ "Ⓣ All tasks involving electrical machines" ]
         },
         "advancement" : [{
-            "bonus_perks" : [ "Ⓐ Distant Activation (1 intellect)" ]
+            "bonus_perks" : [ "Ⓔ Machine Affinity", "Ⓐ Distant Activation (1 intellect)" ]
         },
         {
             "bonus_perks" : [ "Ⓐ Coaxing Power (2 intellect)",
-"Ⓐ Charm Machine (2 intellect)" ]
+                              "Ⓐ Charm Machine (2 intellect)" ]
         },
         {
             "bonus_perks" : [ "Ⓔ Intelligent Interface (3 intellect)" ]
         },
         {
             "bonus_perks" : [ "Ⓔ Machine Companion",
-"Ⓣ Attacks against automata",
-"Ⓣ Defense against automata" ]
+                              "Ⓣ Attacks against automata",
+                              "Ⓣ Defense against automata" ]
         },
         {
             "bonus_perks" : [ "Ⓐ Information Gathering (5 intellect)" ]
@@ -729,7 +735,7 @@ define({
         },
         "advancement" : [{
             "bonus_perks" : [ "Ⓔ Ice esoteries",
-"Ⓔ Ice Armor (1 intellect)" ]
+                              "Ⓔ Ice Armor (1 intellect)" ]
         },
         {
             "bonus_perks" : [ "Ⓐ/Ⓔ  Frost Touch (1 intellect)" ]
@@ -768,7 +774,7 @@ define({
         },
         {
             "bonus_perks" : [ "Ⓔ Greater Repertoire",
-"${select:1:@perkSelector}" ]
+                              "${select:1:@perkSelector}" ]
         },
         {
             "bonus_perks" : [ "Ⓣ All Esoteries" ]
