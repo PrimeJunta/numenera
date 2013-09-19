@@ -1,3 +1,6 @@
+/**
+ * Harmful mutation control. Extends _MutationControlBase.
+ */
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "./_MutationControlBase",
@@ -12,8 +15,17 @@ function( declare,
           template )
 {
     return declare([ _MutationControlBase, _TemplatedMixin, _WidgetsInTemplateMixin ], {
+        /**
+         * Type.
+         */
         type : "harmful",
+        /**
+         * Base text. They're all inabilities.
+         */
         baseText : "Ⓘ",
+        /**
+         * Template.
+         */
         templateString : template
     });
 });

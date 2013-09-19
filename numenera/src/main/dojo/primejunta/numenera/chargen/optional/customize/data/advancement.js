@@ -1,3 +1,6 @@
+/**
+ * Alternative advancement perks for customizing focus.
+ */
 define([{
     "perk_list" : "Ⓔ Self-Improvement|Ⓔ Bringing the Pain|Ⓔ More Training"
 },

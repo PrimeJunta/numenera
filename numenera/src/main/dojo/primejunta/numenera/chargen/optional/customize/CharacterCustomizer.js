@@ -1,3 +1,8 @@
+/**
+ * Character customizer. It's a widget based on the Button, but does all kinds of stuff when
+ * you click it, and otherwise too. Implements the optional character customization rules
+ * from the Corebook, page 117-118.
+ */
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "dojo/_base/array",
@@ -36,7 +41,13 @@ function( declare,
           dialogContent )
 {
     return declare([ Button, _util ], {
+        /**
+         * Button label.
+         */
         label : "<i class=\"icon-gears\"></i>",
+        /**
+         * Map of possible customizations. Everything starts out set to false.
+         */
         _customizations : {
             pool : false,
             edge : false,
@@ -47,10 +58,27 @@ function( declare,
             weakness_for_skill : false,
             customize_focus : false
         },
+        /**
+         * Containers for stored floors, pools, and edges. We tuck them away in case the user changes her mind,
+         * in which case we want to reset everything to what they were before she started customizing.
+         */
         _poolfloors : {},
+        /**
+         * Pools.
+         */
         _pools : {},
+        /**
+         * Edge floors.
+         */
         _edgefloors : {},
+        /**
+         * Edges.
+         */
         _edges : {},
+        /**
+         * Inherited (from Button), then subscribe to main sheet events so we hide and show the button as needed
+         * and checkState when requested.
+         */
         postMixInProperties : function()
         {
             this.inherited( arguments );
@@ -62,6 +90,9 @@ function( declare,
             }));
             topic.subscribe( "CharGen/pleaseCheckState", lang.hitch( this, this.checkState ) );
         },
+        /**
+         * Inherited (from button), then set up a Dialog with the actual customization UI.
+         */
         postCreate : function()
         {
             this.inherited( arguments );
@@ -72,6 +103,11 @@ function( declare,
             this._dlog.set( "content", string.substitute( dialogContent, this._customizations ) );
             this._dlog.startup();
         },
+        /**
+         * Reset the dialog content by doing a template substitution on the dialog template with
+         * this._customizations; additionally show the ability select if appropriate, and set 
+         * weaknessSelect to show the selected state, if any. Then show the dialog.
+         */
         onClick : function()
         {
             this._dlog.set( "content", string.substitute( dialogContent, this._customizations ) );
@@ -90,13 +126,19 @@ function( declare,
             }
             this._dlog.show();
         },
+        /**
+         * Read values from dialog, convert it _toCustomizations, applyCustomizations, and hide dialog.
+         */
         applyChanges : function()
         {
             var custs = this._toCustomizations( this._dlog.get( "value" ).customizations );
             this.applyCustomizations( custs, this._getAbilityToSwap(), this._getWeaknessToSwap() );
             this._dlog.hide();
         },
-        _toCustomizations : function( formData )
+        /**
+         * Populates customization map from formData. Boring.
+         */
+        _toCustomizations : function( /* String[] */ formData )
         {
             var out = {
                 pool : false,
@@ -117,6 +159,11 @@ function( declare,
             }
             return out;
         },
+        /**
+         * Goes through this._customizations and compares it to custs, then either applies or removes it
+         * if it has changed. Then handles the ability_for_skill and weakness_for_skill customizations
+         * separately. And checkState.
+         */
         applyCustomizations : function( custs, abi, stat )
         {
             var _has = false;
@@ -154,7 +201,12 @@ function( declare,
                 this._swappedStat = stat;
             }
             this.checkState();
-         },
+        },
+        /**
+         * Sets/unsets cg-selectedButton class for button if any customizations are/not present. Handles
+         * some other changes to the UI such as disabling certain options if already used by some other
+         * active customization.
+         */
         checkState : function()
         {
             var state = this._dlog.get( "value" );
@@ -189,6 +241,9 @@ function( declare,
                 domClass.remove( this.domNode, "cg-selectedButton" );
             }
         },
+        /**
+         * If this._customizations has anything set, returns true. Else returns false.
+         */
         _hasCustomizations : function()
         {
             for( var o in this._customizations )
@@ -200,6 +255,10 @@ function( declare,
             }
             return false;
         },
+        /**
+         * Shows the abilitySelect appropriate for the selected class. If not checked,
+         * hides all of 'em.
+         */
         showAbilitySelect : function( checked, val )
         {
             var nSel = registry.byId( "nanoAbility" );
@@ -236,6 +295,10 @@ function( declare,
                     }
             }
         },
+        /**
+         * Returns string of 0's and 1's representing the un/selected customizations, plus info about which
+         * ability has been swapped out, if any.
+         */
         getData : function()
         {
             /* pool, edge, skill_for_cypher, cypher_for_skill, ability_for_skill, inability_for_skill, customize_focus */
@@ -261,6 +324,13 @@ function( declare,
             }
             return out;
         },
+        /**
+         * Decodes values from data into _customizations object, sets swapped ability and weakness if necessary, 
+         * and applyCustomizations. If there is an _advancementControl, sets .customize on each of them to true
+         * or false, depending on the value read from data, and calls checkState on each of them. The idea is that
+         * we create and show all the necessary controls at this point; the loop which sets their values comes 
+         * next in method which originally called this (see _data).
+         */
         populateFromData : function( data )
         {
             if( data )
@@ -297,6 +367,9 @@ function( declare,
                 }
             }
         },
+        /**
+         * Sets all _customizations to false and checkState.
+         */
         clear : function()
         {
             for( var o in this._customizations )
@@ -305,7 +378,14 @@ function( declare,
             }
             this.checkState();
         },
-        _setCustomization : function( cust, state, abi, stat )
+        /**
+         * Da beef. Big method which does whatever's needed for each type of customization. The arguments are:
+         * * cust - the customization, matches a member of _customizations.
+         * * state - boolean, apply or un-apply.
+         * * abi - String, a swapped-off ability, e.g. Numenera Training for nanos.
+         * * stat - String, a stat in which the player has taken a weakness. One of might, speed, intellect. 
+         */
+        _setCustomization : function( /* String */ cust, /* boolean */ state, /* String */ abi, /* String */ stat )
         {
             if( state )
             {
@@ -444,16 +524,26 @@ function( declare,
                 }
             }
         },
+        /**
+         * Extracts selected value from select matching character type.
+         */
         _getAbilityToSwap : function()
         {
             var type = this.manager.getType().label;
             var mySel = registry.byId( type + "Ability" );
             return mySel ? mySel.get( "value" ) : "c";
         },
+        /**
+         * Returns value of weaknessSelect.
+         */
         _getWeaknessToSwap : function()
         {
             return registry.byId( "weaknessSelect" ).get( "value" );
         },
+        /**
+         * We always know where the swapped-off stats are in the lists, because they're always populated first, but
+         * they're in different places for nanos than glaives or jacks. So we check and toggle the correct ones.
+         */
         _toggleSwapAbility : function( type, abi )
         {
             if( type == "glaive" || type == "jack" )
@@ -479,6 +569,10 @@ function( declare,
                 }
             }
         },
+        /**
+         * Since the optional rule concering stat-swapping states that no character should start with a pool value
+         * higher than 20, we check if this is the case to start with, and move any overflow into free_pool.
+         */
         _checkCap : function( prop )
         {
             var diff = this._pools[ prop ] - this.manager.pool_cap;

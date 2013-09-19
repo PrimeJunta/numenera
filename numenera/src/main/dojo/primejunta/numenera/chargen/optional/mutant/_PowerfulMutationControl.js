@@ -1,3 +1,6 @@
+/**
+ * Powerful mutation control. Extends _MutationControlBase.
+ */
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "./_MutationControlBase",
@@ -12,7 +15,13 @@ function( declare,
           template )
 {
     return declare([ _MutationControlBase, _TemplatedMixin, _WidgetsInTemplateMixin ], {
+        /**
+         * Type.
+         */
         type : "powerful",
+        /**
+         * Template.
+         */
         templateString : template
     });
 });

@@ -1,5 +1,6 @@
 /**
  * Mix into _TierWidget for focus customization features.
+ * Note to self: why didn't I extend Button rather than linking to it like this?
  */
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
@@ -15,7 +16,15 @@ function( declare,
           _util )
 {
     return declare([ _util ], {
+        /**
+         * If the tier is customized, set to true.
+         */
         customize : false,
+        /**
+         * Toggles this.customize. If it was applied, sets the appropriate style on the customizeFocusButton,
+         * creates, registers, and places a _perkSelector, and un-augments stats by any gains normally made
+         * at this tier.
+         */
         customizeFocus : function()
         {
             this.customize = !this.customize;
@@ -43,6 +52,10 @@ function( declare,
             }
             this.checkApplyButton();
         },
+        /**
+         * Handles situation where the tier is customized but the button isn't flagged with the corresponding
+         * CSS class, which can happen when loading a character.
+         */
         checkState : function()
         {
             if( this.customize && !this.customizeFocusButton.checked ) // can happen while a character is being loaded

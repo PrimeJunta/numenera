@@ -1,3 +1,6 @@
+/**
+ * Beneficial mutation control. Extends _MutationControlBase.
+ */
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "./_MutationControlBase",
@@ -12,10 +15,22 @@ function( declare,
           template )
 {
     return declare([ _MutationControlBase, _TemplatedMixin, _WidgetsInTemplateMixin ], {
+        /**
+         * Type is beneficial.
+         */
         type : "beneficial",
+        /**
+         * They're all enablers.
+         */
         baseText : "Ⓔ",
+        /**
+         * Template.
+         */
         templateString : template,
-        setBonuses : function( mutation )
+        /**
+         * Writes bonuses into their fields in the template with _setBonus.
+         */
+        setBonuses : function( /* Object */ mutation )
         {
             this._setBonus( mutation, "mightAdjustment" );
             this._setBonus( mutation, "speedAdjustment" );
@@ -23,7 +38,11 @@ function( declare,
             this._setBonus( mutation, "armorAdjustment" );
             this._setBonus( mutation, "recoveryAdjustment" );
         },
-        _setBonus : function( mutation, adjustment )
+        /**
+         * Sets .value of input matching adjustment to the corresponding adjustment in mutation and shows the field
+         * if present; else clears and hides the field.
+         */
+        _setBonus : function( /* Object */ mutation, /* String */ adjustment )
         {
             if( mutation.adjustments && mutation.adjustments[ adjustment ] )
             {

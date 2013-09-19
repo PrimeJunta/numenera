@@ -98,6 +98,9 @@ function( declare,
             this._lock( this.abilityTypeSelect );
             this.checkState();
         },
+        /**
+         * Picks a random mutation of the right type from mutations, and calls setMutation on it.
+         */
         randomizeMutation : function()
         {
             var n = Math.floor( Math.random() * 100 ) + 1;
@@ -113,6 +116,10 @@ function( declare,
             }
             this.setMutation( mutation );
         },
+        /**
+         * Extracts the mutation prefix and text description from mutation.description, sets them with
+         * their appropriate setters, setBonuses, and checkState.
+         */
         setMutation : function( mutation )
         {
             var pf = mutation.description.substring( 0, mutation.description.indexOf( " " ) );
@@ -122,6 +129,9 @@ function( declare,
             this.inputNode.value = txt;
             this.checkState();
         },
+        /**
+         * If there is an abilityTypeSelect, sets its value to match pf; else does nothing.
+         */
         setPrefix : function( pf )
         {
             if( this.abilityTypeSelect )
@@ -136,9 +146,11 @@ function( declare,
                 }
             }
         },
+        /**
+         * Stub. Up to the implementing _MutationControl to do something with this.
+         */
         setBonuses : function( mutation )
         {
-            
         },
         /**
          * Removes all listeners plus inherited.

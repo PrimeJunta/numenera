@@ -1,3 +1,6 @@
+/**
+ * Mutation data.
+ */
 define({
     "beneficial" : [
         {

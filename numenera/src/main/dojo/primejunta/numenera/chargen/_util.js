@@ -1,3 +1,6 @@
+/**
+ * Shared utility methods.
+ */
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "dojo/dom-construct",
@@ -27,7 +30,7 @@ function( declare,
         /**
          * If inputNode.value is one of the defaults, adds valueNotSet class to it; else removes it.
          */
-        normalizeClass : function( inputNode )
+        normalizeClass : function( /* InputElement? */ inputNode )
         {
             if( !inputNode || !inputNode.nodeType )
             {
@@ -49,7 +52,7 @@ function( declare,
         /**
          * Clears inputNode.value if it's one of the defaults defined in .manager.
          */
-        selectContent : function( inputNode )
+        selectContent : function( /* InputElement? */ inputNode )
         {
             if( !inputNode || !inputNode.nodeType )
             {
@@ -67,7 +70,7 @@ function( declare,
         /**
          * If no inputValue has been provided, sets it back to the original, and .normalizeClass.
          */
-        onBlurInput : function( inputNode )
+        onBlurInput : function( /* InputElement? */ inputNode )
         {
             if( !inputNode || !inputNode.nodeType )
             {
@@ -90,7 +93,7 @@ function( declare,
         /**
          * Publish event dataChanged, which will be picked up by _data.
          */
-        dataChanged : function( inputNode )
+        dataChanged : function( /* InputElement? */ inputNode )
         {
             if( !inputNode || !inputNode.nodeType )
             {
@@ -122,7 +125,10 @@ function( declare,
                 }
             }
         },
-        _invert : function( stats )
+        /**
+         * Multiplies every member of stats by -1 and returns the result.
+         */
+        _invert : function( /* Object */ stats )
         {
             if( !stats )
             {
@@ -135,7 +141,11 @@ function( declare,
             }
             return out;
         },
-        _toggleDeletedAbilities : function( list, from )
+        /**
+         * Toggles the deleted property of every _ListItem in list whose .from property matches from.
+         * So you can switch on/off e.g. everything from focus.
+         */
+        _toggleDeletedAbilities : function( /* _ListItem[] */ list, /* String */ from )
         {
             for( var i = 0; i < list.length; i++ )
             {
@@ -149,7 +159,7 @@ function( declare,
         /**
          * Sanitizes str before injection as innerHTML, to block script injection attacks.
          */
-        _sanitize : function( str )
+        _sanitize : function( /* String */ str )
         {
             str = "" + str;
             var out = str.replace( /\&/g, "&amp;" );

@@ -418,6 +418,9 @@ function( declare,
             }
             return true;
         },
+        /**
+         * Checks kwObj.version and other features in it to check if the data can be loaded, and returns true or false accordingly.
+         */
         _checkDataVersion : function( kwObj )
         {
             if( kwObj.version == this.DATA_VERSION )
