@@ -297,6 +297,14 @@ a.num-infoLink
     background-image : -webkit-linear-gradient(to bottom, #FFFFFF 0%, #335C99 100%);
     background-image : linear-gradient(to bottom, #FFFFFF 0%, #335C99 100%);
 }
+.num-redIcon
+{
+	color : #ff6d44;
+}
+.num-blueIcon
+{
+	color : #446dff;
+},
 .num-greenButton
 {
     color : #345C8C;

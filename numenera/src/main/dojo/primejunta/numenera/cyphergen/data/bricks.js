@@ -2,7 +2,6 @@ define({
     cypher_types : {
         cure : {
             "prob" : 50,
-            "verb" : "restores",
             "description" : "cure",
             "damage_types" : [ "physical/80", "status/60" ],
             // cures one or more debuffs or "all", one or more status effects or "all" 
@@ -21,13 +20,13 @@ define({
                 },
                 "large device" : {
                     "prob" : 10,
-                    "actions" : [ "activated" ]
+                    "actions" : [ "activated" ],
+                    "range" : [ "#none/1", "immediate/200", "short/10", "long/5", "extreme/1" ]
                 }
             }
         },
         buff : {
             "prob" : 20,
-            "verb" : "boosts",
             "description" : "buff",
             // cures one or more debuffs or "all", one or more status effects or "all" 
             item_types : {
@@ -45,7 +44,34 @@ define({
                 },
                 "large device" : {
                     "prob" : 10,
+                    "actions" : [ "activated" ],
+                    "range" : [ "#none/200", "immediate/80", "short/10", "long/5", "extreme/1" ]
+                }
+            },
+            durations : [ "one round/10", "ten minutes/30", "one hour/30", "one day/10" ]
+            // buffs one or more buff_types, or protects against one or more damage_types
+        },
+        countermeasure : {
+            "prob" : 20,
+            "description" : "countermeasure",
+            // cures one or more debuffs or "all", one or more status effects or "all" 
+            item_types : {
+                "consumable" : {
+                    "prob" : 80,
+                    "actions" : [ "ingested", "injected" ]
+                },
+                "handheld" : {
+                    "prob" : 30,
+                    "actions" : [ "activated", "injected" ]
+                },
+                "worn" : {
+                    "prob" : 30,
                     "actions" : [ "activated" ]
+                },
+                "large device" : {
+                    "prob" : 10,
+                    "actions" : [ "activated" ],
+                    "range" : [ "#none/200", "immediate/80", "short/10", "long/5", "extreme/1" ]
                 }
             },
             durations : [ "one round/10", "ten minutes/30", "one hour/30", "one day/10" ]
@@ -53,7 +79,6 @@ define({
         },
         weapon : {
             "prob" : 50,
-            "verb" : "produces",
             "description" : "weapon",
             "damage_types" : [ "physical/80", "status/60" ],
             // produces one or more damage_types, buff_types, or status_types with an effect_type and action_type
@@ -91,32 +116,39 @@ define({
                 "shoots a beam" : {
                     "prob" : 50,
                     "range" : [ "short/10", "medium/30", "long/50", "extreme/10" ],
-                    "area" : -2
+                    "area" : [ -2, 0 ]
                 },
                 "shoots a slug" : {
                     "prob" : 50,
                     "range" : [ "short/10", "medium/50", "long/50" ],
-                    "area" : -2
+                    "area" : [ -2, 0 ]
+                },
+                "shoots a hunter-killer missile" : {
+                    "prob" : 20,
+                    "range" : [ "medium/30", "long/80", "extreme/120" ],
+                    "area" : [ 0, 0 ],
+                    "cypher_class" : "occultic"
                 },
                 "causes a blast" : {
                     "prob" : 50,
                     "range" : [ "short/50", "medium/50", "long/20", "extreme/10" ],
-                    "area" : -1
+                    "area" : [ 0, 0 ]
                 },
                 "sprays an arc" : {
                     "prob" : 20,
                     "range" : [ "short/50", "medium/50", "long/20", "extreme/10" ],
-                    "area" : 0
+                    "area" : [ 0, 0 ]
                 },
                 "covers a zone" : {
                     "prob" : 20,
-                    "range" : [ "immediate/50", "short/50", "medium/20", "long/10", "extreme/10" ],
-                    "area" : 0
+                    "range" : [ "short/50", "medium/20", "long/10", "extreme/10" ],
+                    "area" : [ 0, 1 ],
+                    "cypher_class" : "occultic"
                 },
                 "strikes" : {
                     "prob" : 0,
                     "range" : [ "immediate" ],
-                    "area" : 0
+                    "area" : [ 0, 0 ]
                 }
             },
             durations : [ "one round/10", "ten minutes/30", "one hour/10" ],
@@ -126,6 +158,15 @@ define({
     },
     types : {
         damage_types : {
+            "crushing" : {
+                "prob" : 100
+            },
+            "piercing" : {
+                "prob" : 100
+            },
+            "slashing" : {
+                "prob" : 100
+            },
             "blast" : {
                 "prob" : 100
             },
@@ -145,7 +186,12 @@ define({
                 "prob" : 15
             },
             "disintegration" : {
-                "prob" : 15
+                "prob" : 15,
+                "cypher_class" : "occultic"
+            },
+            "mental" : {
+                "prob" : 15,
+                "cypher_class" : "occultic"
             }
         },
         buff_types : {
@@ -188,10 +234,12 @@ define({
                 "prob" : 50
             },
             "poisoning" : {
-                "prob" : 50
+                "prob" : 50,
+                "duration" : [ "one hour", "one day", "until healed" ]
             },
             "disease" : {
-                "prob" : 50
+                "prob" : 50,
+                "duration" : [ "until healed" ]
             }
         }
     }

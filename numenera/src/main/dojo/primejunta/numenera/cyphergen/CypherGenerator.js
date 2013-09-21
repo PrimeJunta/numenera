@@ -48,7 +48,18 @@ function( declare,
         showCypher : function()
         {
             this._flip( this.cypherCardBack, this.cypherCardFront, "#f4f4f0" );
-            this.cypherCardFront.innerHTML = string.substitute( cypher, this._cf.getRandomCypher() );
+            
+            // icon-fire, icon-star
+            var cyph = this._cf.getRandomCypher();
+            if( cyph.cypher_class == "occultic" )
+            {
+                cyph.icon_class = "icon-fire num-redIcon";
+            }
+            else
+            {
+                cyph.icon_class = "icon-asterisk num-blueIcon";
+            }
+            this.cypherCardFront.innerHTML = string.substitute( cypher, cyph );
         },
         hideCypher : function()
         {
