@@ -1,26 +1,32 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
+         "dojo/string",
          "dojo/query",
          "../_startup",
          "dojo/_base/fx",
          "dojox/fx/flip",
          "dojo/on",
+         "./CypherFactory",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
+         "dojo/text!./templates/_Cypher.html",
          "dojo/text!./templates/CypherGenerator.html",
          "dojo/text!./doc/changelog.html",
          "dojo/text!./doc/about.html" ],
 function( declare,
           lang,
+          string,
           domQuery,
           _startup,
           baseFx,
           flip,
           on,
+          CypherFactory,
           _WidgetBase,
           _TemplatedMixin,
           _WidgetsInTemplateMixin,
+          cypher,
           template,
           changelog,
           about ) 
@@ -36,15 +42,17 @@ function( declare,
         },
         postCreate : function()
         {
+            this._cf = new CypherFactory();
             this.start(); // from startup
         },
         showCypher : function()
         {
-            this._flip( this.cypherCardBack, this.cypherCardFront, "white" );
+            this._flip( this.cypherCardBack, this.cypherCardFront, "#f4f4f0" );
+            this.cypherCardFront.innerHTML = string.substitute( cypher, this._cf.getRandomCypher() );
         },
         hideCypher : function()
         {
-            this._flip( this.cypherCardFront, this.cypherCardBack, "black" );
+            this._flip( this.cypherCardFront, this.cypherCardBack, "#f4f4f0" );
         },
         /**
          * Calls _showHelp with about (that's an included text module).
