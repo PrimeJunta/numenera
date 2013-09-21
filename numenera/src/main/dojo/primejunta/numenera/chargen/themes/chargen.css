@@ -327,11 +327,11 @@ input[readonly].cg-statInput
 }
 .cg-mutation
 {
-    color : #168b16 !important;
+    color : #8F4700 !important;
 }
 .cg-harmful
 {
-	color : #A3A300;
+	color : #663300;
 }
 .cg-cust
 {
