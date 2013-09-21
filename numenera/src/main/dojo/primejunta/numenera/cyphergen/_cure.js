@@ -19,11 +19,13 @@ function( declare,
                 template += "restores ${points} points to ${damage_type}";
                 this._cypher.damage_type = this._fromObject( lang.mixin({ "any pool" : { "prob" : 50 } }, bricks.types.buff_types ) ).name;
                 this._cypher.points = this._cypher.damage_type.indexOf( "pool" ) == -1 ? Math.ceil( level ) : level * 3;
+                this._cypher.cypher_name = "restorative";
             }
             else
             {
                 template += "cures ${status_effect}";
                 this._cypher.status_effect = this._fromObject( bricks.types.status_types ).name;
+                this._cypher.cypher_name = "curative";
             }
             if( item_type.range )
             {

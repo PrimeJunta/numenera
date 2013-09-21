@@ -6,6 +6,7 @@ define([ "dojo/_base/declare",
          "dojo/_base/fx",
          "dojox/fx/flip",
          "dojo/on",
+         "dojo/io-query",
          "./CypherFactory",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -22,6 +23,7 @@ function( declare,
           baseFx,
           flip,
           on,
+          ioQuery,
           CypherFactory,
           _WidgetBase,
           _TemplatedMixin,
@@ -35,10 +37,19 @@ function( declare,
         version : "0.0.1",
         iconSrc : require.toUrl( "primejunta/numenera/themes/images" ),
         templateString : template,
+        cypher_type : false,
         postMixInProperties : function()
         {
             this.inherited( arguments );
             this.setup(); // from _startup
+            if( window.location.hash.length > 0 )
+            {
+                var hs = ioQuery.queryToObject( window.location.hash.substring( 1 ) );
+                if( hs.cypher_type )
+                {
+                    this.cypher_type = hs.cypher_type;
+                }
+            }
         },
         postCreate : function()
         {
@@ -50,7 +61,7 @@ function( declare,
             this._flip( this.cypherCardBack, this.cypherCardFront, "#f4f4f0" );
             
             // icon-fire, icon-star
-            var cyph = this._cf.getRandomCypher();
+            var cyph = this._cf.getRandomCypher( this.cypher_type );
             if( cyph.cypher_class == "occultic" )
             {
                 cyph.icon_class = "icon-fire num-redIcon";
@@ -59,11 +70,18 @@ function( declare,
             {
                 cyph.icon_class = "icon-asterisk num-blueIcon";
             }
-            this.cypherCardFront.innerHTML = string.substitute( cypher, cyph );
+            try
+            {
+                this.cypherCardFront.innerHTML = string.substitute( cypher, cyph );
+            }
+            catch( e )
+            {
+                console.log( "ERR DISP", cyph );
+            }
         },
         hideCypher : function()
         {
-            this._flip( this.cypherCardFront, this.cypherCardBack, "#f4f4f0" );
+            this._flip( this.cypherCardFront, this.cypherCardBack, "#f4f4f0", "left" );
         },
         /**
          * Calls _showHelp with about (that's an included text module).
@@ -72,11 +90,11 @@ function( declare,
         {
             this._showHelp( about );
         },
-        _flip : function( from, to, endColor )
+        _flip : function( from, to, endColor, dir )
         {
             var anim = flip.flip({ 
                 node: from,
-                dir: "right",
+                dir: dir ? dir : "right",
                 depth: .3,
                 duration:400,
                 endColor : endColor

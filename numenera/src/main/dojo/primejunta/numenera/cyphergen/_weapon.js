@@ -20,11 +20,16 @@ function( declare,
             {
                 this._cypher.effect = this._fromObject( cypher_type.effect_types ).name;
             }
+            if( !this._cypher.cypher_name )
+            {
+                this._cypher.cypher_name = cypher_type.effect_types[ this._cypher.effect ].cypher_name;
+            }
             this._cypher.range = this._fromArray( cypher_type.effect_types[ this._cypher.effect ].range ).name;
             var areaMod = cypher_type.effect_types[ this._cypher.effect ].area[ 0 ];
             var areaLow = cypher_type.effect_types[ this._cypher.effect ].area[ 1 ];
             areaMod = array.indexOf( cypher_type.range_types, this._cypher.range ) + areaMod;
             areaMod = areaMod > 0 ? areaMod : 1;
+            areaLow = areaLow < areaMod ? areaLow : areaMod - 1;
             var rArr = cypher_type.radius_types.slice( areaLow, areaMod );
             this._cypher.radius = this._fromArray( rArr ).name;
             var eType = this._fromArray( cypher_type.damage_types ).name; // FIXME: better name.
@@ -55,7 +60,7 @@ function( declare,
                 {
                     this._cypher.duration = this._fromArray( cypher_type.durations ).name
                 }
-                template += "${status_type} for ${duration}";
+                template += "${status_type} ${duration}";
             }
             if( duration )
             {
@@ -63,7 +68,14 @@ function( declare,
                 template += " for ${duration}"
             }
             template += ".";
-            this._cypher.description = string.substitute( template, this._cypher );
+            try
+            {
+                this._cypher.description = string.substitute( template, this._cypher );
+            }
+            catch( e )
+            {
+                console.log( "ERROR", template, this._cypher );
+            }
         }
     });
 });

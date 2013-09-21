@@ -16,6 +16,7 @@ function( declare,
             this._cypher.duration = this._fromArray( cypher_type.durations ).name;
             this._cypher.damage_type = this._fromObject( bricks.types.buff_types ).name;
             this._cypher.points = this._cypher.damage_type.indexOf( "pool" ) == -1 ? Math.ceil( level / 2 ) : level * 3;
+            this._cypher.cypher_name = "enhancer";
             if( item_type.range )
             {
                 this._cypher.range = this._fromArray( item_type.range ).name;

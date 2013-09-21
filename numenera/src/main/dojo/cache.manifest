@@ -16,6 +16,7 @@ primejunta/numenera/themes/images/Numenera_Logo_neg.png
 primejunta/numenera/themes/images/knot.png
 primejunta/numenera/themes/images/cloudbg.jpg
 primejunta/numenera/themes/images/grain.png
+primejunta/numenera/themes/images/grain-dark.png
 primejunta/numenera/themes/images/grain-l.png
 # Main stylesheet
 primejunta/numenera/chargen/themes/chargen.css
@@ -39,7 +40,8 @@ primejunta/nls/numenera_en.js.map
 dijit/nls/loading.js
 dijit/nls/common.js
 # Fonts
-primejunta/numenera/themes/fonts/Droid_Sans.woff
+primejunta/numenera/themes/fonts/Oxygen.woff
+primejunta/numenera/themes/fonts/Oxygen_Bold.woff
 primejunta/numenera/themes/fonts/Lato.woff
 primejunta/numenera/themes/fonts/Prata.woff
 # Themes

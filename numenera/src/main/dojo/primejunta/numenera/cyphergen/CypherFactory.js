@@ -6,6 +6,7 @@ define([ "dojo/_base/declare",
          "./_buff",
          "./_countermeasure",
          "./_weapon",
+         "./_enhancement",
          "./data/bricks" ],
 function( declare,
           lang,
@@ -15,12 +16,13 @@ function( declare,
           _buff,
           _countermeasure,
           _weapon,
+          _enhancement,
           bricks )
 {
-    return declare([ _cure, _buff, _countermeasure, _weapon ], {
-        getRandomCypher : function()
+    return declare([ _cure, _buff, _countermeasure, _weapon, _enhancement ], {
+        getRandomCypher : function( type )
         {
-            var cypher_type = this._fromObject( bricks.cypher_types );
+            var cypher_type = type ? bricks.cypher_types[ type ] : this._fromObject( bricks.cypher_types );
             var item_type = this._fromObject( cypher_type.item_types );
             var action = this._fromArray( item_type.actions );
             var level = Math.round( Math.random() * 5 + 2 );
@@ -53,6 +55,11 @@ function( declare,
                     try {
                         this._getWeapon( cypher_type, item_type, action, level );
                     }catch(e){console.log( "WEAPON!", cypher_type, item_type, action, level, this._cypher )}
+                    break;
+                case "enhancement" :
+                    try {
+                        this._getEnhancement( cypher_type, item_type, action, level );
+                    }catch(e){console.log( "ENHANCEMENT!", cypher_type, item_type, action, level, this._cypher )}
                     break;
             }
             return {
@@ -120,6 +127,10 @@ function( declare,
                     if( arr[ i ].cypher_class )
                     {
                         this._cypher.cypher_class = arr[ i ].cypher_class;
+                    }
+                    if( arr[ i ].cypher_name )
+                    {
+                        this._cypher.cypher_name = arr[ i ].cypher_name;
                     }
                     return arr[ i ];
                 }

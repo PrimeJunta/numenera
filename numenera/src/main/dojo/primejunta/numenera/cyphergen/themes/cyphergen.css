@@ -48,6 +48,11 @@ body
 	text-transform : capitalize;
 	font-size : 22px;
 }
+.cy-cypherType
+{
+    text-transform : capitalize;
+    margin : 10px 0 10px;
+}
 .cy-cypherLevel
 {
 	margin-top : 13px;
