@@ -217,12 +217,17 @@ function( declare,
             var dd = this[ aPoint + "DisabledDisplay" ];
             if( !dd || !sel )
             {
+                console.log( "PROBLEM", aPoint );
                 return;
             }
             sel.disabled = true;
             if( hideIfNull && this._selVal( sel ).label == "-- choose --" )
             {
                 this.domNode.style.display = "none";
+            }
+            else
+            {
+                this.domNode.style.display = this.domNode.tagName.toLowerCase() == "li" ? "list-item" : "block";
             }
             sel.style.display = "none";
             dd.innerHTML = this._selVal( sel ).label;
@@ -237,6 +242,7 @@ function( declare,
             var dd = this[ aPoint + "DisabledDisplay" ];
             if( !dd || !sel )
             {
+                console.log( "BIG PROBLEM", aPoint );
                 return;
             }
             sel.disabled = true;
