@@ -42,11 +42,11 @@ function( declare,
             }
             if( this.DEFAULT_VALUES[ inputNode.value ] )
             {
-                domClass.add( inputNode, "cg-valueNotSet" );
+                domClass.add( inputNode, "num-valueNotSet" );
             }
             else
             {
-                domClass.remove( inputNode, "cg-valueNotSet" );
+                domClass.remove( inputNode, "num-valueNotSet" );
             }
         },
         /**

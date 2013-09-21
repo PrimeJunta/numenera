@@ -3,18 +3,18 @@
     <table cellspacing="0" cellpadding="0">
       <tr>
         <td style="width: 30px;"
-          class="cg-hiddenControl cg-deleteControl"><input
+          class="num-hiddenControl num-deleteControl"><input
           type="checkbox" data-dojo-attach-point="deleteControl"
           data-dojo-attach-event="onClick:deleteMe" checked="checked" />
         </td>
-        <td class="cg-baseTextNode cg-deletable"><span
+        <td class="num-baseTextNode num-deletable"><span
           data-dojo-attach-point="baseTextNode">${baseText}</span> <span
           data-dojo-attach-point="selectNodeDisabledDisplay"></span><select
           class="cg-storeMe" data-dojo-attach-point="selectNode"
           data-dojo-attach-event="onChange:dataChanged"></select> <span
           data-dojo-attach-point="midTextNode">${midText}</span></td>
         <td>&nbsp;<input type="text" data-dojo-attach-point="inputNode"
-          class="cg-storeMe cg-itemInput cg-valueNotSet cg-deletable"
+          class="cg-storeMe num-itemInput num-valueNotSet num-deletable"
           value="${inputValue}"
           data-dojo-attach-event="onKeyDown:normalizeClass,onClick:selectContent,onFocus:selectContent,onChange:dataChanged,onBlur:onBlurInput" />
         </td>

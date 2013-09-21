@@ -1,4 +1,4 @@
-<div class="cg-characterGenerator" style="display: none;">
+<div class="num-mainWidget" style="display: none;">
   <!--  Main buttons, floating -->
   <div data-dojo-attach-point="characterGeneratorPane"
     data-dojo-type="dijit/layout/BorderContainer"
@@ -7,7 +7,7 @@
     <div data-dojo-type="dijit/layout/ContentPane"
       data-dojo-props="region:'top'" data-dojo-attach-point="headerPane"
       style="height: 150px; overflow: hidden;">
-      <div class="cg-characterGeneratorContent">
+      <div class="num-mainWidgetContent">
         <div style="text-align: center">
           <div data-dojo-attach-point="basicControlsNode">
             <div data-dojo-attach-point="phrase_pane">
@@ -22,10 +22,10 @@
                         style="border: none; height: 40px; width: auto; margin-top: 8px;" /></a>
                     </td>
                     <td align="right" width="25%">
-                      <div class="cg-linkNode">
+                      <div class="num-linkNode">
                         <a data-dojo-attach-point="helpButton"
                           data-dojo-attach-event="onClick:showHelp"
-                          class="cg-infoLink"><i
+                          class="num-infoLink"><i
                           class="icon-question-sign"></i></a>
                         &nbsp;&nbsp;&nbsp; <a
                           data-dojo-attach-point="linkNode">Share ➤</a>
@@ -38,7 +38,7 @@
                 <input data-dojo-attach-point="characterNameInput"
                   type="text" value="${DEFAULT_CHARACTER_NAME}"
                   spellcheck="false"
-                  class="cg-storeMe cg-characterNameInput cg-valueNotSet" />
+                  class="cg-storeMe cg-characterNameInput num-valueNotSet" />
               </div>
               <div data-dojo-attach-point="phraseSelectorNode"
                 class="cg-phraseSelectors">
@@ -69,7 +69,7 @@
       <div data-dojo-type="dijit/layout/TabContainer"
         data-dojo-attach-point="mainTabContainer"
         data-dojo-props="tabStrip:false,persist:false"
-        class="cg-mainTabContainer">
+        class="num-mainTabContainer">
         <div data-dojo-type="dijit/layout/ContentPane"
           data-dojo-props="title:'Statistics'"
           data-dojo-attach-point="statsPane">
@@ -79,7 +79,7 @@
               data-dojo-type="primejunta/numenera/chargen/_CharacterPortrait"
               data-dojo-attach-point="portraitWidget" />
           </div>
-          <div class="cg-statsPane cg-characterGeneratorContent">
+          <div class="cg-statsPane num-mainWidgetContent">
             <table cellspacing="0" cellpadding="10" width="100%"
               class="cg-statisticsTable">
               <tbody>
@@ -297,7 +297,7 @@
         </div>
         <div data-dojo-type="dijit/layout/ContentPane"
           data-dojo-props="title:'Possessions'">
-          <div class="cg-resultsPane cg-characterGeneratorContent">
+          <div class="cg-resultsPane num-mainWidgetContent">
             <h2 data-dojo-attach-point="cypher_list_label">Cyphers</h2>
             <ul data-dojo-attach-point="cypher_list"></ul>
             <h2 data-dojo-attach-point="equipment_list_label">Starting
@@ -305,7 +305,7 @@
             <ul data-dojo-attach-point="equipment_list"></ul>
             <h2>Extra Possessions</h2>
             <textarea data-dojo-attach-point="extra_equipment_text"
-              class="cg-inputTextArea"
+              class="num-inputTextArea"
               data-dojo-type="dijit/form/Textarea"
               data-dojo-attach-event="onKeyUp:connectTextareaListener,onChange:descriptionUpdated"></textarea>
           </div>
@@ -313,7 +313,7 @@
         <div data-dojo-type="dijit/layout/ContentPane"
           data-dojo-props="title:'Abilities',selected:true"
           data-dojo-attach-point="abilityPane">
-          <div class="cg-resultsPane cg-characterGeneratorContent">
+          <div class="cg-resultsPane num-mainWidgetContent">
             <h2 data-dojo-attach-point="ability_list_label">Skills</h2>
             <ul data-dojo-attach-point="ability_list"></ul>
             <h2 data-dojo-attach-point="inability_list_label"
@@ -326,12 +326,12 @@
             <ul data-dojo-attach-point="special_list"></ul>
             <h2 data-dojo-attach-point="description_text_label">Background</h2>
             <textarea data-dojo-attach-point="description_text"
-              class="cg-inputTextArea"
+              class="num-inputTextArea"
               data-dojo-type="dijit/form/Textarea"
               data-dojo-attach-event="onKeyUp:connectTextareaListener,onChange:descriptionUpdated"></textarea>
             <h2>Notes</h2>
             <textarea data-dojo-attach-point="notes_text"
-              class="cg-inputTextArea"
+              class="num-inputTextArea"
               data-dojo-type="dijit/form/Textarea"
               data-dojo-attach-event="onKeyUp:connectTextareaListener,onChange:descriptionUpdated"></textarea>
           </div>
@@ -339,9 +339,9 @@
       </div>
     </div>
     <div data-dojo-type="dijit/layout/ContentPane"
-      data-dojo-props="region:'bottom'" class="cg-footer"
+      data-dojo-props="region:'bottom'" class="num-footer"
       data-dojo-attach-point="footerNode">
-      <div class="cg-characterGeneratorContent">
+      <div class="num-mainWidgetContent">
         <div>
           <table width="100%" cellspacing="0" cellpadding="0"
             style="margin-top: 5px;">
@@ -349,7 +349,7 @@
               <tr>
                 <td width="15%">
                   <button data-dojo-type="dijit/form/Button"
-                    class="cg-redButton"
+                    class="num-redButton"
                     data-dojo-attach-event="onClick:clearAll"
                     data-dojo-attach-point="clearButton">
                     <i class="icon-refresh"></i> Clear
@@ -362,7 +362,7 @@
                 </td>
                 <td align="right" width="15%">
                   <button data-dojo-type="dijit/form/Button"
-                    class="cg-blueButton"
+                    class="num-blueButton"
                     data-dojo-attach-point="finalizeButton"
                     data-dojo-attach-event="onClick:finalize">
                     <i class="icon-double-angle-up"></i> Advance
@@ -373,7 +373,7 @@
           </table>
         </div>
       </div>
-      <div class="cg-copyright">
+      <div class="num-copyright">
         <span style="cursor:pointer" data-dojo-attach-event="onClick:showLicenses">
         Numenera and its logo are trademarks of Monte Cook Games, LLC in
         the U.S.A. and other countries. All Monte Cook Games characters
@@ -381,9 +381,9 @@
         trademarks of Monte Cook Games, LLC. Content derived from Monte
         Cook Games publications is © 2013 Monte Cook Games, LLC. <br />The
         Character Creation Utility is an unofficial project by Petteri
-        Sulonen.</span> • <a class="cg-versionInfo"
+        Sulonen.</span> • <a class="num-versionInfo"
           data-dojo-attach-event="onClick:showLicenses">Licenses</a> • <span
-          class="cg-versionInfo"> <a
+          class="num-versionInfo"> <a
           data-dojo-attach-event="onClick:showChangeLog">Version
             ${version}</a>
         </span>
@@ -393,7 +393,7 @@
         <div data-dojo-type="dijit/Dialog"
           data-dojo-attach-point="messageDialog"
           data-dojo-props="title:'Character Creation Utility'">
-          <div class="cg-dialogContent"
+          <div class="num-dialogContent"
             data-dojo-attach-point="messageContentNode"></div>
           <div style="text-align: right;">
             <button data-dojo-type="dijit/form/Button"
@@ -403,7 +403,7 @@
         <div data-dojo-type="dijit/Dialog"
           data-dojo-attach-point="characterManagerDialog"
           data-dojo-props="title:'Character Creation Utility'">
-          <div class="cg-dialogContent">
+          <div class="num-dialogContent">
             <h3>Remembered Heroes</h3>
             <p>Click (or tap) to load a remembered hero.</p>
             <div data-dojo-attach-point="characterManagerContentNode">
@@ -415,7 +415,7 @@
               <td>
                 <button data-dojo-type="dijit/form/Button"
                   data-dojo-attach-event="onClick:deleteSelectedCharacters"
-                  class="cg-redButton">
+                  class="num-redButton">
                   <i class="icon-trash"></i> Delete marked
                 </button>
               </td>
@@ -432,23 +432,23 @@
       </div>
     </div>
   </div>
-  <div class="cg-characterGeneratorContent"
+  <div class="num-mainWidgetContent"
     data-dojo-attach-point="mainButtonsNode" style="visibility: hidden">
     <div class="cg-mainButtonsNode">
       <button data-dojo-attach-point="printButton"
         data-dojo-type="dijit/form/Button"
         data-dojo-attach-event="onClick:makePrint"
-        class="cg-smallButton" disabled="true">
+        class="num-smallButton" disabled="true">
         <i class="icon-print"></i>
       </button>
       <button data-dojo-attach-point="saveButton"
         data-dojo-type="dijit/form/Button"
         data-dojo-attach-event="onClick:storeCharacter"
-        class="cg-smallButton" disabled="true">
+        class="num-smallButton" disabled="true">
         <i class="icon-save"></i>
       </button>
       <span data-dojo-attach-point="customizeButtonNode"
-        class="cg-smallButton"></span>
+        class="num-smallButton"></span>
     </div>
   </div>
 </div>

@@ -31,7 +31,7 @@ function( declare,
             if( this.customize )
             {
                 this.customizeFocusButton.checked = true;
-                domClass.add( this.customizeFocusButton.domNode, "cg-selectedButton" );
+                domClass.add( this.customizeFocusButton.domNode, "num-selectedButton" );
                 this._toggleDeletedAbilities( this._controls, "focus" );
                 this._perkSelector = new _AlternativePerkSelector({
                     manager : this.manager,
@@ -45,7 +45,7 @@ function( declare,
             else
             {
                 this.customizeFocusButton.checked = false;
-                domClass.remove( this.customizeFocusButton.domNode, "cg-selectedButton" );
+                domClass.remove( this.customizeFocusButton.domNode, "num-selectedButton" );
                 this._toggleDeletedAbilities( this._controls, "focus" );
                 this._perkSelector.destroy();
                 this.manager._augment( this.manager.getFocus().advancement[ this.tier ].stats );

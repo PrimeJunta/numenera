@@ -25,6 +25,7 @@ define([ "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
+         "../_startup",
          "./_util",
          "./_SplashCharacterPane",
          "./_data",
@@ -63,6 +64,7 @@ function( declare,
           _WidgetBase,
           _TemplatedMixin, 
           _WidgetsInTemplateMixin,
+          _startup,
           _util,
           _SplashCharacterPane,
           _data,
@@ -81,7 +83,7 @@ function( declare,
           changelog,
           licenses )
 {
-    return declare( "primejunta/numenera/chargen/CharacterGenerator", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _util, _data, _stats, _lists, optionals ], {
+    return declare( "primejunta/numenera/chargen/CharacterGenerator", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _startup, _util, _data, _stats, _lists, optionals ], {
         /**
          * Default title.
          */
@@ -93,7 +95,7 @@ function( declare,
         /**
          * Public version number.
          */
-        version : "1.3.8",
+        version : "1.4.0",
         /**
          * Set when a character is first advanced past creation.
          */
@@ -117,7 +119,7 @@ function( declare,
         /**
          * Path to icons and other graphic goodies.
          */
-        iconSrc : require.toUrl( "primejunta/numenera/chargen/themes/images" ),
+        iconSrc : require.toUrl( "primejunta/numenera/themes/images" ),
         /**
          * Sets document body style, adds a listener for application cache and
          * alerts users of inferior browsers.
@@ -125,31 +127,7 @@ function( declare,
         postMixInProperties : function()
         {
             this.inherited( arguments );
-            document.body.className = "tundra";
-            if( !has( "ff" ) && !has( "webkit" ) && !cookie( "browserCheckAlert" ) )
-            {
-                alert( "This webapp has only been tested on Firefox, Google Chrome, and Apple Safari. Use at your own risk." );
-                cookie( "browserCheckAlert", "1", { expires : 30 });
-            }
-            window.applicationCache.addEventListener( "updateready", lang.hitch( this, function( event )
-            {
-                console.log( "Updating application cache. Status is ", window.applicationCache.status );
-                if( has( "ff" ) )
-                {
-                    this._reload();
-                }
-                else if( window.applicationCache.status == 4 ) try
-                {
-                    setTimeout( lang.hitch( this, this._reload ), 500 );
-                    window.applicationCache.swapCache();
-                    console.log( "Application cache successfully updated." );
-                }
-                catch( e )
-                {
-                    console.log( "Failed to swap cache." );
-                    setTimeout( lang.hitch( this, this._reload ), 500 );
-                }
-            }), false );
+            this.setup(); // from _startup
         },
         /**
          * Initialize internal arrays, initialize selects from data, and connect various event handlers to the UI buttons.
@@ -175,29 +153,7 @@ function( declare,
             topic.subscribe( "CharGen/pleaseHideUnlock", lang.hitch( this, this.setFinalizedClass, true ) );
             this.inherited( arguments );
             this.checkForStartupQuery();
-            var loaderNode = domQuery( "div.cg-noJavaScript" )[ 0 ];
-            loaderNode.style.display = "none";
-            this.domNode.style.display = "block";
-            this.waitForLayout();
-        },
-        /**
-         * Workaround for minor rendering glitch on iPad Chrome and Safari: the main tab container's content pane is not 
-         * correctly lined up if shown immediately after postCreate.
-         */
-        waitForLayout : function()
-        {
-            if( this.mainTabContainer._started )
-            {
-                this.mainTabContainer.resize();
-            }
-            else
-            {
-                setTimeout( lang.hitch( this, this.waitForLayout ), 200 );
-                setTimeout( lang.hitch( this, this.waitForLayout ), 400 );
-                setTimeout( lang.hitch( this, this.waitForLayout ), 600 );
-                setTimeout( lang.hitch( this, this.waitForLayout ), 800 );
-                setTimeout( lang.hitch( this, this.waitForLayout ), 1000 );
-            }
+            this.start();
         },
         /**
          * If the char name has not been set, clear the field and normalizeClass.

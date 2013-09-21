@@ -69,8 +69,8 @@ function( declare,
                 label : "<i class=\"icon-ok-circle\"></i>",
                 onClick : lang.hitch( this, this.applyChange )
             }).placeAt( this.unlockControlNode );
-            //domClass.add( this.cancelButton.domNode, "cg-redButton" );
-            domClass.add( this.applyChangeButton.domNode, "cg-greenButton" );
+            //domClass.add( this.cancelButton.domNode, "num-redButton" );
+            domClass.add( this.applyChangeButton.domNode, "num-greenButton" );
         },
         /**
          * Stores previous value on _prevVal and .unlockControls; also changes state of unlock controls accordingly.

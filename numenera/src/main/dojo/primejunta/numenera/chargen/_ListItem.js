@@ -142,7 +142,7 @@ function( declare,
             }
             if( this.isDeletable )
             {
-                domClass.add( this.domNode, "cg-hoverControls" );
+                domClass.add( this.domNode, "num-hoverControls" );
             }
         },
         /**

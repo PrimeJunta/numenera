@@ -3,15 +3,15 @@
     <table cellspacing="0" cellpadding="0" data-dojo-attach-point="baseNode">
       <tr>
         <td data-dojo-attach-point="baseTextNode"
-          class="cg-baseTextNode">${baseText}</td>
+          class="num-baseTextNode">${baseText}</td>
         <td>&nbsp;<input type="text" data-dojo-attach-point="inputNode"
-          class="cg-itemInput cg-storeMe cg-valueNotSet"
+          class="num-itemInput cg-storeMe num-valueNotSet"
           value="${inputValue}"
           data-dojo-attach-event="onKeyDown:normalizeClass,onClick:selectContent,onFocus:selectContent,onChange:dataChanged,onBlur:onBlurInput" />
           <button data-dojo-type="dijit/form/Button"
             data-dojo-attach-event="onClick:randomizeMutation"
             data-dojo-attach-point="randomizeButton"
-            class="cg-randomizeButton">
+            class="num-randomizeButton">
             <i class="icon-beaker"></i>
           </button></td>
       </tr>
@@ -23,27 +23,27 @@
             Might: + <input type="number"
             data-dojo-attach-event="onChange:checkState"
             data-dojo-attach-point="mightAdjustmentNode"
-            class="cg-storeMe cg-smallInput cg-adjust-might-pool" />
+            class="cg-storeMe num-smallInput cg-adjust-might-pool" />
         </span> <span data-dojo-attach-point="speedAdjustmentContainer">
             Speed: + <input type="number"
             data-dojo-attach-event="onChange:checkState"
             data-dojo-attach-point="speedAdjustmentNode"
-            class="cg-storeMe cg-smallInput cg-adjust-speed-pool" />
+            class="cg-storeMe num-smallInput cg-adjust-speed-pool" />
         </span> <span data-dojo-attach-point="intellectAdjustmentContainer">
             Intellect: + <input type="number"
             data-dojo-attach-event="onChange:checkState"
             data-dojo-attach-point="intellectAdjustmentNode"
-            class="cg-storeMe cg-smallInput cg-adjust-intellect-pool" />
+            class="cg-storeMe num-smallInput cg-adjust-intellect-pool" />
         </span> <span data-dojo-attach-point="armorAdjustmentContainer">
             Armor: + <input type="number"
             data-dojo-attach-event="onChange:checkState"
             data-dojo-attach-point="armorAdjustmentNode"
-            class="cg-storeMe cg-smallInput cg-adjust-armor" />
+            class="cg-storeMe num-smallInput cg-adjust-armor" />
         </span> <span data-dojo-attach-point="recoveryAdjustmentContainer">
             Recovery: + <input type="number"
             data-dojo-attach-event="onChange:checkState"
             data-dojo-attach-point="recoveryAdjustmentNode"
-            class="cg-storeMe cg-smallInput cg-adjust-recovery" />
+            class="cg-storeMe num-smallInput cg-adjust-recovery" />
         </span></td>
       </tr>
     </table>

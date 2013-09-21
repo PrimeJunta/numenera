@@ -1,0 +1,389 @@
+/**
+ * Shared Numenera stylesheet.
+ */
+/* Import Dijit theme. */
+@import url( '../../../dijit/themes/tundra/tundra.css' );
+/* Fonts - these are originally from Google Web Fonts, and are used with permission [ https://developers.google.com/fonts/faq#Download_Fonts ]. */
+@font-face {
+  font-family: 'Droid Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Droid Sans'), local('DroidSans'), url( fonts/Droid_Sans.woff ) format('woff');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Lato Regular'), local('Lato-Regular'), url( fonts/Lato.woff ) format('woff');
+}
+@font-face {
+  font-family: 'Prata';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Prata'), local('Prata-Regular'), url( fonts/Prata.woff ) format('woff');
+}
+/* HTML elements. */
+html, body
+{
+    margin : 0px;
+    padding : 0px;
+    width : 100%;
+    height : 100%;
+    font-family : 'Droid Sans', 'avant garde', helvetica, helve, arial, sans-serif;
+}
+body
+{
+    background-color : #182838;
+    background-image : url( 'images/grain.png' );
+    font-size : 16px;
+}
+select 
+{
+   font-size : 18px;
+   font-family : 'Droid Sans', 'avant garde', helvetica, helve, arial, sans-serif;
+   height : 28px;
+   vertical-align : middle;
+}
+h1, h2, h3
+{
+    font-family : Prata;
+    font-weight : normal;
+    text-align : center;	
+}
+.num-mainWidgetContent h1, .num-mainWidgetContent h2, .num-mainWidgetContent h3
+{
+    color : #424242;
+}
+h3
+{
+	text-align : left;
+}
+h1
+{
+    text-align : center;
+}
+h1 a
+{
+    color : black;
+    text-decoration : none;
+}
+h1 a:hover
+{
+    color : blue;
+    text-decoration : underline;
+}
+th
+{
+    font-weight : normal;
+}
+li
+{
+    line-height : 32px;
+}
+li div
+{
+    display : inline-block;
+    vertical-align : top;
+}
+li td
+{
+    padding : 0px;
+}
+.num-whiteKnot
+{
+	width : 100%;
+	background-image : url( 'images/knot.png' );
+	background-size : 75% auto;
+	background-repeat : no-repeat;
+	background-position : center;
+	height : 100px;
+	width : 100px;
+	margin : 40px;
+	margin-left : auto;
+	margin-right : auto;
+	opacity : 0.8;
+}
+/* base layout elements */
+.num-mainWidget
+{
+    width : 850px;
+    height : 100%;
+    overflow : hidden;
+    margin-left : auto;
+    margin-right : auto;
+}
+.num-mainWidgetPane
+{
+    border-radius : 20px;
+    margin-top : 50px;
+    margin-left : auto;
+    margin-right : auto;
+    padding : 20px 0px 30px 0px;
+    background-color : #f5f5f5;
+}
+.num-mainWidgetContent
+{
+	width : 700px;
+	margin-left : auto;
+	margin-right : auto;
+}
+.num-mainTabContainer .dijitTabContainerTop-tabs
+{
+	width : 100% !important;
+	text-align : center;
+}
+.num-mainTabContainer .dijitTab
+{
+	padding : 10px 20px 10px 20px;
+	font-family : Lato;
+}
+.num-noJavaScript
+{
+    padding : 50px;
+    color : #e4e4e4;
+    width : 700px;
+    margin-left:auto;
+    margin-right:auto;
+}
+.num-noJavaScript a
+{
+    color : #345c8c;
+}
+.num-blurb
+{
+    font-family : Lato;
+    font-size : 18px;
+    text-transform : uppercase;
+    color : gray;
+    letter-spacing : 12px;
+}
+.num-linkNode
+{
+    padding : 10px 20px 0px 0px;
+}
+.num-linkNode a
+{
+	color : #e4e4e4;
+	font-size : 18px;
+	font-family : Lato;
+}
+a.num-infoLink
+{
+    text-decoration : none;
+    cursor : pointer;
+}
+.num-inputTextArea
+{
+    width : 100%;
+    font-family : 'Droid sans', 'avant garde', sans-serif;
+    font-size : 14px;
+}
+.num-valueNotSet
+{
+    color : gray;
+    font-style : italic;
+}
+/* list items */
+.num-itemInput
+{
+    width : 350px;
+    display : inline-block;
+    font-size : 14px;
+    text-align : left;
+}
+.num-smallInput
+{
+	width : 30px;
+	text-align : center;
+}
+.num-itemInput:disabled, .num-smallInput:disabled
+{
+	font-size : 16px;
+	color : inherit;
+	border : none;
+	padding : 0;
+	margin : 0;
+	background-color : transparent;
+	background-image : none;
+	text-align:left;
+}
+.num-baseTextNode
+{
+}
+/* background panes (the td's are included because of an ipad retina rendering glitch) */
+.num-warmBackground, .num-warmBackground td
+{
+    background-color : #FFFFFF;
+}
+.num-paleBackground, .num-paleBackground td
+{
+    background-color : #e4e4e4;
+}
+.num-highlightBackground, .num-highlightBackground td
+{
+    background-color : #d4d4d4;
+}
+.num-evenBackground, .num-evenBackground td
+{
+    background-color : #fcfcfc;
+}
+.num-oddBackground, .num-oddBackground td
+{
+    background-color : #fafafa;
+}
+/* buttons */
+.dijitButton
+{
+    font-size : 18px;
+    font-family : Lato;
+}
+.num-randomizeButton
+{
+	font-size:14px;line-height:16px;height:18px;vertical-align:2px;
+}
+.num-blueButton .dijitButtonNode
+{
+   background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0.00, #446dff),
+        color-stop(1.00, #335C99 )
+    );
+    background-image : -webkit-linear-gradient(to bottom, #446dff 0%, #335C99 100%);
+    background-image : linear-gradient(to bottom, #446dff 0%, #335C99 100%);
+    border : 1px solid #446dff;
+    color : white;
+}
+.num-redButton .dijitButtonNode
+{
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0.00, #ff6d44),
+        color-stop(1.00, #990000 )
+    );
+    background-image : -webkit-linear-gradient(to bottom, #ff6d44 0%, #990000 100%);
+    background-image : linear-gradient(to bottom, #ff6d44 0%, #990000 100%);
+    border : 1px solid #ff6d44;
+    color : white;
+}
+.num-selectedButton .dijitButtonNode
+{
+	color : #66C2FF !important;
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0.00, #303030),
+        color-stop(1.00, #606060 )
+    ) !important;
+    background-image : -webkit-linear-gradient(to bottom, #303030 0%, #606060 100%) !important;
+    background-image : linear-gradient(to bottom, #303030 0%, #606060 100%) !important;
+    border : 1px solid #484848 !important;
+}
+.num-blueButton .dijitButtonDisabled .dijitButtonNode
+{
+    background-image : -webkit-linear-gradient(to bottom, #FFFFFF 0%, #335C99 100%);
+    background-image : linear-gradient(to bottom, #FFFFFF 0%, #335C99 100%);
+}
+.num-greenButton
+{
+    color : #345C8C;
+}
+.num-smallButton .dijitButtonNode
+{
+	width : 30px;
+}
+/* delete item button */
+.num-hiddenControl 
+{
+    display : none;
+    margin-left : 6px;
+    width : 24px;
+    height : 24px;
+    line-height : 24px;
+    cursor : pointer;
+    text-decoration : none;
+    border : none;
+    background-color : transparent;
+    vertical-align : top;
+}
+.num-hoverControls .num-hiddenControl
+{
+    display : inline-block;
+}
+.num-hoverControls td.num-hiddenControl
+{
+    display : table-cell;
+}
+.num-deleteControl
+{
+    font-size : 22px;
+    color : #990000;
+}
+.num-deletedItem .num-deletable
+{
+    opacity : 0.2;
+    text-decoration : line-through;
+}
+.num-deletedItem .num-deletable select
+{
+   text-decoration : line-through;  
+}
+/* help and dialogs */
+.num-helpPage
+{
+    border-radius : 20px;
+    width : 650px;
+    margin-top : 50px;
+    margin-left : auto;
+    margin-right : auto;
+    margin-bottom : 50px;
+    padding : 40px 80px 40px 80px;
+    background-color : #f5f5f5;
+    color : black;
+}
+.num-dialogContent 
+{
+    width : 580px;
+    padding : 0 20px 0 20px;
+    overflow : auto; 
+}
+/* footer */
+.num-footer
+{
+	height : 110px;
+	overflow : hidden;
+}
+/* copyright notice */
+.num-copyright
+{
+	font-family : Lato;
+    text-align : center;
+    font-size : 10px;
+    margin-left : auto;
+    margin-right : auto;
+    padding : 3px;
+    color : #585858;
+}
+.num-copyright a
+{
+    color : #345c8c;
+}
+/* version info */
+.num-versionInfo
+{
+    text-align : right;
+    font-size : 12px;
+    cursor : pointer;
+}
+
+/* Workaround Webkit rendering bug: styles not applied to selects at 100% zoom without this. */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  select 
+  {
+     background-color : #fefefe;
+  }
+}

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html>
-<!--  This page contains no cache manifest and is intended for use in development. -->
+<html manifest="cache.manifest">
 <head>
-<title>Hero 9/dev</title>
+<!-- Index page for Cypher Creation Utility build. -->
+<title>Hero 9</title>
 <meta name="viewport" content="user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
 <link rel="icon" sizes="32x32"
   href="primejunta/numenera/themes/images/icon.png" />
 <link rel="apple-touch-icon" sizes="72x72"
@@ -15,10 +16,10 @@
 <link rel="stylesheet" type="text/css"
   href="font-awesome/css/font-awesome.css" />
 <script type="text/javascript" src="dojo/dojo.js"
-  data-dojo-config="debug: true, async: true, parseOnLoad: true"></script>
+  data-dojo-config="async: true, parseOnLoad: true"></script>
 <script type="text/javascript" src="primejunta/numenera.js"></script>
 <script type="text/javascript">
-    require( [ "dojo/parser", "primejunta/numenera/chargen/CharacterGenerator" ] );
+    require( [ "dojo/parser", "primejunta/numenera/cyphergen/CypherGenerator" ] );
 </script>
 </head>
 <body>
@@ -76,7 +77,6 @@
     </ul>
     </p>
   </div>
-  <div data-dojo-type="primejunta/numenera/chargen/CharacterGenerator"></div>
-
+  <div data-dojo-type="primejunta/numenera/cyphergen/CypherGenerator"></div>
 </body>
 </html>

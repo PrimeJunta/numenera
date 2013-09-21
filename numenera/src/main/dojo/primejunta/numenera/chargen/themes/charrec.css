@@ -209,7 +209,7 @@ h2.cr-heading
        size: 297mm 210mm;
        margin : 0cm;
     }
-    .cg-noJavaScript, .cr-uiControl
+    .num-noJavaScript, .cr-uiControl
     {
         display : none;
     }

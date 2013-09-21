@@ -37,7 +37,7 @@ function( declare,
         /**
          * Image source.
          */
-        iconSource : require.toUrl( "primejunta/numenera/chargen/themes/images" ),
+        iconSource : require.toUrl( "primejunta/numenera/themes/images" ),
         /**
          * CharacterGenerator which contains the data to be displayed.
          */

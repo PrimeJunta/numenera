@@ -2,14 +2,14 @@
   <div>
     <table cellspacing="0" cellpadding="0">
       <tr>
-        <td style="width: 30px;" class="cg-hiddenControl cg-deleteControl">
+        <td style="width: 30px;" class="num-hiddenControl num-deleteControl">
           <input type="checkbox" data-dojo-attach-point="deleteControl"
             data-dojo-attach-event="onClick:deleteMe" checked="checked"/>
         </td>
         <td data-dojo-attach-point="baseTextNode"
-          class="cg-baseTextNode cg-deletable">${baseText}</td>
+          class="num-baseTextNode num-deletable">${baseText}</td>
         <td>&nbsp;<input type="text" data-dojo-attach-point="inputNode"
-          class="cg-itemInput cg-storeMe cg-valueNotSet cg-deletable"
+          class="num-itemInput cg-storeMe num-valueNotSet num-deletable"
           value="${inputValue}"
           data-dojo-attach-event="onKeyDown:normalizeClass,onClick:selectContent,onFocus:selectContent,onChange:dataChanged,onBlur:onBlurInput" />
         </td>

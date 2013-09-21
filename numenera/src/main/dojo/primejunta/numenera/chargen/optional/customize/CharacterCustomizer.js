@@ -203,7 +203,7 @@ function( declare,
             this.checkState();
         },
         /**
-         * Sets/unsets cg-selectedButton class for button if any customizations are/not present. Handles
+         * Sets/unsets num-selectedButton class for button if any customizations are/not present. Handles
          * some other changes to the UI such as disabling certain options if already used by some other
          * active customization.
          */
@@ -213,7 +213,7 @@ function( declare,
             var type = this.manager.getType();
             if( !type )
             {
-                domClass.remove( this.domNode, "cg-selectedButton" );
+                domClass.remove( this.domNode, "num-selectedButton" );
                 return;
             }
             else
@@ -234,11 +234,11 @@ function( declare,
             }
             if( this._hasCustomizations() )
             {
-                domClass.add( this.domNode, "cg-selectedButton" );
+                domClass.add( this.domNode, "num-selectedButton" );
             }
             else
             {
-                domClass.remove( this.domNode, "cg-selectedButton" );
+                domClass.remove( this.domNode, "num-selectedButton" );
             }
         },
         /**

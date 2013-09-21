@@ -84,7 +84,7 @@ function( declare,
                     focusData : this.focusData,
                     tier : this._controls.length + 1
                 }).placeAt( this.tierContainerNode ) );
-                domClass.add( this._controls[ this._controls.length - 1 ].domNode, this._controls.length % 2 == 0 ? "cg-evenBackground" : "cg-oddBackground" );
+                domClass.add( this._controls[ this._controls.length - 1 ].domNode, this._controls.length % 2 == 0 ? "num-evenBackground" : "num-oddBackground" );
             }
             this.manager.character_tier.value = this.tier;
             this.manager.moveCaps();

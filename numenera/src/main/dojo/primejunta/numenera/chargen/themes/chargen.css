@@ -1,213 +1,46 @@
 /**
  * Main Character Generator stylesheet.
  */
-/* Import those Dijit themes we're actually using, and character record. */
-@import url( '../../../../dijit/themes/tundra/tundra.css' );
+
+/* Import charrec and main theme. */
 @import url( 'charrec.css' );
-/* Fonts - these are originally from Google Web Fonts, and are used with permission [ https://developers.google.com/fonts/faq#Download_Fonts ]. */
-@font-face {
-  font-family: 'Droid Sans';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Droid Sans'), local('DroidSans'), url( fonts/Droid_Sans.woff ) format('woff');
-}
-@font-face {
-  font-family: 'Lato';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Lato Regular'), local('Lato-Regular'), url( fonts/Lato.woff ) format('woff');
-}
-@font-face {
-  font-family: 'Prata';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Prata'), local('Prata-Regular'), url( fonts/Prata.woff ) format('woff');
-}
-/* HTML elements. */
-html, body
-{
-    margin : 0px;
-    padding : 0px;
-    width : 100%;
-    height : 100%;
-    font-family : 'Droid Sans', 'avant garde', helvetica, helve, arial, sans-serif;
-}
-body
-{
-    background-color : #182838;
-    background-image : url( 'images/grain.png' );
-    font-size : 16px;
-}
-select 
-{
-   font-size : 18px;
-   font-family : 'Droid Sans', 'avant garde', helvetica, helve, arial, sans-serif;
-   height : 28px;
-   vertical-align : middle;
-}
-h1, h2, h3
-{
-    font-family : Prata;
-    font-weight : normal;
-    text-align : center;	
-}
-.cg-characterGeneratorContent h1, .cg-characterGeneratorContent h2, .cg-characterGeneratorContent h3
-{
-    color : #424242;
-}
-h3
-{
-	text-align : left;
-}
-h1
-{
-    text-align : center;
-}
-h1 a
-{
-    color : black;
-    text-decoration : none;
-}
-h1 a:hover
-{
-    color : blue;
-    text-decoration : underline;
-}
-th
-{
-    font-weight : normal;
-}
-li
-{
-    line-height : 32px;
-}
-li div
-{
-    display : inline-block;
-    vertical-align : top;
-}
-li td
-{
-    padding : 0px;
-}
+@import url( '../../themes/numenera.css' );
 /* main controls */
 .cg-mainButtonsNode
 {
-	position : absolute;
-	top : 148px;
-}
-.cg-whiteKnot
-{
-	width : 100%;
-	background-image : url( 'images/knot.png' );
-	background-size : 75% auto;
-	background-repeat : no-repeat;
-	background-position : center;
-	height : 100px;
-	width : 100px;
-	margin : 40px;
-	margin-left : auto;
-	margin-right : auto;
-	opacity : 0.8;
-}
-/* base layout elements */
-.cg-characterGenerator
-{
-    width : 850px;
-    height : 100%;
-    overflow : hidden;
-    margin-left : auto;
-    margin-right : auto;
-}
-.cg-characterGeneratorPane
-{
-    border-radius : 20px;
-    margin-top : 50px;
-    margin-left : auto;
-    margin-right : auto;
-    padding : 20px 0px 30px 0px;
-    background-color : #f5f5f5;
-}
-.cg-characterGeneratorContent
-{
-	width : 700px;
-	margin-left : auto;
-	margin-right : auto;
-}
-.cg-mainTabContainer .dijitTabContainerTop-tabs
-{
-	width : 100% !important;
-	text-align : center;
-}
-.cg-mainTabContainer .dijitTab
-{
-	padding : 10px 20px 10px 20px;
-	font-family : Lato;
+    position : absolute;
+    top : 148px;
 }
 .cg-resultsPane
 {
     padding : 10px 30px 10px 30px;
 }
-.cg-noJavaScript
-{
-    padding : 50px;
-    color : #e4e4e4;
-    width : 700px;
-    margin-left:auto;
-    margin-right:auto;
-}
-.cg-noJavaScript a
-{
-    color : #345c8c;
-}
-.cg-blurb
-{
-    font-family : Lato;
-    font-size : 18px;
-    text-transform : uppercase;
-    color : gray;
-    letter-spacing : 12px;
-}
-.cg-linkNode
-{
-    padding : 10px 20px 0px 0px;
-}
-.cg-linkNode a
-{
-	color : #e4e4e4;
-	font-size : 18px;
-	font-family : Lato;
-}
-a.cg-infoLink
-{
-    text-decoration : none;
-    cursor : pointer;
-}
 /* stats */
 .cg-statsPane
 {
-	border-left : 1px solid silver;
-	border : 1px solid silver;
-	margin-bottom : 20px;
+    border-left : 1px solid silver;
+    border : 1px solid silver;
+    margin-bottom : 20px;
 }
 .cg-statisticsTable
 {
 }
 .cg-statisticsTop td
 {
-	border-bottom : 1px solid gray;
+    border-bottom : 1px solid gray;
 }
 .cg-statisticsBottom
 {
 }
 .cg-statisticsMiddle td
 {
-	border-bottom : 1px solid gray;
+    border-bottom : 1px solid gray;
 }
 .cg-statisticsMiddle td td
 {
-	border-bottom : none;
+    border-bottom : none;
 }
+/* various inputs */
 .cg-statInput
 {
     font-size : 18px;
@@ -224,7 +57,7 @@ input[readonly].cg-statInput
 }
 .cg-adjustButton .dijitButtonNode
 {
-	font-family : 'Droid Sans';
+    font-family : 'Droid Sans';
     font-size : 18px;
     height : 36px;
 }
@@ -235,83 +68,39 @@ input[readonly].cg-statInput
 /* other inputs */
 .cg-characterNameInputBox
 {
-	height : 36px;
-	padding : 0 0 8px 0;
+    height : 36px;
+    padding : 0 0 8px 0;
 }
 .cg-characterNameInput
 {
-	border : 1px;
+    border : 1px;
     text-align : center;
     font-size : large;
     width : 100%;
     padding : 10px;
     font-family : Prata;
     background-color : #233343;
-    background-image : url( 'images/grain-l.png' );
+    background-image : url( '../../themes/images/grain-l.png' );
     color : white;
 }
 .cg-phraseSelectors
 {
-	text-align:center;
-	height : 28px;
-	padding : 12px 0 4px;
-	color : white;
+    text-align:center;
+    height : 28px;
+    padding : 12px 0 4px;
+    color : white;
 }
 .cg-selectedPhrase
 {
-	text-align : center;
+    text-align : center;
     height : 24px;
     padding : 14px 0 2px 0;
     color : #e4e4e4;
     font-family : Prata;
     font-style : italic;
 }
-.cg-inputTextArea
-{
-    width : 100%;
-    font-family : 'Droid sans', 'avant garde', sans-serif;
-    font-size : 14px;
-}
-.cg-valueNotSet
-{
-    color : gray;
-    font-style : italic;
-}
-/* list items */
-.cg-itemInput
-{
-    width : 350px;
-    display : inline-block;
-    font-size : 14px;
-    text-align : left;
-}
-.cg-smallInput
-{
-	width : 30px;
-	text-align : center;
-}
-.cg-itemInput:disabled, .cg-smallInput:disabled
-{
-	font-size : 16px;
-	color : inherit;
-	border : none;
-	padding : 0;
-	margin : 0;
-	background-color : transparent;
-	background-image : none;
-	text-align:left;
-}
-.cg-baseTextNode
-{
-}
-.cg-mutationTextNode
-{
-	width : 20px;
-}
-.cg-mutationTextWithSelectNode
-{
-	width : 65px;
-}
+/* type, descriptor, focus */
+
 /* color codes for type, description, and focus */
 .cg-type
 {
@@ -331,36 +120,20 @@ input[readonly].cg-statInput
 }
 .cg-harmful
 {
-	color : #663300;
+    color : #663300;
 }
 .cg-cust
 {
-	color : salmon;
+    color : salmon;
 }
-.cg-type:disabled, .cg-desc:disabled, .cg-focus:disabled
+/* mutations */
+.cg-mutationTextNode
 {
-	opacity : 0.8;
+    width : 20px;
 }
-/* background panes (the td's are included because of an ipad retina rendering glitch) */
-.cg-warmBackground, .cg-warmBackground td
+.cg-mutationTextWithSelectNode
 {
-    background-color : #FFFFFF;
-}
-.cg-paleBackground, .cg-paleBackground td
-{
-    background-color : #e4e4e4;
-}
-.cg-highlightBackground, .cg-highlightBackground td
-{
-    background-color : #d4d4d4;
-}
-.cg-evenBackground, .cg-evenBackground td
-{
-    background-color : #fcfcfc;
-}
-.cg-oddBackground, .cg-oddBackground td
-{
-    background-color : #fafafa;
+    width : 65px;
 }
 
 /* advancement controls */
@@ -381,197 +154,41 @@ input[readonly].cg-statInput
 }
 td.cg-tierTitleCell
 {
-	width : 100px;
-	background-image : url( 'images/cloudbg.jpg' );
+    width : 100px;
+    background-image : url( '../../themes/images/cloudbg.jpg' );
 }
-.cg-evenBackground .cg-tierTitleCell
+.num-evenBackground .cg-tierTitleCell
 {
-	opacity : 0.75;
+    opacity : 0.75;
 }
-.cg-evenBackground .cg-tierTitleCell h3
+.num-evenBackground .cg-tierTitleCell h3
 {
-	color : black;
+    color : black;
 }
 .cg-tierTitle
 {
-	text-align : center;
-	transform : rotate( -90deg );
-	-ms-transform : rotate( -90deg ); /* IE 9 */
-	-webkit-transform : rotate( -90deg ); /* Safari and Chrome */
+    text-align : center;
+    transform : rotate( -90deg );
+    -ms-transform : rotate( -90deg ); /* IE 9 */
+    -webkit-transform : rotate( -90deg ); /* Safari and Chrome */
 }
 .cg-tierContent
 {
-	padding : 10px;
+    padding : 10px;
 }
-/* buttons */
-.dijitButton
-{
-    font-size : 18px;
-    font-family : Lato;
-}
-.cg-randomizeButton
-{
-	font-size:14px;line-height:16px;height:18px;vertical-align:2px;
-}
-.cg-blueButton .dijitButtonNode
-{
-   background-image: -webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0.00, #446dff),
-        color-stop(1.00, #335C99 )
-    );
-    background-image : -webkit-linear-gradient(to bottom, #446dff 0%, #335C99 100%);
-    background-image : linear-gradient(to bottom, #446dff 0%, #335C99 100%);
-    border : 1px solid #446dff;
-    color : white;
-}
-.cg-redButton .dijitButtonNode
-{
-    background-image: -webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0.00, #ff6d44),
-        color-stop(1.00, #990000 )
-    );
-    background-image : -webkit-linear-gradient(to bottom, #ff6d44 0%, #990000 100%);
-    background-image : linear-gradient(to bottom, #ff6d44 0%, #990000 100%);
-    border : 1px solid #ff6d44;
-    color : white;
-}
-.cg-selectedButton .dijitButtonNode
-{
-	color : #66C2FF !important;
-    background-image: -webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0.00, #303030),
-        color-stop(1.00, #606060 )
-    ) !important;
-    background-image : -webkit-linear-gradient(to bottom, #303030 0%, #606060 100%) !important;
-    background-image : linear-gradient(to bottom, #303030 0%, #606060 100%) !important;
-    border : 1px solid #484848 !important;
-}
-.cg-blueButton .dijitButtonDisabled .dijitButtonNode
-{
-    background-image : -webkit-linear-gradient(to bottom, #FFFFFF 0%, #335C99 100%);
-    background-image : linear-gradient(to bottom, #FFFFFF 0%, #335C99 100%);
-}
-.cg-greenButton
-{
-    color : #345C8C;
-}
-.cg-smallButton .dijitButtonNode
-{
-	width : 30px;
-}
-/* delete item button */
-.cg-hiddenControl 
-{
-    display : none;
-    margin-left : 6px;
-    width : 24px;
-    height : 24px;
-    line-height : 24px;
-    cursor : pointer;
-    text-decoration : none;
-    border : none;
-    background-color : transparent;
-    vertical-align : top;
-}
-.cg-hoverControls .cg-hiddenControl
-{
-    display : inline-block;
-}
-.cg-hoverControls td.cg-hiddenControl
-{
-    display : table-cell;
-}
-.cg-finalized .cg-hiddenControl
+.cg-finalized .num-hiddenControl
 {
     display : none !important;
 }
-.cg-deleteControl
-{
-    font-size : 22px;
-    color : #990000;
-}
-.cg-deletedItem .cg-deletable
-{
-    opacity : 0.2;
-    text-decoration : line-through;
-}
-.cg-deletedItem .cg-deletable select
-{
-   text-decoration : line-through;  
-}
-
 /* character manager */
 .cg-characterManager:hover
 {
     background-color : #d4e4f4;
     cursor : pointer;
 }
+/* image container */
 .cg-imageContainer
 {
-	text-align : center;
-	margin : 20px;
-}
-/* help and dialogs */
-.cg-helpPage
-{
-    border-radius : 20px;
-    width : 650px;
-    margin-top : 50px;
-    margin-left : auto;
-    margin-right : auto;
-    margin-bottom : 50px;
-    padding : 40px 80px 40px 80px;
-    background-color : #f5f5f5;
-    color : black;
-}
-.cg-dialogContent 
-{
-    width : 580px;
-    padding : 0 20px 0 20px;
-    overflow : auto; 
-}
-/* footer */
-.cg-footer
-{
-	height : 110px;
-	overflow : hidden;
-}
-/* copyright notice */
-.cg-copyright
-{
-	font-family : Lato;
     text-align : center;
-    font-size : 10px;
-    margin-left : auto;
-    margin-right : auto;
-    padding : 3px;
-    color : #585858;
-}
-.cg-copyright a
-{
-    color : #345c8c;
-}
-/* version info */
-.cg-versionInfo
-{
-    text-align : right;
-    font-size : 12px;
-    cursor : pointer;
-}
-
-/* Workaround Webkit rendering bug: styles not applied to selects at 100% zoom without this. */
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-  select 
-  {
-     background-color : #fefefe;
-  }
+    margin : 20px;
 }

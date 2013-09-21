@@ -1,22 +1,22 @@
 CACHE MANIFEST
 # Cache manifest for Numenera Character Creator.
 #
-# Version 1.3.8
+# Version 1.4.0
 #
 # including chargen.html to allow redirects to proceed correctly
 chargen.html
 index.html
-primejunta/numenera/chargen/themes/images/icon.png
-primejunta/numenera/chargen/themes/images/h-pixel.png
-primejunta/numenera/chargen/themes/images/v-pixel.png
-primejunta/numenera/chargen/themes/images/touch-icon-ipad.png
-primejunta/numenera/chargen/themes/images/touch-icon-ipad-retina.png
-primejunta/numenera/chargen/themes/images/Numenera_Logo.png
-primejunta/numenera/chargen/themes/images/Numenera_Logo_neg.png
-primejunta/numenera/chargen/themes/images/knot.png
-primejunta/numenera/chargen/themes/images/cloudbg.jpg
-primejunta/numenera/chargen/themes/images/grain.png
-primejunta/numenera/chargen/themes/images/grain-l.png
+primejunta/numenera/themes/images/icon.png
+primejunta/numenera/themes/images/h-pixel.png
+primejunta/numenera/themes/images/v-pixel.png
+primejunta/numenera/themes/images/touch-icon-ipad.png
+primejunta/numenera/themes/images/touch-icon-ipad-retina.png
+primejunta/numenera/themes/images/Numenera_Logo.png
+primejunta/numenera/themes/images/Numenera_Logo_neg.png
+primejunta/numenera/themes/images/knot.png
+primejunta/numenera/themes/images/cloudbg.jpg
+primejunta/numenera/themes/images/grain.png
+primejunta/numenera/themes/images/grain-l.png
 # Main stylesheet
 primejunta/numenera/chargen/themes/chargen.css
 primejunta/numenera/chargen/themes/charrec.css
@@ -39,9 +39,9 @@ primejunta/nls/numenera_en.js.map
 dijit/nls/loading.js
 dijit/nls/common.js
 # Fonts
-primejunta/numenera/chargen/themes/fonts/Droid_Sans.woff
-primejunta/numenera/chargen/themes/fonts/Lato.woff
-primejunta/numenera/chargen/themes/fonts/Prata.woff
+primejunta/numenera/themes/fonts/Droid_Sans.woff
+primejunta/numenera/themes/fonts/Lato.woff
+primejunta/numenera/themes/fonts/Prata.woff
 # Themes
 dijit/themes/tundra/tundra.css
 

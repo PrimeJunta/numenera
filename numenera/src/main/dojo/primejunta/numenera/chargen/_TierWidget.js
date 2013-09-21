@@ -210,7 +210,7 @@ function( declare,
                             return true;
                         }
                     }
-                    else if( ctrls[ i ].className.indexOf( "cg-valueNotSet" ) == -1 )
+                    else if( ctrls[ i ].className.indexOf( "num-valueNotSet" ) == -1 )
                     {
                         return true;
                     }
