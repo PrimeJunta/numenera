@@ -6,9 +6,39 @@
 @import url( '../../themes/numenera.css' );
 body
 {
-	background-image : url( '../../themes/images/grain-gold.png' );
+	background-image : url( '../../themes/images/grain-dark.png' );
 }
-.num-blurb
+.__num-blurb
 {
 	color : #e4e4e4;
+}
+/* cyphergen */
+.cy-cardContainer
+{
+	margin-top : 50px;
+	margin-left : auto;
+	margin-right : auto;
+    width : 440px;
+    height : 640px;
+}
+.cy-cypherCard
+{
+	width : 400px;
+	height : 600px;
+	cursor : pointer;
+    box-shadow: 10px 10px 20px #000000;
+    border-radius : 30px;
+    border : 20px solid #f4f4f0;
+}
+.cy-cypherCardFront
+{
+	border-color : black;
+	background-color : black;
+	color : white;
+}
+.cy-cypherCardBack
+{
+	background-image : url( 'images/rustcard.jpg' );
+	background-size : 100% auto;
+	color : black;
 }
