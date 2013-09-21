@@ -1,0 +1,14 @@
+/**
+ * Main Cypher Generator stylesheet.
+ */
+
+/* Import  main theme. */
+@import url( '../../themes/numenera.css' );
+body
+{
+	background-image : url( '../../themes/images/grain-gold.png' );
+}
+.num-blurb
+{
+	color : #e4e4e4;
+}

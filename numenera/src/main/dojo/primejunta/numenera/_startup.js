@@ -1,8 +1,11 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
+         "dojo/dom-construct",
          "dojo/query",
-         "dojo/has" ],
-function( declare, lang, domQuery, has)
+         "dojo/has",
+         "dojo/on",
+         "dojo/text!./doc/licenses.html" ],
+function( declare, lang, domConstruct, domQuery, has, on, licenses )
 {
     return declare([], {
         setup : function()
@@ -62,6 +65,32 @@ function( declare, lang, domQuery, has)
                 setTimeout( lang.hitch( this, this.waitForLayout ), 800 );
                 setTimeout( lang.hitch( this, this.waitForLayout ), 1000 );
             }
+        },
+        showLicenses : function()
+        {
+            this._showHelp( licenses );
+        },
+        /**
+         * Hides _helpNode and shows this.domNode.
+         */
+        hideHelp : function()
+        {
+            this._helpNode.style.display = "none";
+            this.domNode.style.display = "blocK";
+        },
+        /**
+         * Displays content in _helpNode, hides this.domNode and shows it.
+         */
+        _showHelp : function( /* HTMLString */ content )
+        {
+            if( !this._helpNode )
+            {
+                this._helpNode = domConstruct.create( "div", { style : "display:none;" }, document.body );
+                on( this._helpNode, "click", lang.hitch( this, this.hideHelp ) );
+            }
+            this._helpNode.innerHTML = content;
+            this.domNode.style.display = "none";
+            this._helpNode.style.display = "block";
         }
     });
 });

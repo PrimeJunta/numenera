@@ -41,8 +41,7 @@ define([ "dojo/_base/declare",
          "./optional/optionals",
          "dojo/text!./templates/CharacterGenerator.html",
          "dojo/text!./doc/about.html",
-         "dojo/text!./doc/changelog.html",
-         "dojo/text!./doc/licenses.html" ],
+         "dojo/text!./doc/changelog.html" ],
 function( declare,
           lang,
           array,
@@ -80,8 +79,7 @@ function( declare,
           optionals,
           template,
           about,
-          changelog,
-          licenses )
+          changelog )
 {
     return declare( "primejunta/numenera/chargen/CharacterGenerator", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _startup, _util, _data, _stats, _lists, optionals ], {
         /**
@@ -472,38 +470,12 @@ function( declare,
         {
             this._showHelp( about );
         },
-        showLicenses : function()
-        {
-            this._showHelp( licenses );
-        },
         /**
          * Calls _showHelp with changelog (that's an included text module).
          */
         showChangeLog : function()
         {
             this._showHelp( changelog );
-        },
-        /**
-         * Hides _helpNode and shows this.domNode.
-         */
-        hideHelp : function()
-        {
-            this._helpNode.style.display = "none";
-            this.domNode.style.display = "blocK";
-        },
-        /**
-         * Displays content in _helpNode, hides this.domNode and shows it.
-         */
-        _showHelp : function( /* HTMLString */ content )
-        {
-            if( !this._helpNode )
-            {
-                this._helpNode = domConstruct.create( "div", { style : "display:none;" }, document.body );
-                on( this._helpNode, "click", lang.hitch( this, this.hideHelp ) );
-            }
-            this._helpNode.innerHTML = content;
-            this.domNode.style.display = "none";
-            this._helpNode.style.display = "block";
         },
         /**
          * Appends what to Textarea where on a new line.

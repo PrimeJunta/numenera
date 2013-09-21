@@ -5,23 +5,32 @@
 @import url( '../../../dijit/themes/tundra/tundra.css' );
 /* Fonts - these are originally from Google Web Fonts, and are used with permission [ https://developers.google.com/fonts/faq#Download_Fonts ]. */
 @font-face {
-  font-family: 'Droid Sans';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Droid Sans'), local('DroidSans'), url( fonts/Droid_Sans.woff ) format('woff');
-}
-@font-face {
   font-family: 'Lato';
   font-style: normal;
   font-weight: 400;
-  src: local('Lato Regular'), local('Lato-Regular'), url( fonts/Lato.woff ) format('woff');
+  src: local('Lato Regular'), local('Lato-Regular'), url( 'fonts/Lato.woff' ) format('woff');
 }
 @font-face {
   font-family: 'Prata';
   font-style: normal;
   font-weight: 400;
-  src: local('Prata'), local('Prata-Regular'), url( fonts/Prata.woff ) format('woff');
+  src: local('Prata'), local('Prata-Regular'), url( 'fonts/Prata.woff' ) format('woff');
 }
+
+@font-face {
+  font-family: 'Oxygen';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Oxygen'), local('Oxygen-Regular'), url( 'fonts/Oxygen.woff' ) format('woff');
+}
+@font-face {
+  font-family: 'Oxygen';
+  font-style: normal;
+  font-weight: bold;
+  src: local('Oxygen Bold'), local('Oxygen-Bold'), url( 'fonts/Oxygen_Bold.woff' ) format('woff');
+}
+
+
 /* HTML elements. */
 html, body
 {
@@ -29,7 +38,7 @@ html, body
     padding : 0px;
     width : 100%;
     height : 100%;
-    font-family : 'Droid Sans', 'avant garde', helvetica, helve, arial, sans-serif;
+    font-family : 'Oxygen', 'avant garde', helvetica, helve, arial, sans-serif;
 }
 body
 {
@@ -40,7 +49,7 @@ body
 select 
 {
    font-size : 18px;
-   font-family : 'Droid Sans', 'avant garde', helvetica, helve, arial, sans-serif;
+   font-family : 'Oxygen', 'avant garde', helvetica, helve, arial, sans-serif;
    height : 28px;
    vertical-align : middle;
 }
@@ -175,7 +184,7 @@ a.num-infoLink
 .num-inputTextArea
 {
     width : 100%;
-    font-family : 'Droid sans', 'avant garde', sans-serif;
+    font-family : 'Oxygen', 'avant garde', sans-serif;
     font-size : 14px;
 }
 .num-valueNotSet
