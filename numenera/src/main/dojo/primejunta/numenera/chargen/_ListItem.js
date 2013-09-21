@@ -92,14 +92,32 @@ function( declare,
             this.baseText = this.getBaseText();
             this.inputValue = this.getInputValue();
             this._subs.push( topic.subscribe( "CharGen/destroyListItems", lang.hitch( this, this.destroy ) ) );
+            this._subs.push( topic.subscribe( "CharGen/pleaseCheckState", lang.hitch( this, this.checkState ) ) );
             if( this._hasInput )
             {
-                this._subs.push( topic.subscribe( "CharGen/pleaseCheckState", lang.hitch( this, this.onBlurInput ) ) );
                 this._subs.push( topic.subscribe( "CharGen/lockSheetControls", lang.hitch( this, this.lockInput ) ) );
             }
             if( this._hasSelect )
             {
                 this._subs.push( topic.subscribe( "CharGen/lockSheetControls", lang.hitch( this, this.lockSelect ) ) );
+            }
+        },
+        checkState : function()
+        {
+            if( this._hasInput )
+            {
+                this.onBlurInput();
+            }
+            if( this._hasSelect )
+            {
+                if( this.selectNode.disabled )
+                {
+                    this._disableSelect( "selectNode" );
+                }
+                else
+                {
+                    this._enableSelect( "selectNode" );
+                }
             }
         },
         /**
@@ -165,7 +183,7 @@ function( declare,
             {
                 return;
             }
-            this.selectNode.disabled = true;
+            this._disableSelect( "selectNode", true );
         },
         /**
          * Stores selectedIndex and inputValue for use in rollBack (see).
@@ -206,7 +224,7 @@ function( declare,
         {
             if( this.selectNode )
             {
-                this.selectNode.disabled = false;
+                this._enableSelect( "selectNode" );
             }
             if( this.inputNode )
             {

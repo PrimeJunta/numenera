@@ -72,28 +72,28 @@ function( declare,
             recovery_roll : 1
         },
         /**
-         * Connects listeners, initializes internal arrays, reads type and focus data and such.
+         * Initializes internal arrays, reads type and focus data and such.
          */
         postMixInProperties : function()
         {
             this._subs = [];
             this._controls = [];
-            this._subs.push( topic.subscribe( "CharGen/pleaseCheckState", lang.hitch( this, this.checkState ) ) );
-            this._subs.push( topic.subscribe( "CharGen/destroyListItems", lang.hitch( this, this.destroy ) ) );
-            this._subs.push( topic.subscribe( "CharGen/showPurchasedBenefits", lang.hitch( this, function() {
-                this.purchasedBenefitsNode.style.display = "block";
-            })));
             this._typeData = this.typeData[ this.tier - 1 ];
             this._focusData = this.focusData[ this.tier - 1 ];
             this.specialAbilityName = this.manager.getType().special_ability_name;
             this.DEFAULT_VALUES = this.manager.DEFAULT_VALUES;
         },
         /**
-         * Initializes unlock controls (from _unlockable) and sets up some labels, then constructs list of available
+         * Connects listeners, initializes unlock controls (from _unlockable) and sets up some labels, then constructs list of available
          * perks by iterating back to previous tiers. Continues with initBonusPerks.
          */
         postCreate : function()
         {
+            this._subs.push( topic.subscribe( "CharGen/pleaseCheckState", lang.hitch( this, this.checkState ) ) );
+            this._subs.push( topic.subscribe( "CharGen/destroyListItems", lang.hitch( this, this.destroy ) ) );
+            this._subs.push( topic.subscribe( "CharGen/showPurchasedBenefits", lang.hitch( this, function() {
+                this.purchasedBenefitsNode.style.display = "block";
+            })));
             this.initializeUnlockControls();
             this.populatePerkSelector( this.typeData, this.tier, this.perkSelector );
             this.initBonusPerks();
@@ -163,6 +163,14 @@ function( declare,
             else
             {
                 this.customizeFocusButton.domNode.style.display = "none";
+            }
+            if( this.skillTypeSelector.disabled )
+            {
+                this.lockControls();
+            }
+            else
+            {
+                this.unlockControls();
             }
             this.inherited( arguments );
         },
@@ -445,14 +453,16 @@ function( declare,
          */
         lockControls : function()
         {
-            this.perkSelector.disabled = true;
+            this.skillTypeSelectorContainer.style.display = "none";
+            this._disableSelect( "perkSelector" );
         },
         /**
          * Unlocks perkSelector. See _unlockable.
          */
         unlockControls : function()
         {
-            this.perkSelector.disabled = false;
+            //this.skillTypeSelector.style.display = "inline-block";
+            this._enableSelect( "perkSelector" );
         },
         /**
          * Concatenates _perkAsText() and _bonusPerksAsText() and returns the result.

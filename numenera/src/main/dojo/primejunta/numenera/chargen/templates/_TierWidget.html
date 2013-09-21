@@ -38,7 +38,7 @@
               Effort</label>
           </div>
         </li>
-        <li>
+        <li data-dojo-attach-point="skillTypeSelectorContainer">
           <div>
             <select class="cg-storeMe"
               data-dojo-attach-point="skillTypeSelector"
@@ -74,7 +74,9 @@
           <div>
             <table cellspacing="0" cellpadding="0">
               <tr>
-                <td><select class="cg-storeMe"
+                <td>
+                <span data-dojo-attach-point="perkSelectorDisabledDisplay"></span>
+                <select class="cg-storeMe"
                   data-dojo-attach-point="perkSelector"
                   data-dojo-attach-event="onChange:checkApplyButton">
                     <option>-- choose --</option>

@@ -36,6 +36,7 @@ body
 {
     background-color : #182838;
     background-image : url( 'images/grain.png' );
+    font-size : 16px;
 }
 select 
 {
@@ -280,13 +281,28 @@ input[readonly].cg-statInput
 .cg-itemInput
 {
     width : 350px;
-    display : block;
+    display : inline-block;
     font-size : 14px;
     text-align : left;
 }
+.cg-smallInput
+{
+	width : 30px;
+	text-align : center;
+}
+.cg-itemInput:disabled, .cg-smallInput:disabled
+{
+	font-size : 16px;
+	color : inherit;
+	border : none;
+	padding : 0;
+	margin : 0;
+	background-color : transparent;
+	background-image : none;
+	text-align:left;
+}
 .cg-baseTextNode
 {
-    padding-right : 4px;
 }
 .cg-mutationTextNode
 {
@@ -392,6 +408,10 @@ td.cg-tierTitleCell
 {
     font-size : 18px;
     font-family : Lato;
+}
+.cg-randomizeButton
+{
+	font-size:14px;line-height:16px;height:18px;vertical-align:2px;
 }
 .cg-blueButton .dijitButtonNode
 {

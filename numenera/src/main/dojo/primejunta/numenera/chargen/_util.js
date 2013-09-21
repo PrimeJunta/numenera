@@ -204,6 +204,48 @@ function( declare,
                 "label" : sel.options[ sel.selectedIndex ].text,
                 "value" : sel.options[ sel.selectedIndex ].value
             }
+        },
+        /**
+         * Disables select matching aPoint, displays its value in matching DisabledDisplay,
+         * hides the select, and shows the DisabledDisplay. We do all this for purely cosmetic
+         * reasons, because we can't easily make a disabled select look like plain text through
+         * CSS.
+         */
+        _disableSelect : function( /* String */ aPoint, /* boolean */ hideIfNull )
+        {
+            var sel = this[ aPoint ];
+            var dd = this[ aPoint + "DisabledDisplay" ];
+            if( !dd || !sel )
+            {
+                return;
+            }
+            sel.disabled = true;
+            if( hideIfNull && this._selVal( sel ).label == "-- choose --" )
+            {
+                this.domNode.style.display = "none";
+            }
+            sel.style.display = "none";
+            dd.innerHTML = this._selVal( sel ).label;
+            dd.style.display = "inline";
+        },
+        /**
+         * Does the opposite of _disableSelect.
+         */
+        _enableSelect : function( /* String */ aPoint )
+        {
+            var sel = this[ aPoint ];
+            var dd = this[ aPoint + "DisabledDisplay" ];
+            if( !dd || !sel )
+            {
+                return;
+            }
+            sel.disabled = true;
+            this.domNode.style.display = this.domNode.tagName.toLowerCase() == "li" ? "list-item" : "block";
+            sel.disabled = false;
+            sel.style.display = "inline-block";
+            dd.innerHTML = "";
+            dd.style.display = "none";
+
         }
     });
 });

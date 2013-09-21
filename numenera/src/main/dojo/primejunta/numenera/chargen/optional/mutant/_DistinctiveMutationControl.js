@@ -43,7 +43,7 @@ function( declare,
             if( mutation.beneficial == 1 )
             {
                 _bc.randomizeMutation();
-                _bc.baseNode.style.display = "table-row";
+                _bc.baseNode.style.display = "block";
                 _bc.domNode.style.display = "list-item";
             }
             else if( mutation.adjustments )

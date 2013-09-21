@@ -82,6 +82,10 @@ function( declare,
             {
                 this.randomizeButton.domNode.style.display = "none";
             }
+            if( this.abilityTypeSelect && this.abilityTypeSelect.disabled )
+            {
+                this._disableSelect( "abilityTypeSelect" );
+            }
             this.dataChanged();
         },
         /**
@@ -95,7 +99,7 @@ function( declare,
             this._lock( this.intellectAdjustmentNode );
             this._lock( this.armorAdjustmentNode );
             this._lock( this.recoveryAdjustmentNode );
-            this._lock( this.abilityTypeSelect );
+            this._disableSelect( "abilityTypeSelect" );
             this.checkState();
         },
         /**
