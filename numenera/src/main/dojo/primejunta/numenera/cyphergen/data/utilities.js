@@ -113,7 +113,7 @@ define({
                 cypher_name : [ "instant shelter" ],
                 duration_modifier : 2
             },
-            "dissolves 1 cubic foot of material per round. It dissipates after ${level} rounds" : {
+            "produces a slime which dissolves 1 cubic foot of material per round. It dissipates after ${level} rounds" : {
                 prob : 10,
                 cypher_name : [ "living solvent" ]
             },
@@ -127,7 +127,7 @@ define({
                 cypher_name : [ "magnetic shield" ],
                 duration_modifier : 2
             },
-            "produces foam which transforms metal in ${area} into a substance as brittle as thin glass. It affects metal to a depth of ${level} inches" : {
+            "produces foam which transforms metal in ${area} area into a substance as brittle as thin glass. It affects metal to a depth of ${level} inches" : {
                 prob : 10,
                 cypher_name : [ "metal death" ],
                 duration_modifier : 2
