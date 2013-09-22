@@ -13,11 +13,12 @@ function( declare,
         _getCountermeasure : function( cypher_type, item_type, action, level )
         {
             var template = "When ${action}, adds ${points} point${plural} of Armor against ${damage_type} damage for ${duration}";
-            this._cypher.duration = this._fromArray( cypher_type.durations ).name;
-            this._cypher.damage_type = this._fromObject( lang.mixin( { "physical" : { "prob" : 100 } }, bricks.common_data.damage_types ), true ).name;
-            this._cypher.points = this._cypher.damage_type.indexOf( "pool" ) == -1 ? Math.ceil( level / 2 ) : level * 3;
+            var dType = this._fromObject( lang.mixin( { "physical" : { prob : 100, damage_modifier : 1 } }, bricks.common_data.damage_types ), true );
+            this._cypher.damage_type = dType.name;
+            this._cypher.points = level * ( dType.damage_modifier ? dType.damage_modifier : 2 );
+            this._cypher.duration = this._getModifiedProperty( cypher_type.durations, cypher_type.duration_probs, dType.duration_modifier );
             this._cypher.plural = this._cypher.points > 1 ? "s" : "";
-            this._cypher.cypher_name = "countermeasure";
+            this._cypher.cypher_name = this._fromArray( cypher_type.cypher_name ).name;
             if( item_type.range )
             {
                 this._cypher.range = this._fromArray( item_type.range ).name;

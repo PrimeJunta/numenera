@@ -128,15 +128,11 @@ define({
             "teleport in a random direction at immediate range, modifying its actions by one step to its detriment for the next round" : {
                 prob: 10,
                 cypher_name_qualifier : "banishing"
-            },
-            "take 2 points of extra damage due to a sudden increase in density of the weapon they were struck with" : {
-                prob: 10,
-                cypher_name_qualifier : "density"
             }
         },
         special_effects : {
             "#false" : {
-                prob : 9
+                prob : 19
             }, 
             " the user will start to secrete a liquid, which, when consumed within a week, " : {
                 prob : 1,

@@ -229,7 +229,7 @@ function( declare,
                     }
                 }
             }
-            return this._fromArray( sourceArray, probArray ).name;
+            return this._fromArray( sourceArray, probs ).name;
         }
     });
 });

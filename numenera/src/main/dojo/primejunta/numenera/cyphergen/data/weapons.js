@@ -74,9 +74,16 @@ define({
                 area : [ 0, 1 ],
                 cypher_class : [ "occultic/4", "anoetic/1" ]
             },
+            "creates a wall" : {
+                prob : 20,
+                cypher_name : [ "wall projector" ],
+                range : [ "short/50", "medium/20", "long/10" ],
+                area : [ 0, 1 ],
+                cypher_class : [ "occultic/1", "anoetic/4" ]
+            },
             "strikes" : {
                 prob : 0,
-                cypher_name : [ "sword", "lance", "spear", "saber", "mace", "dagger" ],
+                cypher_name : [ "sword", "lance", "spear", "saber", "mace", "dagger", "magnetic attack drill" ],
                 range : [ "immediate" ],
                 area : [ 0, 0 ]
             }

@@ -38,6 +38,7 @@ function( declare,
             try
             {
                 this._cypher.description = string.substitute( template, this._cypher );
+                this._cypher.description = string.substitute( this._cypher.description, this._cypher );
             }
             catch( e )
             {

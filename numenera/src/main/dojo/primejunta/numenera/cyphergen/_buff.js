@@ -21,7 +21,7 @@ function( declare,
             template += " adds ${points} points to ${damage_type} for ${duration}";
             this._cypher.duration = this._fromArray( cypher_type.durations ).name;
             this._cypher.damage_type = this._fromObject( bricks.common_data.buff_types, true ).name;
-            this._cypher.points = this._cypher.damage_type.indexOf( "edge" ) == -1 ? Math.ceil( level / 2 ) : level;
+            this._cypher.points = this._cypher.damage_type.indexOf( "edge" ) == -1 ? level : Math.ceil( level / 2 );
             this._cypher.cypher_name = "enhancer";
             if( item_type.range )
             {
