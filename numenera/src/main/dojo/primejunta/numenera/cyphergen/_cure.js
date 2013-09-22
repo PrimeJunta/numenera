@@ -12,7 +12,13 @@ function( declare,
     return declare([], {
         _getCure : function( cypher_type, item_type, action, level )
         {
+
             var template = "When ${action}, ";
+            var special = this._fromObject( bricks.common_data.special_effects ).name;
+            if( special != "#false" )
+            {
+                template += special;
+            }
             var eType = this._fromArray( cypher_type.damage_types ).name; // FIXME: better name.
             if( eType == "physical" )
             {
@@ -23,7 +29,7 @@ function( declare,
             }
             else
             {
-                template += "cures ${status_effect}";
+                template += "cures ${status_effect} of level ${level} or lower";
                 this._cypher.status_effect = this._fromObject( bricks.common_data.status_types, true, true ).name;
                 this._cypher.cypher_name = "cure";
             }

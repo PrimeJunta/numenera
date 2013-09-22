@@ -42,11 +42,15 @@ function( declare,
             {
                 template += "at ${range} range on a ${radius}, causing ";
             }
-            var duration = false;
             if( eType == "physical" )
             {
-                this._cypher.damage_type = this._fromObject( bricks.common_data.damage_types, true ).name;
-                this._cypher.points = level * 3;
+                var dt = this._fromObject( bricks.common_data.damage_types, true );
+                this._cypher.damage_type = dt.name;
+                this._cypher.points = level * ( dt.damage_modifier ? dt.damage_modifier : 1 );
+                if( this._cypher.effect == "strikes" )
+                {
+                    template += "an additional ";
+                }
                 template += "${points} points of ${damage_type} damage";
             }
             else if( eType == "status" )
@@ -62,11 +66,23 @@ function( declare,
                 }
                 template += "${status_type} ${duration}";
             }
+            else if( eType == "special" )
+            {
+                this._cypher.special_type = this._fromObject( bricks.common_data.special_types , true ).name;
+                template += "affected targets to ${special_type}";
+            }
+            if( this._cypher.effect == "strikes" )
+            {
+                this._cypher.duration = this._fromArray( cypher_type.durations ).name;
+                template += ". The effect lasts for ${duration}";
+            }
+            /*
             if( duration )
             {
                 this._cypher.duration = this._fromArray( cypher_type.durations ).name;
                 template += " for ${duration}"
             }
+            */
             template += ".";
             try
             {

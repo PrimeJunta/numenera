@@ -11,14 +11,14 @@ define({
         },
         "biological" : {
             prob : 4,
-            cypher_class : "occultic"
+            cypher_class : [ "occultic/4", "anoetic/1" ]
         },
         "ceramic" : {
             prob : 4
         },
         "radiant energy" : {
             prob : 1,
-            cypher_class : "occultic"
+            cypher_class : [ "occultic/4", "anoetic/1" ]
         }
     },
     weights : [ "almost weightless/1", "very light/2", "light/4", "#false/8", "heavy/4", "very heavy/2", "extremely heavy/1" ],

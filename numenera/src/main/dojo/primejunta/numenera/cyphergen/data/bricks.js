@@ -31,16 +31,36 @@ define({
             "electrical" : {
                 prob : 20
             },
-            "gravity" : {
+            "desiccating" : {
+                prob : 15,
+                cypher_class : [ "occultic/4", "anoetic/1" ]
+            },
+            "matter disruption" : {
+                prob : 15,
+                cypher_class : [ "occultic/4", "anoetic/1" ],
+                damage_modifier : 3
+            },
+            "pressure" : {
                 prob : 15
+            },
+            "singularity" : {
+                prob : 15,
+                cypher_class : [ "occultic/4", "anoetic/1" ],
+                damage_modifier : 5
+            },
+            "gravity" : {
+                prob : 15,
+                cypher_class : [ "occultic/4", "anoetic/1" ],
+                damage_modifier : 2
             },
             "disintegration" : {
                 prob : 15,
-                cypher_class : "occultic"
+                cypher_class : [ "occultic/4", "anoetic/1" ],
+                damage_modifier : 3
             },
             "mental" : {
                 prob : 15,
-                cypher_class : "occultic"
+                cypher_class : [ "occultic/4", "anoetic/1" ]
             }
         },
         buff_types : {
@@ -102,6 +122,25 @@ define({
             "deafness" : {
                 prob: 50,
                 cypher_name_qualifier : "sonic"
+            }
+        },
+        special_types : {
+            "teleport in a random direction at immediate range, modifying its actions by one step to its detriment for the next round" : {
+                prob: 10,
+                cypher_name_qualifier : "banishing"
+            },
+            "take 2 points of extra damage due to a sudden increase in density of the weapon they were struck with" : {
+                prob: 10,
+                cypher_name_qualifier : "density"
+            }
+        },
+        special_effects : {
+            "#false" : {
+                prob : 9
+            }, 
+            " the user will start to secrete a liquid, which, when consumed within a week, " : {
+                prob : 1,
+                cypher_class : [ "occultic/4", "anoetic/2" ]
             }
         }
     }

@@ -1,8 +1,8 @@
 define({
     weapon : {
-        prob : 50,
+        prob : 100,
         "name" : "weapon",
-        "damage_types" : [ "physical/80", "status/60" ],
+        "damage_types" : [ "physical/80", "status/40", "special/10" ],
         // produces one or more damage_types, buff_types, or status_types with an effect_type and action_type
         item_types : {
             "handheld" : {
@@ -53,7 +53,7 @@ define({
                 cypher_name : [ "hunter-killer" ],
                 range : [ "medium/30", "long/80", "extreme/120" ],
                 area : [ 0, 0 ],
-                cypher_class : "occultic"
+                cypher_class : [ "occultic/4", "anoetic/1" ]
             },
             "causes a blast" : {
                 prob : 50,
@@ -72,7 +72,7 @@ define({
                 cypher_name : [ "field emitter", "gas canister" ],
                 range : [ "short/50", "medium/20", "long/10", "extreme/10" ],
                 area : [ 0, 1 ],
-                cypher_class : "occultic"
+                cypher_class : [ "occultic/4", "anoetic/1" ]
             },
             "strikes" : {
                 prob : 0,
@@ -81,7 +81,7 @@ define({
                 area : [ 0, 0 ]
             }
         },
-        durations : [ "for one round/10", "for ten minutes/30", "for one hour/10" ],
+        durations : [ "for one round/1", "for ten rounds/2", "for ten minutes/4", "for one hour/2", "for one day/1" ],
         range_types : [ "immediate", "short", "medium", "long", "extreme" ],
         radius_types : [ "single target", "small area", "medium area", "large area", "huge area" ]
     }

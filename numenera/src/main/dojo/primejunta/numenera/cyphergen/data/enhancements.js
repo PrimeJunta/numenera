@@ -39,18 +39,30 @@ define({
                 verb_s : "is",
                 verb_p : "are",
                 cypher_name : [ "universal lexicon" ],
-                prob : 10
+                prob : 5
             },
-            "an immediate distance when struck" : {
+            "able to speak and understand a language keyed to the cypher even if he/she/it would not normally be able to speak" : {
+                verb_s : "is",
+                verb_p : "are",
+                cypher_name : [ "comprehension graft" ],
+                prob : 5
+            },
+            "an immediate distance when struck, modifying defense actions by one step in his/her favor" : {
                 verb_s : "teleports",
                 verb_p : "teleport",
                 cypher_name : [ "blink cypher" ],
                 prob : 10
             },
+            "an immediate distance to a location of his/her choosing when struck, modifying defense actions by one step in his/her favor" : {
+                verb_s : "teleports",
+                verb_p : "teleport",
+                cypher_name : [ "controlled blink cypher" ],
+                prob : 10
+            },
             "can climb any surface automatically" : {
                 verb_s : " ",
                 verb_p : " ",
-                cypher_name : [ "adhesion cypher" ],
+                cypher_name : [ "adhesion cypher", "adhesion clamps" ],
                 prob : 10
             },
             "out of phase" : {
@@ -65,14 +77,35 @@ define({
                 cypher_name : [ "gravity nullifier" ],
                 prob : 10
             },
+            "can see in the dark" : {
+                verb_s : " ",
+                verb_p : " ",
+                cypher_name : [ "catseye" ],
+                prob : 10,
+                duration_modifier : 2
+            },
+            "can see ten times as far as normal" : {
+                verb_s : " ",
+                verb_p : " ",
+                cypher_name : [ "eagleseye" ],
+                prob : 10,
+                duration_modifier : 2
+            },
             "can fly" : {
                 verb_s : " ",
                 verb_p : " ",
                 cypher_name : [ "powered gravity nullifier" ],
                 prob : 10
+            },
+            "immune to poisons of the same level or lower, and ends any such effect if present" : {
+                verb_s : "becomes",
+                verb_p : "become",
+                cypher_name : [ "antivenom" ],
+                prob : 10
             }
         },
-        durations : [ "one round/5", "ten minutes/30", "one hour/30", "one day/10" ],
+        durations : [ "one round", "ten rounds", "ten minutes", "one hour", "one day" ],
+        duration_probs : [ 1, 2, 4, 2, 1 ],
         radius_types : [ "people within a small area", "people within a medium area", "people within a large area", "people within a huge area" ]
     }
 });

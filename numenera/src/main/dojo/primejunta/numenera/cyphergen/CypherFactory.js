@@ -50,7 +50,7 @@ function( declare,
             var cypher_type = type ? bricks.cypher_types[ type ] : this._fromObject( bricks.cypher_types );
             var item_type = this._fromObject( cypher_type.item_types );
             var action = this._fromArray( item_type.actions );
-            var level = Math.round( Math.random() * 5 + 2 );
+            var level = Math.ceil( Math.random() * 4.5 + Math.random() * 4.5 ); // make a bit of a bell curve
             this._cypher = {
                 cypher_class : "anoetic",
                 cypher_type : cypher_type.name,
@@ -191,7 +191,7 @@ function( declare,
                 {
                     if( arr[ i ].cypher_class )
                     {
-                        this._cypher.cypher_class = arr[ i ].cypher_class;
+                        this._cypher.cypher_class = this._fromArray( arr[ i ].cypher_class ).name;
                     }
                     if( arr[ i ].cypher_name )
                     {
@@ -211,6 +211,25 @@ function( declare,
                     return arr[ i ];
                 }
             }
+        },
+        _getModifiedProperty : function( sourceArray, probArray, modifier )
+        {
+            var probs = lang.clone( probArray );
+            if( modifier )
+            {
+                if( modifier < 0 )
+                {
+                    probs = probs.slice( -modifier );
+                }
+                else
+                {
+                    for( var i = 0; i < modifier; i++ )
+                    {
+                        probs.unshift( 0 );
+                    }
+                }
+            }
+            return this._fromArray( sourceArray, probArray ).name;
         }
     });
 });
