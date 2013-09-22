@@ -14,7 +14,7 @@ function( declare,
         {
             var template = "When ${action}, ${radius} ${verb} ${enhancement}. The effect lasts ${duration}.";
             var effect = this._fromObject( cypher_type.effect_types );
-            this._cypher.cypher_name = effect.cypher_name;
+            this._cypher.cypher_name = this._fromArray( effect.cypher_name ).name;
             this._cypher.enhancement = effect.name;
             this._cypher.item_type 
             this._cypher.radius = "the user";
@@ -22,8 +22,8 @@ function( declare,
             this._cypher.duration = this._fromArray( cypher_type.durations ).name;
             if( item_type.radius )
             {
-                var radius = this._fromArray( item_type.range ).name;
-                if( this._cypher.radius != "#none" )
+                var radius = this._fromArray( item_type.radius ).name;
+                if( radius != "#none" )
                 {
                     this._cypher.cypher_class = "occultic";
                     this._cypher.radius = radius;

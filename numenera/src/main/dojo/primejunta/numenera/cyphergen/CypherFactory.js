@@ -7,7 +7,13 @@ define([ "dojo/_base/declare",
          "./_countermeasure",
          "./_weapon",
          "./_enhancement",
-         "./data/bricks" ],
+         "./data/bricks",
+         "./data/buffs",
+         "./data/countermeasures",
+         "./data/cures",
+         "./data/enhancements",
+         "./data/utilities",
+         "./data/weapons" ],
 function( declare,
           lang,
           array,
@@ -17,11 +23,26 @@ function( declare,
           _countermeasure,
           _weapon,
           _enhancement,
-          bricks )
+          bricks,
+          buffs,
+          countermeasures,
+          cures,
+          enhancements,
+          utilities,
+          weapons )
 {
     return declare([ _cure, _buff, _countermeasure, _weapon, _enhancement ], {
+        startup : function()
+        {
+            bricks.cypher_types = lang.mixin( bricks.cypher_types, buffs, countermeasures, cures, enhancements, utilities, weapons );
+            this._started = true;
+        },
         getRandomCypher : function( type )
         {
+            if( !this._started )
+            {
+                this.startup();
+            }
             var cypher_type = type ? bricks.cypher_types[ type ] : this._fromObject( bricks.cypher_types );
             var item_type = this._fromObject( cypher_type.item_types );
             var action = this._fromArray( item_type.actions );
@@ -103,7 +124,7 @@ function( declare,
             }
             return this._randomize( out, lim );
         },
-        _fromObject : function( fromMap )
+        _fromObject : function( fromMap, modifyName, alwaysUseBaseName )
         {
             var lim = 0;
             var out = [];
@@ -115,9 +136,9 @@ function( declare,
                 out.push( obj );
                 lim += fromMap[ o ].prob;
             }
-            return this._randomize( out, lim );
+            return this._randomize( out, lim, modifyName, alwaysUseBaseName );
         },
-        _randomize : function( arr, lim )
+        _randomize : function( arr, lim, modifyName, alwaysUseBaseName )
         {
             var rn = Math.random() * lim;
             for( var i = 0; i < arr.length; i++ )
@@ -130,7 +151,18 @@ function( declare,
                     }
                     if( arr[ i ].cypher_name )
                     {
-                        this._cypher.cypher_name = arr[ i ].cypher_name;
+                        this._cypher.cypher_name = this._fromArray( arr[ i ].cypher_name ).name;
+                    }
+                    if( modifyName )
+                    {
+                        if( arr[ i ].cypher_name_qualifier && !alwaysUseBaseName )
+                        {
+                            this._cypher.cypher_name_qualifier = arr[ i ].cypher_name_qualifier;
+                        }
+                        else
+                        {
+                            this._cypher.cypher_name_qualifier = arr[ i ].name;
+                        }
                     }
                     return arr[ i ];
                 }

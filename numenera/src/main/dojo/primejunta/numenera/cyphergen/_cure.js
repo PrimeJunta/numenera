@@ -17,15 +17,15 @@ function( declare,
             if( eType == "physical" )
             {
                 template += "restores ${points} points to ${damage_type}";
-                this._cypher.damage_type = this._fromObject( lang.mixin({ "any pool" : { "prob" : 50 } }, bricks.types.buff_types ) ).name;
+                this._cypher.damage_type = this._fromObject( lang.mixin({ "any pool" : { "prob" : 50, cypher_name_qualifier : "universal" } }, bricks.common_data.buff_types ), true ).name;
                 this._cypher.points = this._cypher.damage_type.indexOf( "pool" ) == -1 ? Math.ceil( level ) : level * 3;
                 this._cypher.cypher_name = "restorative";
             }
             else
             {
                 template += "cures ${status_effect}";
-                this._cypher.status_effect = this._fromObject( bricks.types.status_types ).name;
-                this._cypher.cypher_name = "curative";
+                this._cypher.status_effect = this._fromObject( bricks.common_data.status_types, true, true ).name;
+                this._cypher.cypher_name = "cure";
             }
             if( item_type.range )
             {

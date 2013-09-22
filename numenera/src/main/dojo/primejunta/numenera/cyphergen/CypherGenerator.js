@@ -1,5 +1,6 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
+         "dojo/_base/event",
          "dojo/string",
          "dojo/query",
          "../_startup",
@@ -17,6 +18,7 @@ define([ "dojo/_base/declare",
          "dojo/text!./doc/about.html" ],
 function( declare,
           lang,
+          event,
           string,
           domQuery,
           _startup,
@@ -56,8 +58,9 @@ function( declare,
             this._cf = new CypherFactory();
             this.start(); // from startup
         },
-        showCypher : function()
+        showCypher : function( evt )
         {
+            event.stop( evt );
             this._flip( this.cypherCardBack, this.cypherCardFront, "#f4f4f0" );
             
             // icon-fire, icon-star
@@ -72,6 +75,10 @@ function( declare,
             }
             try
             {
+                if( !cyph.data.cypher_name_qualifier )
+                {
+                    cyph.data.cypher_name_qualifier = "";
+                }
                 this.cypherCardFront.innerHTML = string.substitute( cypher, cyph );
             }
             catch( e )
@@ -79,8 +86,9 @@ function( declare,
                 console.log( "ERR DISP", cyph );
             }
         },
-        hideCypher : function()
+        hideCypher : function( evt )
         {
+            event.stop( evt );
             this._flip( this.cypherCardFront, this.cypherCardBack, "#f4f4f0", "left" );
         },
         /**
@@ -102,6 +110,7 @@ function( declare,
             anim.onEnd = lang.hitch( this, function(){ 
                 from.style.display = "none";
                 to.style.display = "block";
+                this.debugNode.focus(); // hack to get around weirdness in webkit
             })
             anim.play(); 
         },

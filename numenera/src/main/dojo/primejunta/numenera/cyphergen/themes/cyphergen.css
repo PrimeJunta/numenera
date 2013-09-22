@@ -52,6 +52,7 @@ body
 {
     text-transform : capitalize;
     margin : 10px 0 10px;
+    color : gray;
 }
 .cy-cypherLevel
 {

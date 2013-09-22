@@ -14,7 +14,7 @@ function( declare,
         {
             var template = "When ${action}, adds ${points} point${plural} of Armor against ${damage_type} damage for ${duration}";
             this._cypher.duration = this._fromArray( cypher_type.durations ).name;
-            this._cypher.damage_type = this._fromObject( lang.mixin( { "physical" : { "prob" : 30 } }, bricks.types.damage_types ) ).name;
+            this._cypher.damage_type = this._fromObject( lang.mixin( { "physical" : { "prob" : 100 } }, bricks.common_data.damage_types ), true ).name;
             this._cypher.points = this._cypher.damage_type.indexOf( "pool" ) == -1 ? Math.ceil( level / 2 ) : level * 3;
             this._cypher.plural = this._cypher.points > 1 ? "s" : "";
             this._cypher.cypher_name = "countermeasure";

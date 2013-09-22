@@ -22,7 +22,7 @@ function( declare,
             }
             if( !this._cypher.cypher_name )
             {
-                this._cypher.cypher_name = cypher_type.effect_types[ this._cypher.effect ].cypher_name;
+                this._cypher.cypher_name = this._fromArray( cypher_type.effect_types[ this._cypher.effect ].cypher_name ).name;
             }
             this._cypher.range = this._fromArray( cypher_type.effect_types[ this._cypher.effect ].range ).name;
             var areaMod = cypher_type.effect_types[ this._cypher.effect ].area[ 0 ];
@@ -45,16 +45,16 @@ function( declare,
             var duration = false;
             if( eType == "physical" )
             {
-                this._cypher.damage_type = this._fromObject( bricks.types.damage_types ).name;
+                this._cypher.damage_type = this._fromObject( bricks.common_data.damage_types, true ).name;
                 this._cypher.points = level * 3;
                 template += "${points} points of ${damage_type} damage";
             }
             else if( eType == "status" )
             {
-                this._cypher.status_type = this._fromObject( bricks.types.status_types ).name;
-                if( bricks.types.status_types[ this._cypher.status_type ].duration )
+                this._cypher.status_type = this._fromObject( bricks.common_data.status_types , true ).name;
+                if( bricks.common_data.status_types[ this._cypher.status_type ].duration )
                 {
-                    this._cypher.duration = this._fromArray( bricks.types.status_types[ this._cypher.status_type ].duration ).name;
+                    this._cypher.duration = this._fromArray( bricks.common_data.status_types[ this._cypher.status_type ].duration ).name;
                 }
                 else
                 {
