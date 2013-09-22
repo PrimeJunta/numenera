@@ -39,5 +39,4 @@ define({
         ranges : [ "immediate", "short", "medium", "long", "extreme" ],
         range_probs : [ 1, 2, 4, 2, 1 ]
     }
-
 });
