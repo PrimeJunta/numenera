@@ -59,7 +59,7 @@ define({
                 prob : 50,
                 cypher_name : [ "bomb", "detonation" ],
                 range : [ "short/50", "medium/50", "long/20", "extreme/10" ],
-                area : [ 0, 0 ]
+                area : [ 0, 1 ]
             },
             "sprays an arc" : {
                 prob : 20,

@@ -22,7 +22,7 @@ define({
         }
     },
     weights : [ "almost weightless/1", "very light/2", "light/4", "#false/8", "heavy/4", "very heavy/2", "extremely heavy/1" ],
-    adjectives : [ "#false/4", "pulsating/1", "glowing/1", "corroded/1", "eroded/1", "shiny/1", "damaged/1" ],
+    adjectives : [ "#false/4", "pulsating/1", "glowing/1", "corroded/1", "eroded/1", "shiny/1", "shining/1", "damaged/1" ],
     sizes : [ "minuscule/1", "tiny/2", "small/4", "#false/8", "large/4", "huge/2", "enormous/1" ],
     qualifiers : [ "with glowing symbols/1", "with etched markings/1", "with engraved symbols/1", "which speaks in an unknown language/1", "with colored markings/2", "#false/10"],
     object_types : {
@@ -64,8 +64,12 @@ define({
                     prob : 10,
                     max_size : 5
                 },
-                "cube" : {
+                "polyhedron" : {
                     prob : 10,
+                    max_size : 5
+                },
+                "trapezohedron" : {
+                    prob : 1,
                     max_size : 5
                 },
                 "tablet" : {
@@ -120,7 +124,7 @@ define({
                     min_size : 2
                 },
                 "boot" : {
-                    prob : 10,
+                    prob : 2,
                     max_size : 5,
                     min_size : 2
                 },
@@ -163,6 +167,9 @@ define({
                 },
                 "cube" : {
                     prob : 10
+                },
+                "polyhedron" : {
+                    prob : 5
                 },
                 "rod" : {
                     prob : 10

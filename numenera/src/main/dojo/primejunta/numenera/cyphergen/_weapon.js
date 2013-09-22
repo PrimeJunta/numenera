@@ -27,7 +27,7 @@ function( declare,
             this._cypher.range = this._fromArray( cypher_type.effect_types[ this._cypher.effect ].range ).name;
             var areaMod = cypher_type.effect_types[ this._cypher.effect ].area[ 0 ];
             var areaLow = cypher_type.effect_types[ this._cypher.effect ].area[ 1 ];
-            areaMod = array.indexOf( cypher_type.range_types, this._cypher.range ) + areaMod;
+            areaMod = array.indexOf( cypher_type.range_types, this._cypher.range ) + areaMod + 1;
             areaMod = areaMod > 0 ? areaMod : 1;
             areaLow = areaLow < areaMod ? areaLow : areaMod - 1;
             var rArr = cypher_type.radius_types.slice( areaLow, areaMod );

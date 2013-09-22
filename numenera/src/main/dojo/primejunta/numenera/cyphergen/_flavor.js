@@ -55,6 +55,10 @@ function( declare,
             {
                 flavor.object_weight += ",";
             }
+            if( flavor.adjective == "shining" && flavor.object_name == "trapezohedron" )
+            {
+                this._cypher.description = "When the user looks deep into it in darkness, summons the Crawling Chaos which will bring about the end of the Ninth World.";
+            }
             var template = "${object_size} ${object_weight} ${adjective} ${material} ${object_name} ${qualifier}";
             var out = string.substitute( template, flavor );
             out = string.trim( out );
