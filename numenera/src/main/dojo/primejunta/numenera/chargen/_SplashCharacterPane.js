@@ -80,6 +80,10 @@ function( declare,
         {
             this.manager.openCharacter();
         },
+        showHelp : function()
+        {
+            this.manager.showHelp();
+        },
         showLicenses : function()
         {
             this.manager.showLicenses();

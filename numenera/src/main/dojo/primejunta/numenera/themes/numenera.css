@@ -166,6 +166,22 @@ li td
     color : gray;
     letter-spacing : 12px;
 }
+.num-centeredLinks
+{
+	color : #444444;
+	font-family : Lato;
+	font-size : 14px;
+}
+.num-centeredLinks a
+{
+    color : #747474;
+    text-decoration : none;
+}
+.num-centeredLinks a:hover
+{
+	color : white;
+    text-decoration : underline;
+}
 .num-linkNode
 {
     padding : 10px 20px 0px 0px;

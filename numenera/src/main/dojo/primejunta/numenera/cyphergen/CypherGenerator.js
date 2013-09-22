@@ -36,7 +36,7 @@ function( declare,
           about ) 
 {
     return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _startup ], {
-        version : "0.0.1-dev",
+        version : "1.0.0",
         iconSrc : require.toUrl( "primejunta/numenera/themes/images" ),
         templateString : template,
         cypher_type : false,
@@ -86,6 +86,7 @@ function( declare,
             catch( e )
             {
                 console.log( "ERR DISP", cyph );
+                this.showCypher(); // try again – this could be trouble if something breaks for real
             }
         },
         hideCypher : function()
