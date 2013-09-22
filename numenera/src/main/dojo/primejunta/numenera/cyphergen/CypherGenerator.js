@@ -55,12 +55,15 @@ function( declare,
         },
         postCreate : function()
         {
+            on( this.cypherCardOverlay, "dblclick", lang.hitch( this, function( evt ) {
+                console.log( "clobber" );
+                event.stop( evt );
+            }));
             this._cf = new CypherFactory();
             this.start(); // from startup
         },
-        showCypher : function( evt )
+        showCypher : function()
         {
-            event.stop( evt );
             this._flip( this.cypherCardBack, this.cypherCardFront, "#f4f4f0" );
             
             // icon-fire, icon-star
@@ -85,11 +88,24 @@ function( declare,
             {
                 console.log( "ERR DISP", cyph );
             }
+            this._shown = true;
         },
-        hideCypher : function( evt )
+        hideCypher : function()
+        {
+            this._flip( this.cypherCardFront, this.cypherCardBack, "#f4f4f0", "left" );
+            this._shown = false;
+        },
+        toggleCypher : function( evt )
         {
             event.stop( evt );
-            this._flip( this.cypherCardFront, this.cypherCardBack, "#f4f4f0", "left" );
+            if( this._shown )
+            {
+                this.hideCypher();
+            }
+            else
+            {
+                this.showCypher();
+            }
         },
         /**
          * Calls _showHelp with about (that's an included text module).
