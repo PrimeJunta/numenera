@@ -98,7 +98,7 @@ define({
                 cypher_name : [ "image projector" ],
                 duration_modifier : 1
             },
-            "creates a tiny probe which maps and scans an unknown area, moving ${range} distance and scanning ${area} area. It identifies basic layout, creatures, and energy source, and may not pass physical or energy barriers" : {
+            "creates a tiny probe which moves ${range} distance and maps and scans ${area} area. It identifies basic layout, creatures, and energy source, and may not pass physical or energy barriers" : {
                 prob : 10,
                 cypher_name : [ "infiltrator" ],
                 duration_modifier : 2

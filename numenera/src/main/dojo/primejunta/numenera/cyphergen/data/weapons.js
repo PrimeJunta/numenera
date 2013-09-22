@@ -66,7 +66,7 @@ define({
             "covers a zone" : {
                 prob : 20,
                 cypher_name : [ "field emitter", "gas canister" ],
-                extra_text : ". The effect lasts ${duration} and affects anything passing through it",
+                extra_text : ". The effect lasts ${effect_duration} and affects anything passing through it",
                 range : [ "short/50", "medium/20", "long/10", "extreme/10" ],
                 area : [ 0, 1 ],
                 cypher_class : [ "occultic/4", "anoetic/1" ]
@@ -74,7 +74,7 @@ define({
             "creates a wall" : {
                 prob : 20,
                 cypher_name : [ "wall projector" ],
-                extra_text : ". The effect lasts ${duration} and affects anything passing through it",
+                extra_text : ". The effect lasts ${effect_duration} and affects anything passing through it",
                 range : [ "short/50", "medium/20", "long/10" ],
                 area : [ 0, 1 ],
                 cypher_class : [ "occultic/1", "anoetic/4" ]
@@ -83,7 +83,7 @@ define({
                 prob : 0,
                 cypher_name : [ "sword", "lance", "spear", "saber", "mace", "dagger", "magnetic attack drill", "weapon attachment" ],
                 range : [ "immediate" ],
-                extra_text : ". The effect lasts ${duration}",
+                extra_text : ". The effect lasts ${effect_duration}",
                 area : [ 0, 0 ]
             }
         },

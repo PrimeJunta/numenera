@@ -24,7 +24,7 @@ function( declare,
             {
                 template += "restores ${points} points to ${damage_type}";
                 this._cypher.damage_type = this._fromObject( lang.mixin({ "any pool" : { "prob" : 50, cypher_name_qualifier : "universal" } }, bricks.common_data.buff_types ), true ).name;
-                this._cypher.points = this._cypher.damage_type.indexOf( "pool" ) == -1 ? Math.ceil( level ) : level * 3;
+                this._cypher.points = this._cypher.damage_type.indexOf( "pool" ) == -1 ? Math.ceil( level / 3 ) : level;
                 this._cypher.cypher_name = "restorative";
             }
             else

@@ -33,6 +33,7 @@ function( declare,
             var rArr = cypher_type.radius_types.slice( areaLow, areaMod );
             this._cypher.radius = this._fromArray( rArr ).name;
             this._cypher.duration = this._fromArray( cypher_type.durations ).name
+            this._cypher.effect_duration = this._fromArray( cypher_type.durations ).name
             var eType = this._fromArray( cypher_type.damage_types ).name; // FIXME: better name.
             var template = "When ${action}, ${effect} ";
             if( this._cypher.effect == "strikes" )
