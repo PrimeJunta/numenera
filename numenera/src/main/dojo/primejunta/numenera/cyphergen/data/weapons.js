@@ -14,7 +14,7 @@ define({
                 actions : [ "aimed and fired", "used in melee" ]
             },
             "placed" : {
-                prob : 20,
+                prob : 50,
                 actions : [ "aimed and fired", "set and triggered" ]
             }
         },

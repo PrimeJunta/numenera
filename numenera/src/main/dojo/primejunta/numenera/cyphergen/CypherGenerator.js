@@ -36,7 +36,7 @@ function( declare,
           about ) 
 {
     return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _startup ], {
-        version : "0.0.1",
+        version : "0.0.1-dev",
         iconSrc : require.toUrl( "primejunta/numenera/themes/images" ),
         templateString : template,
         cypher_type : false,
@@ -56,7 +56,6 @@ function( declare,
         postCreate : function()
         {
             on( this.cypherCardOverlay, "dblclick", lang.hitch( this, function( evt ) {
-                console.log( "clobber" );
                 event.stop( evt );
             }));
             this._cf = new CypherFactory();
@@ -65,7 +64,7 @@ function( declare,
         showCypher : function()
         {
             this._flip( this.cypherCardBack, this.cypherCardFront, "#f4f4f0" );
-            
+            this._shown = true;
             // icon-fire, icon-star
             var cyph = this._cf.getRandomCypher( this.cypher_type );
             if( cyph.cypher_class == "occultic" )
@@ -88,7 +87,6 @@ function( declare,
             {
                 console.log( "ERR DISP", cyph );
             }
-            this._shown = true;
         },
         hideCypher : function()
         {
@@ -98,6 +96,7 @@ function( declare,
         toggleCypher : function( evt )
         {
             event.stop( evt );
+            this.clearSelection();
             if( this._shown )
             {
                 this.hideCypher();
@@ -105,6 +104,18 @@ function( declare,
             else
             {
                 this.showCypher();
+            }
+        },
+        clearSelection : function()
+        {
+            if( document.selection && document.selection.empty )
+            {
+                document.selection.empty();
+            }
+            else if( window.getSelection )
+            {
+                var sel = window.getSelection();
+                sel.removeAllRanges();
             }
         },
         /**

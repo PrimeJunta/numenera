@@ -7,6 +7,7 @@ define([ "dojo/_base/declare",
          "./_countermeasure",
          "./_weapon",
          "./_enhancement",
+         "./_flavor",
          "./data/bricks",
          "./data/buffs",
          "./data/countermeasures",
@@ -23,6 +24,7 @@ function( declare,
           _countermeasure,
           _weapon,
           _enhancement,
+          _flavor,
           bricks,
           buffs,
           countermeasures,
@@ -31,7 +33,7 @@ function( declare,
           utilities,
           weapons )
 {
-    return declare([ _cure, _buff, _countermeasure, _weapon, _enhancement ], {
+    return declare([ _cure, _buff, _countermeasure, _weapon, _enhancement, _flavor ], {
         startup : function()
         {
             bricks.cypher_types = lang.mixin( bricks.cypher_types, buffs, countermeasures, cures, enhancements, utilities, weapons );
@@ -58,34 +60,60 @@ function( declare,
             switch( cypher_type.name )
             {
                 case "cure" :
-                    try {
+                    try
+                    {
                         this._getCure( cypher_type, item_type, action, level );
-                    }catch(e){console.log( "CURE!", cypher_type, item_type, action, level, this._cypher )}
+                    }
+                    catch( e )
+                    {
+                        console.log( "CURE!", cypher_type, item_type, action, level, this._cypher );
+                    }
                     break;
                 case "buff" :
-                    try {
+                    try
+                    {
                         this._getBuff( cypher_type, item_type, action, level );
-                    }catch(e){console.log( "BUFF!", cypher_type, item_type, action, level, this._cypher )}
+                    }
+                    catch( e )
+                    {
+                        console.log( "BUFF!", cypher_type, item_type, action, level, this._cypher );
+                    }
                     break;
                 case "countermeasure" :
-                    try {
+                    try
+                    {
                         this._getCountermeasure( cypher_type, item_type, action, level );
-                    }catch(e){console.log( "COUNTER!", cypher_type, item_type, action, level, this._cypher )}
+                    }
+                    catch( e )
+                    {
+                        console.log( "COUNTER!", cypher_type, item_type, action, level, this._cypher );
+                    }
                     break;
                 case "weapon" :
-                    try {
+                    try
+                    {
                         this._getWeapon( cypher_type, item_type, action, level );
-                    }catch(e){console.log( "WEAPON!", cypher_type, item_type, action, level, this._cypher )}
+                    }
+                    catch( e )
+                    {
+                        console.log( "WEAPON!", cypher_type, item_type, action, level, this._cypher );
+                    }
                     break;
                 case "enhancement" :
-                    try {
+                    try
+                    {
                         this._getEnhancement( cypher_type, item_type, action, level );
-                    }catch(e){console.log( "ENHANCEMENT!", cypher_type, item_type, action, level, this._cypher )}
+                    }
+                    catch( e )
+                    {
+                        console.log( "ENHANCEMENT!", cypher_type, item_type, action, level, this._cypher );
+                    }
                     break;
             }
             return {
                 "name" : string.substitute( "${cypher_type}: ${item_type} (level ${level})", this._cypher ),
                 "description" : this._cypher.description,
+                "flavor" : this.getFlavor( this._cypher ),
                 "cypher_class" : this._cypher.cypher_class,
                 "data" : this._cypher
             }

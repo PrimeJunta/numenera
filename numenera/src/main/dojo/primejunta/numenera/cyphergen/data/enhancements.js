@@ -6,7 +6,7 @@ define({
         item_types : {
             "consumable" : {
                 prob : 80,
-                actions : [ "ingested/60", "injected/40" ]
+                actions : [ "ingested" ]
             },
             "handheld" : {
                 prob : 30,

@@ -60,15 +60,13 @@ body
 {
 	text-transform : capitalize;
 	font-size : 22px;
+	margin-bottom : 0;
 }
 .cy-cypherType
 {
     text-transform : capitalize;
-    margin : 10px 0 10px;
     color : gray;
 }
 .cy-cypherLevel
 {
-	margin-top : 13px;
-	font-size : 13px;
 }
