@@ -7,6 +7,7 @@ define([ "dojo/_base/declare",
          "./_countermeasure",
          "./_weapon",
          "./_enhancement",
+         "./_utility",
          "./_flavor",
          "./data/bricks",
          "./data/buffs",
@@ -24,6 +25,7 @@ function( declare,
           _countermeasure,
           _weapon,
           _enhancement,
+          _utility,
           _flavor,
           bricks,
           buffs,
@@ -33,7 +35,7 @@ function( declare,
           utilities,
           weapons )
 {
-    return declare([ _cure, _buff, _countermeasure, _weapon, _enhancement, _flavor ], {
+    return declare([ _cure, _buff, _countermeasure, _weapon, _enhancement, _utility, _flavor ], {
         startup : function()
         {
             bricks.cypher_types = lang.mixin( bricks.cypher_types, buffs, countermeasures, cures, enhancements, utilities, weapons );
@@ -109,6 +111,16 @@ function( declare,
                         console.log( "ENHANCEMENT!", cypher_type, item_type, action, level, this._cypher );
                     }
                     break;
+                case "utility" :
+                    try
+                    {
+                        this._getUtility( cypher_type, item_type, action, level );
+                    }
+                    catch( e )
+                    {
+                        console.log( "UTILITY!", cypher_type, item_type, action, level, this._cypher );
+                    }
+                    break;
             }
             return {
                 "name" : string.substitute( "${cypher_type}: ${item_type} (level ${level})", this._cypher ),
@@ -122,7 +134,7 @@ function( declare,
         {
             return this._fromArray( )
         },
-        _fromArray : function( fromArr )
+        _fromArray : function( fromArr, probArr )
         {
             var out = [];
             if( fromArr.length == 1 )
@@ -138,6 +150,10 @@ function( declare,
                 if( cur.indexOf( "/" ) != -1 )
                 {
                     cur = fromArr[ i ].split( "/" );
+                }
+                else if( probArr )
+                {
+                    cur = [ fromArr[ i ], probArr[ i ] ? probArr[ i ] : 0 ]
                 }
                 else
                 {
