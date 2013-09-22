@@ -32,6 +32,7 @@ function( declare,
             areaLow = areaLow < areaMod ? areaLow : areaMod - 1;
             var rArr = cypher_type.radius_types.slice( areaLow, areaMod );
             this._cypher.radius = this._fromArray( rArr ).name;
+            this._cypher.duration = this._fromArray( cypher_type.durations ).name
             var eType = this._fromArray( cypher_type.damage_types ).name; // FIXME: better name.
             var template = "When ${action}, ${effect} ";
             if( this._cypher.effect == "strikes" )
@@ -60,10 +61,6 @@ function( declare,
                 {
                     this._cypher.duration = this._fromArray( bricks.common_data.status_types[ this._cypher.status_type ].duration ).name;
                 }
-                else
-                {
-                    this._cypher.duration = this._fromArray( cypher_type.durations ).name
-                }
                 template += "${status_type} ${duration}";
             }
             else if( eType == "special" )
@@ -71,18 +68,10 @@ function( declare,
                 this._cypher.special_type = this._fromObject( bricks.common_data.special_types , true ).name;
                 template += "affected targets to ${special_type}";
             }
-            if( this._cypher.effect == "strikes" )
+            if( cypher_type.effect_types[ this._cypher.effect ].extra_text )
             {
-                this._cypher.duration = this._fromArray( cypher_type.durations ).name;
-                template += ". The effect lasts for ${duration}";
+                template += cypher_type.effect_types[ this._cypher.effect ].extra_text;
             }
-            /*
-            if( duration )
-            {
-                this._cypher.duration = this._fromArray( cypher_type.durations ).name;
-                template += " for ${duration}"
-            }
-            */
             template += ".";
             try
             {

@@ -69,6 +69,7 @@ function( declare,
                     catch( e )
                     {
                         console.log( "CURE!", cypher_type, item_type, action, level, this._cypher );
+                        return this.getRandomCypher( type );
                     }
                     break;
                 case "buff" :
@@ -79,6 +80,7 @@ function( declare,
                     catch( e )
                     {
                         console.log( "BUFF!", cypher_type, item_type, action, level, this._cypher );
+                        return this.getRandomCypher( type );
                     }
                     break;
                 case "countermeasure" :
@@ -89,6 +91,7 @@ function( declare,
                     catch( e )
                     {
                         console.log( "COUNTER!", cypher_type, item_type, action, level, this._cypher );
+                        return this.getRandomCypher( type );
                     }
                     break;
                 case "weapon" :
@@ -99,6 +102,7 @@ function( declare,
                     catch( e )
                     {
                         console.log( "WEAPON!", cypher_type, item_type, action, level, this._cypher );
+                        return this.getRandomCypher( type );
                     }
                     break;
                 case "enhancement" :
@@ -109,6 +113,7 @@ function( declare,
                     catch( e )
                     {
                         console.log( "ENHANCEMENT!", cypher_type, item_type, action, level, this._cypher );
+                        return this.getRandomCypher( type );
                     }
                     break;
                 case "utility" :
@@ -119,6 +124,7 @@ function( declare,
                     catch( e )
                     {
                         console.log( "UTILITY!", cypher_type, item_type, action, level, this._cypher );
+                        return this.getRandomCypher( type );
                     }
                     break;
             }

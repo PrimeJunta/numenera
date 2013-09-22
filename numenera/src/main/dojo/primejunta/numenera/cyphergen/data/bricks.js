@@ -20,7 +20,8 @@ define({
                 cypher_name_qualifier : "explosive"
             },
             "fire" : {
-                prob : 50
+                prob : 50,
+                cypher_name_qualifier : "heat"
             },
             "acid" : {
                 prob : 25

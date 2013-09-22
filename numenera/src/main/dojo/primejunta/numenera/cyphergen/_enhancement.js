@@ -18,7 +18,7 @@ function( declare,
             {
                 template += special;
             }
-            template += " ${radius} ${verb} ${enhancement}. The effect lasts ${duration}.";
+            template += " ${radius} ${verb} ${enhancement}.";
             var effect = this._fromObject( cypher_type.effect_types );
             this._cypher.enhancement = effect.name;
             this._cypher.item_type 

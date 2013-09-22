@@ -9,10 +9,6 @@ define({
                 prob : 50,
                 actions : [ "aimed and fired", "used in melee", "thrown" ]
             },
-            "worn" : {
-                prob : 30,
-                actions : [ "aimed and fired", "used in melee" ]
-            },
             "placed" : {
                 prob : 50,
                 actions : [ "aimed and fired", "set and triggered" ]
@@ -48,9 +44,9 @@ define({
                 range : [ "short/10", "medium/50", "long/50" ],
                 area : [ -2, 0 ]
             },
-            "shoots a hunter-killer missile" : {
+            "shoots a hunter-seeker missile" : {
                 prob : 20,
-                cypher_name : [ "hunter-killer" ],
+                cypher_name : [ "Hunter-Seeker" ],
                 range : [ "medium/30", "long/80", "extreme/120" ],
                 area : [ 0, 0 ],
                 cypher_class : [ "occultic/4", "anoetic/1" ]
@@ -70,6 +66,7 @@ define({
             "covers a zone" : {
                 prob : 20,
                 cypher_name : [ "field emitter", "gas canister" ],
+                extra_text : ". The effect lasts ${duration} and affects anything passing through it",
                 range : [ "short/50", "medium/20", "long/10", "extreme/10" ],
                 area : [ 0, 1 ],
                 cypher_class : [ "occultic/4", "anoetic/1" ]
@@ -77,14 +74,16 @@ define({
             "creates a wall" : {
                 prob : 20,
                 cypher_name : [ "wall projector" ],
+                extra_text : ". The effect lasts ${duration} and affects anything passing through it",
                 range : [ "short/50", "medium/20", "long/10" ],
                 area : [ 0, 1 ],
                 cypher_class : [ "occultic/1", "anoetic/4" ]
             },
             "strikes" : {
                 prob : 0,
-                cypher_name : [ "sword", "lance", "spear", "saber", "mace", "dagger", "magnetic attack drill" ],
+                cypher_name : [ "sword", "lance", "spear", "saber", "mace", "dagger", "magnetic attack drill", "weapon attachment" ],
                 range : [ "immediate" ],
+                extra_text : ". The effect lasts ${duration}",
                 area : [ 0, 0 ]
             }
         },

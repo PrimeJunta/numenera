@@ -23,111 +23,111 @@ define({
             }
         },
         effect_types : {
-            "training in social interactions" : {
+            "training in social interactions. The effect lasts ${duration}" : {
                 verb_s : "has",
                 verb_p : "have",
                 cypher_name : [ "social enhancer" ],
                 prob : 3,
                 duration_modifier : 2
             },
-            "training in medicine and healing" : {
+            "training in medicine and healing. The effect lasts ${duration}" : {
                 verb_s : "has",
                 verb_p : "have",
                 cypher_name : [ "medical enhancer" ],
                 prob : 3,
                 duration_modifier : 2
             },
-            "training in melee attacks" : {
+            "training in melee attacks. The effect lasts ${duration}" : {
                 verb_s : "has",
                 verb_p : "have",
                 cypher_name : [ "melee enhancer" ],
                 prob : 3,
                 duration_modifier : 2
             },
-            "training in ranged attacks" : {
+            "training in ranged attacks. The effect lasts ${duration}" : {
                 verb_s : "has",
                 verb_p : "have",
                 cypher_name : [ "ranged enhancer" ],
                 prob : 3,
                 duration_modifier : 2
             },
-            "training in numenera lore" : {
+            "training in numenera lore. The effect lasts ${duration}" : {
                 verb_s : "has",
                 verb_p : "have",
                 cypher_name : [ "knowledge enhancement" ],
                 prob : 3,
                 duration_modifier : 2
             },
-            "training in repair" : {
+            "training in repair. The effect lasts ${duration}" : {
                 verb_s : "has",
                 verb_p : "have",
                 cypher_name : [ "knowledge enhancement" ],
                 prob : 3,
                 duration_modifier : 2
             },
-            "training in persuasion" : {
+            "training in persuasion. The effect lasts ${duration}" : {
                 verb_s : "has",
                 verb_p : "have",
                 cypher_name : [ "knowledge enhancement" ],
                 prob : 3,
                 duration_modifier : 2
             },
-            "training in speed defense" : {
+            "training in speed defense. The effect lasts ${duration}" : {
                 verb_s : "has",
                 verb_p : "have",
                 cypher_name : [ "knowledge enhancement" ],
                 prob : 3,
                 duration_modifier : 2
             },
-            "training in intellect defense" : {
+            "training in intellect defense. The effect lasts ${duration}" : {
                 verb_s : "has",
                 verb_p : "have",
                 cypher_name : [ "defense enhancement" ],
                 prob : 3,
                 duration_modifier : 2
             },
-            "training in swimming" : {
+            "training in swimming. The effect lasts ${duration}" : {
                 verb_s : "has",
                 verb_p : "have",
                 cypher_name : [ "swimming enhancement" ],
                 prob : 3,
                 duration_modifier : 2
             },
-            "training in riding" : {
+            "training in riding. The effect lasts ${duration}" : {
                 verb_s : "has",
                 verb_p : "have",
                 cypher_name : [ "riding enhancement" ],
                 prob : 3,
                 duration_modifier : 2
             },
-            "training in sneaking" : {
+            "training in sneaking. The effect lasts ${duration}" : {
                 verb_s : "has",
                 verb_p : "have",
                 cypher_name : [ "stealth enhancement" ],
                 prob : 3,
                 duration_modifier : 2
             },
-            "training in repair" : {
+            "training in repair. The effect lasts ${duration}" : {
                 verb_s : "has",
                 verb_p : "have",
                 cypher_name : [ "knowledge enhancement" ],
                 prob : 3,
                 duration_modifier : 2
             },
-            "training in crafting (usually a specific item)" : {
+            "training in crafting (usually a specific item). The effect lasts ${duration}" : {
                 verb_s : "has",
                 verb_p : "have",
                 cypher_name : [ "knowledge enhancement" ],
                 prob : 3,
                 duration_modifier : 2
             },
-            "able to speak and understand any language" : {
+            "able to speak and understand any language. The effect lasts ${duration}" : {
                 verb_s : "is",
                 verb_p : "are",
                 cypher_name : [ "universal lexicon" ],
                 prob : 5
             },
-            "able to speak and understand a language keyed to the cypher even if he/she/it would not normally be able to speak" : {
+            "able to speak and understand a language keyed to the cypher even if he/she/it would not normally be able to speak. The effect lasts ${duration}" : {
                 verb_s : "is",
                 verb_p : "are",
                 cypher_name : [ "comprehension graft" ],
@@ -139,7 +139,7 @@ define({
                 cypher_name : [ "blink cypher" ],
                 prob : 10
             },
-            "invisible" : {
+            "invisible. The effect lasts ${duration}" : {
                 verb_s : "becomes",
                 verb_p : "become",
                 cypher_name : [ "invisibility cypher" ],
@@ -151,70 +151,70 @@ define({
                 cypher_name : [ "controlled blink cypher" ],
                 prob : 10
             },
-            "can climb any surface automatically" : {
+            "can climb any surface automatically. The effect lasts ${duration}" : {
                 verb_s : " ",
                 verb_p : " ",
                 cypher_name : [ "adhesion cypher", "adhesion clamps" ],
                 prob : 10
             },
-            "out of phase" : {
+            "out of phase, being able to pass through material lower than level ${level}. The effect lasts ${duration}" : {
                 verb_s : "goes",
                 verb_p : "go",
                 cypher_name : [ "phase switcher" ],
                 prob : 10
             },
-            "can levitate" : {
+            "can levitate. The effect lasts ${duration}" : {
                 verb_s : " ",
                 verb_p : " ",
                 cypher_name : [ "gravity nullifier" ],
                 prob : 10
             },
-            "can see in the dark" : {
+            "can see in the dark. The effect lasts ${duration}" : {
                 verb_s : " ",
                 verb_p : " ",
                 cypher_name : [ "catseye" ],
                 prob : 10,
                 duration_modifier : 2
             },
-            "can see ten times as far as normal" : {
+            "can see ten times as far as normal. The effect lasts ${duration}" : {
                 verb_s : " ",
                 verb_p : " ",
                 cypher_name : [ "eagleseye" ],
                 prob : 10,
                 duration_modifier : 2
             },
-            "can fly" : {
+            "can fly. The effect lasts ${duration}" : {
                 verb_s : " ",
                 verb_p : " ",
                 cypher_name : [ "powered gravity nullifier" ],
                 prob : 10
             },
-            "immune to poisons of the same level or lower, and ends any such effect if present" : {
+            "immune to poisons of the same level or lower, and ends any such effect if present. The effect lasts ${duration}" : {
                 verb_s : "becomes",
                 verb_p : "become",
                 cypher_name : [ "antivenom" ],
                 prob : 10
             },
-            "surrounded by a field which will sustain a human safely, but does not protect against sudden changes of temperature" : {
+            "surrounded by a field which will sustain a human safely, but does not protect against sudden changes of temperature. The effect lasts ${duration}" : {
                 verb_s : "is",
                 verb_p : "are",
                 cypher_name : [ "environment field" ],
                 prob : 10
             },
-            "to a known location within a ${level}00 miles, safely with all possessions" : {
+            "to a known location within ${level}00 miles, safely with all possessions" : {
                 verb_s : "teleports",
                 verb_p : "teleport",
                 cypher_name : [ "teleporter (traveler)" ],
                 prob : 10,
                 cypher_class : [ "occultic" ]
             },
-            "to a visible location within a ${level}00 feet, safely with all possessions" : {
+            "to a visible location within ${level}00 feet, safely with all possessions" : {
                 verb_s : "teleports",
                 verb_p : "teleport",
                 cypher_name : [ "teleporter (bounder)" ],
                 prob : 10
             },
-            "may breathe underwater" : {
+            "may breathe underwater. The effect lasts ${duration}" : {
                 verb_s : " ",
                 verb_p : " ",
                 cypher_name : [ "water breather" ],
