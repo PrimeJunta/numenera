@@ -36,7 +36,7 @@ function( declare,
           _unlockable,
           template )
 {
-    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _focus, _util, _unlockable ], {
+    return declare( "primejunta.numenera.chargen._TierWidget", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _focus, _util, _unlockable ], {
         /**
          * Default skill name for that perk, if selected.
          */
@@ -124,7 +124,7 @@ function( declare,
                 for( var i = 0; i < bps.length; i++ )
                 {
                     this._controls.push( new _ListItem({
-                        manager : this.manager,
+                        manager : this,
                         content : bps[ i ],
                         from : "type",
                         selectedIndex : 0
@@ -138,7 +138,7 @@ function( declare,
                 for( var i = 0; i < bps.length; i++ )
                 {
                     this._controls.push( new _ListItem({
-                        manager : this.manager,
+                        manager : this,
                         content : bps[ i ],
                         from : "focus",
                         selectedIndex : 0

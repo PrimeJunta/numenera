@@ -189,7 +189,7 @@ define({
                 cypher_name : [ "powered gravity nullifier" ],
                 prob : 10
             },
-            "immune to poisons of the same level or lower, and ends any such effect if present. The effect lasts ${duration}" : {
+            "immune to poisons of level ${level} or lower, and ends any such effect if present. The effect lasts ${duration}" : {
                 verb_s : "becomes",
                 verb_p : "become",
                 cypher_name : [ "antivenom" ],

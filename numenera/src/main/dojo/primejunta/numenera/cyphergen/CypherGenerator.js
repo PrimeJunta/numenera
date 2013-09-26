@@ -63,8 +63,8 @@ function( declare,
         },
         showCypher : function()
         {
-            this._flip( this.cypherCardBack, this.cypherCardFront, "#f4f4f0" );
             this._shown = true;
+            this._flip( this.cypherCardBack, this.cypherCardFront, "#f4f4f0" );
             // icon-fire, icon-star
             var cyph = this._cf.getRandomCypher( this.cypher_type );
             if( cyph.cypher_class == "occultic" )
@@ -90,12 +90,12 @@ function( declare,
         },
         hideCypher : function()
         {
-            this._flip( this.cypherCardFront, this.cypherCardBack, "#f4f4f0", "left" );
             this._shown = false;
+            this._flip( this.cypherCardFront, this.cypherCardBack, "#f4f4f0", "left" );
         },
         toggleCypher : function( evt )
         {
-            event.stop( evt );
+            //event.stop( evt );
             this.clearSelection();
             if( this._shown )
             {

@@ -98,6 +98,10 @@ li td
 {
     padding : 0px;
 }
+select
+{
+	font-family : Lato, Arial, sans-serif, sans;
+}
 .num-whiteKnot
 {
 	width : 100%;

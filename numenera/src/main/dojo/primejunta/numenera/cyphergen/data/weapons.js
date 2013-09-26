@@ -1,6 +1,6 @@
 define({
     weapon : {
-        prob : 100,
+        prob : 60,
         "name" : "weapon",
         "damage_types" : [ "physical/80", "status/40", "special/1" ],
         // produces one or more damage_types, buff_types, or status_types with an effect_type and action_type

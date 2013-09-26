@@ -154,12 +154,12 @@ function( declare,
             if( this.deleted )
             {
                 this.deleted = false;
-                domClass.remove( this.domNode, "cg-deletedItem" );
+                domClass.remove( this.domNode, "num-deletedItem" );
             }
             else
             {
                 this.deleted = true;
-                domClass.add( this.domNode, "cg-deletedItem" );
+                domClass.add( this.domNode, "num-deletedItem" );
             }
             this.deleteControl.checked = this.deleted ? false : true;
         },
@@ -257,7 +257,7 @@ function( declare,
          */
         getText : function()
         {
-            return ( this.deleted || this._destroyed ) ? false : this.baseText + ( this._hasSelect ? this.selectNode.options[ this.selectNode.selectedIndex ].text + this.midText : "" ) + ( this._hasInput ? ( this.manager.DEFAULT_VALUES[ this.inputNode.value ] ? "" : this.inputNode.value ) : "" );
+            return ( this.deleted || this._destroyed ) ? false : this.baseText + ( this._hasSelect ? this.selectNode.options[ this.selectNode.selectedIndex ].text + this.midText : "" ) + ( this._hasInput ? ( this.DEFAULT_VALUES[ this.inputNode.value ] ? "" : this.inputNode.value ) : "" );
         },
         /**
          * Checks if any select or input are present, and if so, if they're disabled.
