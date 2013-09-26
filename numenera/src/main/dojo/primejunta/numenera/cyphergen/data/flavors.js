@@ -4,7 +4,7 @@ define({
     // "an enormous self-propelled synth device with tractor treads
     materials : {
         "#false" : {
-            prob : 20,
+            prob : 20
         },
         "metal" : {
             prob : 4
