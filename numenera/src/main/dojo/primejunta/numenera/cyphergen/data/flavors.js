@@ -236,6 +236,110 @@ define({
                 }
             }
         },
+        "attachment" : {
+            object_names : {
+                "disc" : {
+                    prob : 10,
+                    max_size : 5,
+                    actions : [ "activated", "broken", "attached and activated" ]
+                },
+                "rod" : {
+                    prob : 10,
+                    max_size : 5,
+                    actions : [ "activated", "broken" ]
+                },
+                "polyhedron" : {
+                    prob : 10,
+                    max_size : 5,
+                    actions : [ "activated", "broken", "squeezed", "attached and activated" ]
+                },
+                "trapezohedron" : {
+                    prob : 1,
+                    max_size : 5,
+                    actions : [ "activated", "broken", "squeezed", "attached and activated" ]
+                },
+                "device" : {
+                    prob : 10,
+                    max_size : 5,
+                    actions : [ "activated" ]
+                },
+                "lump" : {
+                    prob : 10,
+                    max_size : 5,
+                    actions : [ "activated", "squeezed", "attached and activated" ]
+                },
+                "spheroid" : {
+                    prob : 10,
+                    max_size : 5,
+                    actions : [ "activated", "broken", "attached and activated" ]
+                },
+                "ovoid" : {
+                    prob : 10,
+                    max_size : 5,
+                    actions : [ "activated", "broken", "attached and activated" ]
+                },
+                "mechanism" : {
+                    prob : 10,
+                    max_size : 5,
+                    actions : [ "activated", "broken", "attached and activated" ]
+                },
+                "canister" : {
+                    prob : 10,
+                    max_size : 5,
+                    actions : [ "opened", "activated", "broken", "attached and activated" ]
+                },
+                "panel" : {
+                    prob : 10,
+                    max_size : 5,
+                    actions : [ "opened", "activated", "broken", "attached and activated" ]
+                },
+                "nodule" : {
+                    prob : 10,
+                    max_size : 5,
+                    actions : [ "activated", "broken", "attached and activated" ]
+                },
+                "pipe" : {
+                    prob : 10,
+                    max_size : 5,
+                    actions : [ "activated", "broken", "attached and activated" ]
+                },
+                "tube" : {
+                    prob : 10,
+                    max_size : 5,
+                    actions : [ "activated", "broken", "attached and activated" ]
+                },
+                "plate" : {
+                    prob : 10,
+                    max_size : 5,
+                    actions : [ "activated", "broken", "attached and activated" ]
+                },
+                "pyramid" : {
+                    prob : 10,
+                    max_size : 5,
+                    actions : [ "activated", "broken", "attached and activated" ]
+                },
+                "cone" : {
+                    prob : 10,
+                    max_size : 5,
+                    actions : [ "activated", "broken", "attached and activated" ]
+                },
+                "spike" : {
+                    prob : 10,
+                    max_size : 5,
+                    actions : [ "activated", "broken", "attached and activated" ]
+                },
+                "ring" : {
+                    prob : 10,
+                    max_size : 5,
+                    actions : [ "activated", "broken", "attached and activated" ]
+                },
+                "lens" : {
+                    prob : 10,
+                    max_size : 5,
+                    actions : [ "activated", "broken", "attached and activated" ]
+                }
+            }
+        },
         "worn" : {
             object_names : {
                 "helmet" : {

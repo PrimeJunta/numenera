@@ -16,6 +16,11 @@ define({
                 prob : 30,
                 actions : [ "activated" ]
             },
+            "attachment" : {
+                prob : 30,
+                actions : [ "attached and activated" ],
+                range : [ "#none/200", "immediate/80", "short/10", "long/5", "extreme/1" ]
+            },
             "placed" : {
                 prob : 10,
                 actions : [ "activated" ],

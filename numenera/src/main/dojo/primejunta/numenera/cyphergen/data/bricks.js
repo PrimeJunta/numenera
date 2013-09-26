@@ -13,7 +13,7 @@ define({
             },
             "slashing" : {
                 prob : 100,
-                cypher_name_qualifier : "fragmenting"
+                cypher_name_qualifier : "vibrating"
             },
             "blast" : {
                 prob : 100,

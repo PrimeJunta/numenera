@@ -9,11 +9,16 @@ define({
                 actions : [ "ingested", "implanted" ]
             },
             "handheld" : {
-                prob : 30,
+                prob : 40,
                 actions : [ "activated/30", "injected/70", "implanted/20" ]
             },
+            "attachment" : {
+                prob : 10,
+                actions : [ "attached and activated" ],
+                radius : [ "#none/1", "people within a small area/200", "people within a medium area/10", "people within a large area/5", "people within a huge area/1" ]
+            },
             "worn" : {
-                prob : 30,
+                prob : 40,
                 actions : [ "activated" ]
             },
             "placed" : {

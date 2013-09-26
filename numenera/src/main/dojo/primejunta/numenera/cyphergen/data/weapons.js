@@ -7,7 +7,11 @@ define({
         item_types : {
             "handheld" : {
                 prob : 50,
-                actions : [ "aimed and fired/10", "used in melee/5", "thrown/10", "broken/10", "dropped/2", "attached to a melee weapon and activated/20" ]
+                actions : [ "aimed and fired/10", "used in melee/5", "thrown/10", "broken/10", "activated/5" ]
+            },
+            "attachment" : {
+                prob : 50,
+                actions : [ "attached to a melee weapon and activated", "attached to a projectile and activated", "attached to a ranged weapon and activated", "attached to a blunt weapon and activated", "attached to a bladed weapon and activated" ]
             },
             "placed" : {
                 prob : 50,
@@ -31,16 +35,33 @@ define({
                 "effect_types" : [ "strikes" ]
             },
             "broken" : {
-                range : [ "immediate/2", "short/4", "long/2", "extreme/1" ],
+                range : [ "immediate/2", "short/4", "medium/4", "long/2", "extreme/1" ],
                 "effect_types" : [ "causes a blast", "covers a zone" ]
             },
+            "activated" : {
+                range : [ "immediate/2", "short/4", "medium/4", "long/2", "extreme/1" ]
+            },
             "dropped" : {
-                range : [ "immediate/2", "short/4", "long/2", "extreme/1" ],
+                range : [ "immediate/2", "short/4", "medium/4",  "long/2", "extreme/1" ],
                 "effect_types" : [ "causes a blast", "covers a zone" ]
             },
             "attached to a melee weapon and activated" : {
                 range : [ "immediate" ],
-                "effect_types" : [ "strikes" ]
+                "effect_types" : [ " strikes" ]
+            },
+            "attached to a blunt weapon and activated" : {
+                range : [ "immediate" ],
+                "effect_types" : [ " strikes" ]
+            },
+            "attached to a bladed weapon and activated" : {
+                range : [ "immediate" ],
+                "effect_types" : [ " strikes" ]
+            },
+            "attached to a projectile and activated" : {
+                range : [ "short/2", "medium/4",  "long/2", "extreme/1"  ]
+            },
+            "attached to a ranged weapon and activated" : {
+                range : [ "short/2", "medium/4",  "long/2", "extreme/1"  ]
             }
         },
         effect_types : {
@@ -93,7 +114,14 @@ define({
             },
             "strikes" : {
                 prob : 0,
-                cypher_name : [ "sword/5", "lance/2", "spear/2", "saber/3", "mace/2", "dagger/2", "magnetic attack drill/1", "pommel attachment/4", "nodule/15", "whip/5", "guard/5", "blade/10" ],
+                cypher_name : [ "sword/5", "lance/2", "spear/2", "saber/3", "mace/2", "dagger/2", "magnetic attack drill/1", "whip/5", "blade/10" ],
+                range : [ "immediate" ],
+                extra_text : ". The effect lasts ${effect_duration}",
+                area : [ 0, 0 ]
+            },
+            " strikes" : {
+                prob : 0,
+                cypher_name : [ "nodule", "pommel attachment", "pommel", "blade", "grip", "device", "jewel", "mechanism" ],
                 range : [ "immediate" ],
                 extra_text : ". The effect lasts ${effect_duration}",
                 area : [ 0, 0 ]
