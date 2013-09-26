@@ -12,7 +12,7 @@ function( declare,
     return declare([], {
         _getUtility : function( cypher_type, item_type, action, level )
         {
-            var template = "When ${action}, ${effect}.";
+            var template = "When @{action}, ${effect}.";
             var effect = this._fromObject( cypher_type.effect_types );
             this._cypher.effect = effect.name;
             this._cypher.duration = this._getModifiedProperty( cypher_type.durations, cypher_type.duration_probs, effect.duration_modifier );

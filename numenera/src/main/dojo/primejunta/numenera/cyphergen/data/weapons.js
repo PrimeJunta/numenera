@@ -7,7 +7,7 @@ define({
         item_types : {
             "handheld" : {
                 prob : 50,
-                actions : [ "aimed and fired", "used in melee", "thrown" ]
+                actions : [ "aimed and fired/10", "used in melee/5", "thrown/10", "broken/10", "dropped/2", "attached to a melee weapon and activated/20" ]
             },
             "placed" : {
                 prob : 50,
@@ -27,6 +27,18 @@ define({
                 range : [ "immediate/30", "short/30", "long/50", "extreme/10" ]
             },
             "used in melee" : {
+                range : [ "immediate" ],
+                "effect_types" : [ "strikes" ]
+            },
+            "broken" : {
+                range : [ "immediate/2", "short/4", "long/2", "extreme/1" ],
+                "effect_types" : [ "causes a blast", "covers a zone" ]
+            },
+            "dropped" : {
+                range : [ "immediate/2", "short/4", "long/2", "extreme/1" ],
+                "effect_types" : [ "causes a blast", "covers a zone" ]
+            },
+            "attached to a melee weapon and activated" : {
                 range : [ "immediate" ],
                 "effect_types" : [ "strikes" ]
             }
@@ -81,7 +93,7 @@ define({
             },
             "strikes" : {
                 prob : 0,
-                cypher_name : [ "sword", "lance", "spear", "saber", "mace", "dagger", "magnetic attack drill", "weapon attachment" ],
+                cypher_name : [ "sword/5", "lance/2", "spear/2", "saber/3", "mace/2", "dagger/2", "magnetic attack drill/1", "pommel attachment/4", "nodule/15", "whip/5", "guard/5", "blade/10" ],
                 range : [ "immediate" ],
                 extra_text : ". The effect lasts ${effect_duration}",
                 area : [ 0, 0 ]

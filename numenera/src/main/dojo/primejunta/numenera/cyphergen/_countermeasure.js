@@ -12,7 +12,7 @@ function( declare,
     return declare([], {
         _getCountermeasure : function( cypher_type, item_type, action, level )
         {
-            var template = "When ${action}, adds ${points} point${plural} of Armor against ${damage_type} damage for ${duration}";
+            var template = "When @{action}, adds ${points} point${plural} of Armor against ${damage_type} damage for ${duration}";
             var dType = this._fromObject( lang.mixin( { "physical" : { prob : 100, damage_modifier : 1 } }, bricks.common_data.damage_types ), true );
             this._cypher.damage_type = dType.name;
             this._cypher.points = level * ( dType.damage_modifier ? dType.damage_modifier : 2 );

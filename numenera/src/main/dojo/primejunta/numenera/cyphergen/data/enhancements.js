@@ -6,11 +6,11 @@ define({
         item_types : {
             "consumable" : {
                 prob : 80,
-                actions : [ "ingested" ]
+                actions : [ "ingested", "implanted" ]
             },
             "handheld" : {
                 prob : 30,
-                actions : [ "activated/30", "injected/70" ]
+                actions : [ "activated/30", "injected/70", "implanted/20" ]
             },
             "worn" : {
                 prob : 30,
@@ -23,113 +23,113 @@ define({
             }
         },
         effect_types : {
-            "training in social interactions. The effect lasts ${duration}" : {
-                verb_s : "has",
-                verb_p : "have",
+            "trained in social interactions. The effect lasts ${duration}" : {
+                verb_s : "becomes",
+                verb_p : "become",
                 cypher_name : [ "social enhancer" ],
                 prob : 3,
                 duration_modifier : 2
             },
-            "training in medicine and healing. The effect lasts ${duration}" : {
-                verb_s : "has",
-                verb_p : "have",
+            "trained in medicine and healing. The effect lasts ${duration}" : {
+                verb_s : "becomes",
+                verb_p : "become",
                 cypher_name : [ "medical enhancer" ],
                 prob : 3,
                 duration_modifier : 2
             },
-            "training in melee attacks. The effect lasts ${duration}" : {
-                verb_s : "has",
-                verb_p : "have",
+            "trained in melee attacks. The effect lasts ${duration}" : {
+                verb_s : "becomes",
+                verb_p : "become",
                 cypher_name : [ "melee enhancer" ],
                 prob : 3,
                 duration_modifier : 2
             },
-            "training in ranged attacks. The effect lasts ${duration}" : {
-                verb_s : "has",
-                verb_p : "have",
+            "trained in ranged attacks. The effect lasts ${duration}" : {
+                verb_s : "becomes",
+                verb_p : "become",
                 cypher_name : [ "ranged enhancer" ],
                 prob : 3,
                 duration_modifier : 2
             },
-            "training in numenera lore. The effect lasts ${duration}" : {
-                verb_s : "has",
-                verb_p : "have",
-                cypher_name : [ "knowledge enhancement" ],
+            "trained in numenera lore. The effect lasts ${duration}" : {
+                verb_s : "becomes",
+                verb_p : "become",
+                cypher_name : [ "numenera lore enhancement" ],
                 prob : 3,
                 duration_modifier : 2
             },
-            "training in repair. The effect lasts ${duration}" : {
-                verb_s : "has",
-                verb_p : "have",
-                cypher_name : [ "knowledge enhancement" ],
+            "trained in repair. The effect lasts ${duration}" : {
+                verb_s : "becomes",
+                verb_p : "become",
+                cypher_name : [ "repair enhancer" ],
                 prob : 3,
                 duration_modifier : 2
             },
-            "training in persuasion. The effect lasts ${duration}" : {
-                verb_s : "has",
-                verb_p : "have",
-                cypher_name : [ "knowledge enhancement" ],
+            "trained in persuasion. The effect lasts ${duration}" : {
+                verb_s : "becomes",
+                verb_p : "become",
+                cypher_name : [ "persuasion enhancer" ],
                 prob : 3,
                 duration_modifier : 2
             },
-            "training in speed defense. The effect lasts ${duration}" : {
-                verb_s : "has",
-                verb_p : "have",
-                cypher_name : [ "knowledge enhancement" ],
+            "trained in speed defense. The effect lasts ${duration}" : {
+                verb_s : "becomes",
+                verb_p : "become",
+                cypher_name : [ "defense enhancer" ],
                 prob : 3,
                 duration_modifier : 2
             },
-            "training in intellect defense. The effect lasts ${duration}" : {
-                verb_s : "has",
-                verb_p : "have",
-                cypher_name : [ "defense enhancement" ],
+            "trained in intellect defense. The effect lasts ${duration}" : {
+                verb_s : "becomes",
+                verb_p : "become",
+                cypher_name : [ "will enhancement" ],
                 prob : 3,
                 duration_modifier : 2
             },
-            "training in swimming. The effect lasts ${duration}" : {
-                verb_s : "has",
-                verb_p : "have",
-                cypher_name : [ "swimming enhancement" ],
+            "trained in swimming. The effect lasts ${duration}" : {
+                verb_s : "becomes",
+                verb_p : "become",
+                cypher_name : [ "swimming enhancer" ],
                 prob : 3,
                 duration_modifier : 2
             },
-            "training in riding. The effect lasts ${duration}" : {
-                verb_s : "has",
-                verb_p : "have",
-                cypher_name : [ "riding enhancement" ],
+            "trained in riding. The effect lasts ${duration}" : {
+                verb_s : "becomes",
+                verb_p : "become",
+                cypher_name : [ "riding enhancer" ],
                 prob : 3,
                 duration_modifier : 2
             },
-            "training in sneaking. The effect lasts ${duration}" : {
-                verb_s : "has",
-                verb_p : "have",
-                cypher_name : [ "stealth enhancement" ],
+            "trained in sneaking. The effect lasts ${duration}" : {
+                verb_s : "becomes",
+                verb_p : "become",
+                cypher_name : [ "stealth enhancer" ],
                 prob : 3,
                 duration_modifier : 2
             },
-            "training in repair. The effect lasts ${duration}" : {
-                verb_s : "has",
-                verb_p : "have",
-                cypher_name : [ "knowledge enhancement" ],
+            "trained in repair. The effect lasts ${duration}" : {
+                verb_s : "becomes",
+                verb_p : "become",
+                cypher_name : [ "repair enhancer" ],
                 prob : 3,
                 duration_modifier : 2
             },
-            "training in crafting (usually a specific item). The effect lasts ${duration}" : {
-                verb_s : "has",
-                verb_p : "have",
-                cypher_name : [ "knowledge enhancement" ],
+            "trained in crafting (usually a specific item). The effect lasts ${duration}" : {
+                verb_s : "becomes",
+                verb_p : "become",
+                cypher_name : [ "crafting enhancer" ],
                 prob : 3,
                 duration_modifier : 2
             },
             "able to speak and understand any language. The effect lasts ${duration}" : {
-                verb_s : "is",
-                verb_p : "are",
+                verb_s : "becomes",
+                verb_p : "become",
                 cypher_name : [ "universal lexicon" ],
                 prob : 5
             },
             "able to speak and understand a language keyed to the cypher even if he/she/it would not normally be able to speak. The effect lasts ${duration}" : {
-                verb_s : "is",
-                verb_p : "are",
+                verb_s : "becomes",
+                verb_p : "become",
                 cypher_name : [ "comprehension graft" ],
                 prob : 5
             },
@@ -196,8 +196,8 @@ define({
                 prob : 10
             },
             "surrounded by a field which will sustain a human safely, but does not protect against sudden changes of temperature. The effect lasts ${duration}" : {
-                verb_s : "is",
-                verb_p : "are",
+                verb_s : "becomes",
+                verb_p : "become",
                 cypher_name : [ "environment field" ],
                 prob : 10
             },

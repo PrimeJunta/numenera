@@ -47,18 +47,20 @@ function( declare,
             {
                 this.startup();
             }
+            this._cypher = {
+                cypher_class : "anoetic"
+            };
             var cypher_type = type ? bricks.cypher_types[ type ] : this._fromObject( bricks.cypher_types );
             var item_type = this._fromObject( cypher_type.item_types );
             var action = this._fromArray( item_type.actions );
             var level = Math.ceil( Math.random() * 4.5 + Math.random() * 4.5 ); // make a bit of a bell curve
-            this._cypher = {
-                cypher_class : "anoetic",
+            this._cypher = lang.mixin( this._cypher, {
                 cypher_type : cypher_type.name,
                 item_type : item_type.name,
                 action : action.name,
                 verb : cypher_type.verb,
                 level : level
-            }
+            });
             switch( cypher_type.name )
             {
                 case "cure" :
@@ -68,7 +70,7 @@ function( declare,
                     }
                     catch( e )
                     {
-                        console.log( "CURE!", cypher_type, item_type, action, level, this._cypher );
+                        console.log( "CURE!", cypher_type, item_type, action, level, this._cypher, e );
                         return this.getRandomCypher( type );
                     }
                     break;
@@ -79,7 +81,7 @@ function( declare,
                     }
                     catch( e )
                     {
-                        console.log( "BUFF!", cypher_type, item_type, action, level, this._cypher );
+                        console.log( "BUFF!", cypher_type, item_type, action, level, this._cypher, e );
                         return this.getRandomCypher( type );
                     }
                     break;
@@ -90,7 +92,7 @@ function( declare,
                     }
                     catch( e )
                     {
-                        console.log( "COUNTER!", cypher_type, item_type, action, level, this._cypher );
+                        console.log( "COUNTER!", cypher_type, item_type, action, level, this._cypher, e );
                         return this.getRandomCypher( type );
                     }
                     break;
@@ -101,7 +103,7 @@ function( declare,
                     }
                     catch( e )
                     {
-                        console.log( "WEAPON!", cypher_type, item_type, action, level, this._cypher );
+                        console.log( "WEAPON!", cypher_type, item_type, action, level, this._cypher, e );
                         return this.getRandomCypher( type );
                     }
                     break;
@@ -112,7 +114,7 @@ function( declare,
                     }
                     catch( e )
                     {
-                        console.log( "ENHANCEMENT!", cypher_type, item_type, action, level, this._cypher );
+                        console.log( "ENHANCEMENT!", cypher_type, item_type, action, level, this._cypher, e );
                         return this.getRandomCypher( type );
                     }
                     break;
@@ -123,7 +125,7 @@ function( declare,
                     }
                     catch( e )
                     {
-                        console.log( "UTILITY!", cypher_type, item_type, action, level, this._cypher );
+                        console.log( "UTILITY!", cypher_type, item_type, action, level, this._cypher, e );
                         return this.getRandomCypher( type );
                     }
                     break;

@@ -12,6 +12,10 @@ function( declare,
     return declare([], {
         _getWeapon : function( cypher_type, item_type, action, level )
         {
+            if( !cypher_type.action_types[ this._cypher.action ] )
+            {
+                console.log( "NO ACTION!", cypher_type.action_types, this._cypher.action );
+            }
             if( cypher_type.action_types[ this._cypher.action ].effect_types )
             {
                 this._cypher.effect = this._fromArray( cypher_type.action_types[ this._cypher.action ].effect_types ).name;

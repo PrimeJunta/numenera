@@ -63,42 +63,42 @@ define({
                 cypher_name : [ "gravity-nullifying spray" ],
                 duration_modifier : 2
             },
-            "projects an image of a terrifying creature of an unknown species, with movement, sound, and smell for ${duration}" : {
+            "projects an image of a terrifying creature of an unknown species, with movement, sound, and smell. The image fades after ${duration}" : {
                 prob : 5,
                 cypher_name : [ "image projector" ],
                 duration_modifier : 1
             },
-            "projects an image of a terrifying creature of an unknown species, with movement, sound, and smell for ${duration}" : {
+            "projects an image of a terrifying creature of an unknown species, with movement, sound, and smell. The image fades after ${duration}" : {
                 prob : 5,
                 cypher_name : [ "image projector" ],
                 duration_modifier : 1
             },
-            "projects an image of a huge machine that obscures sight, with movement, sound, and smell for ${duration}" : {
+            "projects an image of a huge machine that obscures sight, with movement, sound, and smell. The image fades after ${duration}" : {
                 prob : 5,
                 cypher_name : [ "image projector" ],
                 duration_modifier : 1
             },
-            "projects an image of a beautiful pastoral scene, with movement, sound, and smell for ${duration}" : {
+            "projects an image of a beautiful pastoral scene, with movement, sound, and smell. The image fades after ${duration}" : {
                 prob : 5,
                 cypher_name : [ "image projector" ],
                 duration_modifier : 1
             },
-            "projects an image of food that looks delicious but may be unfamiliar, with movement, sound, and smell for ${duration}" : {
+            "projects an image of food that looks delicious but may be unfamiliar, with movement, sound, and smell. The image fades after ${duration}" : {
                 prob : 5,
                 cypher_name : [ "image projector" ],
                 duration_modifier : 1
             },
-            "projects an image of solid color that obscures sight for ${duration}" : {
+            "projects an image of solid color that obscures sight. It lasts for ${duration}" : {
                 prob : 5,
                 cypher_name : [ "image projector" ],
                 duration_modifier : 1
             },
-            "projects an image of an incomprehensible scene that is disorienting and strange, with movement, sound, and smell for ${duration}" : {
+            "projects an image of an incomprehensible scene that is disorienting and strange, with movement, sound, and smell. The image lasts for ${duration}" : {
                 prob : 5,
                 cypher_name : [ "image projector" ],
                 duration_modifier : 1
             },
-            "creates a tiny probe which moves ${range} distance and maps and scans ${area} area. It identifies basic layout, creatures, and energy source, and may not pass physical or energy barriers" : {
+            "creates a tiny probe which moves ${range} distance and maps and scans ${area} area. It identifies basic layout, creatures, and energy source, but may not pass physical or energy barriers" : {
                 prob : 10,
                 cypher_name : [ "infiltrator" ],
                 duration_modifier : 2

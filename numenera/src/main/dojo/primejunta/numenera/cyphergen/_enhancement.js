@@ -12,7 +12,7 @@ function( declare,
     return declare([], {
         _getEnhancement : function( cypher_type, item_type, action, level )
         {
-            var template = "When ${action},"
+            var template = "When @{action},"
             var special = this._fromObject( bricks.common_data.special_effects ).name;
             if( special != "#false" )
             {

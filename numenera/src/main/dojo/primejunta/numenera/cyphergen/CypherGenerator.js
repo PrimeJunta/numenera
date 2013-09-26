@@ -36,7 +36,7 @@ function( declare,
           about ) 
 {
     return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _startup ], {
-        version : "1.0.3",
+        version : "1.0.4",
         iconSrc : require.toUrl( "primejunta/numenera/themes/images" ),
         templateString : template,
         cypher_type : false,
