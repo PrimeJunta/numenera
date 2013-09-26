@@ -554,13 +554,6 @@ function( declare,
             this.characterGeneratorPane.layout();
         },
         /**
-         * Reloads the window. Used with cache invalidation.
-         */
-        _reload : function()
-        {
-            window.location.reload();
-        },
-        /**
          * Resets the control to its pristine state, except for the fields at top. We do this every time the user selects a
          * new descriptor/type/focus is selected, so we don't want to clear those. They're with clearAll.
          */

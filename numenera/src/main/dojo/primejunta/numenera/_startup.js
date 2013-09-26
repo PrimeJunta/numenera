@@ -79,6 +79,13 @@ function( declare, lang, domConstruct, domQuery, has, on, licenses )
             this.domNode.style.display = "blocK";
         },
         /**
+         * Reloads the window. Used with cache invalidation.
+         */
+        _reload : function()
+        {
+            window.location.reload();
+        },
+        /**
          * Displays content in _helpNode, hides this.domNode and shows it.
          */
         _showHelp : function( /* HTMLString */ content )

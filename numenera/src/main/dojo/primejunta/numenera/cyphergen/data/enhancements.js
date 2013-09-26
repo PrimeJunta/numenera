@@ -133,9 +133,9 @@ define({
                 cypher_name : [ "comprehension graft" ],
                 prob : 5
             },
-            "an immediate distance when struck, modifying defense actions by one step in his/her favor" : {
-                verb_s : "teleports",
-                verb_p : "teleport",
+            "upon being struck in combat. They will appear somewhere within an immediate distance. This modifies defense actions by one step in their favor. The effect lasts ${duration}" : {
+                verb_s : "will start to teleport",
+                verb_p : "will start to teleport",
                 cypher_name : [ "blink cypher" ],
                 prob : 10
             },
@@ -145,9 +145,9 @@ define({
                 cypher_name : [ "invisibility cypher" ],
                 prob : 10
             },
-            "an immediate distance to a location of his/her choosing when struck, modifying defense actions by one step in his/her favor" : {
-                verb_s : "teleports",
-                verb_p : "teleport",
+            "upon being struck in combat. They will appear at a location of their choosing within an immediate distance. This modifies defense actions by one step in their favor. The effect last ${duration}" : {
+                verb_s : "will start to teleport",
+                verb_p : "will start to teleport",
                 cypher_name : [ "controlled blink cypher" ],
                 prob : 10
             },
@@ -204,14 +204,14 @@ define({
             "to a known location within ${level}00 miles, safely with all possessions" : {
                 verb_s : "teleports",
                 verb_p : "teleport",
-                cypher_name : [ "teleporter (traveler)" ],
+                cypher_name : [ "teleporter" ],
                 prob : 10,
                 cypher_class : [ "occultic" ]
             },
             "to a visible location within ${level}00 feet, safely with all possessions" : {
                 verb_s : "teleports",
                 verb_p : "teleport",
-                cypher_name : [ "teleporter (bounder)" ],
+                cypher_name : [ "teleporter" ],
                 prob : 10
             },
             "may breathe underwater. The effect lasts ${duration}" : {
