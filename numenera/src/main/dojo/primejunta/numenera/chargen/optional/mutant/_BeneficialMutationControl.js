@@ -38,6 +38,17 @@ function( declare,
             this._setBonus( mutation, "armorAdjustment" );
             this._setBonus( mutation, "recoveryAdjustment" );
         },
+        getText : function()
+        {
+            if( this.baseNode.style.display == "none" )
+            {
+                return false;
+            }
+            else
+            {
+                return this.inherited( arguments );
+            }
+        },
         /**
          * Sets .value of input matching adjustment to the corresponding adjustment in mutation and shows the field
          * if present; else clears and hides the field.

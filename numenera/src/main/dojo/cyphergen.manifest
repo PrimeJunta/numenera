@@ -1,11 +1,10 @@
 CACHE MANIFEST
-# Cache manifest for Numenera Character Creator.
+# Cache manifest for Cypher Generator.
 #
-# Version 1.4.4
+# Version 1.0.6-f
 #
 # Pages - including chargen.html to allow redirects to proceed correctly
-chargen.html
-index.html
+cyphergen.html
 # Graphics
 primejunta/numenera/themes/images/icon.png
 primejunta/numenera/themes/images/h-pixel.png
@@ -13,14 +12,11 @@ primejunta/numenera/themes/images/v-pixel.png
 primejunta/numenera/themes/images/touch-icon-ipad.png
 primejunta/numenera/themes/images/touch-icon-ipad-retina.png
 primejunta/numenera/themes/images/Numenera_Logo.png
-primejunta/numenera/themes/images/Numenera_Logo_neg.png
 primejunta/numenera/themes/images/knot.png
-primejunta/numenera/themes/images/cloudbg.jpg
-primejunta/numenera/themes/images/grain.png
-primejunta/numenera/themes/images/grain-l.png
+primejunta/numenera/themes/images/grain-dark.png
+primejunta/numenera/cyphergen/themes/images/rustcard.jpg
 # Main stylesheet
-primejunta/numenera/chargen/themes/chargen.css
-primejunta/numenera/chargen/themes/charrec.css
+primejunta/numenera/cyphergen/themes/cyphergen.css
 # Icon font
 font-awesome/css/font-awesome.css
 font-awesome/font/fontawesome-webfont.eot?v=3.2.1
@@ -32,11 +28,9 @@ font-awesome/font/fontawesome-webfont.svg#fontawesomeregular?v=3.2.1
 dojo/dojo.js
 dojo/dojo.js.map
 dojo/resources/blank.gif
-primejunta/numenera.js
-primejunta/numenera.js.map
+primejunta/cyphergen.js
+primejunta/cyphergen.js.map
 # Localization
-primejunta/nls/numenera_en.js
-primejunta/nls/numenera_en.js.map
 dijit/nls/loading.js
 dijit/nls/common.js
 # Fonts
