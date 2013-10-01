@@ -1,7 +1,7 @@
 CACHE MANIFEST
 # Cache manifest for Numenera Character Creator.
 #
-# Version 1.4.4
+# Version 1.4.7-a
 #
 # Pages - including chargen.html to allow redirects to proceed correctly
 chargen.html
@@ -42,6 +42,7 @@ dijit/nls/common.js
 # Fonts
 primejunta/numenera/themes/fonts/Oxygen.woff
 primejunta/numenera/themes/fonts/Oxygen_Bold.woff
+primejunta/numenera/themes/fonts/Cinzel_Decorative.woff
 primejunta/numenera/themes/fonts/Lato.woff
 primejunta/numenera/themes/fonts/Prata.woff
 # Themes

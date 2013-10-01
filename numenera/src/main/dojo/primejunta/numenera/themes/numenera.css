@@ -29,8 +29,12 @@
   font-weight: bold;
   src: local('Oxygen Bold'), local('Oxygen-Bold'), url( 'fonts/Oxygen_Bold.woff' ) format('woff');
 }
-
-
+@font-face {
+  font-family: 'Cinzel Decorative';
+  font-style: normal;
+  font-weight: 400;
+  src: local('CinzelDecorative-Regular'), url( 'fonts/Cinzel_Decorative.woff' ) format('woff');
+}
 /* HTML elements. */
 html, body
 {
@@ -58,6 +62,30 @@ h1, h2, h3
     font-family : Prata;
     font-weight : normal;
     text-align : center;	
+}
+a.num-mainTitle, a.num-smallTitle
+{
+	font-family: 'Cinzel Decorative';
+	text-decoration : none;
+}
+a.num-mainTitle
+{
+    font-size : 108px;
+    margin : 10px 10px 10px 30px;
+    color : #282828;
+    text-shadow : 0px 0px 10px #ddeeff;
+}
+a.num-smallTitle
+{
+    margin : 5px;
+	font-size : 28px;
+	color : #d4d4d4;
+    text-shadow : 0px 0px 3px #ddeeff;
+}
+.num-tm
+{
+	font-size : 64px;
+	vertical-align : 32px;
 }
 .num-mainWidgetContent h1, .num-mainWidgetContent h2, .num-mainWidgetContent h3
 {

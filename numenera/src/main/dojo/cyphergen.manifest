@@ -1,7 +1,7 @@
 CACHE MANIFEST
 # Cache manifest for Cypher Generator.
 #
-# Version 1.0.6-f
+# Version 1.0.7-b
 #
 # Pages - including chargen.html to allow redirects to proceed correctly
 cyphergen.html
@@ -36,6 +36,7 @@ dijit/nls/common.js
 # Fonts
 primejunta/numenera/themes/fonts/Oxygen.woff
 primejunta/numenera/themes/fonts/Oxygen_Bold.woff
+primejunta/numenera/themes/fonts/Cinzel_Decorative.woff
 primejunta/numenera/themes/fonts/Lato.woff
 primejunta/numenera/themes/fonts/Prata.woff
 # Themes

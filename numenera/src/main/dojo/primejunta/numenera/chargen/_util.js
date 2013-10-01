@@ -227,7 +227,7 @@ function( declare,
             }
             else
             {
-                this.domNode.style.display = this.domNode.tagName.toLowerCase() == "li" ? "list-item" : "block";
+                this.domNode.style.display = this.domNode.tagName.toLowerCase() == "li" ? "list-item" : "tr" ? "table-row" : "block";
             }
             sel.style.display = "none";
             dd.innerHTML = this._selVal( sel ).label;
@@ -246,7 +246,7 @@ function( declare,
                 return;
             }
             sel.disabled = true;
-            this.domNode.style.display = this.domNode.tagName.toLowerCase() == "li" ? "list-item" : "block";
+            this.domNode.style.display = this.domNode.tagName.toLowerCase() == "li" ? "list-item" : "tr" ? "table-row" : "block";
             sel.disabled = false;
             sel.style.display = "inline-block";
             dd.innerHTML = "";

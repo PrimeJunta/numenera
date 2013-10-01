@@ -647,7 +647,7 @@ define({
         },
         {
             "bonus_perks" : [ "Ⓔ Power Strike (3+ might)",
-                              "Ⓔ Trained Without Armor" ]
+                              "Ⓔ Unarmored Fighter" ]
         },
         {
             "bonus_perks" : [ "Ⓔ Greater Frenzy (4 intellect)" ]
