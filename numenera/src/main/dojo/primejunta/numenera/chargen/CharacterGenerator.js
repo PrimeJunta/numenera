@@ -93,7 +93,7 @@ function( declare,
         /**
          * Public version number.
          */
-        version : "1.4.7",
+        version : "1.5.0",
         /**
          * Set when a character is first advanced past creation.
          */
@@ -446,6 +446,7 @@ function( declare,
             this.normalizeClass( this.characterNameInput );
             this._setDisabled([ "saveButton", "printButton" ], true );
             this.mainTabContainer.selectChild( this.abilityPane );
+            this.portraitWidget.clear();
             this._hideCharacterData();
         },
         /**

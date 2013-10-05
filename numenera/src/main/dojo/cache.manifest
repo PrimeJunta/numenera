@@ -1,7 +1,7 @@
 CACHE MANIFEST
 # Cache manifest for Numenera Character Creator.
 #
-# Version 1.4.7-a
+# Version 1.5.0-b
 #
 # Pages - including chargen.html to allow redirects to proceed correctly
 chargen.html
@@ -47,7 +47,6 @@ primejunta/numenera/themes/fonts/Lato.woff
 primejunta/numenera/themes/fonts/Prata.woff
 # Themes
 dijit/themes/tundra/tundra.css
-
 dijit/themes/tundra/images/tabEnabled.png
 dijit/themes/tundra/images/spriteRoundedIconsSmall.png
 dijit/themes/tundra/images/buttonDisabled.png
@@ -58,6 +57,5 @@ dijit/themes/tundra/images/buttonActive.png
 dijit/themes/tundra/images/titleBar.png
 dijit/themes/tundra/images/tabClose.png
 dijit/themes/tundra/images/tabHover.gif
-
 NETWORK:
 *

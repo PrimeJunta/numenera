@@ -1,9 +1,22 @@
 <div class="cg-imageContainer">
   <span data-dojo-attach-point="inputContainer">
-    <input type="text" class="num-itemInput num-valueNotSet" style="display:inline-block;text-align:center;" data-dojo-attach-point="inputNode" value="${inputValue}" data-dojo-attach-event="onKeyDown:normalizeClass,onClick:selectContent,onFocus:selectContent,onChange:dataChanged,onBlur:onBlurInput"/>
-    <button data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:setImage"><i class="icon-ok-circle"></i> Set</button>
+    <button data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:openSelector">Select Portrait</button>
   </span>
   <span data-dojo-attach-point="imageContainer" style="display:none">
-    <img data-dojo-attach-point="imageNode" data-dojo-attach-event="onClick:changeImage" style="width:auto;height:${height}px;" alt="click to change"/>
+    <img data-dojo-attach-point="imageNode" data-dojo-attach-event="onClick:openSelector" style="width:auto;height:${height}px;" alt="click to change"/>
+    <div class="num-copyright" data-dojo-attach-point="tmNode">TM and © 2013 Monte Cook Games, LLC</div>
   </span>
+  <div data-dojo-type="dijit/Dialog" data-dojo-attach-point="selectorDialog" data-dojo-props="title:'Select a portrait'">
+    <p style="text-align:center;">Select a portrait or enter an address for it.</p>
+    <div style="text-align:center;">
+      URL: <input type="text" class="num-itemInput num-valueNotSet" style="display:inline-block;text-align:center;" data-dojo-attach-point="inputNode" value="${inputValue}" data-dojo-attach-event="onKeyDown:normalizeClass,onClick:selectContent,onFocus:selectContent,onChange:dataChanged,onBlur:onBlurInput"/>
+      <button data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:setImage"><i class="icon-ok-circle"></i> Set</button>
+    </div>
+    <div data-dojo-attach-point="imageList" style="width:650px;text-align : center;">
+    </div>
+    <div class="num-copyright">All images are TM and © 2013 Monte Cook Games, LLC.</div>
+    <div style="text-align:right">
+      <button data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:closeSelector">Close</button>
+    </div>
+  </div>
 </div>

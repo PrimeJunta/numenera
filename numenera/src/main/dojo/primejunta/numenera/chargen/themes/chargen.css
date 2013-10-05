@@ -40,6 +40,10 @@
 {
     border-bottom : none;
 }
+.cg-thumbnail
+{
+	margin : 4px;
+}
 /* various inputs */
 .cg-statInput
 {

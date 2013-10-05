@@ -92,8 +92,19 @@ function( declare,
             this.portrait_src = this.manager.portraitWidget.getHref();
             if( this.portrait_src )
             {
+                console.log( "PSRC", this.portrait_src, this.manager.portraitWidget.isTM() );
                 this.portraitImage.setAttribute( "src", this.portrait_src );
                 this.portraitImage.style.visibility = "visible";
+                if( this.manager.portraitWidget.isTM() )
+                {
+                    console.log( "BLOCK" );
+                    this.portraitTMNode.style.display = "block";
+                }
+                else
+                {
+                    console.log( "NONE" )
+                    this.portraitTMNode.style.display = "none";
+                }
             }
             else
             {
