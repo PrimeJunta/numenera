@@ -106,7 +106,22 @@ define({
         }
     },
     "D7" : {
-        "label" : "Mystical/Mechanical",
+        "label" : "Mystical",
+        "notes_text" : "Mystical/Mechanical: Corebook, page 49",
+        "stats" : {
+            "intellect_pool" : 2
+        },
+        "lists" : {
+            "bonus_list" : [ "Ⓔ Smart" ],
+            "equipment_list" : [ "Oddity: ${input:GM chooses}" ],
+            "ability_list" : [ "Ⓣ Numenera Training",
+                               "Ⓣ Sense Magic" ],
+            "inability_list" : [ "Ⓘ Unnerving aura (Charm, persuasion, deception +1 step)" ],
+            "bonus_list" : [ "Ⓐ Hedge Magic (1 intellect)" ]
+        }
+    },
+    "D7a" : {
+        "label" : "Mechanical",
         "notes_text" : "Mystical/Mechanical: Corebook, page 49",
         "stats" : {
             "intellect_pool" : 2

@@ -431,7 +431,7 @@ a.num-infoLink
     font-size : 10px;
     margin-left : auto;
     margin-right : auto;
-    padding : 3px;
+    padding : 0px;
     color : #585858;
 }
 .num-copyright a
@@ -441,8 +441,6 @@ a.num-infoLink
 /* version info */
 .num-versionInfo
 {
-    text-align : right;
-    font-size : 12px;
     cursor : pointer;
 }
 
