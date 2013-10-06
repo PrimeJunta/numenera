@@ -26,7 +26,7 @@ function( declare,
         inputValue : "enter the URL of your image",
         portraitHome : require.toUrl( "primejunta/numenera/chargen/portraits" ),
         height : 350,
-        portraits : 51,
+        portraits : 56,
         postCreate : function()
         {
             for( var i = 0; i < this.portraits; i++ )

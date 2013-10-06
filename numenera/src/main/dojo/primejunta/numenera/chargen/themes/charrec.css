@@ -53,7 +53,7 @@
 {
     margin : 0px;
     margin-bottom : 12px;
-    text-transform : uppercase;
+    text-transform : capitalize;
     font-size : 14px;
     text-align : center;
 }
@@ -67,7 +67,7 @@ h2.cr-heading
     text-align : center;
     font-family : Prata;
     font-size : 9px;
-    text-transform : uppercase;
+    text-transform : capitalize;
 }
 .cr-hrule
 {
@@ -181,11 +181,8 @@ h2.cr-heading
 }
 .cr-whiteKnot
 {
-    width : 100%;
-    background-image : url( '../../themes/images/knot.png' );
-    background-size : auto 75%;
-    background-repeat : no-repeat;
-    background-position : center;
+	text-align:center;
+    width : auto;
     height : 30px;
     margin-left : auto;
     margin-right : auto;
