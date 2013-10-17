@@ -2,7 +2,7 @@
  * Logic for the "stats" section of the CharacterGenerator.
  */
 define([ "dojo/_base/declare",
-         "primejunta/cypher/_StatsPaneBase",
+         "primejunta/cypher/chargen/_StatsPaneBase",
          "dojo/text!./templates/_StatsPane.html" ],
 function( declare,
           _StatsPaneBase,

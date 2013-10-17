@@ -2,7 +2,7 @@
  * Splash pane displayed when loading a blank character. Mostly because it looks cool.
  */
 define([ "dojo/_base/declare",
-         "primejunta/cypher/_SplashCharacterPaneBase",
+         "primejunta/cypher/chargen/_SplashCharacterPaneBase",
          "dojo/text!./templates/_SplashCharacterPane.html" ],
 function( declare,
           _SplashCharacterPaneBase,

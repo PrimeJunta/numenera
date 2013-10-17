@@ -3,7 +3,7 @@
  */
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
-         "primejunta/cypher/_TierWidgetBase",
+         "primejunta/cypher/chargen/_TierWidgetBase",
          "primejunta/numenera/chargen/optional/customize/_focus",
          "dojo/text!./templates/_TierWidget.html" ],
 function( declare,

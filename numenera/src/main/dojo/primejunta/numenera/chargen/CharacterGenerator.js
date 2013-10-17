@@ -6,7 +6,7 @@
  */
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
-         "primejunta/cypher/_CharacterGeneratorBase",
+         "primejunta/cypher/chargen/_CharacterGeneratorBase",
          "./_StatsPane",
          "./_SplashCharacterPane",
          "./_CharacterRecord",

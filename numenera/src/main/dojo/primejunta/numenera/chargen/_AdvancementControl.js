@@ -2,7 +2,7 @@
  * Manager for _TierWidgets. Controls character advancement.
  */
 define([ "dojo/_base/declare",
-         "primejunta/cypher/_AdvancementControlBase",
+         "primejunta/cypher/chargen/_AdvancementControlBase",
          "./_TierWidget",
          "dojo/text!./templates/_AdvancementControl.html" ],
 function( declare,
