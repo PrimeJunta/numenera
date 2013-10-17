@@ -4,7 +4,7 @@ define([ "dojo/_base/declare",
          "dojo/query",
          "dojo/has",
          "dojo/on",
-         "dojo/text!./doc/licenses.html" ],
+         "dojo/text!./cypher/doc/licenses.html" ],
 function( declare, lang, domConstruct, domQuery, has, on, licenses )
 {
     return declare([], {

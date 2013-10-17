@@ -24,7 +24,7 @@ function( declare,
     return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _util ], {
         templateString : template,
         inputValue : "enter the URL of your image",
-        portraitHome : require.toUrl( "primejunta/numenera/chargen/portraits" ),
+        portraitHome : "",
         height : 350,
         portraits : 62,
         postCreate : function()
