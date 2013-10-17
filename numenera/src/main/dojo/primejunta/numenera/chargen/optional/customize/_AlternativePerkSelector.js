@@ -63,7 +63,7 @@ function( declare,
          */
         selectionMade : function()
         {
-            var sel = this._selVal( this.selectNode ).value;
+            var sel = this.getSelectValue( this.selectNode ).value;
             this._deselect( this._selection );
             if( sel == "Ⓔ Self-Improvement" )
             {
@@ -78,7 +78,7 @@ function( declare,
          */
         checkState : function()
         {
-            if( this._selVal( this.selectNode ).value == "Ⓔ More Training" )
+            if( this.getSelectValue( this.selectNode ).value == "Ⓔ More Training" )
             {
                 this.inputWrapper.style.display = "block";
                 this.onBlurInput();
@@ -133,13 +133,13 @@ function( declare,
             {
                 return "";
             }
-            else if( this._selVal( this.selectNode ).value == "Ⓔ More Training")
+            else if( this.getSelectValue( this.selectNode ).value == "Ⓔ More Training")
             {
                 return( "Ⓣ " + this.inputNode.value );
             }
             else
             {
-                return this._selVal( this.selectNode ).value;
+                return this.getSelectValue( this.selectNode ).value;
             }
         }
     });

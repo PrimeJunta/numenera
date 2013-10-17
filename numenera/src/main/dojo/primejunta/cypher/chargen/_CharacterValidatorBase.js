@@ -692,7 +692,7 @@ function( declare,
          */
         _gs : function( /* String */ sel )
         {
-            return this.manager._selVal( this.manager[ sel ] ).label;
+            return this.manager.getSelectValue( this.manager[ sel ] ).label;
         },
         /**
          * Sets value of property fieldName to value matching from in character generator. If sel is set, 

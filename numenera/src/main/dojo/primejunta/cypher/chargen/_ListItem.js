@@ -318,13 +318,16 @@ function( declare,
         /**
          * Removes all listeners plus inherited.
          */
-        destroy : function()
+        destroy : function( from )
         {
-            while( this._subs.length > 0 )
+            if( !from || from == this.from )
             {
-                this._subs.pop().remove();
+                while( this._subs.length > 0 )
+                {
+                    this._subs.pop().remove();
+                }
+                this.inherited( arguments );
             }
-            this.inherited( arguments );
         }
     });
 });

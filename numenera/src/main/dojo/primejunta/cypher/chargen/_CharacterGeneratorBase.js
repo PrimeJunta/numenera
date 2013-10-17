@@ -185,7 +185,7 @@ function( declare,
         selectDescriptor : function()
         {
             this._populating.push( 1 );
-            var label = this._selVal( this.descriptorSelect ).label;
+            var label = this.getSelectValue( this.descriptorSelect ).label;
             var _art = "an";
             if( "AEIOUYaeiouy".indexOf( label.charAt( 0 ) ) == -1 )
             {
@@ -375,21 +375,21 @@ function( declare,
          */
         getType : function()
         {
-            return this.types[ this._selVal( this.typeSelect ).value ];
+            return this.types[ this.getSelectValue( this.typeSelect ).value ];
         },
         /**
          * Returns currently selected descriptor (or undefined if not set).
          */
         getDescriptor : function()
         {
-            return this.descriptors[  this._selVal( this.descriptorSelect ).value ];
+            return this.descriptors[  this.getSelectValue( this.descriptorSelect ).value ];
         },
         /**
          * Returns currently selected focus (or undefined if not set).
          */
         getFocus : function()
         {
-            return this.foci[  this._selVal( this.focusSelect ).value ];
+            return this.foci[  this.getSelectValue( this.focusSelect ).value ];
         },
         /**
          * (Re)creates a _CharacterRecord for the record, places it, hides this widget and shows it.

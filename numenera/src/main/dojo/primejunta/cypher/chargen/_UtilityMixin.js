@@ -155,7 +155,7 @@ function( declare,
         /**
          * Multiplies every member of stats by -1 and returns the result.
          */
-        _invert : function( /* Object */ stats )
+        invertStats : function( /* Object */ stats )
         {
             if( !stats )
             {
@@ -214,7 +214,7 @@ function( declare,
         /**
          * Returns value of selected item in sel as object with label and value properties.
          */
-        _selVal : function( sel, /* String? */ val )
+        getSelectValue : function( sel, /* String? */ val )
         {
             if( val )
             {
@@ -247,7 +247,7 @@ function( declare,
                 return;
             }
             sel.disabled = true;
-            if( hideIfNull && this._selVal( sel ).label == "-- choose --" )
+            if( hideIfNull && this.getSelectValue( sel ).label == "-- choose --" )
             {
                 this.domNode.style.display = "none";
             }
@@ -256,7 +256,7 @@ function( declare,
                 this.domNode.style.display = this.domNode.tagName.toLowerCase() == "li" ? "list-item" : "tr" ? "table-row" : "block";
             }
             sel.style.display = "none";
-            dd.innerHTML = this._selVal( sel ).label;
+            dd.innerHTML = this.getSelectValue( sel ).label;
             dd.style.display = "inline";
         },
         /**

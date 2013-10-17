@@ -469,7 +469,7 @@ function( declare,
                             advancement : advancement
                         }).placeAt( this.manager.bonus_list );
                         this.manager._lists.bonus_list.push( this._perkSelector );
-                        this.manager.statsWidget.augmentStats( this._invert( this.manager.getFocus().advancement[ 0 ].stats ) );
+                        this.manager.statsWidget.augmentStats( this.invertStats( this.manager.getFocus().advancement[ 0 ].stats ) );
                         break;
                 }
             }

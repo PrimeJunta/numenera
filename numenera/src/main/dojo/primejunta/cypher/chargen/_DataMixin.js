@@ -286,9 +286,9 @@ function( declare,
                 }
             }
             return "version=" + escape( this.DATA_VERSION )
-                + "&descriptor=" + this._selVal( this.descriptorSelect ).value
-                + "&type=" + this._selVal( this.typeSelect ).value
-                + "&focus=" + this._selVal( this.focusSelect ).value
+                + "&descriptor=" + this.getSelectValue( this.descriptorSelect ).value
+                + "&type=" + this.getSelectValue( this.typeSelect ).value
+                + "&focus=" + this.getSelectValue( this.focusSelect ).value
                 + "&finalized=" + this.finalized
                 + "&tier=" + this.statsWidget.character_tier.value
                 + "&cyphers=" + this.statsWidget.cypher_count.value
@@ -328,9 +328,9 @@ function( declare,
             var vals = kwObj.inputs.split( this._listDelimiter );
             var disb = kwObj.disabled ? kwObj.disabled : "";
             var dels = kwObj.deleted ? kwObj.deleted : "";
-            this._selVal( this.descriptorSelect, kwObj.descriptor );
-            this._selVal( this.typeSelect, kwObj.type );
-            this._selVal( this.focusSelect, kwObj.focus );
+            this.getSelectValue( this.descriptorSelect, kwObj.descriptor );
+            this.getSelectValue( this.typeSelect, kwObj.type );
+            this.getSelectValue( this.focusSelect, kwObj.focus );
             this.selectDescriptor();
             this.augmentCypherList( kwObj.cyphers );
             if( kwObj.finalized == "true" )

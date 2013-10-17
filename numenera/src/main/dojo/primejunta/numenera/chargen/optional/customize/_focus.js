@@ -40,7 +40,7 @@ function( declare,
                     advancement : advancement
                 }).placeAt( this.bonusPerksNode );
                 this.manager._lists.bonus_list.push( this._perkSelector );
-                this.manager.statsWidget.augmentStats( this._invert( this.manager.getFocus().advancement[ this.tier ].stats ) );
+                this.manager.statsWidget.augmentStats( this.invertStats( this.manager.getFocus().advancement[ this.tier ].stats ) );
             }
             else
             {
