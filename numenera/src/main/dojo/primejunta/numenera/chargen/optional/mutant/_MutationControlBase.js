@@ -7,15 +7,15 @@ define([ "dojo/_base/declare",
          "dojo/topic",
          "./data/mutations",
          "dijit/_WidgetBase",
-         "primejunta/cypher/chargen/_util" ],
+         "primejunta/cypher/chargen/_UtilityMixin" ],
 function( declare,
           lang,
           topic,
           mutations,
           _WidgetBase,
-          _util )
+          _UtilityMixin )
 {
-    return declare([ _WidgetBase, _util ], {
+    return declare([ _WidgetBase, _UtilityMixin ], {
         /**
          * Pointer to creator widget.
          */

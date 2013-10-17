@@ -6,7 +6,7 @@ define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "dojo/dom-class",
          "dojo/topic",
-         "primejunta/cypher/chargen/_util",
+         "primejunta/cypher/chargen/_UtilityMixin",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dojo/text!./templates/_AlternativePerkSelector.html" ],
@@ -14,12 +14,12 @@ function( declare,
           lang,
           domClass,
           topic,
-          _util,
+          _UtilityMixin,
           _WidgetBase,
           _TemplatedMixin,
           template )
 {
-    return declare([ _WidgetBase, _TemplatedMixin, _util ], {
+    return declare([ _WidgetBase, _TemplatedMixin, _UtilityMixin ], {
         /**
          * Owner CharacterGenerator.
          */

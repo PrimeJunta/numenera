@@ -89,7 +89,7 @@ function( declare,
         },
         updateCypherList : function()
         {
-            var n = parseInt( this.cypher_count.value );
+            var n = parseInt( this.statsWidget.cypher_count.value );
             while( this._lists.cypher_list.length > n )
             {
                 this._lists.cypher_list.pop().destroy();

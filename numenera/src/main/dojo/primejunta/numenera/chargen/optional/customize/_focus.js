@@ -7,15 +7,15 @@ define([ "dojo/_base/declare",
          "dojo/dom-class",
          "./_AlternativePerkSelector",
          "./data/advancement",
-         "primejunta/cypher/chargen/_util" ],
+         "primejunta/cypher/chargen/_UtilityMixin" ],
 function( declare,
           lang,
           domClass,
           _AlternativePerkSelector,
           advancement,
-          _util )
+          _UtilityMixin )
 {
-    return declare([ _util ], {
+    return declare([ _UtilityMixin ], {
         /**
          * If the tier is customized, set to true.
          */

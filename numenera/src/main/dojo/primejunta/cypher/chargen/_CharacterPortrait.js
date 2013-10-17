@@ -7,7 +7,7 @@ define([ "dojo/_base/declare",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
          "./_PortraitSelector",
-         "./_util",
+         "./_UtilityMixin",
          "dojo/text!./templates/_CharacterPortrait.html" ],
 function( declare,
           lang,
@@ -18,10 +18,10 @@ function( declare,
           _TemplatedMixin,
           _WidgetsInTemplateMixin,
           _PortraitSelector,
-          _util,
+          _UtilityMixin,
           template )
 {
-    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _util ], {
+    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _UtilityMixin ], {
         templateString : template,
         inputValue : "enter the URL of your image",
         portraitHome : "",

@@ -13,8 +13,8 @@ define([ "dojo/_base/declare",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
          "dijit/form/Button",
-         "./_unlockable",
-         "./_util",
+         "./_UnlockableMixin",
+         "./_UtilityMixin",
          "dojo/text!./templates/_ListItem.html",
          "dojo/text!./templates/_ListItemSelect.html",
          "dojo/text!./templates/_ListItemInput.html",
@@ -29,14 +29,14 @@ function( declare,
           _TemplatedMixin,
           _WidgetsInTemplateMixin,
           Button,
-          _unlockable,
-          _util,
+          _UnlockableMixin,
+          _UtilityMixin,
           template,
           templateSelect,
           templateInput,
           templateSelectInput )
 {
-    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _util, _unlockable ], {
+    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _UtilityMixin, _UnlockableMixin ], {
         /**
          * Template
          */

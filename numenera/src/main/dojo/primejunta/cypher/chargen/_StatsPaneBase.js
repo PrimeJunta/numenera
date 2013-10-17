@@ -6,7 +6,7 @@ define([ "dojo/_base/declare",
          "dojo/dom-class",
          "dojo/on",
          "./_CharacterPortrait",
-         "./_util",
+         "./_UtilityMixin",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin" ],
@@ -15,12 +15,12 @@ function( declare,
           domClass,
           on,
           _CharacterPortrait,
-          _util,
+          _UtilityMixin,
           _WidgetBase,
           _TemplatedMixin,
           _WidgetsInTemplateMixin )
 {
-    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _util ], {
+    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _UtilityMixin ], {
         /**
          * Cap for pools
          */

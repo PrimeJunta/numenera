@@ -21,9 +21,9 @@ define([ "dojo/_base/declare",
          "dijit/Dialog",
          "dijit/form/Button",
          "dijit/form/Textarea",
-         "primejunta/_startup",
-         "./_util",
-         "./_data",
+         "primejunta/_StartupMixin",
+         "./_UtilityMixin",
+         "./_DataMixin",
          "./_lists",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -45,15 +45,15 @@ function( declare,
           Dialog,
           Button,
           Textarea,
-          _startup,
-          _util,
-          _data,
+          _StartupMixin,
+          _UtilityMixin,
+          _DataMixin,
           _lists,
           _WidgetBase,
           _TemplatedMixin,
           _WidgetsInTemplateMixin )
 {
-    return declare( "primejunta/numenera/chargen/_CharacterGeneratorBase", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _startup, _util, _data, _lists ], {
+    return declare( "primejunta/numenera/chargen/_CharacterGeneratorBase", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _StartupMixin, _UtilityMixin, _DataMixin, _lists ], {
         /**
          * Default title.
          */
@@ -81,7 +81,7 @@ function( declare,
         postMixInProperties : function()
         {
             this.inherited( arguments );
-            this.setup(); // from _startup
+            this.setup(); // from _StartupMixin
         },
         /**
          * Initialize internal arrays, initialize selects from data, and connect various event handlers to the UI buttons.

@@ -13,8 +13,8 @@ define([ "dojo/_base/declare",
          "dijit/form/Button",
          "dijit/form/ToggleButton",
          "./_ListItem",
-         "./_util",
-         "./_unlockable" ],
+         "./_UtilityMixin",
+         "./_UnlockableMixin" ],
 function( declare,
           lang,
           topic,
@@ -27,10 +27,10 @@ function( declare,
           Button,
           ToggleButton,
           _ListItem,
-          _util,
-          _unlockable )
+          _UtilityMixin,
+          _UnlockableMixin )
 {
-    return declare( "primejunta.numenera.chargen._TierWidget", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _util, _unlockable ], {
+    return declare( "primejunta.numenera.chargen._TierWidget", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _UtilityMixin, _UnlockableMixin ], {
         /**
          * Default skill name for that perk, if selected.
          */
@@ -74,7 +74,7 @@ function( declare,
             this.DEFAULT_VALUES = this.manager.DEFAULT_VALUES;
         },
         /**
-         * Connects listeners, initializes unlock controls (from _unlockable) and sets up some labels, then constructs list of available
+         * Connects listeners, initializes unlock controls (from _UnlockableMixin) and sets up some labels, then constructs list of available
          * perks by iterating back to previous tiers. Continues with initBonusPerks.
          */
         postCreate : function()
@@ -422,7 +422,7 @@ function( declare,
             }
         },
         /**
-         * Stores selected index of perkSelector. See _unlockable.
+         * Stores selected index of perkSelector. See _UnlockableMixin.
          */
         getPrevVal : function()
         {
@@ -431,7 +431,7 @@ function( declare,
             };
         },
         /**
-         * Rolls back to _prevVal. See _unlockable.
+         * Rolls back to _prevVal. See _UnlockableMixin.
          */
         rollBack : function( _prevVal )
         {
@@ -439,7 +439,7 @@ function( declare,
             this.checkSkillType();
         },
         /**
-         * Locks perkSelector. See _unlockable.
+         * Locks perkSelector. See _UnlockableMixin.
          */
         lockControls : function()
         {
@@ -447,7 +447,7 @@ function( declare,
             this._disableSelect( "perkSelector" );
         },
         /**
-         * Unlocks perkSelector. See _unlockable.
+         * Unlocks perkSelector. See _UnlockableMixin.
          */
         unlockControls : function()
         {

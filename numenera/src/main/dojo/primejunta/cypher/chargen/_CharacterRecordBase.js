@@ -7,7 +7,7 @@ define([ "dojo/_base/declare",
          "dojo/cookie",
          "dojo/json",
          "dijit/form/Button",
-         "./_util",
+         "./_UtilityMixin",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin"],
@@ -16,12 +16,12 @@ function( declare,
           cookie,
           json,
           Button,
-          _util,
+          _UtilityMixin,
           _WidgetBase,
           _TemplatedMixin,
           _WidgetsInTemplateMixin )
 {
-    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _util ], {
+    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _UtilityMixin ], {
         /**
          * If a string starts with this, it means a skill in which you're trained.
          */

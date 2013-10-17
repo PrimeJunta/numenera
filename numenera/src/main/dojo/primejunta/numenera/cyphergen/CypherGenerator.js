@@ -3,7 +3,7 @@ define([ "dojo/_base/declare",
          "dojo/_base/event",
          "dojo/string",
          "dojo/query",
-         "primejunta/_startup",
+         "primejunta/_StartupMixin",
          "dojo/_base/fx",
          "dojox/fx/flip",
          "dojo/on",
@@ -21,7 +21,7 @@ function( declare,
           event,
           string,
           domQuery,
-          _startup,
+          _StartupMixin,
           baseFx,
           flip,
           on,
@@ -35,7 +35,7 @@ function( declare,
           changelog,
           about ) 
 {
-    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _startup ], {
+    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _StartupMixin ], {
         version : "1.0.8",
         iconSrc : require.toUrl( "primejunta/numenera/themes/images" ),
         templateString : template,
@@ -43,7 +43,7 @@ function( declare,
         postMixInProperties : function()
         {
             this.inherited( arguments );
-            this.setup(); // from _startup
+            this.setup(); // from _StartupMixin
             if( window.location.hash.length > 0 )
             {
                 var hs = ioQuery.queryToObject( window.location.hash.substring( 1 ) );

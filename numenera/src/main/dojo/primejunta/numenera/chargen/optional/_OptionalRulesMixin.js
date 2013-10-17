@@ -37,10 +37,11 @@ function( declare,
             this._characterCustomizer.populateFromData( kwObj.cust );
         },
         /**
-         * Clears _characterCustomizer. Called as .inherited in CharacterRecord._clear.
+         * Clears _characterCustomizer.
          */
         _clear : function()
         {
+            this.inherited( arguments );
             this._characterCustomizer.clear();
         }
     });
