@@ -1,0 +1,223 @@
+<div>
+  <div class="cg-resultsPane">
+    <img
+      data-dojo-type="primejunta/numenera/chargen/_CharacterPortrait"
+      data-dojo-attach-point="portraitWidget" />
+    <h2>Statistics</h2>
+  </div>
+  <div class="cg-statsPane num-mainWidgetContent">
+    <table cellspacing="0" cellpadding="10" width="100%"
+      class="cg-statisticsTable">
+      <tbody>
+        <tr class="cg-statisticsTop">
+          <td>Free</td>
+          <td align="right">Pool</td>
+          <td align="center"><input
+            class="cg-storeMe cg-statInput" type="number"
+            readonly="readonly"
+            data-dojo-attach-point="free_pool" size="3" /></td>
+          <td align="right">Edge</td>
+          <td align="center"><input
+            class="cg-storeMe cg-statInput" type="number"
+            readonly="readonly"
+            data-dojo-attach-point="free_edge" size="3" /></td>
+        </tr>
+        <tr>
+          <td>Might</td>
+          <td align="right">Pool</td>
+          <td align="center">
+            <table cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="5">
+                  <button class="cg-adjustButton"
+                    data-dojo-type="dijit/form/Button"
+                    data-dojo-attach-point="decrement_might_pool">
+                    <i class="icon-chevron-down"></i>
+                  </button>
+                </td>
+                <td><input class="cg-storeMe cg-statInput"
+                  type="number" readonly="readonly"
+                  data-dojo-attach-point="might_pool" size="3" /></td>
+                <td width="5">
+                  <button class="cg-adjustButton"
+                    data-dojo-type="dijit/form/Button"
+                    data-dojo-attach-point="increment_might_pool">
+                    <i class="icon-chevron-up"></i>
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td align="right">Edge</td>
+          <td align="center">
+            <table cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="5">
+                  <button class="cg-adjustButton"
+                    data-dojo-type="dijit/form/Button"
+                    data-dojo-attach-point="decrement_might_edge">
+                    <i class="icon-chevron-down"></i>
+                  </button>
+                </td>
+                <td><input class="cg-storeMe cg-statInput"
+                  type="number" readonly="readonly"
+                  data-dojo-attach-point="might_edge" size="3" />
+                <td width="5">
+                  <button class="cg-adjustButton"
+                    data-dojo-type="dijit/form/Button"
+                    data-dojo-attach-point="increment_might_edge">
+                    <i class="icon-chevron-up"></i>
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td>Speed</td>
+          <td align="right">Pool</td>
+          <td align="center">
+            <table cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="5">
+                  <button class="cg-adjustButton"
+                    data-dojo-type="dijit/form/Button"
+                    data-dojo-attach-point="decrement_speed_pool">
+                    <i class="icon-chevron-down"></i>
+                  </button>
+                </td>
+                <td><input class="cg-storeMe cg-statInput"
+                  type="number" readonly="readonly"
+                  data-dojo-attach-point="speed_pool" size="3" /></td>
+                <td width="5">
+                  <button class="cg-adjustButton"
+                    data-dojo-type="dijit/form/Button"
+                    data-dojo-attach-point="increment_speed_pool">
+                    <i class="icon-chevron-up"></i>
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td align="right">Edge</td>
+          <td align="center">
+            <table cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="5">
+                  <button class="cg-adjustButton"
+                    data-dojo-type="dijit/form/Button"
+                    data-dojo-attach-point="decrement_speed_edge">
+                    <i class="icon-chevron-down"></i>
+                  </button>
+                </td>
+                <td><input class="cg-storeMe cg-statInput"
+                  type="number" readonly="readonly"
+                  data-dojo-attach-point="speed_edge" size="3" /></td>
+                <td width="5">
+                  <button class="cg-adjustButton"
+                    data-dojo-type="dijit/form/Button"
+                    data-dojo-attach-point="increment_speed_edge">
+                    <i class="icon-chevron-up"></i>
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr class="cg-statisticsMiddle">
+          <td>Intellect</td>
+          <td align="right">Pool</td>
+          <td align="center">
+            <table cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="5">
+                  <button class="cg-adjustButton"
+                    data-dojo-type="dijit/form/Button"
+                    data-dojo-attach-point="decrement_intellect_pool">
+                    <i class="icon-chevron-down"></i>
+                  </button>
+                </td>
+                <td><input class="cg-storeMe cg-statInput"
+                  type="number" readonly="readonly"
+                  data-dojo-attach-point="intellect_pool"
+                  size="3" /></td>
+                <td width="5">
+                  <button class="cg-adjustButton"
+                    data-dojo-type="dijit/form/Button"
+                    data-dojo-attach-point="increment_intellect_pool">
+                    <i class="icon-chevron-up"></i>
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td align="right">Edge</td>
+          <td align="center">
+            <table cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="5">
+                  <button class="cg-adjustButton"
+                    data-dojo-type="dijit/form/Button"
+                    data-dojo-attach-point="decrement_intellect_edge">
+                    <i class="icon-chevron-down"></i>
+                  </button>
+                </td>
+                <td><input class="cg-storeMe cg-statInput"
+                  type="number" readonly="readonly"
+                  data-dojo-attach-point="intellect_edge"
+                  size="3" /></td>
+                <td width="5">
+                  <button class="cg-adjustButton"
+                    data-dojo-type="dijit/form/Button"
+                    data-dojo-attach-point="increment_intellect_edge">
+                    <i class="icon-chevron-up"></i>
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr class="cg-statisticsBottom">
+          <td></td>
+          <td align="right">Tier</td>
+          <td align="center"><input
+            class="cg-storeMe cg-statInput" type="number"
+            readonly="readonly"
+            data-dojo-attach-point="character_tier" value="1"
+            size="3" /></td>
+          <td align="right">Effort</td>
+          <td align="center"><input
+            class="cg-storeMe cg-statInput" type="number"
+            readonly="readonly"
+            data-dojo-attach-point="character_effort" value="1"
+            size="3" /></td>
+        </tr>
+        <tr class="cg-statisticsBottom">
+          <td></td>
+          <td align="right">Shins</td>
+          <td align="center"><input
+            class="cg-storeMe cg-statInput" type="number"
+            data-dojo-attach-point="shin_count" size="3" /></td>
+          <td align="right">Cyphers</td>
+          <td align="center"><input
+            class="cg-storeMe cg-statInput" type="number"
+            readonly="readonly"
+            data-dojo-attach-point="cypher_count" size="3" /></td>
+        </tr>
+        <tr class="cg-statisticsBottom cg-statisticsBottomRow">
+          <td></td>
+          <td align="right">Armor bonus</td>
+          <td align="center"><input
+            class="cg-storeMe cg-statInput" type="number"
+            readonly="readonly"
+            data-dojo-attach-point="armor_bonus" size="3" /></td>
+          <td align="right">Recovery bonus</td>
+          <td align="center"><input
+            class="cg-storeMe cg-statInput" type="number"
+            readonly="readonly"
+            data-dojo-attach-point="recovery_roll" size="3" /></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
