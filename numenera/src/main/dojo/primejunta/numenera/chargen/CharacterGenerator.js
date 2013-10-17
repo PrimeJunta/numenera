@@ -15,7 +15,7 @@ define([ "dojo/_base/declare",
          "./data/descriptors",
          "./data/types",
          "./data/foci",
-         "./optional/optionals",
+         "./optional/_OptionalRulesMixin",
          "dojo/text!./templates/CharacterGenerator.html",
          "dojo/text!./doc/about.html",
          "dojo/text!./doc/changelog.html" ],
@@ -30,12 +30,12 @@ function( declare,
           descriptors,
           types,
           foci,
-          optionals,
+          _OptionalRulesMixin,
           template,
           about,
           changelog )
 {
-    return declare( "primejunta/numenera/chargen/CharacterGenerator", [ _CharacterGeneratorBase, optionals ], {
+    return declare( "primejunta/numenera/chargen/CharacterGenerator", [ _CharacterGeneratorBase, _OptionalRulesMixin ], {
         /**
          * Public version number.
          */
