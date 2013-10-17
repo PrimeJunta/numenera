@@ -126,6 +126,33 @@ function( declare,
             }
         },
         /**
+         * Sets value of all inputs matching fields to value.
+         */
+        setValues : function( fields, value )
+        {
+            for( var i = 0; i < fields.length; i++ )
+            {
+                this[ fields[ i ] ].value = value;
+            }
+        },
+        /**
+         * Sets disabled of all controls matching controls to state.
+         */
+        setDisabled : function( /* String[] */ controls, /* boolean */ state )
+        {
+            for( var i = 0; i < controls.length; i++ )
+            {
+                if( this[ controls[ i ] ].set )
+                {
+                    this[ controls[ i ] ].set( "disabled", state );
+                }
+                else
+                {
+                    this[ controls[ i ] ].disabled = state;
+                }
+            }
+        },
+        /**
          * Multiplies every member of stats by -1 and returns the result.
          */
         _invert : function( /* Object */ stats )
@@ -217,7 +244,6 @@ function( declare,
             var dd = this[ aPoint + "DisabledDisplay" ];
             if( !dd || !sel )
             {
-                console.log( "PROBLEM", aPoint );
                 return;
             }
             sel.disabled = true;
@@ -242,7 +268,6 @@ function( declare,
             var dd = this[ aPoint + "DisabledDisplay" ];
             if( !dd || !sel )
             {
-                console.log( "BIG PROBLEM", aPoint );
                 return;
             }
             sel.disabled = true;

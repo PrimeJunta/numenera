@@ -40,7 +40,7 @@ function( declare,
                     advancement : advancement
                 }).placeAt( this.bonusPerksNode );
                 this.manager._lists.bonus_list.push( this._perkSelector );
-                this.manager._augment( this._invert( this.manager.getFocus().advancement[ this.tier ].stats ) );
+                this.manager.statsWidget.augmentStats( this._invert( this.manager.getFocus().advancement[ this.tier ].stats ) );
             }
             else
             {
@@ -48,7 +48,7 @@ function( declare,
                 domClass.remove( this.customizeFocusButton.domNode, "num-selectedButton" );
                 this._toggleDeletedAbilities( this._controls, "focus" );
                 this._perkSelector.destroy();
-                this.manager._augment( this.manager.getFocus().advancement[ this.tier ].stats );
+                this.manager.statsWidget.augmentStats( this.manager.getFocus().advancement[ this.tier ].stats );
             }
             this.checkApplyButton();
         },

@@ -67,7 +67,6 @@ function( declare,
         },
         isTM : function()
         {
-            console.log( "TM", this.tmNode.style.display, ( this.tmNode.style.display != "none" ) )
             return ( this.tmNode.style.display != "none" );
         },
         setImage : function()

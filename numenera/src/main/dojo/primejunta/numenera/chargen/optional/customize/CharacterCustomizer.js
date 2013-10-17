@@ -410,7 +410,7 @@ function( declare,
                         this._checkCap( "might_pool" );
                         this._checkCap( "speed_pool" );
                         this._checkCap( "intellect_pool" );
-                        this.manager.checkCaps();
+                        this.manager.statsWidget.checkCaps();
                         break;
                     case "edge" :
                         this._edgefloors = lang.mixin( this._floors, {
@@ -428,7 +428,7 @@ function( declare,
                         this.manager.intellect_edge_floor = 0;
                         this.manager.speed_edge_floor = 0;
                         this.manager.edge_cap = 1;
-                        this.manager.checkCaps();
+                        this.manager.statsWidget.checkCaps();
                         break;
                     case "skill_for_cypher" :
                         this.manager.cypher_count.value = parseInt( this.manager.cypher_count.value ) + 1;
@@ -466,7 +466,7 @@ function( declare,
                             advancement : advancement
                         }).placeAt( this.manager.bonus_list );
                         this.manager._lists.bonus_list.push( this._perkSelector );
-                        this.manager._augment( this._invert( this.manager.getFocus().advancement[ 0 ].stats ) );
+                        this.manager.statsWidget.augmentStats( this._invert( this.manager.getFocus().advancement[ 0 ].stats ) );
                         break;
                 }
             }
@@ -481,14 +481,14 @@ function( declare,
                             this.manager[ o ].value = this._pools[ o ];
                         }
                         break;
-                        this.manager.checkCaps();
+                        this.manager.statsWidget.checkCaps();
                     case "edge" :
                         lang.mixin( this.manager, this._edgefloors );
                         for( var o in this._edges )
                         {
                             this.manager[ o ].value = this._edges[ o ];
                         }
-                        this.manager.checkCaps();
+                        this.manager.statsWidget.checkCaps();
                         break;
                     case "skill_for_cypher" :
                         this.manager.cypher_count.value = parseInt( this.manager.cypher_count.value ) - 1;
@@ -518,7 +518,7 @@ function( declare,
                         this._toggleDeletedAbilities( this.manager._lists.ability_list, "focus" );
                         this._toggleDeletedAbilities( this.manager._lists.special_list, "focus" );
                         this._toggleDeletedAbilities( this.manager._lists.bonus_list, "focus" );
-                        this.manager._augment( this.manager.getFocus().advancement[ 0 ].stats );
+                        this.manager.statsWidget.augmentStats( this.manager.getFocus().advancement[ 0 ].stats );
                         this._perkSelector.destroy();
                         break;
                 }

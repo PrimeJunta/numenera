@@ -29,12 +29,11 @@ define([ "dojo/_base/declare",
          "./_util",
          "./_SplashCharacterPane",
          "./_data",
-         "./_stats",
          "./_lists",
          "./_AdvancementControl",
+         "./_StatsPane",
          "./_CharacterRecord",
          "./_CharacterValidator",
-         "./_CharacterPortrait",
          "./data/descriptors",
          "./data/types",
          "./data/foci",
@@ -67,12 +66,11 @@ function( declare,
           _util,
           _SplashCharacterPane,
           _data,
-          _stats,
           _lists,
           _AdvancementControl,
+          _StatsPane,
           _CharacterRecord,
           _CharacterValidator,
-          _CharacterPortrait,
           descriptors,
           types,
           foci,
@@ -81,7 +79,7 @@ function( declare,
           about,
           changelog )
 {
-    return declare( "primejunta/numenera/chargen/CharacterGenerator", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _startup, _util, _data, _stats, _lists, optionals ], {
+    return declare( "primejunta/numenera/chargen/CharacterGenerator", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _startup, _util, _data, _lists, optionals ], {
         /**
          * Default title.
          */
@@ -93,7 +91,7 @@ function( declare,
         /**
          * Public version number.
          */
-        version : "1.5.3",
+        version : "1.6.0",
         /**
          * Set when a character is first advanced past creation.
          */
@@ -139,6 +137,7 @@ function( declare,
             this.initializeSelect( "descriptorSelect", descriptors, true );
             this.initializeSelect( "typeSelect", types );
             this.initializeSelect( "focusSelect", foci );
+            this.statsWidget.manager = this;
             this._splashPane = new _SplashCharacterPane({ manager : this }).placeAt( this.domNode );
             on( this.characterNameInput, "keydown", lang.hitch( this, this.normalizeClass, this.characterNameInput ) );
             on( this.characterNameInput, "click", lang.hitch( this, this.onCharNameFocus, this.characterNameInput ) );
@@ -255,7 +254,7 @@ function( declare,
             else
             {
                 this._showCharacterData();
-                this._assign( type.stats );
+                this.statsWidget.assignStats( type.stats );
                 this._appendToLists( type.lists, "type" );
                 this._writeSpecialList( type );
                 this.special_list_label.innerHTML = type.special_list_label;
@@ -264,20 +263,20 @@ function( declare,
             }
             if( desc )
             {
-                this._augment( desc.stats );
+                this.statsWidget.augmentStats( desc.stats );
                 this._appendToLists( desc.lists, "desc" );
                 this._appendToText( "description_text", desc.description_text );
                 this._appendToText( "notes_text", desc.notes_text );
             }
             if( focus )
             {
-                this._augment( focus.advancement[ 0 ].stats );
+                this.statsWidget.augmentStats( focus.advancement[ 0 ].stats );
                 this._appendToLists( focus.lists, "focus" );
                 this._writeBonusList( focus );
                 this._appendToText( "description_text", focus.description_text );
                 this._appendToText( "notes_text", focus.notes_text );
             }
-            this.checkCaps();
+            this.statsWidget.checkCaps();
             this._printLists();
             this._populating.pop();
             topic.publish( "CharGen/valuesUpdated" );
@@ -310,8 +309,8 @@ function( declare,
                 this.mainTabContainer.addChild( this._advancementControl );
                 this._advancementControl.advanceTier( tier );
             }
-            this.moveCaps();
-            if( this.free_edge.value == "0" && this.free_pool.value == "0" )
+            this.statsWidget.moveCaps();
+            if( this.statsWidget.free_edge.value == "0" && this.statsWidget.free_pool.value == "0" )
             {
                 this.finalizeButton.set( "disabled", true );
             }
@@ -444,9 +443,9 @@ function( declare,
             this.phraseDisplayNode.style.display = "none";
             this.characterNameInput.value = this.DEFAULT_CHARACTER_NAME;
             this.normalizeClass( this.characterNameInput );
-            this._setDisabled([ "saveButton", "printButton" ], true );
+            this.setDisabled([ "saveButton", "printButton" ], true );
             this.mainTabContainer.selectChild( this.abilityPane );
-            this.portraitWidget.clear();
+            this.statsWidget.portraitWidget.clear();
             this._hideCharacterData();
         },
         /**
@@ -486,33 +485,6 @@ function( declare,
             if( what )
             {
                 this[ where ].set( "value", this[ where ].get( "value" ) + what + "\n" );
-            }
-        },
-        /**
-         * Sets disabled of all controls matching controls to state.
-         */
-        _setDisabled : function( /* String[] */ controls, /* boolean */ state )
-        {
-            for( var i = 0; i < controls.length; i++ )
-            {
-                if( this[ controls[ i ] ].set )
-                {
-                    this[ controls[ i ] ].set( "disabled", state );
-                }
-                else
-                {
-                    this[ controls[ i ] ].disabled = state;
-                }
-            }
-        },
-        /**
-         * Sets value of all inputs matching fields to value.
-         */
-        _setValues : function( /* String[] */ fields, /* String */ value )
-        {
-            for( var i = 0; i < fields.length; i++ )
-            {
-                this[ fields[ i ] ].value = value;
             }
         },
         /**
@@ -577,11 +549,12 @@ function( declare,
             this.description_text.set( "value", "" );
             this.notes_text.set( "value", "" );
             this.extra_equipment_text.set( "value", "" );
-            this._setDisabled([ "descriptorSelect", "typeSelect", "focusSelect" ], false );
-            this._setValues([ "character_tier", "character_effort", "might_pool", "speed_pool", "intellect_pool", "might_edge", "speed_edge", "intellect_edge", "free_pool", "free_edge", "shin_count", "cypher_count", "armor_bonus" ], "" );
+            this.setDisabled([ "descriptorSelect", "typeSelect", "focusSelect" ], false );
+            this.statsWidget.setValues([ "character_tier", "character_effort", "might_pool", "speed_pool", "intellect_pool", "might_edge", "speed_edge", "intellect_edge", "free_pool", "free_edge", "shin_count", "cypher_count", "armor_bonus" ], "" );
             var lists = [ "ability_list", "inability_list", "special_list", "equipment_list", "bonus_list" ];
             this.updateLink();
-            this._setDisabled([ "saveButton", "printButton", "increment_might_pool", "decrement_might_pool", "increment_speed_pool", "decrement_speed_pool", "increment_intellect_pool", "decrement_intellect_pool","increment_might_edge", "decrement_might_edge", "increment_speed_edge", "decrement_speed_edge", "increment_intellect_edge", "decrement_intellect_edge" ], true );
+            this.setDisabled([ "saveButton", "printButton" ], true );
+            this.statsWidget.setDisabled([ "increment_might_pool", "decrement_might_pool", "increment_speed_pool", "decrement_speed_pool", "increment_intellect_pool", "decrement_intellect_pool","increment_might_edge", "decrement_might_edge", "increment_speed_edge", "decrement_speed_edge", "increment_intellect_edge", "decrement_intellect_edge" ], true );
         }
     });
 });

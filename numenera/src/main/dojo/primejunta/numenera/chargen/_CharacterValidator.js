@@ -684,11 +684,18 @@ function( declare,
          */
         _gf : function( /* String */ fld )
         {
-            if( !this.manager[ fld ] )
+            if( this.manager.statsWidget[ fld ] )
+            {
+                return this.manager.statsWidget[ fld ].value;
+            }
+            else if( this.manager[ fld ] )
+            {
+                return this.manager[ fld ].value;
+            }
+            else
             {
                 return false;
             }
-            return this.manager[ fld ].value;
         },
         /**
          * Returns display value of select matching sel as String.

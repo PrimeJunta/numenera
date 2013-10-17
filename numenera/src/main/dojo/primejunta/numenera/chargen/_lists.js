@@ -94,7 +94,7 @@ function( declare,
             {
                 this._lists.cypher_list.pop().destroy();
             }
-            this._augmentCypherList( n );
+            this.augmentCypherList( n );
         },
         /**
          * Special case: a starting character gets two special abilities, so we read the first-tier perk list
@@ -122,7 +122,7 @@ function( declare,
         /**
          * Adds enough new rows in the cypher list to match count.
          */
-        _augmentCypherList : function( /* String|int */ count )
+        augmentCypherList : function( /* String|int */ count )
         {
             if( !this._lists || !this._lists.cypher_list )
             {

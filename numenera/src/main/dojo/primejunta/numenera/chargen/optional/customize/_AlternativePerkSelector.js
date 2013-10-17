@@ -67,8 +67,8 @@ function( declare,
             this._deselect( this._selection );
             if( sel == "Ⓔ Self-Improvement" )
             {
-                this.manager._augment({ free_pool : 6 });
-                this.manager.checkCaps();
+                this.manager.statsWidget.augmentStats({ free_pool : 6 });
+                this.manager.statsWidget.checkCaps();
             }
             this.checkState();
             this._selection = sel;
@@ -118,8 +118,8 @@ function( declare,
         {
             if( selection == "Ⓔ Self-Improvement" )
             {
-                this.manager._augment({ free_pool : -6 });
-                this.manager.checkCaps();
+                this.manager.statsWidget.augmentStats({ free_pool : -6 });
+                this.manager.statsWidget.checkCaps();
             }
             this.checkState();
             return;

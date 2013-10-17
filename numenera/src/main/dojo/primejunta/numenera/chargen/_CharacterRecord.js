@@ -89,20 +89,17 @@ function( declare,
             this._wl( "equipment_list", "equipment_list" );
             this._wl( "description_text", "description_text" );
             this._wl( "notes_list", "notes_list" );
-            this.portrait_src = this.manager.portraitWidget.getHref();
+            this.portrait_src = this.manager.statsWidget.portraitWidget.getHref();
             if( this.portrait_src )
             {
-                console.log( "PSRC", this.portrait_src, this.manager.portraitWidget.isTM() );
                 this.portraitImage.setAttribute( "src", this.portrait_src );
                 this.portraitImage.style.visibility = "visible";
-                if( this.manager.portraitWidget.isTM() )
+                if( this.manager.statsWidget.portraitWidget.isTM() )
                 {
-                    console.log( "BLOCK" );
                     this.portraitTMNode.style.display = "block";
                 }
                 else
                 {
-                    console.log( "NONE" )
                     this.portraitTMNode.style.display = "none";
                 }
             }

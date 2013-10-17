@@ -290,21 +290,21 @@ function( declare,
                 + "&type=" + this._selVal( this.typeSelect ).value
                 + "&focus=" + this._selVal( this.focusSelect ).value
                 + "&finalized=" + this.finalized
-                + "&tier=" + this.character_tier.value
-                + "&cyphers=" + this.cypher_count.value
+                + "&tier=" + this.statsWidget.character_tier.value
+                + "&cyphers=" + this.statsWidget.cypher_count.value
                 + "&selects=" + encodeURIComponent( idxs.join( this._listDelimiter ) )
                 + "&inputs=" + encodeURIComponent( vals.join( this._listDelimiter ) )
                 + "&extra_equipment_text=" + encodeURIComponent( this.extra_equipment_text.value )
                 + "&notes_text=" + encodeURIComponent( this.notes_text.value )
                 + "&description_text=" + encodeURIComponent( this.description_text.value )
-                + "&img=" + encodeURIComponent( this.portraitWidget.getHref() )
+                + "&img=" + encodeURIComponent( this.statsWidget.portraitWidget.getHref() )
                 + "&disabled=" + disb.join( "" )
                 + "&deleted=" + dels.join( "" )
                 + this.getOptionalData();
         },
         /**
          * Validates qString wtih _validateData. Then pushes something into the _populating stack, clearAll, parse out the
-         * data from qString, sets type, descriptor, and focus selectors and _augmentCypherList, and finalize to tier from
+         * data from qString, sets type, descriptor, and focus selectors and augmentCypherList, and finalize to tier from
          * kwObj.tier, if the character is finalized. At this point we have all the selects and inputs ready to be populated.
          * Then zips through selects, inputs, disabled, and deleted, and sets the states of the controls accordingly. Then
          * populates textareas and raises the character's stat floor if s/he is finalized. (If you saved in the middle of
@@ -322,7 +322,7 @@ function( declare,
             var kwObj = ioQuery.queryToObject( qString );
             if( kwObj.img )
             {
-                this.portraitWidget.setHref( kwObj.img );
+                this.statsWidget.portraitWidget.setHref( kwObj.img );
             }
             var idxs = kwObj.selects.split( this._listDelimiter );
             var vals = kwObj.inputs.split( this._listDelimiter );
@@ -332,7 +332,7 @@ function( declare,
             this._selVal( this.typeSelect, kwObj.type );
             this._selVal( this.focusSelect, kwObj.focus );
             this.selectDescriptor();
-            this._augmentCypherList( kwObj.cyphers );
+            this.augmentCypherList( kwObj.cyphers );
             if( kwObj.finalized == "true" )
             {
                 this.finalize( kwObj.tier );
@@ -375,9 +375,9 @@ function( declare,
             }
             if( this.finalized )
             {
-                this.moveCaps();
+                this.statsWidget.moveCaps();
             }
-            this.checkCaps();
+            this.statsWidget.checkCaps();
             var d = 0;
             for( var i = 0; i < this._controls.length; i++ )
             {

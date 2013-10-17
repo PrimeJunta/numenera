@@ -4,13 +4,26 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "dojo/dom-class",
-         "dojo/on" ],
+         "dojo/on",
+         "./_CharacterPortrait",
+         "./_util",
+         "dijit/_WidgetBase",
+         "dijit/_TemplatedMixin",
+         "dijit/_WidgetsInTemplateMixin",
+         "dojo/text!./templates/_StatsPane.html" ],
 function( declare,
           lang,
           domClass,
-          on )
+          on,
+          _CharacterPortrait,
+          _util,
+          _WidgetBase,
+          _TemplatedMixin,
+          _WidgetsInTemplateMixin,
+          template )
 {
-    return declare([], {
+    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _util ], {
+        templateString : template,
         /**
          * Cap for pools
          */
@@ -24,7 +37,6 @@ function( declare,
          */
         postCreate : function()
         {
-            this.inherited( arguments );
             on( this.increment_might_pool, "click", lang.hitch( this, this._adjust, "might", "pool", 1 ) );
             on( this.increment_might_edge, "click", lang.hitch( this, this._adjust, "might", "edge", 1 ) );
             on( this.increment_speed_pool, "click", lang.hitch( this, this._adjust, "speed", "pool", 1 ) );
@@ -53,7 +65,7 @@ function( declare,
             _to += by;
             this[ "free_" + prop ].value = _from;
             this[ stat + "_" + prop ].value = _to;
-            this._checkCaps( prop );
+            this.checkLimits( prop );
             this.updateLink();
         },
         /**
@@ -61,8 +73,8 @@ function( declare,
          */
         checkCaps : function()
         {
-            this._checkCaps( "pool" );
-            this._checkCaps( "edge" );
+            this.checkLimits( "pool" );
+            this.checkLimits( "edge" );
         },
         /**
          * Resets floors for all stats, sets caps to a ridiculously high number, and checkCaps.
@@ -82,7 +94,7 @@ function( declare,
         /**
          * Shorthand for _checkLimits on might, speed, and intellect pool/edge (from prop).
          */
-        _checkCaps : function( /* String */ prop )
+        checkLimits : function( /* String */ prop )
         {
             this._checkLimits( "might", prop );
             this._checkLimits( "speed", prop );
@@ -97,13 +109,13 @@ function( declare,
             var _from = parseInt( this[ "free_" + prop ].value );
             var ddis = ( parseInt( this[ stat + "_" + prop ].value ) == this[ stat + "_" + prop + "_floor" ] );
             var edis = ( ( parseInt( this[ stat + "_" + prop ].value ) >= this[ prop + "_cap" ] || _from == 0 ) );
-            this._setDisabled([ "decrement_" + stat + "_" + prop ], ddis );
-            this._setDisabled([ "increment_" + stat + "_" + prop ], edis );
+            this.setDisabled([ "decrement_" + stat + "_" + prop ], ddis );
+            this.setDisabled([ "increment_" + stat + "_" + prop ], edis );
         },
         /**
          * Iterates through stats and writes each item's value into the matching input in template.
          */
-        _assign : function( /* Object */ stats )
+        assignStats : function( /* Object */ stats )
         {
             for( var o in stats )
             {
@@ -113,7 +125,7 @@ function( declare,
         /**
          * Iterates through stats and adds each item's value to value of matching input in template (as int).
          */
-        _augment : function( /* Object */ stats )
+        augmentStats : function( /* Object */ stats )
         {
             if( !stats )
             {
@@ -125,7 +137,7 @@ function( declare,
             }
         },
         /**
-         * Writes val into field matching stat, and stores it as floor for adjustments. Calls _augmentCypherList
+         * Writes val into field matching stat, and stores it as floor for adjustments. Calls augmentCypherList
          * if the stat in question was cypher_count; this way we'll get enough fields for cyphers on advancement.
          */
         _setStat : function( /* String */ stat, /* int */ val )
@@ -134,7 +146,7 @@ function( declare,
             this[ stat + "_floor" ] = val;
             if( stat == "cypher_count" )
             {
-                this._augmentCypherList( val );
+                this.manager.augmentCypherList( val );
             }
         },
         /**

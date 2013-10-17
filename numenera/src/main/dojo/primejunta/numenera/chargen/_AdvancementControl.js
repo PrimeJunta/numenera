@@ -65,7 +65,7 @@ function( declare,
         },
         /**
          * If tier is provided, sets this.tier to it. Then publishes lockSheetControls and creates enough _TierWidgets
-         * for tier, populates manager.character_tier value from it, and manager.moveCaps() to reset the floors. Triggered
+         * for tier, populates manager.character_tier value from it, and manager.statsWidget.moveCaps() to reset the floors. Triggered
          * when populating data programmatically or through a user Advancing a character eligible to the next tier.
          */
         advanceTier : function( tier )
@@ -86,8 +86,8 @@ function( declare,
                 }).placeAt( this.tierContainerNode ) );
                 domClass.add( this._controls[ this._controls.length - 1 ].domNode, this._controls.length % 2 == 0 ? "num-evenBackground" : "num-oddBackground" );
             }
-            this.manager.character_tier.value = this.tier;
-            this.manager.moveCaps();
+            this.manager.statsWidget.character_tier.value = this.tier;
+            this.manager.statsWidget.moveCaps();
         },
         /**
          * Checks if the previous tier is complete, and applies a new one.
