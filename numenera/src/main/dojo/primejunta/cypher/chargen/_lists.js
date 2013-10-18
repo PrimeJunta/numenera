@@ -64,7 +64,7 @@ function( declare,
          * Creates a _ListItem from itemText and from, and puts it in this[ listName ]. The from value ends
          * up in a CSS class in it.
          */
-        createListItem : function( /* String */ listName, /* String */ itemText, /* String */ from )
+        createListItem : function( /* String */ listName, /* Object */ itemData )
         {
             if( !this._controls )
             {
@@ -77,8 +77,8 @@ function( declare,
             }
             var itm =  new _ListItem({
                 manager : this,
-                content : itemText,
-                from : from,
+                listName : listName,
+                item : itemData,
                 isUnlockable : listName == "special_list" ? true : false,
                 isDeletable : listName == "equipment_list" ? true : false,
                 remainsOpen : ( listName == "equipment_list" || listName == "cypher_list" ) ? true : false
@@ -131,7 +131,7 @@ function( declare,
             var count = parseInt( count );
             while( this._lists.cypher_list.length < count )
             {
-                this.createListItem( "cypher_list", "${input:GM chooses}", "type" );
+                this.createListItem( "cypher_list", { text : "${input:GM chooses}", from : "type" });
             }
         },
         /**
@@ -230,7 +230,7 @@ function( declare,
                 this._lists[ o ] = [];
                 for( var i = 0; i < this._listdata[ o ].length; i++ )
                 {
-                    this.createListItem( o, this._listdata[ o ][ i ].text, this._listdata[ o ][ i ].from );
+                    this.createListItem( o, this._listdata[ o ][ i ] );
                 }
             }
         }

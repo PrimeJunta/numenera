@@ -42,6 +42,14 @@ function( declare,
          */
         templateString : template,
         /**
+         * Name of list to which the item belongs.
+         */
+        listName : "",
+        /**
+         * Data object associated with list item.
+         */
+        item : false,
+        /**
          * Content string, which may contain patterns for inputs or selects or both.
          */
         content : "",
@@ -72,6 +80,18 @@ function( declare,
         postMixInProperties : function()
         {
             this._subs = [];
+            if( this.item )
+            {
+                this.content = this.item.text;
+                this.from = this.item.from;
+            }
+            else
+            {
+                this.item = {
+                    text : this.content,
+                    from : this.from
+                }
+            }
             if( this.content.indexOf( "${input" ) != -1 && this.content.indexOf( "${select" ) != -1 )
             {
                 this._hasSelect = true;

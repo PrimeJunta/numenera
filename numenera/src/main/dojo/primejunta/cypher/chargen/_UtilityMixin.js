@@ -88,6 +88,7 @@ function( declare,
                 }
                 inputNode.value = this.inputValue ? this.inputValue : "";
             }
+            this.dataChanged( inputNode );
             this.normalizeClass( inputNode );
         },
         /**
@@ -95,6 +96,14 @@ function( declare,
          */
         dataChanged : function( /* InputElement? */ inputNode )
         {
+            if( this.item && this.inputNode )
+            {
+                this.item.inputValue = this.inputNode.value;
+            }
+            if( this.item && this.selectNode )
+            {
+                this.item.selectIndex = this.selectNode.selectedIndex;
+            }
             if( !inputNode || !inputNode.nodeType )
             {
                 if( !this.inputNode )

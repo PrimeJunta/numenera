@@ -62,6 +62,7 @@ function( declare,
             _to += by;
             this[ "free_" + prop ].value = _from;
             this[ stat + "_" + prop ].value = _to;
+            this[ stat + "_" + prop ].adjustment += by;
             this.checkLimits( prop );
             this.updateLink();
         },
@@ -114,6 +115,7 @@ function( declare,
          */
         assignStats : function( /* Object */ stats )
         {
+            this.baseStats = stats;
             for( var o in stats )
             {
                 this._setStat( o, stats[ o ] );
@@ -130,7 +132,17 @@ function( declare,
             }
             for( var o in stats )
             {
-                this._setStat( o, stats[ o ] + parseInt( this[ o ].value ) );
+                this._augmentStat( o, stats[ o ] );
+            }
+        },
+        _augmentStat : function( stat, by )
+        {
+            this[ stat ].value = parseInt( this[ stat ].value ) + by;
+            this[ stat + "_floor" ] += by;
+            this[ stat + "_adjustment" ] += by;
+            if( stat == "cypher_count" )
+            {
+                this.manager.augmentCypherList( parseInt( this[ stat ].value ) );
             }
         },
         /**
@@ -141,6 +153,7 @@ function( declare,
         {
             this[ stat ].value = val;
             this[ stat + "_floor" ] = val;
+            this[ stat + "_adjustment" ] = 0;
             if( stat == "cypher_count" )
             {
                 this.manager.augmentCypherList( val );
