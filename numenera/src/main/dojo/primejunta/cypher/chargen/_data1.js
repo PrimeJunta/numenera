@@ -96,8 +96,6 @@ function( declare,
          */
         _populateFromDataV1 : function( /* String */ qString )
         {
-            this._populating.push( 3 );
-            this.clearAll();
             var kwObj = ioQuery.queryToObject( qString );
             if( kwObj.img )
             {
@@ -174,8 +172,6 @@ function( declare,
             this.description_text.set( "value", kwObj.description_text );
             this.notes_text.set( "value", kwObj.notes_text );
             this.extra_equipment_text.set( "value", kwObj.extra_equipment_text );
-            this._populating.pop();
-            topic.publish( "CharGen/pleaseCheckState" );
         }
     });
 });

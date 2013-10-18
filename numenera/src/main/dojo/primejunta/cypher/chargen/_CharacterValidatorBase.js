@@ -102,7 +102,7 @@ function( declare,
             {
                 errs.push( "Please select a descriptor, type, and focus." );
             }
-            if( this.manager.free_pool.value != "0" || this.manager.free_edge.value != "0" )
+            if( this.manager.statsWidget.free_pool.value != "0" || this.manager.statsWidget.free_edge.value != "0" )
             {
                 errs.push( "Please assign all of your character points." );
             }

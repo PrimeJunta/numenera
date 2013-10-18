@@ -313,13 +313,17 @@ function( declare,
          */
         finalize : function( /* String|int */ tier )
         {
+            try{
+                
+            
+            
             if( !this.validateCharacter() )
             {
                 return;
             }
             var type = this.getType();
             var focus = this.getFocus();
-            tier = !isNaN( parseInt( tier ) ) ? parseInt( tier ) : parseInt( this.character_tier.value );
+            tier = !isNaN( parseInt( tier ) ) ? parseInt( tier ) : parseInt( this.statsWidget.character_tier.value );
             if( !this.finalized )
             {
                 this._clearAdvancementControl();
@@ -342,6 +346,8 @@ function( declare,
             {
                 this.mainTabContainer.selectChild( this._advancementControl )
             }
+            }catch(e){console.log("LOLWUT?",e)}
+
         },
         /**
          * Checks that we're not in the middle of programmatic population; if not, validates the character
@@ -355,7 +361,7 @@ function( declare,
             }
             if( !this._validator )
             {
-                this._validator = new _CharacterValidator({ manager : this });
+                this._validator = this.createCharacterValidator({ manager : this });
             }
             return this._validator.validateCharacter();
         },
@@ -368,6 +374,8 @@ function( declare,
             this.typeSelect.disabled = true;
             this.focusSelect.disabled = true;
             this.updatePhrase();
+            this.phraseSelectorNode.style.display = "none";
+            this.phraseDisplayNode.style.display = "block";
             this.updateLink();
         },
         updatePhrase : function()
@@ -377,8 +385,6 @@ function( declare,
                 return;
             }
             this.phraseDisplayNode.innerHTML = "the " + this.getDescriptor().label + " " + this.getType().label + " who " + this.getFocus().label;
-            this.phraseSelectorNode.style.display = "none";
-            this.phraseDisplayNode.style.display = "block";
         },
         /**
          * Adds or removes finalized CSS class, which affects display of contained things.

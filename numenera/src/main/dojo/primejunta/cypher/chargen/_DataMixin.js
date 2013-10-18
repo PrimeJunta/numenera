@@ -262,15 +262,15 @@ function( declare,
          */
         _populateFromStoredData : function( /* String */ qString )
         {
+            this._populating.push( 3 );
+            this.clearAll();
             var populateMethod = this._getPopulateMethod( qString );
-            if( !populateMethod )
-            {
-                return;
-            }
-            else
+            if( populateMethod )
             {
                 lang.hitch( this, populateMethod )( qString );
             }
+            this._populating.pop();
+            topic.publish( "CharGen/pleaseCheckState" );
         },
         /**
          * Parses qString into a kwObject, then checks that kwObj.version matches DATA_VERSION and that all the fields in DATA_FIELDS
