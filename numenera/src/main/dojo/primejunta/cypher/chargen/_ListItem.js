@@ -5,7 +5,7 @@
  */
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
-         "dojo/_base/event",
+         "dojo/_base/array",
          "dojo/on",
          "dojo/topic",
          "dojo/dom-class",
@@ -21,7 +21,7 @@ define([ "dojo/_base/declare",
          "dojo/text!./templates/_ListItemSelectInput.html" ],
 function( declare,
           lang,
-          event,
+          array,
           on,
           topic,
           domClass,
@@ -82,14 +82,13 @@ function( declare,
             this._subs = [];
             if( this.item )
             {
-                this.content = this.item.text;
-                this.from = this.item.from;
+                this._getPropsFromItem();
             }
             else
             {
                 this.item = {
                     text : this.content,
-                    from : this.from
+                    from : [ this.from ]
                 }
             }
             if( this.content.indexOf( "${input" ) != -1 && this.content.indexOf( "${select" ) != -1 )
@@ -121,6 +120,11 @@ function( declare,
             {
                 this._subs.push( topic.subscribe( "CharGen/lockSheetControls", lang.hitch( this, this.lockSelect ) ) );
             }
+        },
+        _getPropsFromItem : function()
+        {
+            this.content = this.item.text;
+            this.from = array.indexOf( this.item.from, "type" ) != -1 ? "type" : array.indexOf( this.item.from, "desc" ) != -1 ? "desc" : array.indexOf( this.item.from, "focus" ) != -1 ? "focus" : this.item.from[ 0 ];
         },
         checkState : function()
         {
@@ -164,6 +168,13 @@ function( declare,
             {
                 domClass.add( this.domNode, "num-hoverControls" );
             }
+        },
+        updateRendering : function()
+        {
+            this._getPropsFromItem();
+            this.baseText = this.getBaseText();
+            this.baseTextNode.innerHTML = this.baseText;
+            this.domNode.className = "cg-" + this.from;
         },
         /**
          * Toggles deleted property and corresponding CSS class. Deleted items will not show up 
@@ -338,16 +349,14 @@ function( declare,
         /**
          * Removes all listeners plus inherited.
          */
-        destroy : function( from )
+        destroy : function()
         {
-            if( !from || from == this.from )
+            while( this._subs.length > 0 )
             {
-                while( this._subs.length > 0 )
-                {
-                    this._subs.pop().remove();
-                }
-                this.inherited( arguments );
+                this._subs.pop().remove();
             }
+            this.manager.removeListItem( this );
+            this.inherited( arguments );
         }
     });
 });

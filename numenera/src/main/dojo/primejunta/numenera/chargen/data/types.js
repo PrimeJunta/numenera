@@ -3,6 +3,7 @@
  */
 define({
     "T0" : {
+        "id" : "glaive",
         "label" : "glaive",
         "description_text" : "Glaives are warriors: soldiers, mercenaries, bodyguards, and other masters of the martial arts.",
         "notes_text" : "Glaive: Corebook, page 26",
@@ -69,6 +70,7 @@ define({
         }]
     },
     "T1" : {
+        "id" : "nano",
         "label" : "nano",
         "description_text" : "Nanos are the 'wizards' of the Ninth World, performing miracles through the numenera.",
         "notes_text" : "Nano: Corebook, page 32",
@@ -125,6 +127,7 @@ define({
             }]
     },
     "T2" : {
+        "id" : "jack",
         "label" : "jack",
         "description_text" : "The Jack-of-all trades, master of those of his choosing, is the most flexible of the character types.",
         "notes_text" : "Jack: Corebook, page 40",

@@ -13,7 +13,6 @@ define([ "dojo/_base/declare",
          "dojo/dom-class",
          "primejunta/cypher/chargen/_UtilityMixin",
          "./_AlternativePerkSelector",
-         "./data/advancement",
          "dijit/registry",
          "dijit/form/Button",
          "dijit/form/TextBox",
@@ -31,7 +30,6 @@ function( declare,
           domClass,
           _UtilityMixin,
           _AlternativePerkSelector,
-          advancement,
           registry,
           Button,
           TextBox,
@@ -221,7 +219,7 @@ function( declare,
             }
             else
             {
-                type = type.label;
+                type = type.id;
             }
             var sel = registry.byId( type + "Ability" );
             if( array.indexOf( state.customizations, "skill_for_cypher" ) != -1 && type == "nano" )
@@ -466,7 +464,7 @@ function( declare,
                             manager : this.manager,
                             from : "cust",
                             tier : 1,
-                            advancement : advancement
+                            advancement : this.manager.customAdvancement
                         }).placeAt( this.manager.bonus_list );
                         this.manager._lists.bonus_list.push( this._perkSelector );
                         this.manager.statsWidget.augmentStats( this.invertStats( this.manager.getFocus().advancement[ 0 ].stats ) );

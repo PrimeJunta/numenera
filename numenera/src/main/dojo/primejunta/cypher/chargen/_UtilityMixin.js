@@ -223,7 +223,7 @@ function( declare,
         /**
          * Returns value of selected item in sel as object with label and value properties.
          */
-        getSelectValue : function( sel, /* String? */ val )
+        selectValue : function( sel, /* String? */ val )
         {
             if( val )
             {
@@ -256,7 +256,7 @@ function( declare,
                 return;
             }
             sel.disabled = true;
-            if( hideIfNull && this.getSelectValue( sel ).label == "-- choose --" )
+            if( hideIfNull && this.selectValue( sel ).label == "-- choose --" )
             {
                 this.domNode.style.display = "none";
             }
@@ -265,7 +265,7 @@ function( declare,
                 this.domNode.style.display = this.domNode.tagName.toLowerCase() == "li" ? "list-item" : "tr" ? "table-row" : "block";
             }
             sel.style.display = "none";
-            dd.innerHTML = this.getSelectValue( sel ).label;
+            dd.innerHTML = this.selectValue( sel ).label;
             dd.style.display = "inline";
         },
         /**

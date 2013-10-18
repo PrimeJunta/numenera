@@ -6,13 +6,11 @@ define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "dojo/dom-class",
          "./_AlternativePerkSelector",
-         "./data/advancement",
          "primejunta/cypher/chargen/_UtilityMixin" ],
 function( declare,
           lang,
           domClass,
           _AlternativePerkSelector,
-          advancement,
           _UtilityMixin )
 {
     return declare([ _UtilityMixin ], {
@@ -37,7 +35,7 @@ function( declare,
                     manager : this.manager,
                     from : "cust",
                     tier : this.tier,
-                    advancement : advancement
+                    advancement : this.manager.customAdvancement
                 }).placeAt( this.bonusPerksNode );
                 this.manager._lists.bonus_list.push( this._perkSelector );
                 this.manager.statsWidget.augmentStats( this.invertStats( this.manager.getFocus().advancement[ this.tier ].stats ) );
@@ -58,6 +56,7 @@ function( declare,
          */
         checkState : function()
         {
+            this.inherited( arguments );
             if( this.customize && !this.customizeFocusButton.checked ) // can happen while a character is being loaded
             {
                 this.customize = false; // will be toggled right back by the next method

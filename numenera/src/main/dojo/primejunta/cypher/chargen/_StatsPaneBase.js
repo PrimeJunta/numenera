@@ -135,9 +135,46 @@ function( declare,
                 this._augmentStat( o, stats[ o ] );
             }
         },
+        applyAdjustments : function( /* Object */ data )
+        {
+            if( !data )
+            {
+                return;
+            }
+            this.augmentStats( data.stats );
+            if( data.advancement )
+            {
+                var tier = parseInt( this.character_tier.value );
+                for( var i = 0; i < tier; i++ )
+                {
+                    this.augmentStats( data.advancement[ i ].stats );
+                }
+            }
+        },
+        undoAdjustments : function( /* Object */ data )
+        {
+            if( !data )
+            {
+                return;
+            }
+            this.augmentStats( this.invertStats( data.stats ) );
+            if( data.advancement )
+            {
+                var tier = parseInt( this.character_tier.value );
+                for( var i = 0; i < tier; i++ )
+                {
+                    this.augmentStats( this.invertStats( data.advancement[ i ].stats ) );
+                }
+            }
+        },
         _augmentStat : function( stat, by )
         {
-            this[ stat ].value = parseInt( this[ stat ].value ) + by;
+            var val = parseInt( this[ stat ].value );
+            if( isNaN( val ) )
+            {
+                val = 0;
+            }
+            this[ stat ].value = val + by;
             this[ stat + "_floor" ] += by;
             this[ stat + "_adjustment" ] += by;
             if( stat == "cypher_count" )

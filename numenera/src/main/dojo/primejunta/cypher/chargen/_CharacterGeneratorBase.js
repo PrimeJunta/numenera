@@ -185,14 +185,15 @@ function( declare,
         selectDescriptor : function()
         {
             this._populating.push( 1 );
-            var label = this.getSelectValue( this.descriptorSelect ).label;
+            var label = this.selectValue( this.descriptorSelect ).label;
             var _art = "an";
             if( "AEIOUYaeiouy".indexOf( label.charAt( 0 ) ) == -1 )
             {
                 _art = "a";
             }
             this._splashPane.articleNode.innerHTML = _art;
-            this.updateValues();
+            this.updateItems( "desc", this.getDescriptor() );
+            this._printLists();
             this._populating.pop();
             this.updateLink();
         },
@@ -202,7 +203,15 @@ function( declare,
         selectType : function()
         {
             this._populating.push( 4 );
-            this.updateValues();
+            var type = this.getType();
+            this.updateItems( "type", type );
+            if( type )
+            {
+                this.special_list_label.innerHTML = type.special_list_label;
+                //this.statsWidget.assignStats( type.stats );
+                this._writeSpecialList( type );
+            }
+            this._printLists();
             this._populating.pop();
             this.updateLink();
         },
@@ -211,10 +220,41 @@ function( declare,
          */
         selectFocus : function()
         {
-            this._populating.push( 5 );
-            this.updateValues();
-            this._populating.pop();
+            var focus = this.getFocus();
+            this.updateFocus( focus );
             this.updateLink();
+        },
+        updateFocus : function( focus )
+        {
+            this._populating.push( 5 );
+            this.updateItems( "focus", focus )
+            if( focus )
+            {
+                this._writeBonusList( focus );
+            }
+            this._printLists();
+            this._populating.pop();
+        },
+        updateItems : function( from, data )
+        {
+            this.statsWidget.undoAdjustments( this[ "current_" + from ] );
+            this.clearItems( from ); // in list
+            if( !data )
+            {
+                delete this[ "current_" + from ];
+                this._hideCharacterData( true );
+                return;
+            }
+            this.statsWidget.applyAdjustments( data );
+            this[ "current_" + from ] = data;
+            this._appendToLists( data.lists, from );
+            var idx = array.indexOf([ "type", "focus", "desc" ], from );
+            this._writeLine( "description_text", data.description_text, idx ); // TODO: replace rather than update... but how?
+            this._writeLine( "notes_text", data.notes_text, idx );
+            if( this.getType() && this.getDescriptor() && this.getFocus() )
+            {
+                this._showCharacterData();
+            }
         },
         /**
          * Clears the UI, finds the data for the descriptor, type, and focus the user has picked, enables
@@ -327,10 +367,18 @@ function( declare,
             this.descriptorSelect.disabled = true;
             this.typeSelect.disabled = true;
             this.focusSelect.disabled = true;
+            this.updatePhrase();
+            this.updateLink();
+        },
+        updatePhrase : function()
+        {
+            if( !this.getDescriptor() || !this.getType() || !this.getFocus() )
+            {
+                return;
+            }
             this.phraseDisplayNode.innerHTML = "the " + this.getDescriptor().label + " " + this.getType().label + " who " + this.getFocus().label;
             this.phraseSelectorNode.style.display = "none";
             this.phraseDisplayNode.style.display = "block";
-            this.updateLink();
         },
         /**
          * Adds or removes finalized CSS class, which affects display of contained things.
@@ -375,21 +423,21 @@ function( declare,
          */
         getType : function()
         {
-            return this.types[ this.getSelectValue( this.typeSelect ).value ];
+            return this.types[ this.selectValue( this.typeSelect ).value ];
         },
         /**
          * Returns currently selected descriptor (or undefined if not set).
          */
         getDescriptor : function()
         {
-            return this.descriptors[  this.getSelectValue( this.descriptorSelect ).value ];
+            return this.descriptors[  this.selectValue( this.descriptorSelect ).value ];
         },
         /**
          * Returns currently selected focus (or undefined if not set).
          */
         getFocus : function()
         {
-            return this.foci[  this.getSelectValue( this.focusSelect ).value ];
+            return this.foci[  this.selectValue( this.focusSelect ).value ];
         },
         /**
          * (Re)creates a _CharacterRecord for the record, places it, hides this widget and shows it.
@@ -460,6 +508,20 @@ function( declare,
             this._showHelp( this.changelog );
         },
         /**
+         * Replaces line idx in textarea where with what, or adds it if not present.
+         */
+        _writeLine : function( /* Textarea */ where, /* String */ what, /* int */ idx )
+        {
+            var txt = this[ where ].get( "value" );
+            var ta = txt.split( "\n" );
+            while( ta.length < idx + 1 )
+            {
+                ta.push( "" );
+            }
+            ta[ idx ] = what;
+            this[ where ].set( "value", ta.join( "\n" ) );
+        },
+        /**
          * Appends what to Textarea where on a new line.
          */
         _appendToText : function( /* Textarea */ where, /* String */ what )
@@ -482,11 +544,11 @@ function( declare,
         /**
          * Hides the character generator pane and its main buttons node and resets and shows the splash pane.
          */
-        _hideCharacterData : function()
+        _hideCharacterData : function( /* boolean */ withCurrentSelection )
         {
             this.characterGeneratorPane.domNode.style.visibility = "hidden";
             this.mainButtonsNode.style.visibility = "hidden";
-            this._splashPane.reset();
+            this._splashPane.reset( withCurrentSelection );
             this._splashPane.domNode.style.display = "block";
         },
         /**

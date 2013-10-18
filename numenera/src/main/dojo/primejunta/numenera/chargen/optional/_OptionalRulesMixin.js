@@ -5,44 +5,20 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "./mutant/Mutant",
-         "./customize/CharacterCustomizer" ],
+         "primejunta/cypher/chargen/optional/_OptionalRulesMixin" ],
 function( declare,
           lang,
           Mutant,
-          CharacterCustomizer )
+          _OptionalRulesMixin )
 {
-    return declare([], {
+    return declare([ _OptionalRulesMixin ], {
         /**
          * Called in postCreate. Sets up handler for mutants and a CharacterCustomizer in its node.
          */
         setupOptionals : function()
         {
             var mutant = new Mutant({ manager : this });
-            this._characterCustomizer = new CharacterCustomizer({ manager : this }, this.customizeButtonNode );
-        },
-        /**
-         * Called in _data._getCharacterData. Returns _chararacterCustomizer.getData; will get appended
-         * to data string.
-         */
-        getOptionalData : function()
-        {
-            return this._characterCustomizer.getData();
-        },
-        /**
-         * Inverse of getOptionalData: called in _data._populateFromStoredData. Passes it to
-         * _characterCustomizer for processing.
-         */
-        populateOptionalData : function( kwObj )
-        {
-            this._characterCustomizer.populateFromData( kwObj.cust );
-        },
-        /**
-         * Clears _characterCustomizer.
-         */
-        _clear : function()
-        {
             this.inherited( arguments );
-            this._characterCustomizer.clear();
         }
     });
 });

@@ -16,6 +16,7 @@ define([ "dojo/_base/declare",
          "./data/types",
          "./data/foci",
          "./optional/_OptionalRulesMixin",
+         "./optional/customize/data/advancement",
          "dojo/text!./templates/CharacterGenerator.html",
          "dojo/text!./doc/about.html",
          "dojo/text!./doc/changelog.html" ],
@@ -31,6 +32,7 @@ function( declare,
           types,
           foci,
           _OptionalRulesMixin,
+          customAdvancement,
           template,
           about,
           changelog )
@@ -60,6 +62,10 @@ function( declare,
          * Changelog.
          */
         changelog : changelog,
+        /**
+         * Custom advancement.
+         */
+        customAdvancement : customAdvancement,
         /**
          * Template.
          */

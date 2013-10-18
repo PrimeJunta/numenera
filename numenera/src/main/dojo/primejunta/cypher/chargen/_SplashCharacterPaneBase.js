@@ -89,12 +89,22 @@ function( declare,
         /**
          * Resets selectedIndices to 0.
          */
-        reset : function()
+        reset : function( /* boolean */ withCurrentSelection )
         {
-            this.descriptorSelect.selectedIndex = 0;
-            this.typeSelect.selectedIndex = 0;
-            this.focusSelect.selectedIndex = 0;
-            this.characterNameInput.value = "";
+            if( withCurrentSelection )
+            {
+                this.descriptorSelect.selectedIndex = this.manager.descriptorSelect.selectedIndex;
+                this.typeSelect.selectedIndex = this.manager.typeSelect.selectedIndex;
+                this.focusSelect.selectedIndex = this.manager.focusSelect.selectedIndex;
+                this.characterNameInput.value = this.manager.characterNameInput.value;
+            }
+            else
+            {
+                this.descriptorSelect.selectedIndex = 0;
+                this.typeSelect.selectedIndex = 0;
+                this.focusSelect.selectedIndex = 0;
+                this.characterNameInput.value = "";
+            }
             this.manager.onCharNameBlur( this.characterNameInput );
         }
     });

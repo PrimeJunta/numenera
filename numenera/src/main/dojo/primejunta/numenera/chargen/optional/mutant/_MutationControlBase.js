@@ -57,7 +57,7 @@ function( declare,
             var out = this.baseText;
             if( this.abilityTypeSelect )
             {
-                out += this.getSelectValue( this.abilityTypeSelect ).value;
+                out += this.selectValue( this.abilityTypeSelect ).value;
             }
             out += " " + this.inputNode.value;
             return out;

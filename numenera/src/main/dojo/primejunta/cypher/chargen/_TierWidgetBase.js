@@ -14,6 +14,7 @@ define([ "dojo/_base/declare",
          "dijit/form/ToggleButton",
          "./_ListItem",
          "./_UtilityMixin",
+         "./optional/customize/_CustomFocusAdvancementMixin",
          "./_UnlockableMixin" ],
 function( declare,
           lang,
@@ -28,9 +29,10 @@ function( declare,
           ToggleButton,
           _ListItem,
           _UtilityMixin,
+          _CustomFocusAdvancementMixin,
           _UnlockableMixin )
 {
-    return declare( "primejunta.numenera.chargen._TierWidget", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _UtilityMixin, _UnlockableMixin ], {
+    return declare( "primejunta.numenera.chargen._TierWidget", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _UtilityMixin, _UnlockableMixin, _CustomFocusAdvancementMixin ], {
         /**
          * Default skill name for that perk, if selected.
          */

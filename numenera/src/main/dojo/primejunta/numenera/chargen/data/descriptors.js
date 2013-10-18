@@ -99,7 +99,7 @@ define({
     "D6" : {
         "label" : "Mutant*",
         "notes_text" : "Mutant: Corebook, page 125",
-        "description_text" : "Mutant is an optional descriptor. Ask your GM if they're allowed in your game, and work with him/her to decide on your mutations.\nNote any extra information about your mutations – including cosmetic ones – here.",
+        "description_text" : "Mutant is an optional descriptor. Ask your GM if they're allowed in your game, and work with him/her to decide on your mutations. Note any extra information about your mutations – including cosmetic ones – here.",
         "lists" : {
             "bonus_list" : [ "${select:1:!topic:CharGen/MutationTypeSelected|Ⓜ 2 beneficial mutations|Ⓜ 1 harmful + 3 beneficial mutations|Ⓜ 1 harmful + 1 powerful mutation|Ⓜ 1 harmful + 1 distinctive mutation}",
                              "Ⓜ 0-4 cosmetic mutations" ]

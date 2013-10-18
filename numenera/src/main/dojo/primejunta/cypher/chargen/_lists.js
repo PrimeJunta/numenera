@@ -3,11 +3,17 @@
  */
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
+         "dojo/_base/array",
          "dojo/topic",
+         "dojo/query",
+         "dojo/dom-construct",
          "./_ListItem" ],
 function( declare,
           lang,
+          array,
           topic,
+          domQuery,
+          domConstruct,
           _ListItem )
 {
     return declare([], {
@@ -82,10 +88,53 @@ function( declare,
                 isUnlockable : listName == "special_list" ? true : false,
                 isDeletable : listName == "equipment_list" ? true : false,
                 remainsOpen : ( listName == "equipment_list" || listName == "cypher_list" ) ? true : false
-            }).placeAt( this[ listName ] );
+            });
+            var refNode = this[ listName ];
+            var pos = "last";
+            switch( itemData.from[ 0 ] )
+            {
+                case "type" :
+                    var ndes = domQuery( "li.cg-desc", this[ listName ] );
+                    if( ndes.length == 0 )
+                    {
+                        ndes = domQuery( "li.cg-focus", this[ listName ] );
+                    }
+                    if( ndes.length > 0 )
+                    {
+                        refNode = ndes[ 0 ];
+                        pos = "before";
+                    }
+                    break;
+                case "desc" :
+                    var ndes = domQuery( "li.cg-focus", this[ listName ] );
+                    if( ndes.length > 0 )
+                    {
+                        refNode = ndes[ 0 ];
+                        pos = "before";
+                    }
+                    break;
+                case "focus" :
+                    break;
+                default :
+                    refNode = this[ listName ];
+                    pos = "last";
+            }
+            
+            domConstruct.place( itm.domNode, refNode, pos );
             this._lists[ listName ].push( itm );
             this._controls.push( itm );
             return itm;
+        },
+        removeListItem : function( li )
+        {
+            for( var i = 0; i < this._controls.length; i++ )
+            {
+                if( this._controls[ i ] == li )
+                {
+                    this._controls.splice( i, 1 );
+                    return;
+                }
+            }
         },
         updateCypherList : function()
         {
@@ -131,7 +180,7 @@ function( declare,
             var count = parseInt( count );
             while( this._lists.cypher_list.length < count )
             {
-                this.createListItem( "cypher_list", { text : "${input:GM chooses}", from : "type" });
+                this.createListItem( "cypher_list", { text : "${input:GM chooses}", from : [ "type" ]});
             }
         },
         /**
@@ -189,10 +238,14 @@ function( declare,
             {
                 for( var i = 0; i < this._listdata[ where ].length; i++ )
                 {
-                    if( what.toLowerCase() == this._listdata[ where ][ i ].text.toLowerCase() )
+                    if( this._listdata[ where ][ i ] && what.toLowerCase() == this._listdata[ where ][ i ].text.toLowerCase() )
                     {
                         this._listdata[ where ][ i ].text = "Ⓢ" + what.substring( what.indexOf( "Ⓣ" ) + 1 );
-                        this._listdata[ where ][ i ].from = from;
+                        this._listdata[ where ][ i ].from.push( from );
+                        if( this._listdata[ where ][ i ].widget )
+                        {
+                            this._listdata[ where ][ i ].widget.updateRendering();
+                        }
                         found = true;
                     }
                 }
@@ -203,7 +256,7 @@ function( declare,
                 while( count > 0 )
                 {
                     this._listdata[ where ].push({
-                        from : from,
+                        from : [ from ],
                         text : what
                     });
                     count--;
@@ -213,9 +266,37 @@ function( declare,
             if( !found )
             {
                 this._listdata[ where ].push({
-                    from : from,
+                    from : [ from ],
                     text : what
                 });
+            }
+        },
+        clearItems : function( from )
+        {
+            for( var o in this._listdata )
+            {
+                for( var i = 0; i < this._listdata[ o ].length; i++ )
+                {
+                    var cur = this._listdata[ o ][ i ];
+                    if( cur && array.indexOf( cur.from, from ) != -1 )
+                    {
+                        if( cur.from.length == 1 )
+                        {
+                            if( cur.widget )
+                            {
+                                cur.widget.destroy();
+                            }
+                            this._listdata[ o ].splice( i, 1 );
+                            i--;
+                        }
+                        else
+                        {
+                            cur.from.splice( array.indexOf( cur.from, from ), 1 );
+                            cur.text = "Ⓣ" + cur.text.substring( cur.text.indexOf( "Ⓢ" ) + 1 );
+                            cur.widget.updateRendering();
+                        }
+                    }
+                }
             }
         },
         /**
@@ -223,14 +304,23 @@ function( declare,
          */
         _printLists : function()
         {
-            topic.publish( "CharGen/destroyListItems" ); 
-            this._lists = {};
+            //topic.publish( "CharGen/destroyListItems" ); 
+            if( !this._lists )
+            {
+                this._lists = {};
+            }
             for( var o in this._listdata )
             {
-                this._lists[ o ] = [];
+                if( !this._lists[ o ] )
+                {
+                    this._lists[ o ] = [];
+                }
                 for( var i = 0; i < this._listdata[ o ].length; i++ )
                 {
-                    this.createListItem( o, this._listdata[ o ][ i ] );
+                    if( this._listdata[ o ][ i ] && !this._listdata[ o ][ i ].widget )
+                    {
+                        this._listdata[ o ][ i ].widget = this.createListItem( o, this._listdata[ o ][ i ] );
+                    }
                 }
             }
         }

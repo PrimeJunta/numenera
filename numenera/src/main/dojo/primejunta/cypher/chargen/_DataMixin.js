@@ -14,6 +14,8 @@ define([ "dojo/_base/declare",
          "dojo/topic",
          "dijit/form/Button",
          "dojox/storage",
+         "./_data1",
+         "./_data2",
          "./_CharacterManager" ],
 function( declare,
           lang,
@@ -26,9 +28,11 @@ function( declare,
           topic, 
           Button,
           storage,
+          _data1,
+          _data2,
           _CharacterManager )
 {
-    return declare([], {
+    return declare([ _data1, _data2 ], {
         /**
          * Version of the data format understood by this implementation.
          */
@@ -37,7 +41,8 @@ function( declare,
          * Fields in the character data. There are rather a lot of these. Perhaps for a future version I'll replace
          * them with shorter ones. For now, clarity is king.
          */
-        DATA_FIELDS : [ "version",
+        DATA_FIELDS : {
+            "1.0.0" : [ "version",
                         "descriptor",
                         "type",
                         "focus",
@@ -51,6 +56,21 @@ function( declare,
                         "description_text",
                         "disabled",
                         "deleted" ],
+            "1.1.0" : [ "version",
+                        "descriptor",
+                        "type",
+                        "focus",
+                        "finalized",
+                        "tier",
+                        "cyphers",
+                        "selects",
+                        "inputs",
+                        "extra_equipment_text",
+                        "notes_text",
+                        "description_text",
+                        "disabled",
+                        "deleted" ]
+        },
         /**
          * Character used to break up lists in the data. We picked one that doesn't get escaped when we URL
          * encode it, rather than, say, a comma. This saves space.
@@ -233,182 +253,61 @@ function( declare,
             }
             this.onCharNameBlur( this.characterNameInput )
         },
-        /**
-         * Okay, the beef. Or one of them. We generate the character data with this method. Since we transfer the
-         * data in a URL, we want to keep it as short as possible. This unfortunately means that it's not all that
-         * robust to changes in the underlying framework. The idea is that we read the current selected indexes/values
-         * and disabled states of all our selects/inputs and the deleted states of all controls that can be deleted into
-         * terse parameters. The type, descriptor, and focus selectors and textareas are treated separately. To load
-         * the data back, we reset the controls that affect the content of the page first, then restore the data in
-         * the same order. The big advantage is that we don't have to have attribute names for each input. The downside
-         * is that if we change something about the UI or data that adds or removes inputs or selects or changes their
-         * order, the data won't load correctly.
-         * 
-         * See _populateFromStoredData for details on how this goes the other way.
-         */
         _getCharacterData : function()
         {
-            var sels = domQuery( "select.cg-storeMe", this.domNode );
-            var inps = domQuery( "input.cg-storeMe", this.domNode );
-            var idxs = [];
-            var vals = [];
-            var disb = [];
-            var dels = [];
-            for( var i = 0; i < sels.length; i++ )
-            {
-                idxs.push( sels[ i ].selectedIndex );
-                disb.push( sels[ i ].disabled ? 1 : 0 );
-            }
-            for( var i = 0; i < inps.length; i++ )
-            {
-                if( inps[ i ].type == "checkbox" )
-                {
-                    vals.push( inps[ i ].checked ? "1" : "0" );
-                }
-                else
-                {
-                    vals.push( this._preprocessInput( inps[ i ] ) );
-                }
-                disb.push( inps[ i ].disabled ? 1 : 0 );
-            }
-            for( var i = 0; i < this._controls.length; i++ )
-            {
-                if( this._controls[ i ].isDeletable )
-                {
-                    if( this._controls[ i ].deleted )
-                    {
-                        dels.push( 1 );
-                    }
-                    else
-                    {
-                        dels.push( 0 );
-                    }
-                }
-            }
-            return "version=" + escape( this.DATA_VERSION )
-                + "&descriptor=" + this.getSelectValue( this.descriptorSelect ).value
-                + "&type=" + this.getSelectValue( this.typeSelect ).value
-                + "&focus=" + this.getSelectValue( this.focusSelect ).value
-                + "&finalized=" + this.finalized
-                + "&tier=" + this.statsWidget.character_tier.value
-                + "&cyphers=" + this.statsWidget.cypher_count.value
-                + "&selects=" + encodeURIComponent( idxs.join( this._listDelimiter ) )
-                + "&inputs=" + encodeURIComponent( vals.join( this._listDelimiter ) )
-                + "&extra_equipment_text=" + encodeURIComponent( this.extra_equipment_text.value )
-                + "&notes_text=" + encodeURIComponent( this.notes_text.value )
-                + "&description_text=" + encodeURIComponent( this.description_text.value )
-                + "&img=" + encodeURIComponent( this.statsWidget.portraitWidget.getHref() )
-                + "&disabled=" + disb.join( "" )
-                + "&deleted=" + dels.join( "" )
-                + this.getOptionalData();
+            return this._getCharacterDataV1();
         },
         /**
-         * Validates qString wtih _validateData. Then pushes something into the _populating stack, clearAll, parse out the
-         * data from qString, sets type, descriptor, and focus selectors and augmentCypherList, and finalize to tier from
-         * kwObj.tier, if the character is finalized. At this point we have all the selects and inputs ready to be populated.
-         * Then zips through selects, inputs, disabled, and deleted, and sets the states of the controls accordingly. Then
-         * populates textareas and raises the character's stat floor if s/he is finalized. (If you saved in the middle of
-         * tiering up, too bad, you can't bump the stats back down.) Completes by emitting a pleaseCheckState topic, which
-         * will get any controls on the page to do just that.
+         * Gets populate method for qString with _getPopulateMethod, then runs it if provided.
          */
         _populateFromStoredData : function( /* String */ qString )
         {
-            if( !this._validateData( qString ) )
+            var populateMethod = this._getPopulateMethod( qString );
+            if( !populateMethod )
             {
                 return;
             }
-            this._populating.push( 3 );
-            this.clearAll();
-            var kwObj = ioQuery.queryToObject( qString );
-            if( kwObj.img )
+            else
             {
-                this.statsWidget.portraitWidget.setHref( kwObj.img );
+                lang.hitch( this, populateMethod )( qString );
             }
-            var idxs = kwObj.selects.split( this._listDelimiter );
-            var vals = kwObj.inputs.split( this._listDelimiter );
-            var disb = kwObj.disabled ? kwObj.disabled : "";
-            var dels = kwObj.deleted ? kwObj.deleted : "";
-            this.getSelectValue( this.descriptorSelect, kwObj.descriptor );
-            this.getSelectValue( this.typeSelect, kwObj.type );
-            this.getSelectValue( this.focusSelect, kwObj.focus );
-            this.selectDescriptor();
-            this.augmentCypherList( kwObj.cyphers );
-            if( kwObj.finalized == "true" )
-            {
-                this.finalize( kwObj.tier );
-            }
-            this.populateOptionalData( kwObj );
-            var sels = domQuery( "select.cg-storeMe", this.domNode );
-            var inps = domQuery( "input.cg-storeMe", this.domNode );
-            for( var i = 0; i < idxs.length; i++ )
-            {
-                if( sels[ i ] )
-                {
-                    sels[ i ].selectedIndex = idxs[ i ];
-                    sels[ i ].disabled = ( disb[ i ] == "1" );
-                    if( sels[ i ].getAttribute( "data-parent-widget-id" ) )
-                    {
-                        registry.byId( sels[ i ].getAttribute( "data-parent-widget-id" ) ).selectChanged();
-                        sels = domQuery( "select.cg-storeMe", this.domNode );
-                        inps = domQuery( "input.cg-storeMe", this.domNode );
-                    }
-                }
-                else
-                {
-                    break;
-                }
-            }
-            for( var i = 0; i < vals.length; i++ )
-            {
-                if( inps[ i ] )
-                {
-                    if( inps[ i ].type == "checkbox" )
-                    {
-                        inps[ i ].checked = vals[ i ] == "1" ? true : false;
-                    }
-                    else
-                    {
-                        inps[ i ].value = this._unescapeDelimiter( vals[ i ] );
-                    }
-                    inps[ i ].disabled = ( disb[ sels.length + i ] == "1" )
-                }
-            }
-            if( this.finalized )
-            {
-                this.statsWidget.moveCaps();
-            }
-            this.statsWidget.checkCaps();
-            var d = 0;
-            for( var i = 0; i < this._controls.length; i++ )
-            {
-                if( this._controls[ i ].isDeletable )
-                {
-                    if( dels[ d ] == "1" )
-                    {
-                        this._controls[ i ].deleteMe();
-                    }
-                    d++;
-                }
-            }
-            this.description_text.set( "value", kwObj.description_text );
-            this.notes_text.set( "value", kwObj.notes_text );
-            this.extra_equipment_text.set( "value", kwObj.extra_equipment_text );
-            this._populating.pop();
-            topic.publish( "CharGen/pleaseCheckState" );
         },
         /**
          * Parses qString into a kwObject, then checks that kwObj.version matches DATA_VERSION and that all the fields in DATA_FIELDS
          * are present. Displays a polite alert about the former; throws an exception about the latter.
          */
-        _validateData : function( /* String */ qString )
+        _getPopulateMethod : function( /* String */ qString )
         {
-            var fields = this.DATA_FIELDS;
             var kwObj = ioQuery.queryToObject( qString );
-            if( !this._checkDataVersion( kwObj ) )
+            if( kwObj.version == this.DATA_VERSION )
+            {
+                return this._validateFields( kwObj ) ? this._populateFromDataV1 : false;
+            }
+            else if( kwObj.version == "1.1.0" )
+            {
+                return this._validateFields( kwObj ) ? this._populateFromDataV1 : false;
+            }
+            else if( kwObj.version == "1.0.0" )
+            {
+                if( kwObj.descriptor == "D6" ) // we're incompatible with 1.0.0 mutants
+                {
+                    this.tell( "Mutant characters created with this version of the utility cannot be loaded. We apologize for the inconvenience." );
+                    return false;
+                }
+                else
+                {
+                    return this._validateFields( kwObj ) ? this._populateFromDataV1 : false;
+                }
+            }
+            else
             {
                 this.tell( "The character was created with an incompatible version of this utility, and cannot be loaded. We apologize for the inconvenience." );
                 return false;
             }
+        },
+        _validateFields : function( kwObj )
+        {
+            var fields = this.DATA_FIELDS[ kwObj.version ];
             for( var i = 0; i < fields.length; i++ )
             {
                 if( kwObj[ fields[ i ] ] === undefined )
