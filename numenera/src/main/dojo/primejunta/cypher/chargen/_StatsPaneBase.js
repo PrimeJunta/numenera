@@ -111,17 +111,6 @@ function( declare,
             this.setDisabled([ "increment_" + stat + "_" + prop ], edis );
         },
         /**
-         * Iterates through stats and writes each item's value into the matching input in template.
-         */
-        assignStats : function( /* Object */ stats )
-        {
-            this.baseStats = stats;
-            for( var o in stats )
-            {
-                this._setStat( o, stats[ o ] );
-            }
-        },
-        /**
          * Iterates through stats and adds each item's value to value of matching input in template (as int).
          */
         augmentStats : function( /* Object */ stats )

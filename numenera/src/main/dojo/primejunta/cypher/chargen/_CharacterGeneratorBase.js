@@ -208,7 +208,6 @@ function( declare,
             if( type )
             {
                 this.special_list_label.innerHTML = type.special_list_label;
-                //this.statsWidget.assignStats( type.stats );
                 this._writeSpecialList( type );
             }
             this._printLists();
@@ -257,54 +256,6 @@ function( declare,
             }
         },
         /**
-         * Clears the UI, finds the data for the descriptor, type, and focus the user has picked, enables
-         * edge assignment if the type has free edge to assign, and populates fields and lists from the selected
-         * values. Finally checkCaps to disable increment/decrement controls if they hit ceilings/floors.
-         */
-        updateValues : function()
-        {
-            this._populating.push( 2 );
-            this._clear();
-            var type = this.getType();
-            var desc = this.getDescriptor();
-            var focus = this.getFocus();
-            if( !type || !desc || !focus )
-            {
-                this._populating.pop();
-                return;
-            }
-            else
-            {
-                this._showCharacterData();
-                this.statsWidget.assignStats( type.stats );
-                this._appendToLists( type.lists, "type" );
-                this._writeSpecialList( type );
-                this.special_list_label.innerHTML = type.special_list_label;
-                this._appendToText( "description_text", type.description_text );
-                this._appendToText( "notes_text", type.notes_text );
-            }
-            if( desc )
-            {
-                this.statsWidget.augmentStats( desc.stats );
-                this._appendToLists( desc.lists, "desc" );
-                this._appendToText( "description_text", desc.description_text );
-                this._appendToText( "notes_text", desc.notes_text );
-            }
-            if( focus )
-            {
-                this.statsWidget.augmentStats( focus.advancement[ 0 ].stats );
-                this._appendToLists( focus.lists, "focus" );
-                this._writeBonusList( focus );
-                this._appendToText( "description_text", focus.description_text );
-                this._appendToText( "notes_text", focus.notes_text );
-            }
-            this.statsWidget.checkCaps();
-            this._printLists();
-            this._populating.pop();
-            topic.publish( "CharGen/valuesUpdated" );
-            this.updateLink();
-        },
-        /**
          * If the character passes validation with .validateCharacter, marks it as ready for advacement.
          * This locks the character's basic data and creates an _AdvancementControl. If tier is set (which
          * happens when populating from a saved character, advances the controls to that tier in preparation
@@ -313,10 +264,6 @@ function( declare,
          */
         finalize : function( /* String|int */ tier )
         {
-            try{
-                
-            
-            
             if( !this.validateCharacter() )
             {
                 return;
@@ -346,8 +293,6 @@ function( declare,
             {
                 this.mainTabContainer.selectChild( this._advancementControl )
             }
-            }catch(e){console.log("LOLWUT?",e)}
-
         },
         /**
          * Checks that we're not in the middle of programmatic population; if not, validates the character
@@ -591,6 +536,9 @@ function( declare,
                     this._lists[ o ].pop().destroy();
                 }
             }
+            delete this.current_type;
+            delete this.current_desc;
+            delete this.current_focus;
             this._controls = [];
             this._clearAdvancementControl();
             this.unlockFinalize();
