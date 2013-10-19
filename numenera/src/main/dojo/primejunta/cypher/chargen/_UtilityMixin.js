@@ -177,6 +177,17 @@ function( declare,
             }
             return out;
         },
+        removeListItem : function( li )
+        {
+            for( var i = 0; i < this._controls.length; i++ )
+            {
+                if( this._controls[ i ] == li )
+                {
+                    this._controls.splice( i, 1 );
+                    return;
+                }
+            }
+        },
         /**
          * Toggles the deleted property of every _ListItem in list whose .from property matches from.
          * So you can switch on/off e.g. everything from focus. If the relevant ability is a skill

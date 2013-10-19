@@ -125,17 +125,6 @@ function( declare,
             this._controls.push( itm );
             return itm;
         },
-        removeListItem : function( li )
-        {
-            for( var i = 0; i < this._controls.length; i++ )
-            {
-                if( this._controls[ i ] == li )
-                {
-                    this._controls.splice( i, 1 );
-                    return;
-                }
-            }
-        },
         updateCypherList : function()
         {
             var n = parseInt( this.statsWidget.cypher_count.value );

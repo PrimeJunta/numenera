@@ -26,7 +26,7 @@ function( declare,
         inputValue : "enter the URL of your image",
         portraitHome : "",
         height : 350,
-        portraits : 62,
+        portraits : 0,
         postCreate : function()
         {
             for( var i = 0; i < this.portraits; i++ )

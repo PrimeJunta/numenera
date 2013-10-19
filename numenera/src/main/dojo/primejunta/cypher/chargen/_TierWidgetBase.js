@@ -123,7 +123,11 @@ function( declare,
                     }).placeAt( this.bonusPerksNode ) );
                 }
             }
-            if( this._focusData.bonus_perks )
+            this._writeFocusPerks();
+        },
+        _writeFocusPerks : function()
+        {
+            if( this.tier > 1 && this._focusData.bonus_perks )
             {
                 this.bonusPerksTitleNode.style.display = "block";
                 var bps = this._focusData.bonus_perks;
@@ -310,6 +314,20 @@ function( declare,
             }
             this.normalizeClass( this.inputNode );
             this.checkApplyButton();
+        },
+        changeFocus : function( focusData )
+        {
+            for( var i = 0; i < this._controls.length; i++ )
+            {
+                if( this._controls[ i ].from == "focus" )
+                {
+                    this._controls[ i ].destroy();
+                    i--;
+                }
+            }
+            this.focusData = focusData;
+            this._focusData = this.focusData[ this.tier - 1 ];
+            this._writeFocusPerks();
         },
         /**
          * Have all tier benefits been bought? Returns the answer as boolean.

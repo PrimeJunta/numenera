@@ -226,7 +226,11 @@ function( declare,
         updateFocus : function( focus )
         {
             this._populating.push( 5 );
-            this.updateItems( "focus", focus )
+            this.updateItems( "focus", focus );
+            if( this._advancementControl )
+            {
+                this._advancementControl.changeFocus( focus );
+            }
             if( focus )
             {
                 this._writeBonusList( focus );
@@ -248,7 +252,7 @@ function( declare,
             this[ "current_" + from ] = data;
             this._appendToLists( data.lists, from );
             var idx = array.indexOf([ "type", "focus", "desc" ], from );
-            this._writeLine( "description_text", data.description_text, idx ); // TODO: replace rather than update... but how?
+            this._writeLine( "description_text", data.description_text, idx );
             this._writeLine( "notes_text", data.notes_text, idx );
             if( this.getType() && this.getDescriptor() && this.getFocus() )
             {

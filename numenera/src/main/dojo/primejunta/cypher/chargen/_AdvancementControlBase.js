@@ -81,6 +81,13 @@ function( declare,
             this.manager.statsWidget.character_tier.value = this.tier;
             this.manager.statsWidget.moveCaps();
         },
+        changeFocus : function( focus )
+        {
+            for( var i = 0; i < this._controls.length; i++ )
+            {
+                this._controls[ i ].changeFocus( focus.advancement );
+            }
+        },
         /**
          * Stub. Return TierWidget of the appropriate type.
          */
