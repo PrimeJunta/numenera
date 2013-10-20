@@ -341,7 +341,7 @@ function( declare,
             return this._validator.validateCharacter();
         },
         /**
-         * Locks selects and updates link. Done on finalize.
+         * Locks selects and updates link. Done on finalize and when customizations have been applied.
          */
         lockControls : function()
         {
@@ -351,6 +351,24 @@ function( declare,
             this.updatePhrase();
             this.phraseSelectorNode.style.display = "none";
             this.phraseDisplayNode.style.display = "block";
+            this.updateLink();
+        },
+        /**
+         * When customizations have been un-applied.
+         */
+        unlockControls : function()
+        {
+            if( this.finalized )
+            {
+                // Finalized controls can never be unlocked.
+                return;
+            }
+            this.descriptorSelect.disabled = false;
+            this.typeSelect.disabled = false;
+            this.focusSelect.disabled = false;
+            this.updatePhrase();
+            this.phraseSelectorNode.style.display = "block";
+            this.phraseDisplayNode.style.display = "none";
             this.updateLink();
         },
         updatePhrase : function()

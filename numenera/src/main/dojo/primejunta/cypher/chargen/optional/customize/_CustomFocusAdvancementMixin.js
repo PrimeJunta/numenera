@@ -33,7 +33,7 @@ function( declare,
                 this._toggleDeletedAbilities( this._controls, "focus" );
                 this._perkSelector = new _AlternativePerkSelector({
                     manager : this.manager,
-                    from : "cust",
+                    from : "focus",
                     tier : this.tier,
                     advancement : this.manager.customAdvancement
                 }).placeAt( this.bonusPerksNode );

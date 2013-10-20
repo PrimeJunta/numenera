@@ -56,6 +56,20 @@ function( declare,
             weakness_for_skill : false,
             customize_focus : false
         },
+        _swapAbilityMap : {
+            nano : {
+                c : "Ⓣ Numenera Training",
+                w : "Ⓔ Practiced With Light Weapons"
+            },
+            glaive : {
+                c : "Ⓔ Practiced in Armor",
+                w : "Ⓔ Practiced With All Weapons"
+            },
+            jack : {
+                c : "Ⓔ Flex Skill",
+                w : "Ⓔ Practiced With Light/Medium Weapons"
+            }
+        },
         /**
          * Containers for stored floors, pools, and edges. We tuck them away in case the user changes her mind,
          * in which case we want to reset everything to what they were before she started customizing.
@@ -192,9 +206,9 @@ function( declare,
             {
                 if( this._swappedAbility != abi )
                 {
-                    this._toggleSwapAbility( this.manager.getType().label, this._swappedAbility );
+                    this._toggleSwapAbility( this.manager.getType().id, this._swappedAbility );
                     this._swappedAbility = abi;
-                    this._toggleSwapAbility( this.manager.getType().label, this._swappedAbility );
+                    this._toggleSwapAbility( this.manager.getType().id, this._swappedAbility );
                 }
             }
             if( custs.weakness_for_skill )
@@ -236,10 +250,12 @@ function( declare,
             if( this._hasCustomizations() )
             {
                 domClass.add( this.domNode, "num-selectedButton" );
+                this.manager.lockControls();
             }
             else
             {
                 domClass.remove( this.domNode, "num-selectedButton" );
+                this.manager.unlockControls();
             }
         },
         /**
@@ -272,7 +288,7 @@ function( declare,
             {
                 return;
             }
-            switch( this.manager.getType().label )
+            switch( this.manager.getType().id )
             {
                 case "nano" :
                     nSel.domNode.style.display = "inline-block";
@@ -373,7 +389,6 @@ function( declare,
          */
         clear : function()
         {
-            console.log( "C CLEAR" );
             for( var o in this._customizations )
             {
                 this._customizations[ o ] = false;
@@ -434,27 +449,27 @@ function( declare,
                         break;
                     case "skill_for_cypher" :
                         this.manager.statsWidget.cypher_count.value = parseInt( this.manager.statsWidget.cypher_count.value ) + 1;
-                        this.manager._lists.ability_list[ 0 ].deleteMe();
+                        this.manager._lists.ability_list[ 0 ].toggleDeleted();
                         this.manager.updateCypherList();
                         break;
                     case "cypher_for_skill" : 
                         this.manager.statsWidget.cypher_count.value = parseInt( this.manager.statsWidget.cypher_count.value ) - 1;
-                        this.manager.createListItem( "ability_list", "Ⓣ ${input:choose any non-combat}", "cust" );
+                        this.manager.createListItem( "ability_list", { text : "Ⓣ ${input:choose any non-combat}", from : [ "cust" ] });
                         this.manager.updateCypherList();
                         break;
                     case "ability_for_skill" :
-                        var type = this.manager.getType().label;
+                        var type = this.manager.getType().id;
                         this._toggleSwapAbility( type, abi );
                         this._swappedAbility = abi;
-                        this.manager.createListItem( "ability_list", "Ⓣ ${input:choose any non-combat}", "cust" );
+                        this.manager.createListItem( "ability_list", { text : "Ⓣ ${input:choose any non-combat}", from : [ "cust" ] });
                         break;
                     case "inability_for_skill" :
-                        this.manager.createListItem( "ability_list", "Ⓣ ${input:choose any non-combat}", "cust" );
-                        this._inabilityWidget = this.manager.createListItem( "inability_list", "Ⓘ ${input:enter description}", "cust" );
+                        this.manager.createListItem( "ability_list", { text : "Ⓣ ${input:choose any non-combat}", from : [ "cust" ] });
+                        this._inabilityWidget = this.manager.createListItem( "inability_list", { text : "Ⓘ ${input:enter description}", from : [ "cust" ] });
                         break;
                     case "weakness_for_skill" :
-                        this.manager.createListItem( "ability_list", "Ⓣ ${input:choose any non-combat}", "cust" );
-                        this._weaknessWidget = this.manager.createListItem( "inability_list", "Ⓘ Weakness in " + stat, "cust" );
+                        this.manager.createListItem( "ability_list", { text : "Ⓣ ${input:choose any non-combat}", from : [ "cust" ] });
+                        this._weaknessWidget = this.manager.createListItem( "inability_list", { text : "Ⓘ Weakness in " + stat, from : [ "cust" ] });
                         this._swappedStat = stat;
                         break;
                     case "customize_focus" :
@@ -463,7 +478,7 @@ function( declare,
                         this._toggleDeletedAbilities( this.manager._lists.bonus_list, "focus" );
                         this._perkSelector = new _AlternativePerkSelector({
                             manager : this.manager,
-                            from : "cust",
+                            from : "focus",
                             tier : 1,
                             advancement : this.manager.customAdvancement
                         }).placeAt( this.manager.bonus_list );
@@ -480,7 +495,7 @@ function( declare,
                         lang.mixin( this.manager, this._poolfloors );
                         for( var o in this._pools )
                         {
-                            this.manager[ o ].value = this._pools[ o ];
+                            this.manager.statsWidget[ o ].value = this._pools[ o ];
                         }
                         break;
                         this.manager.statsWidget.checkCaps();
@@ -488,13 +503,13 @@ function( declare,
                         lang.mixin( this.manager, this._edgefloors );
                         for( var o in this._edges )
                         {
-                            this.manager[ o ].value = this._edges[ o ];
+                            this.manager.statsWidget[ o ].value = this._edges[ o ];
                         }
                         this.manager.statsWidget.checkCaps();
                         break;
                     case "skill_for_cypher" :
                         this.manager.statsWidget.cypher_count.value = parseInt( this.manager.statsWidget.cypher_count.value ) - 1;
-                        this.manager._lists.ability_list[ 0 ].deleteMe();
+                        this.manager._lists.ability_list[ 0 ].toggleDeleted();
                         this.manager.updateCypherList();
                         break;
                     case "cypher_for_skill" :
@@ -503,7 +518,7 @@ function( declare,
                         this.manager.updateCypherList();
                         break;
                     case "ability_for_skill" :
-                        var type = this.manager.getType().label;
+                        var type = this.manager.getType().id;
                         this._toggleSwapAbility( type, abi );
                         this.manager._lists.ability_list.pop().destroy();
                         break;
@@ -517,11 +532,11 @@ function( declare,
                         this._swappedStat = false;
                         break;
                     case "customize_focus" :
+                        this._perkSelector.destroy();
                         this._toggleDeletedAbilities( this.manager._lists.ability_list, "focus" );
                         this._toggleDeletedAbilities( this.manager._lists.special_list, "focus" );
                         this._toggleDeletedAbilities( this.manager._lists.bonus_list, "focus" );
                         this.manager.statsWidget.augmentStats( this.manager.getFocus().advancement[ 0 ].stats );
-                        this._perkSelector.destroy();
                         break;
                 }
             }
@@ -531,7 +546,7 @@ function( declare,
          */
         _getAbilityToSwap : function()
         {
-            var type = this.manager.getType().label;
+            var type = this.manager.getType().id;
             var mySel = registry.byId( type + "Ability" );
             return mySel ? mySel.get( "value" ) : "c";
         },
@@ -548,26 +563,14 @@ function( declare,
          */
         _toggleSwapAbility : function( type, abi )
         {
-            if( type == "glaive" || type == "jack" )
+            var _abi = this._swapAbilityMap[ type ][ abi ];
+            console.log( _abi );
+            for( var i = 0; i < this.manager._controls.length; i++ )
             {
-                if( abi == "c" )
+                var cur = this.manager._controls[ i ];
+                if( cur.getText() == _abi )
                 {
-                    this.manager._lists.bonus_list[ 0 ].deleteMe();
-                }
-                else
-                {
-                    this.manager._lists.bonus_list[ 1 ].deleteMe();
-                }
-            }
-            else
-            {
-                if( abi == "c" )
-                {
-                    this.manager._lists.ability_list[ 0 ].deleteMe();
-                }
-                else
-                {
-                    this.manager._lists.bonus_list[ 0 ].deleteMe();
+                    cur.toggleDeleted();
                 }
             }
         },

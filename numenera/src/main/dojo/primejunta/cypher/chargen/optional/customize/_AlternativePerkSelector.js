@@ -19,7 +19,7 @@ function( declare,
           _TemplatedMixin,
           template )
 {
-    return declare([ _WidgetBase, _TemplatedMixin, _UtilityMixin ], {
+    return declare( "primejunta/cypher/chargen/optional/customize/_AlternativePerkSelector", [ _WidgetBase, _TemplatedMixin, _UtilityMixin ], {
         /**
          * Owner CharacterGenerator.
          */
@@ -88,6 +88,10 @@ function( declare,
                 this.inputNode.value = "";
                 this.inputWrapper.style.display = "none";
             }
+            if( this.selectNode.disabled )
+            {
+                this._disableSelect( "selectNode", true );
+            }
         },
         /**
          * Disables input and select node.
@@ -95,7 +99,7 @@ function( declare,
         lockControls : function()
         {
             this.inputNode.disabled = true;
-            this.selectNode.disabled = true;
+            this._disableSelect( "selectNode", true );
         },
         /**
          * Removes subscriptions, and inherited.
@@ -106,7 +110,14 @@ function( declare,
             {
                 this._subs.pop().remove();
             }
+            this.manager.removeListItem( this );
             this.inherited( arguments );
+        },
+        toggleDeleted : function()
+        {
+        },
+        deleteMe : function()
+        {
         },
         /**
          * If the previous selection was Self-Improvement, subtracts 6 from free_pool, checkCaps, and checkState.

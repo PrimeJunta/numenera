@@ -317,9 +317,13 @@ function( declare,
         },
         changeFocus : function( focusData )
         {
+            var doCustomize = false, disableAltPerkSelector = false, selectedPerk = 0;
             if( this.customize )
             {
-                return;
+                disableAltPerkSelector = this._tierChoicesMade();
+                selectedPerk = this._perkSelector.selectNode.selectedIndex;
+                this.customizeFocus();
+                doCustomize = true;
             }
             for( var i = 0; i < this._controls.length; i++ )
             {
@@ -332,6 +336,15 @@ function( declare,
             this.focusData = focusData;
             this._focusData = this.focusData[ this.tier - 1 ];
             this._writeFocusPerks();
+            if( doCustomize )
+            {
+                this.customizeFocus();
+                this._perkSelector.selectNode.selectedIndex = selectedPerk;
+                if( disableAltPerkSelector )
+                {
+                    this._perkSelector.lockControls();
+                }
+            }
         },
         /**
          * Have all tier benefits been bought? Returns the answer as boolean.

@@ -36,7 +36,7 @@ function( declare,
           templateInput,
           templateSelectInput )
 {
-    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _UtilityMixin, _UnlockableMixin ], {
+    return declare( "primejunta/cypher/chargen/_ListItem", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _UtilityMixin, _UnlockableMixin ], {
         /**
          * Template
          */
@@ -180,19 +180,28 @@ function( declare,
          * Toggles deleted property and corresponding CSS class. Deleted items will not show up 
          * on the character sheet, but you can always un-delete them.
          */
-        deleteMe : function()
+        toggleDeleted : function()
         {
             if( this.deleted )
             {
-                this.deleted = false;
-                domClass.remove( this.domNode, "num-deletedItem" );
+                this.unDeleteMe();
             }
             else
             {
-                this.deleted = true;
-                domClass.add( this.domNode, "num-deletedItem" );
+                this.deleteMe();
             }
-            this.deleteControl.checked = this.deleted ? false : true;
+        },
+        deleteMe : function()
+        {
+            this.deleted = true;
+            domClass.add( this.domNode, "num-deletedItem" );
+            this.deleteControl.checked = false;
+        },
+        unDeleteMe : function()
+        {
+            this.deleted = false;
+            domClass.remove( this.domNode, "num-deletedItem" );
+            this.deleteControl.checked = true;
         },
         /**
          * Disables inputNode unless remainsOpen is set.

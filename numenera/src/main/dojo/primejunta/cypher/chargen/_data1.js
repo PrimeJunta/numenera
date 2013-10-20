@@ -166,7 +166,7 @@ function( declare,
                 {
                     if( dels[ d ] == "1" )
                     {
-                        this._controls[ i ].deleteMe();
+                        this._controls[ i ].toggleDeleted();
                     }
                     d++;
                 }

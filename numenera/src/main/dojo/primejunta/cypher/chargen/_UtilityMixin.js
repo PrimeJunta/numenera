@@ -215,7 +215,14 @@ function( declare,
                     }
                     else
                     {
-                        cur.deleteMe();
+                        if( cur.toggleDeleted )
+                        {
+                            cur.toggleDeleted();
+                        }
+                        else
+                        {
+                            console.log( "WHAT IS THIS I DONT EVEN", cur, list, from );
+                        }
                     }
                 }
             }
