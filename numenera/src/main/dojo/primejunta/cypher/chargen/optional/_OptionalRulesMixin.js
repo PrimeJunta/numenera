@@ -4,9 +4,11 @@
  */
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
+         "./mutant/Mutant",
          "./customize/CharacterCustomizer" ],
 function( declare,
           lang,
+          Mutant,
           CharacterCustomizer )
 {
     return declare([], {
@@ -15,6 +17,7 @@ function( declare,
          */
         setupOptionals : function()
         {
+            this._mutant = new Mutant({ manager : this });
             this._characterCustomizer = new CharacterCustomizer({ manager : this }, this.customizeButtonNode );
         },
         /**

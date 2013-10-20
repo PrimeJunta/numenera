@@ -4,21 +4,14 @@
  */
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
-         "./mutant/Mutant",
+         "./mutant/data/mutations",
          "primejunta/cypher/chargen/optional/_OptionalRulesMixin" ],
 function( declare,
           lang,
-          Mutant,
+          mutations,
           _OptionalRulesMixin )
 {
     return declare([ _OptionalRulesMixin ], {
-        /**
-         * Called in postCreate. Sets up handler for mutants and a CharacterCustomizer in its node.
-         */
-        setupOptionals : function()
-        {
-            var mutant = new Mutant({ manager : this });
-            this.inherited( arguments );
-        }
+        mutationData : mutations
     });
 });

@@ -5,13 +5,11 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "dojo/topic",
-         "./data/mutations",
          "dijit/_WidgetBase",
          "primejunta/cypher/chargen/_UtilityMixin" ],
 function( declare,
           lang,
           topic,
-          mutations,
           _WidgetBase,
           _UtilityMixin )
 {
@@ -108,7 +106,7 @@ function( declare,
         randomizeMutation : function()
         {
             var n = Math.floor( Math.random() * 100 ) + 1;
-            var itms = mutations[ this.type ];
+            var itms = this.manager.mutationData[ this.type ];
             var mutation;
             for( var i = 0; i < itms.length; i++ )
             {
