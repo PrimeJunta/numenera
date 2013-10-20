@@ -81,6 +81,6 @@ function( declare,
         {
             this._splashPane.reset( withCurrentSelection );
             return this.transitionTo([ this._splashPane.domNode ]);
-        },
+        }
     });
 });

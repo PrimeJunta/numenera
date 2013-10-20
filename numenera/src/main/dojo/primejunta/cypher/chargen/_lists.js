@@ -286,6 +286,10 @@ function( declare,
                         }
                     }
                 }
+                if( this._listdata[ o ].length == 0 )
+                {
+                    this[ o + "_label" ].style.display = "none";
+                }
             }
         },
         /**
