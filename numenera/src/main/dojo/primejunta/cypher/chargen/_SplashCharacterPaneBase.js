@@ -31,6 +31,10 @@ function( declare,
             on( this.characterNameInput, "change", lang.hitch( this, this.updateCharName ) );
             on( this.characterNameInput, "focus", lang.hitch( this.manager, this.manager.onCharNameFocus, this.characterNameInput ) );
             on( this.characterNameInput, "blur", lang.hitch( this.manager, this.manager.onCharNameBlur, this.characterNameInput ) );
+            this.writePhraseSelects();
+        },
+        writePhraseSelects : function()
+        {
             this.descriptorSelect.innerHTML = this.manager.descriptorSelect.innerHTML;
             this.typeSelect.innerHTML = this.manager.typeSelect.innerHTML;
             this.focusSelect.innerHTML = this.manager.focusSelect.innerHTML;
@@ -100,6 +104,7 @@ function( declare,
             }
             else
             {
+                this.writePhraseSelects();
                 this.descriptorSelect.selectedIndex = 0;
                 this.typeSelect.selectedIndex = 0;
                 this.focusSelect.selectedIndex = 0;

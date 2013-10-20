@@ -29,10 +29,8 @@ function( declare,
         portraits : 0,
         postCreate : function()
         {
-            for( var i = 0; i < this.portraits; i++ )
-            {
-                var iw = new _PortraitSelector({ manager : this, src : this.portraitHome + "/p" + i + ".png" }).placeAt( this.imageList );
-            }
+            topic.subscribe( "CharGen/pleaseReset", lang.hitch( this, this.clear ) );
+            setTimeout( lang.hitch( this, this._populateGallery ), 1000 );
         },
         openSelector : function()
         {
@@ -111,6 +109,13 @@ function( declare,
             this.imageNode.setAttribute( "src", "" );
             this.inputContainer.style.display = "block";
             this.imageContainer.style.display = "none";
+        },
+        _populateGallery : function()
+        {
+            for( var i = 0; i < this.portraits; i++ )
+            {
+                var iw = new _PortraitSelector({ manager : this, src : this.portraitHome + "/p" + i + ".png" }).placeAt( this.imageList );
+            }
         }
     });
 });

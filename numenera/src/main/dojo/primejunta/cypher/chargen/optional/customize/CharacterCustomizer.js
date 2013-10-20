@@ -83,7 +83,7 @@ function( declare,
             topic.subscribe( "CharGen/lockSheetControls", lang.hitch( this, function() {
                 this.domNode.style.display = "none";
             }));
-            topic.subscribe( "CharGen/valuesUpdated", lang.hitch( this, function() {
+            topic.subscribe( "CharGen/pleaseReset", lang.hitch( this, function() {
                 this.domNode.style.display = "inline-block";
             }));
             topic.subscribe( "CharGen/pleaseCheckState", lang.hitch( this, this.checkState ) );
@@ -373,6 +373,7 @@ function( declare,
          */
         clear : function()
         {
+            console.log( "C CLEAR" );
             for( var o in this._customizations )
             {
                 this._customizations[ o ] = false;

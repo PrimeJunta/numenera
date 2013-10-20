@@ -4,8 +4,9 @@ define([ "dojo/_base/declare",
          "dojo/query",
          "dojo/has",
          "dojo/on",
+         "dojo/_base/fx",
          "dojo/text!./cypher/doc/licenses.html" ],
-function( declare, lang, domConstruct, domQuery, has, on, licenses )
+function( declare, lang, domConstruct, domQuery, has, on, fx, licenses )
 {
     return declare([], {
         setup : function()
@@ -38,10 +39,16 @@ function( declare, lang, domConstruct, domQuery, has, on, licenses )
         },
         start : function()
         {
-            var loaderNode = domQuery( "div.num-noJavaScript" )[ 0 ];
-            loaderNode.style.display = "none";
-            this.domNode.style.display = "block";
-            this.waitForLayout();
+            this._loaderNode = domQuery( "div.num-noJavaScript" )[ 0 ];
+            fx.fadeOut({
+                node : this._loaderNode,
+                onEnd : lang.hitch( this, this.doStart )
+            }).play();
+        },
+        doStart : function()
+        {
+            this._loaderNode.style.display = "none";
+            fx.fadeIn({ node : this.domNode }).play();
         },
         /**
          * Workaround for minor rendering glitch on iPad Chrome and Safari: the main tab container's content pane is not 

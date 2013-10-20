@@ -135,7 +135,7 @@ function( declare,
                 errs.push( "Please choose all your skills." );
             }
             // Look for duplicate perks.
-            var _plist = this.exceptions.stacking_abilities;
+            var _plist = this.manager.featStackingExceptions.stacking_abilities;
             for( var i = 1; i < _sl.length; i++ )
             {
                 if( _sl[ i ] == _sl[ i - 1 ] && array.indexOf( _plist, _sl[ i ] ) == -1 )
@@ -200,8 +200,8 @@ function( declare,
         {
             try
             {
-                if( this.exceptions[ defenseSkill ].descriptors && this.exceptions[ defenseSkill ].descriptors[ this._cdata.character_descriptor ] <= this._cdata.character_tier 
-                        || this.exceptions[ defenseSkill ].foci && this.exceptions[ defenseSkill ].foci[ this._cdata.character_focus ] <= this._cdata.character_tier )
+                if( this.manager.featStackingExceptions[ defenseSkill ].descriptors && this.manager.featStackingExceptions[ defenseSkill ].descriptors[ this._cdata.character_descriptor ] <= this._cdata.character_tier 
+                        || this.manager.featStackingExceptions[ defenseSkill ].foci && this.manager.featStackingExceptions[ defenseSkill ].foci[ this._cdata.character_focus ] <= this._cdata.character_tier )
                 {
                     return true;
                 }
@@ -357,16 +357,16 @@ function( declare,
                 if( eq[ i ].indexOf( wms ) != -1 )
                 {
                     this._cdata.chosen_weapon = string.trim( eq[ i ].substring( wms.length ) ).toLowerCase();
-                    boosts = lang.mixin( boosts, this.feats.attack_adjustments[ "Ⓔ Weapon Master" ] );
+                    boosts = lang.mixin( boosts, this.manager.featAdjustments.attack_adjustments[ "Ⓔ Weapon Master" ] );
                 }
             }
             // Bonuses from special abilities.
-            for( var o in this.feats.attack_adjustments )
+            for( var o in this.manager.featAdjustments.attack_adjustments )
             {
                 var count = this._has( o );
                 if( count > 0 )
                 {
-                    boosts = this._merge( boosts, this.feats.attack_adjustments[ o ], 2 );
+                    boosts = this._merge( boosts, this.manager.featAdjustments.attack_adjustments[ o ], 2 );
                 }
             }
             // training
@@ -436,12 +436,12 @@ function( declare,
                     pBase--;
                 }
             }
-            for( var o in this.feats.armor_adjustments )
+            for( var o in this.manager.featAdjustments.armor_adjustments )
             {
                 if( this._has( o ) )
                 {
-                    aBase += this.feats.armor_adjustments[ o ].armor_adjustment ? this.feats.armor_adjustments[ o ].armor_adjustment : 0;
-                    pBase += this.feats.armor_adjustments[ o ].armor_penalty_adjustment ? this.feats.armor_adjustments[ o ].armor_penalty_adjustment : 0;
+                    aBase += this.manager.featAdjustments.armor_adjustments[ o ].armor_adjustment ? this.manager.featAdjustments.armor_adjustments[ o ].armor_adjustment : 0;
+                    pBase += this.manager.featAdjustments.armor_adjustments[ o ].armor_penalty_adjustment ? this.manager.featAdjustments.armor_adjustments[ o ].armor_penalty_adjustment : 0;
                 }
             }
             this._cdata.armor_value_none = aBase;

@@ -7,6 +7,8 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "dojo/_base/array",
+         "dojo/_base/fx",
+         "dojo/Deferred",
          "dojo/io-query",
          "dojo/on",
          "dojo/topic",
@@ -22,15 +24,19 @@ define([ "dojo/_base/declare",
          "dijit/form/Button",
          "dijit/form/Textarea",
          "primejunta/_StartupMixin",
+         "./_CharacterValidator",
          "./_UtilityMixin",
          "./_DataMixin",
          "./_lists",
+         "./_transitions",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin" ],
 function( declare,
           lang,
           array,
+          fx,
+          Deferred,
           ioQuery,
           on,
           topic,
@@ -46,14 +52,16 @@ function( declare,
           Button,
           Textarea,
           _StartupMixin,
+          _CharacterValidator,
           _UtilityMixin,
           _DataMixin,
           _lists,
+          _transitions,
           _WidgetBase,
           _TemplatedMixin,
           _WidgetsInTemplateMixin )
 {
-    return declare( "primejunta/numenera/chargen/_CharacterGeneratorBase", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _StartupMixin, _UtilityMixin, _DataMixin, _lists ], {
+    return declare( "primejunta/numenera/chargen/_CharacterGeneratorBase", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _StartupMixin, _UtilityMixin, _DataMixin, _lists, _transitions ], {
         /**
          * Default title.
          */
@@ -92,11 +100,11 @@ function( declare,
             this._populating = [];
             this._controls = [];
             this.setupOptionals(); // from optionals
-            this.initializeSelect( "descriptorSelect", this.descriptors, true );
-            this.initializeSelect( "typeSelect", this.types );
-            this.initializeSelect( "focusSelect", this.foci );
             this.statsWidget.manager = this;
+            this.writePhraseSelects();
             this._splashPane = this.createSplashCharacterPane({ manager : this }).placeAt( this.domNode );
+            this._currentNodes = [ this._splashPane.domNode ];
+            this.mainNodes = [ this.mainButtonsNode, this.characterGeneratorPane.domNode ];
             on( this.characterNameInput, "keydown", lang.hitch( this, this.normalizeClass, this.characterNameInput ) );
             on( this.characterNameInput, "click", lang.hitch( this, this.onCharNameFocus, this.characterNameInput ) );
             on( this.characterNameInput, "change", lang.hitch( this, this.updateLink ) );
@@ -109,6 +117,12 @@ function( declare,
             this.inherited( arguments );
             this.checkForStartupQuery();
             this.start();
+        },
+        writePhraseSelects : function()
+        {
+            this.initializeSelect( "descriptorSelect", this.descriptors );
+            this.initializeSelect( "typeSelect", this.types );
+            this.initializeSelect( "focusSelect", this.foci );
         },
         /**
          * Stub. Create and return a SplashCharacterPane of the appropriate type.
@@ -133,6 +147,7 @@ function( declare,
          */
         createCharacterValidator : function( props )
         {
+            return new _CharacterValidator( props );
         },
         /**
          * If the char name has not been set, clear the field and normalizeClass.
@@ -171,6 +186,7 @@ function( declare,
         initializeSelect : function( /* String */ select, /* Object[] */ data )
         {
             var sel = this[ select ];
+            sel.options.length = 1;
             for( var o in data )
             {
                 var opt = new Option( data[ o ].label, o );
@@ -419,6 +435,12 @@ function( declare,
          */
         clearAll : function()
         {
+            var deferred = new Deferred();
+            this._hideCharacterData().then( lang.hitch( this, this.doClearAll, deferred ) );
+            return deferred;
+        },
+        doClearAll : function( deferred )
+        {
             this._clear();
             this.descriptorSelect.selectedIndex = 0;
             this.typeSelect.selectedIndex = 0;
@@ -430,8 +452,11 @@ function( declare,
             this.normalizeClass( this.characterNameInput );
             this.setDisabled([ "saveButton", "printButton" ], true );
             this.mainTabContainer.selectChild( this.abilityPane );
-            this.statsWidget.portraitWidget.clear();
-            this._hideCharacterData();
+            topic.publish( "CharGen/pleaseReset" );
+            if( deferred )
+            {
+                deferred.resolve();
+            }
         },
         /**
          * Kinder, gentler alert.
@@ -485,26 +510,6 @@ function( declare,
             {
                 this[ where ].set( "value", this[ where ].get( "value" ) + what + "\n" );
             }
-        },
-        /**
-         * Hides the splash pane and shows the character generator pane and its main buttons node.
-         */
-        _showCharacterData : function()
-        {
-            this._kick();
-            this._splashPane.domNode.style.display = "none";
-            this.characterGeneratorPane.domNode.style.visibility = "visible";
-            this.mainButtonsNode.style.visibility = "visible";
-        },
-        /**
-         * Hides the character generator pane and its main buttons node and resets and shows the splash pane.
-         */
-        _hideCharacterData : function( /* boolean */ withCurrentSelection )
-        {
-            this.characterGeneratorPane.domNode.style.visibility = "hidden";
-            this.mainButtonsNode.style.visibility = "hidden";
-            this._splashPane.reset( withCurrentSelection );
-            this._splashPane.domNode.style.display = "block";
         },
         /**
          * Removes _advancementControl from mainTabContainer, destroys it, and clears pointer to it.

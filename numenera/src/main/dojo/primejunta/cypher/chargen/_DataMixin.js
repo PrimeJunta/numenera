@@ -8,6 +8,7 @@ define([ "dojo/_base/declare",
          "dojo/dom-construct",
          "dojo/io-query",
          "dojo/query",
+         "dojo/Deferred",
          "dijit/Dialog",
          "dijit/registry",
          "dojo/on",
@@ -22,6 +23,7 @@ function( declare,
           domConstruct,
           ioQuery,
           domQuery,
+          Deferred,
           Dialog,
           registry,
           on,
@@ -263,14 +265,19 @@ function( declare,
         _populateFromStoredData : function( /* String */ qString )
         {
             this._populating.push( 3 );
-            this.clearAll();
-            var populateMethod = this._getPopulateMethod( qString );
-            if( populateMethod )
+            this.transitionOut( this._currentNodes ).then( lang.hitch( this, function()
             {
-                lang.hitch( this, populateMethod )( qString );
-            }
-            this._populating.pop();
-            topic.publish( "CharGen/pleaseCheckState" );
+                this.doClearAll();
+                var populateMethod = this._getPopulateMethod( qString );
+                if( populateMethod )
+                {
+                    this._prepareCharacterLoad( qString );
+                    lang.hitch( this, populateMethod )( qString );
+                }
+                this._populating.pop();
+                topic.publish( "CharGen/pleaseCheckState" );
+                this.transitionIn( this.mainNodes );
+            }));
         },
         /**
          * Parses qString into a kwObject, then checks that kwObj.version matches DATA_VERSION and that all the fields in DATA_FIELDS
@@ -316,6 +323,9 @@ function( declare,
                 }
             }
             return true;
+        },
+        _prepareCharacterLoad : function( qString )
+        {
         },
         /**
          * Checks kwObj.version and other features in it to check if the data can be loaded, and returns true or false accordingly.

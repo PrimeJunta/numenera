@@ -1,10 +1,12 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
+         "dijit/registry",
          "dojo/topic",
          "dojo/io-query",
          "dojo/query" ],
 function( declare,
           lang,
+          registry,
           topic,
           ioQuery,
           domQuery )

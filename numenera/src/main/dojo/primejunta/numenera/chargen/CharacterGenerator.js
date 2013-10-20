@@ -11,10 +11,11 @@ define([ "dojo/_base/declare",
          "./_SplashCharacterPane",
          "./_CharacterRecord",
          "./_AdvancementControl",
-         "./_CharacterValidator",
          "./data/descriptors",
          "./data/types",
          "./data/foci",
+         "./data/feats",
+         "./data/exceptions",
          "./optional/_OptionalRulesMixin",
          "./optional/customize/data/advancement",
          "dojo/text!./templates/CharacterGenerator.html",
@@ -27,10 +28,11 @@ function( declare,
           _SplashCharacterPane,
           _CharacterRecord,
           _AdvancementControl,
-          _CharacterValidator,
           descriptors,
           types,
           foci,
+          featAdjustments,
+          featStackingExceptions,
           _OptionalRulesMixin,
           customAdvancement,
           template,
@@ -54,6 +56,8 @@ function( declare,
          * Focus data.
          */
         foci : foci,
+        featAdjustments : featAdjustments,
+        featStackingExceptions : featStackingExceptions,
         /**
          * General info.
          */
@@ -88,10 +92,6 @@ function( declare,
         createAdvancementControl : function( props )
         {
             return new _AdvancementControl( props );
-        },
-        createCharacterValidator : function( props )
-        {
-            return new _CharacterValidator( props );
         }
     });
 });
