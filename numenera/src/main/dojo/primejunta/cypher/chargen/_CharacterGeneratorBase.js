@@ -209,6 +209,7 @@ function( declare,
             }
             this._splashPane.articleNode.innerHTML = _art;
             this.updateItems( "desc", this.getDescriptor() );
+            this.updateStats();
             this._printLists();
             this._populating.pop();
             this.updateLink();
@@ -221,6 +222,7 @@ function( declare,
             this._populating.push( 4 );
             var type = this.getType();
             this.updateItems( "type", type );
+            this.updateStats();
             if( type )
             {
                 this.special_list_label.innerHTML = type.special_list_label;
@@ -229,6 +231,14 @@ function( declare,
             this._printLists();
             this._populating.pop();
             this.updateLink();
+        },
+        updateStats : function()
+        {
+            this.statsWidget.resetStats();
+            this.statsWidget.applyAdjustments( this.getType() );
+            this.statsWidget.moveCaps();
+            this.statsWidget.applyAdjustments( this.getFocus() );
+            this.statsWidget.applyAdjustments( this.getDescriptor() );
         },
         /**
          * Triggered when the user selects a focus. Does updateValues and completes with updateLink.

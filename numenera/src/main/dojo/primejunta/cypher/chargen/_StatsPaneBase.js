@@ -110,6 +110,23 @@ function( declare,
             this.setDisabled([ "decrement_" + stat + "_" + prop ], ddis );
             this.setDisabled([ "increment_" + stat + "_" + prop ], edis );
         },
+        resetStats : function()
+        {
+            this.might_pool.value = 0;
+            this.speed_pool.value = 0;
+            this.intellect_pool.value = 0;
+            this.might_edge.value = 0;
+            this.speed_edge.value = 0;
+            this.intellect_edge.value = 0;
+            this.free_pool.value = 0;
+            this.free_edge.value = 0;
+            this.character_tier.value = 0;
+            this.character_effort.value = 0;
+            this.shin_count.value = 0;
+            this.cypher_count.value = 0;
+            this.armor_bonus.value = 0;
+            this.recovery_roll.value = 0;
+        },
         /**
          * Iterates through stats and adds each item's value to value of matching input in template (as int).
          */
@@ -139,6 +156,7 @@ function( declare,
                     this.augmentStats( data.advancement[ i ].stats );
                 }
             }
+            this.checkCaps();
         },
         undoAdjustments : function( /* Object */ data )
         {
@@ -155,6 +173,7 @@ function( declare,
                     this.augmentStats( this.invertStats( data.advancement[ i ].stats ) );
                 }
             }
+            this.checkCaps();
         },
         _augmentStat : function( stat, by )
         {

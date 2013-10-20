@@ -317,6 +317,10 @@ function( declare,
         },
         changeFocus : function( focusData )
         {
+            if( this.customize )
+            {
+                return;
+            }
             for( var i = 0; i < this._controls.length; i++ )
             {
                 if( this._controls[ i ].from == "focus" )
