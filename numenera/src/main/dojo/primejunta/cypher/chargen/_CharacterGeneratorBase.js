@@ -29,6 +29,7 @@ define([ "dojo/_base/declare",
          "./_DataMixin",
          "./_lists",
          "./_transitions",
+         "./optional/_OptionalRulesMixin",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin" ],
@@ -57,11 +58,12 @@ function( declare,
           _DataMixin,
           _lists,
           _transitions,
+          _OptionalRulesMixin,
           _WidgetBase,
           _TemplatedMixin,
           _WidgetsInTemplateMixin )
 {
-    return declare( "primejunta/numenera/chargen/_CharacterGeneratorBase", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _StartupMixin, _UtilityMixin, _DataMixin, _lists, _transitions ], {
+    return declare( "primejunta/numenera/chargen/_CharacterGeneratorBase", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _StartupMixin, _UtilityMixin, _DataMixin, _lists, _transitions, _OptionalRulesMixin ], {
         /**
          * Default title.
          */

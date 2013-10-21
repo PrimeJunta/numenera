@@ -177,14 +177,19 @@ function( declare,
             }
             return out;
         },
-        removeListItem : function( li )
+        removeMember : function( arr, member )
         {
-            for( var i = 0; i < this._controls.length; i++ )
+            if( !arr )
             {
-                if( this._controls[ i ] == li )
+                console.log( "No array for", member );
+                return;
+            }
+            for( var i = 0; i < arr.length; i++ )
+            {
+                if( arr[ i ] == member )
                 {
-                    this._controls.splice( i, 1 );
-                    // TODO: remove list label if list is now empty
+                    arr.splice( i, 1 );
+                    return;
                 }
             }
         },

@@ -6,24 +6,16 @@ define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "dojo/dom-class",
          "dojo/topic",
-         "primejunta/cypher/chargen/_UtilityMixin",
-         "dijit/_WidgetBase",
-         "dijit/_TemplatedMixin",
+         "primejunta/cypher/chargen/_ListItemBase",
          "dojo/text!./templates/_AlternativePerkSelector.html" ],
 function( declare,
           lang,
           domClass,
           topic,
-          _UtilityMixin,
-          _WidgetBase,
-          _TemplatedMixin,
+          _ListItemBase,
           template )
 {
-    return declare( "primejunta/cypher/chargen/optional/customize/_AlternativePerkSelector", [ _WidgetBase, _TemplatedMixin, _UtilityMixin ], {
-        /**
-         * Owner CharacterGenerator.
-         */
-        manager : {},
+    return declare( "primejunta/cypher/chargen/optional/customize/_AlternativePerkSelector", [ _ListItemBase ], {
         /**
          * Default value for (skill) input.
          */
@@ -40,16 +32,8 @@ function( declare,
          * Tier.
          */
         tier : 1,
-        /**
-         * Subscribes to pleaseCheckState and lockSheetControls with checkState and
-         * lockControls, respectively.
-         */
-        postMixInProperties : function()
-        {
-            this._subs = [];
-            this._subs.push( topic.subscribe( "CharGen/pleaseCheckState", lang.hitch( this, this.checkState ) ) );
-            this._subs.push( topic.subscribe( "CharGen/lockSheetControls", lang.hitch( this, this.lockControls ) ) );
-        },
+        hasInput : true,
+        hasSelect : true,
         /**
          * Calls populatePerkSelector on this.advancement, tier, and selectNode.
          */
@@ -92,32 +76,6 @@ function( declare,
             {
                 this._disableSelect( "selectNode", true );
             }
-        },
-        /**
-         * Disables input and select node.
-         */
-        lockControls : function()
-        {
-            this.inputNode.disabled = true;
-            this._disableSelect( "selectNode", true );
-        },
-        /**
-         * Removes subscriptions, and inherited.
-         */
-        destroy : function()
-        {
-            while( this._subs.length > 0 )
-            {
-                this._subs.pop().remove();
-            }
-            this.manager.removeListItem( this );
-            this.inherited( arguments );
-        },
-        toggleDeleted : function()
-        {
-        },
-        deleteMe : function()
-        {
         },
         /**
          * If the previous selection was Self-Improvement, subtracts 6 from free_pool, checkCaps, and checkState.

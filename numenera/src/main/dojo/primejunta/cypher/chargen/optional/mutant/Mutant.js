@@ -103,11 +103,9 @@ function( declare,
             for( var i = 0; i < n; i++ )
             {
                 var ctrl = this._getMutationControl( type ).placeAt( this.manager.bonus_list );
-                // This does leak some mutants, but both arrays will get cleared relatively
-                // frequently, so I'm not babying them here.
-                // Will be cleared if the user picks some other mutation
+                // Will be cleared if the user picks some other mutation.
                 this._mutationControls.push( ctrl );
-                // Will be cleared if the user picks some other descriptor, type, or focus
+                // Cleared normally on destroy.
                 this.manager._lists.bonus_list.push( ctrl );
             }
         },
@@ -119,13 +117,13 @@ function( declare,
             switch( type )
             {
                 case "beneficial" :
-                    return new _BeneficialMutationControl({ manager : this.manager });
+                    return new _BeneficialMutationControl({ manager : this.manager, listName : "bonus_list" });
                 case "harmful" :
-                    return new _HarmfulMutationControl({ manager : this.manager });
+                    return new _HarmfulMutationControl({ manager : this.manager, listName : "bonus_list"  });
                 case "powerful" :
-                    return new _PowerfulMutationControl({ manager : this.manager });
+                    return new _PowerfulMutationControl({ manager : this.manager, listName : "bonus_list"  });
                 case "distinctive" :
-                    return new _DistinctiveMutationControl({ manager : this.manager, parent : this });
+                    return new _DistinctiveMutationControl({ manager : this.manager, listName : "bonus_list", parent : this });
             }
         },
         /**

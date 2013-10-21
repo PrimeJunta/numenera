@@ -480,6 +480,7 @@ function( declare,
                             manager : this.manager,
                             from : "focus",
                             tier : 1,
+                            listName : "bonus_list",
                             advancement : this.manager.customAdvancement
                         }).placeAt( this.manager.bonus_list );
                         this.manager._lists.bonus_list.push( this._perkSelector );

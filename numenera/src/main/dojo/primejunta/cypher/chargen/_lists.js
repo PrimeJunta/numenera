@@ -126,6 +126,15 @@ function( declare,
             this[ listName + "_label" ].style.display = "block";
             return itm;
         },
+        removeListItem : function( li )
+        {
+            this.removeMember( this._controls, li );
+            this.removeMember( this._lists[ li.listName ], li );
+            if( this._lists[ li.listName ] && this._lists[ li.listName ].length == 0 )
+            {
+                this[ li.listName + "_label" ].style.display = "none";
+            }
+        },
         updateCypherList : function()
         {
             var n = parseInt( this.statsWidget.cypher_count.value );

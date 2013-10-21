@@ -35,6 +35,7 @@ function( declare,
                     manager : this.manager,
                     from : "focus",
                     tier : this.tier,
+                    listName : "bonus_list",
                     advancement : this.manager.customAdvancement
                 }).placeAt( this.bonusPerksNode );
                 this.manager._lists.bonus_list.push( this._perkSelector );

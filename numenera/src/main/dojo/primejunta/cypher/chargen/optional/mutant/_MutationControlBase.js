@@ -5,19 +5,13 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "dojo/topic",
-         "dijit/_WidgetBase",
-         "primejunta/cypher/chargen/_UtilityMixin" ],
+         "primejunta/cypher/chargen/_ListItemBase" ],
 function( declare,
           lang,
           topic,
-          _WidgetBase,
-          _UtilityMixin )
+          _ListItemBase )
 {
-    return declare([ _WidgetBase, _UtilityMixin ], {
-        /**
-         * Pointer to creator widget.
-         */
-        manager : {},
+    return declare([ _ListItemBase ], {
         /**
          * Type, e.g. "beneficial", "harmful", "distinctive", or "powerful."
          */
@@ -34,15 +28,6 @@ function( declare,
          * Base text, if any; set by extending class.
          */
         baseText : "",
-        /**
-         * Sets up listeners for checkState and lockInputs.
-         */
-        postMixInProperties : function()
-        {
-            this._subs = [];
-            this._subs.push( topic.subscribe( "CharGen/pleaseCheckState", lang.hitch( this, this.checkState ) ) );
-            this._subs.push( topic.subscribe( "CharGen/lockSheetControls", lang.hitch( this, this.lockInputs ) ) );
-        },
         /**
          * If not destroyed or empty, returns state as String.
          */
@@ -89,7 +74,7 @@ function( declare,
         /**
          * Locks inputNode, all adjustmentNodes, and abilityTypeSelect, if present.
          */
-        lockInputs : function()
+        lockControls : function()
         {
             this._lock( this.inputNode );
             this._lock( this.mightAdjustmentNode );
@@ -106,7 +91,7 @@ function( declare,
         randomizeMutation : function()
         {
             var n = Math.floor( Math.random() * 100 ) + 1;
-            var itms = this.manager.mutationData[ this.type ];
+            var itms = this.manager.optionalData.mutations[ this.type ];
             var mutation;
             for( var i = 0; i < itms.length; i++ )
             {
@@ -153,17 +138,6 @@ function( declare,
          */
         setBonuses : function( mutation )
         {
-        },
-        /**
-         * Removes all listeners plus inherited.
-         */
-        destroy : function()
-        {
-            while( this._subs.length > 0 )
-            {
-                this._subs.pop().remove();
-            }
-            this.inherited( arguments );
         },
         /**
          * If what exists, set it.disabled to true.

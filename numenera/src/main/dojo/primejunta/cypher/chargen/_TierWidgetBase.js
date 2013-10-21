@@ -498,6 +498,10 @@ function( declare,
         {
             return this._perkAsText().concat( this._bonusPerksAsText() );
         },
+        removeListItem : function( li )
+        {
+            this.removeMember( this._controls, li );
+        },
         /**
          * Removes listeners and destroys created _controls, then inherited.
          */

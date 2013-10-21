@@ -16,8 +16,8 @@ define([ "dojo/_base/declare",
          "./data/foci",
          "./data/feats",
          "./data/exceptions",
-         "./optional/_OptionalRulesMixin",
          "./optional/customize/data/advancement",
+         "./optional/mutant/data/mutations",
          "dojo/text!./templates/CharacterGenerator.html",
          "dojo/text!./doc/about.html",
          "dojo/text!./doc/changelog.html" ],
@@ -33,13 +33,13 @@ function( declare,
           foci,
           featAdjustments,
           featStackingExceptions,
-          _OptionalRulesMixin,
           customAdvancement,
+          mutations,
           template,
           about,
           changelog )
 {
-    return declare( "primejunta/numenera/chargen/CharacterGenerator", [ _CharacterGeneratorBase, _OptionalRulesMixin ], {
+    return declare( "primejunta/numenera/chargen/CharacterGenerator", [ _CharacterGeneratorBase ], {
         /**
          * Public version number.
          */
@@ -56,7 +56,13 @@ function( declare,
          * Focus data.
          */
         foci : foci,
+        /**
+         * Adjustment data applied from feats.
+         */
         featAdjustments : featAdjustments,
+        /**
+         * Exceptions to feat stacking restrictions.
+         */
         featStackingExceptions : featStackingExceptions,
         /**
          * General info.
@@ -70,6 +76,12 @@ function( declare,
          * Custom advancement.
          */
         customAdvancement : customAdvancement,
+        /**
+         * Optional data.
+         */
+        optionalData : {
+            mutations : mutations
+        },
         /**
          * Template.
          */

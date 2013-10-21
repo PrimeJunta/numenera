@@ -8,13 +8,7 @@ define([ "dojo/_base/declare",
          "dojo/_base/array",
          "dojo/on",
          "dojo/topic",
-         "dojo/dom-class",
-         "dijit/_WidgetBase",
-         "dijit/_TemplatedMixin",
-         "dijit/_WidgetsInTemplateMixin",
-         "dijit/form/Button",
-         "./_UnlockableMixin",
-         "./_UtilityMixin",
+         "./_ListItemBase",
          "dojo/text!./templates/_ListItem.html",
          "dojo/text!./templates/_ListItemSelect.html",
          "dojo/text!./templates/_ListItemInput.html",
@@ -24,27 +18,17 @@ function( declare,
           array,
           on,
           topic,
-          domClass,
-          _WidgetBase,
-          _TemplatedMixin,
-          _WidgetsInTemplateMixin,
-          Button,
-          _UnlockableMixin,
-          _UtilityMixin,
+          _ListItemBase,
           template,
           templateSelect,
           templateInput,
           templateSelectInput )
 {
-    return declare( "primejunta/cypher/chargen/_ListItem", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _UtilityMixin, _UnlockableMixin ], {
+    return declare( "primejunta/cypher/chargen/_ListItem", [ _ListItemBase ], {
         /**
          * Template
          */
         templateString : template,
-        /**
-         * Name of list to which the item belongs.
-         */
-        listName : "",
         /**
          * Data object associated with list item.
          */
@@ -54,32 +38,12 @@ function( declare,
          */
         content : "",
         /**
-         * Source: type, descriptor, or focus.
-         */
-        from : "",
-        /**
-         * Creator.
-         */
-        manager : {},
-        /**
-         * If true, will show unlock control when suitable event is caught.
-         */
-        isUnlockable : false,
-        /**
-         * If true, will not lock.
-         */
-        remainsOpen : false,
-        /**
-         * If true, will provide delete control that sets .deleted flag and changes CSS class.
-         */
-        isDeletable : false,
-        /**
          * Picks a suitable template depending on content, reads midText, baseText, inputValue,
          * and selectOptions, and subscribes to topics prompting to change state.
          */
         postMixInProperties : function()
         {
-            this._subs = [];
+            this.inherited( arguments );
             if( this.item )
             {
                 this._getPropsFromItem();
@@ -93,56 +57,23 @@ function( declare,
             }
             if( this.content.indexOf( "${input" ) != -1 && this.content.indexOf( "${select" ) != -1 )
             {
-                this._hasSelect = true;
-                this._hasInput = true;
+                this.hasSelect = true;
+                this.hasInput = true;
                 this.templateString = templateSelectInput;
             }
             else if( this.content.indexOf( "${input" ) != -1 )
             {
-                this._hasInput = true;
+                this.hasInput = true;
                 this.templateString = templateInput;
             }
             else if( this.content.indexOf( "${select" ) != -1 )
             {
-                this._hasSelect = true;
+                this.hasSelect = true;
                 this.templateString = templateSelect;
             }
             this.midText = this.getMidText();
             this.baseText = this.getBaseText();
             this.inputValue = this.getInputValue();
-            this._subs.push( topic.subscribe( "CharGen/destroyListItems", lang.hitch( this, this.destroy ) ) );
-            this._subs.push( topic.subscribe( "CharGen/pleaseCheckState", lang.hitch( this, this.checkState ) ) );
-            if( this._hasInput )
-            {
-                this._subs.push( topic.subscribe( "CharGen/lockSheetControls", lang.hitch( this, this.lockInput ) ) );
-            }
-            if( this._hasSelect )
-            {
-                this._subs.push( topic.subscribe( "CharGen/lockSheetControls", lang.hitch( this, this.lockSelect ) ) );
-            }
-        },
-        _getPropsFromItem : function()
-        {
-            this.content = this.item.text;
-            this.from = array.indexOf( this.item.from, "type" ) != -1 ? "type" : array.indexOf( this.item.from, "desc" ) != -1 ? "desc" : array.indexOf( this.item.from, "focus" ) != -1 ? "focus" : this.item.from[ 0 ];
-        },
-        checkState : function()
-        {
-            if( this._hasInput )
-            {
-                this.onBlurInput();
-            }
-            if( this._hasSelect )
-            {
-                if( this.selectNode.disabled )
-                {
-                    this._disableSelect( "selectNode" );
-                }
-                else
-                {
-                    this._enableSelect( "selectNode" );
-                }
-            }
         },
         /**
          * Inherited, then populates selectNode with selectOptions and adjusts other styles
@@ -151,125 +82,23 @@ function( declare,
         buildRendering : function()
         {
             this.inherited( arguments );
-            if( this._hasSelect )
+            if( this.hasSelect )
             {
                 this.selectOptions = this.getSelectOptions();
                 this.selectNode.innerHTML = this.selectOptions;
             }
-            if( this.baseText == "" && !this._hasSelect && this._hasInput )
+            if( this.baseText == "" && !this.hasSelect && this.hasInput )
             {
                 this.baseTextNode.style.display = "none";
-            }
-            if( this.isUnlockable )
-            {
-                this.initializeUnlockControls();
-            }
-            if( this.isDeletable )
-            {
-                domClass.add( this.domNode, "num-hoverControls" );
             }
         },
         updateRendering : function()
         {
+            // specific ->
             this._getPropsFromItem();
             this.baseText = this.getBaseText();
             this.baseTextNode.innerHTML = this.baseText;
             this.domNode.className = "cg-" + this.from;
-        },
-        /**
-         * Toggles deleted property and corresponding CSS class. Deleted items will not show up 
-         * on the character sheet, but you can always un-delete them.
-         */
-        toggleDeleted : function()
-        {
-            if( this.deleted )
-            {
-                this.unDeleteMe();
-            }
-            else
-            {
-                this.deleteMe();
-            }
-        },
-        deleteMe : function()
-        {
-            this.deleted = true;
-            domClass.add( this.domNode, "num-deletedItem" );
-            this.deleteControl.checked = false;
-        },
-        unDeleteMe : function()
-        {
-            this.deleted = false;
-            domClass.remove( this.domNode, "num-deletedItem" );
-            this.deleteControl.checked = true;
-        },
-        /**
-         * Disables inputNode unless remainsOpen is set.
-         */
-        lockInput : function()
-        {
-            if( this.remainsOpen )
-            {
-                return;
-            }
-            this.inputNode.disabled = true;
-        },
-        /**
-         * Disables selectNode unless remainsOpen is set.
-         */
-        lockSelect : function()
-        {
-            if( this.remainsOpen )
-            {
-                return;
-            }
-            this._disableSelect( "selectNode", true );
-        },
-        /**
-         * Stores selectedIndex and inputValue for use in rollBack (see).
-         */
-        getPrevVal : function()
-        {
-            return {
-                selectedIndex : this.selectNode ? this.selectNode.selectedIndex : false,
-                inputValue : this.inputNode ? this.inputNode.value : false
-            };
-        },
-        /**
-         * Resets state to values from _prevVal.
-         */
-        rollBack : function( /* Object */ _prevVal )
-        {
-            this._hasInput ? this.inputNode.value = _prevVal.inputValue : false;
-            this._hasSelect ? this.selectNode.selectedIndex = _prevVal.selectedIndex : false;
-        },
-        /**
-         * Disables select and input nodes.
-         */
-        lockControls : function()
-        {
-            if( this.selectNode )
-            {
-                this.selectNode.disabled = true;
-            }
-            if( this.inputNode )
-            {
-                this.inputNode.disabled = true;
-            }
-        },
-        /**
-         * Enables select and input nodes.
-         */
-        unlockControls : function()
-        {
-            if( this.selectNode )
-            {
-                this._enableSelect( "selectNode" );
-            }
-            if( this.inputNode )
-            {
-                this.inputNode.disabled = false;
-            }
         },
         /**
          * Extracts base text from content (anything before ${ if present; otherwise .content).
@@ -297,21 +126,7 @@ function( declare,
          */
         getText : function( force )
         {
-            return ( ( !force && this.deleted ) || this._destroyed ) ? false : this.baseText + ( this._hasSelect ? this.selectNode.options[ this.selectNode.selectedIndex ].text + this.midText : "" ) + ( this._hasInput ? ( this.DEFAULT_VALUES[ this.inputNode.value ] ? "" : this.inputNode.value ) : "" );
-        },
-        /**
-         * Checks if any select or input are present, and if so, if they're disabled.
-         */
-        controlsAreLocked : function()
-        {
-            if( this._hasSelect && this.selectNode.disabled || this._hasInput && this.inputNode.disabled )
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return ( ( !force && this.deleted ) || this._destroyed ) ? false : this.baseText + ( this.hasSelect ? this.selectNode.options[ this.selectNode.selectedIndex ].text + this.midText : "" ) + ( this.hasInput ? ( this.DEFAULT_VALUES[ this.inputNode.value ] ? "" : this.inputNode.value ) : "" );
         },
         /**
          * Creates select options from pattern after ${select:. Understands bar-separated strings, or a pattern that
@@ -355,17 +170,10 @@ function( declare,
         {
             topic.publish( this._selectChangeMsg, this.selectNode );
         },
-        /**
-         * Removes all listeners plus inherited.
-         */
-        destroy : function()
+        _getPropsFromItem : function()
         {
-            while( this._subs.length > 0 )
-            {
-                this._subs.pop().remove();
-            }
-            this.manager.removeListItem( this );
-            this.inherited( arguments );
+            this.content = this.item.text;
+            this.from = array.indexOf( this.item.from, "type" ) != -1 ? "type" : array.indexOf( this.item.from, "desc" ) != -1 ? "desc" : array.indexOf( this.item.from, "focus" ) != -1 ? "focus" : this.item.from[ 0 ];
         }
     });
 });
