@@ -43,6 +43,7 @@ function( declare,
         portraitSelected : function( src )
         {
             this.setHref( src );
+            this.inputNode.value = this.inputValue;
             this.tmNode.style.display = "block";
             this.closeSelector();
         },
@@ -50,8 +51,7 @@ function( declare,
         {
             if( !this.isValid( this.inputNode.value ) )
             {
-                this.inputNode.value = "";
-                this.onBlurInput( this.inputNode );
+                this.inputNode.value = this.inputValue;
             }
             else
             {

@@ -82,10 +82,6 @@ function( declare,
             }
             if( inputNode.value == "" )
             {
-                if( !this.inputNode )
-                {
-                    return;
-                }
                 inputNode.value = this.inputValue ? this.inputValue : "";
             }
             this.dataChanged( inputNode );
