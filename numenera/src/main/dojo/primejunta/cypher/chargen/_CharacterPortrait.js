@@ -100,6 +100,7 @@ function( declare,
                     this.tmNode.style.display = "block";
                 }
             }
+            href = this._normalizeHref( href );
             this.imageNode.setAttribute( "src", href );
             this.inputContainer.style.display = "none";
             this.imageContainer.style.display = "block";
@@ -110,11 +111,25 @@ function( declare,
             this.inputContainer.style.display = "block";
             this.imageContainer.style.display = "none";
         },
+        /**
+         * Because we changed portrait gallery from PNG to JPEG and don't want to break people's portraits
+         */
+        _normalizeHref : function( href )
+        {
+            if( href.indexOf( this.portraitHome + "/p" ) == 0 && href.indexOf( ".png" ) != -1 )
+            {
+                return href.substring( 0, href.indexOf( ".png" ) ) + ".jpg";
+            }
+            else
+            {
+                return href;
+            }
+        },
         _populateGallery : function()
         {
             for( var i = 0; i < this.portraits; i++ )
             {
-                var iw = new _PortraitSelector({ manager : this, src : this.portraitHome + "/p" + i + ".png" }).placeAt( this.imageList );
+                var iw = new _PortraitSelector({ manager : this, src : this.portraitHome + "/p" + i + ".jpg" }).placeAt( this.imageList );
             }
         }
     });

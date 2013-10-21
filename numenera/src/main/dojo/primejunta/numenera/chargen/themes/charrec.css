@@ -6,6 +6,7 @@
 .cr-CharacterRecordBase
 {
     font-size : 12px;
+    background-image : url( ../../themes/images/grain-dark.png );
 }
 .cr-CharacterRecordPage1, .cr-CharacterRecordPage2
 {

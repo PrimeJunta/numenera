@@ -110,8 +110,7 @@ function( declare,
          */
         closeMe : function()
         {
-            this.destroy();
-            this.manager.domNode.style.display = "block";
+            this.manager.closePrint();
         },
         /**
          * You can control a few print settings. They're stored in a cookie.

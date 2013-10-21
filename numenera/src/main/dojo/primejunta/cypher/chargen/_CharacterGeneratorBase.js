@@ -454,15 +454,27 @@ function( declare,
             {
                 this._printWidget.destroy();
             }
-            try // the try-catch block is here to make debugging easier, as for some reason the exceptions disappear otherwise.
-            {
-                this.domNode.style.display = "none";
-                this._printWidget = this.createCharacterRecord({ manager : this }).placeAt( document.body );
-            }
-            catch( e )
-            {
-                console.log( e );
-            }
+            this.transitionOut([ document.body ]).then( lang.hitch( this, function() {
+                try // the try-catch block is here to make debugging easier, as for some reason the exceptions disappear otherwise.
+                {
+                    this.domNode.style.display = "none";
+                    this._printWidget = this.createCharacterRecord({ manager : this }).placeAt( document.body );
+                    this.transitionIn([ document.body ]);
+                }
+                catch( e )
+                {
+                    console.log( e );
+                }
+            }));
+        },
+        closePrint : function()
+        {
+            this.transitionOut([ document.body ]).then( lang.hitch( this, function() {
+                this.domNode.style.display = "block";
+                this._printWidget.destroy();
+                this._kick();
+                this.transitionIn([ document.body ]);
+            }));
         },
         /**
          * Calls _clear, resets the descriptor, type, and focus selects, character name input, and link,

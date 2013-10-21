@@ -82,8 +82,7 @@ function( declare, lang, domConstruct, domQuery, has, on, fx, licenses )
          */
         hideHelp : function()
         {
-            this._helpNode.style.display = "none";
-            this.domNode.style.display = "blocK";
+            fx.fadeOut({ node : this._helpNode, onEnd : lang.hitch( this, function() { this._helpNode.style.display = "none"; }) }).play();
         },
         /**
          * Reloads the window. Used with cache invalidation.
@@ -99,12 +98,12 @@ function( declare, lang, domConstruct, domQuery, has, on, fx, licenses )
         {
             if( !this._helpNode )
             {
-                this._helpNode = domConstruct.create( "div", { style : "display:none;" }, document.body );
+                this._helpNode = domConstruct.create( "div", { "class" : "num-helpDiv" }, document.body );
                 on( this._helpNode, "click", lang.hitch( this, this.hideHelp ) );
             }
             this._helpNode.innerHTML = content;
-            this.domNode.style.display = "none";
             this._helpNode.style.display = "block";
+            fx.fadeIn({ node : this._helpNode }).play();
         }
     });
 });
