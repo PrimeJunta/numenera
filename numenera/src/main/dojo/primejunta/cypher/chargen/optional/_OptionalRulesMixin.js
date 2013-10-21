@@ -36,6 +36,20 @@ function( declare,
         {
             this._characterCustomizer.populateFromData( kwObj.cust );
         },
+        preUpdateFocus : function()
+        {
+            if( this.customized )
+            {
+                this._selectedCustomPerk = this._characterCustomizer._perkSelector.selectNode.selectedIndex;
+            }
+        },
+        postUpdateFocus : function( focus )
+        {
+            if( this.customized )
+            {
+                this._characterCustomizer.customizeFocus( this._selectedCustomPerk );
+            }
+        },
         /**
          * Clears _characterCustomizer.
          */

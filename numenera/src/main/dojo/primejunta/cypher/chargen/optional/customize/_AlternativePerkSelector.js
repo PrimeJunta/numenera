@@ -35,6 +35,10 @@ function( declare,
         hasInput : true,
         hasSelect : true,
         /**
+         * It's only virtual.
+         */
+        deleteControl : {},
+        /**
          * Calls populatePerkSelector on this.advancement, tier, and selectNode.
          */
         postCreate : function()

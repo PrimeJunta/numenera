@@ -254,6 +254,7 @@ function( declare,
         updateFocus : function( focus )
         {
             this._populating.push( 5 );
+            this.preUpdateFocus(); // from _OptionalRulesMixin
             this.updateItems( "focus", focus );
             if( this._advancementControl )
             {
@@ -264,11 +265,15 @@ function( declare,
                 this._writeBonusList( focus );
             }
             this._printLists();
+            this.postUpdateFocus( arguments ); // from _OptionalRulesMixin
             this._populating.pop();
         },
         updateItems : function( from, data )
         {
-            this.statsWidget.undoAdjustments( this[ "current_" + from ] );
+            if( !( from == "focus" && this.customized ) )
+            {
+                this.statsWidget.undoAdjustments( this[ "current_" + from ] );
+            }
             this.clearItems( from ); // in list
             if( !data )
             {
@@ -582,6 +587,7 @@ function( declare,
             this._clearAdvancementControl();
             this.unlockFinalize();
             this.finalized = false;
+            this.customized = false;
             delete this._listdata;
             this.description_text.set( "value", "" );
             this.notes_text.set( "value", "" );

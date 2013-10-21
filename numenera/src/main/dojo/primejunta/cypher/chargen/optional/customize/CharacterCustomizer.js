@@ -143,12 +143,9 @@ function( declare,
          */
         applyChanges : function()
         {
-            try{
-                
             var custs = this._toCustomizations( this._dlog.get( "value" ).customizations );
             this.applyCustomizations( custs, this._getAbilityToSwap(), this._getWeaknessToSwap() );
             this._dlog.hide();
-            }catch(e){console.log("!",e)}
         },
         /**
          * Populates customization map from formData. Boring.
@@ -473,18 +470,7 @@ function( declare,
                         this._swappedStat = stat;
                         break;
                     case "customize_focus" :
-                        this._toggleDeletedAbilities( this.manager._lists.ability_list, "focus" );
-                        this._toggleDeletedAbilities( this.manager._lists.special_list, "focus" );
-                        this._toggleDeletedAbilities( this.manager._lists.bonus_list, "focus" );
-                        this._perkSelector = new _AlternativePerkSelector({
-                            manager : this.manager,
-                            from : "focus",
-                            tier : 1,
-                            listName : "bonus_list",
-                            advancement : this.manager.customAdvancement
-                        }).placeAt( this.manager.bonus_list );
-                        this.manager._lists.bonus_list.push( this._perkSelector );
-                        this.manager.statsWidget.augmentStats( this.invertStats( this.manager.getFocus().advancement[ 0 ].stats ) );
+                        this.customizeFocus();
                         break;
                 }
             }
@@ -525,22 +511,50 @@ function( declare,
                         break;
                     case "inability_for_skill" :
                         this.manager._lists.ability_list.pop().destroy();
-                        this._inabilityWidget.destroy(); // FIXME: remove also from manager lists
+                        this._inabilityWidget.destroy();
                         break;
                     case "weakness_for_skill" :
                         this.manager._lists.ability_list.pop().destroy();
-                        this._weaknessWidget.destroy(); // FIXME: remove also from manager lists
+                        this._weaknessWidget.destroy();
                         this._swappedStat = false;
                         break;
                     case "customize_focus" :
-                        this._perkSelector.destroy();
-                        this._toggleDeletedAbilities( this.manager._lists.ability_list, "focus" );
-                        this._toggleDeletedAbilities( this.manager._lists.special_list, "focus" );
-                        this._toggleDeletedAbilities( this.manager._lists.bonus_list, "focus" );
-                        this.manager.statsWidget.augmentStats( this.manager.getFocus().advancement[ 0 ].stats );
-                        break;
+                        this.unCustomizeFocus();
                 }
             }
+        },
+        customizeFocus : function( idx )
+        {
+            this._toggleDeletedAbilities( this.manager._lists.ability_list, "focus" );
+            this._toggleDeletedAbilities( this.manager._lists.special_list, "focus" );
+            this._toggleDeletedAbilities( this.manager._lists.bonus_list, "focus" );
+            this.manager.customized = true;
+            if( !this._perkSelector )
+            {
+                this._perkSelector = new _AlternativePerkSelector({
+                    manager : this.manager,
+                    from : "focus",
+                    tier : 1,
+                    listName : "bonus_list",
+                    advancement : this.manager.customAdvancement
+                }).placeAt( this.manager.bonus_list );
+                this.manager._lists.bonus_list.push( this._perkSelector );
+            }
+            if( idx != undefined )
+            {
+                this._perkSelector.selectNode.selectedIndex = idx;
+            }
+            this.manager.statsWidget.augmentStats( this.invertStats( this.manager.getFocus().advancement[ 0 ].stats ) );
+        },
+        unCustomizeFocus : function()
+        {
+            this._perkSelector.destroy();
+            delete this._perkSelector;
+            this._toggleDeletedAbilities( this.manager._lists.ability_list, "focus" );
+            this._toggleDeletedAbilities( this.manager._lists.special_list, "focus" );
+            this._toggleDeletedAbilities( this.manager._lists.bonus_list, "focus" );
+            this.manager.statsWidget.augmentStats( this.manager.getFocus().advancement[ 0 ].stats );
+            this.manager.customized = false;
         },
         /**
          * Extracts selected value from select matching character type.
