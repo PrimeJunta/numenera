@@ -184,7 +184,7 @@ function( declare,
                 if( this._controls[ i ] == li )
                 {
                     this._controls.splice( i, 1 );
-                    return;
+                    // TODO: remove list label if list is now empty
                 }
             }
         },

@@ -564,11 +564,10 @@ function( declare,
         _toggleSwapAbility : function( type, abi )
         {
             var _abi = this._swapAbilityMap[ type ][ abi ];
-            console.log( _abi );
             for( var i = 0; i < this.manager._controls.length; i++ )
             {
                 var cur = this.manager._controls[ i ];
-                if( cur.getText() == _abi )
+                if( cur.getText( true ) == _abi )
                 {
                     cur.toggleDeleted();
                 }

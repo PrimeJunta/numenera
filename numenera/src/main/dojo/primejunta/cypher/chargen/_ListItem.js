@@ -295,9 +295,9 @@ function( declare,
         /**
          * Returns state as string, concatenated from baseText, select value, midText, and inputValue if present.
          */
-        getText : function()
+        getText : function( force )
         {
-            return ( this.deleted || this._destroyed ) ? false : this.baseText + ( this._hasSelect ? this.selectNode.options[ this.selectNode.selectedIndex ].text + this.midText : "" ) + ( this._hasInput ? ( this.DEFAULT_VALUES[ this.inputNode.value ] ? "" : this.inputNode.value ) : "" );
+            return ( ( !force && this.deleted ) || this._destroyed ) ? false : this.baseText + ( this._hasSelect ? this.selectNode.options[ this.selectNode.selectedIndex ].text + this.midText : "" ) + ( this._hasInput ? ( this.DEFAULT_VALUES[ this.inputNode.value ] ? "" : this.inputNode.value ) : "" );
         },
         /**
          * Checks if any select or input are present, and if so, if they're disabled.

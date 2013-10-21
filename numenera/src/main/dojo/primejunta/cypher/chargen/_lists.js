@@ -123,6 +123,7 @@ function( declare,
             domConstruct.place( itm.domNode, refNode, pos );
             this._lists[ listName ].push( itm );
             this._controls.push( itm );
+            this[ listName + "_label" ].style.display = "block";
             return itm;
         },
         updateCypherList : function()
