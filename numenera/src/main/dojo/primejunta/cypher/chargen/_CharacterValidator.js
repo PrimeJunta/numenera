@@ -102,7 +102,7 @@ function( declare,
             {
                 errs.push( "Please select a descriptor, type, and focus." );
             }
-            if( this.manager.statsWidget.free_pool.value != "0" || this.manager.statsWidget.free_edge.value != "0" )
+            if( this.manager.statsControl.free_pool.value != "0" || this.manager.statsControl.free_edge.value != "0" )
             {
                 errs.push( "Please assign all of your character points." );
             }
@@ -674,9 +674,9 @@ function( declare,
          */
         _gf : function( /* String */ fld )
         {
-            if( this.manager.statsWidget[ fld ] )
+            if( this.manager.statsControl[ fld ] )
             {
-                return this.manager.statsWidget[ fld ].value;
+                return this.manager.statsControl[ fld ].value;
             }
             else if( this.manager[ fld ] )
             {

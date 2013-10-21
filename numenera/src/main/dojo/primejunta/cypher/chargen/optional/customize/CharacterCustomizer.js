@@ -407,50 +407,50 @@ function( declare,
                 {
                     case "pool" :
                         this._poolfloors = {
-                            might_pool_floor : this.manager.statsWidget.might_pool_floor,
-                            intellect_pool_floor : this.manager.statsWidget.intellect_pool_floor,
-                            speed_pool_floor : this.manager.statsWidget.speed_pool_floor
+                            might_pool_floor : this.manager.statsControl.might_pool_floor,
+                            intellect_pool_floor : this.manager.statsControl.intellect_pool_floor,
+                            speed_pool_floor : this.manager.statsControl.speed_pool_floor
                         };
                         this._pools = {
-                            might_pool : parseInt( this.manager.statsWidget.might_pool.value ),
-                            intellect_pool : parseInt( this.manager.statsWidget.intellect_pool.value ),
-                            speed_pool : parseInt( this.manager.statsWidget.speed_pool.value ),
-                            free_pool : parseInt( this.manager.statsWidget.free_pool.value )
+                            might_pool : parseInt( this.manager.statsControl.might_pool.value ),
+                            intellect_pool : parseInt( this.manager.statsControl.intellect_pool.value ),
+                            speed_pool : parseInt( this.manager.statsControl.speed_pool.value ),
+                            free_pool : parseInt( this.manager.statsControl.free_pool.value )
                         };
-                        this.manager.statsWidget.might_pool_floor = 1;
-                        this.manager.statsWidget.intellect_pool_floor = 1;
-                        this.manager.statsWidget.speed_pool_floor = 1;
+                        this.manager.statsControl.might_pool_floor = 1;
+                        this.manager.statsControl.intellect_pool_floor = 1;
+                        this.manager.statsControl.speed_pool_floor = 1;
                         this.manager.pool_cap = 20;
                         this._checkCap( "might_pool" );
                         this._checkCap( "speed_pool" );
                         this._checkCap( "intellect_pool" );
-                        this.manager.statsWidget.checkCaps();
+                        this.manager.statsControl.checkCaps();
                         break;
                     case "edge" :
                         this._edgefloors = lang.mixin( this._floors, {
-                            might_edge_floor : this.manager.statsWidget.might_edge_floor,
-                            intellect_edge_floor : this.manager.statsWidget.intellect_edge_floor,
-                            speed_edge_floor : this.manager.statsWidget.speed_edge_floor
+                            might_edge_floor : this.manager.statsControl.might_edge_floor,
+                            intellect_edge_floor : this.manager.statsControl.intellect_edge_floor,
+                            speed_edge_floor : this.manager.statsControl.speed_edge_floor
                         });
                         this._edges = {
-                            might_edge : parseInt( this.manager.statsWidget.might_edge.value ),
-                            intellect_edge : parseInt( this.manager.statsWidget.intellect_edge.value ),
-                            speed_edge : parseInt( this.manager.statsWidget.speed_edge.value ),
-                            free_edge : parseInt( this.manager.statsWidget.free_edge.value )
+                            might_edge : parseInt( this.manager.statsControl.might_edge.value ),
+                            intellect_edge : parseInt( this.manager.statsControl.intellect_edge.value ),
+                            speed_edge : parseInt( this.manager.statsControl.speed_edge.value ),
+                            free_edge : parseInt( this.manager.statsControl.free_edge.value )
                         }
-                        this.manager.statsWidget.might_edge_floor = 0;
-                        this.manager.statsWidget.intellect_edge_floor = 0;
-                        this.manager.statsWidget.speed_edge_floor = 0;
-                        this.manager.statsWidget.edge_cap = 1;
-                        this.manager.statsWidget.checkCaps();
+                        this.manager.statsControl.might_edge_floor = 0;
+                        this.manager.statsControl.intellect_edge_floor = 0;
+                        this.manager.statsControl.speed_edge_floor = 0;
+                        this.manager.statsControl.edge_cap = 1;
+                        this.manager.statsControl.checkCaps();
                         break;
                     case "skill_for_cypher" :
-                        this.manager.statsWidget.cypher_count.value = parseInt( this.manager.statsWidget.cypher_count.value ) + 1;
+                        this.manager.statsControl.cypher_count.value = parseInt( this.manager.statsControl.cypher_count.value ) + 1;
                         this.manager._lists.ability_list[ 0 ].toggleDeleted();
                         this.manager.updateCypherList();
                         break;
                     case "cypher_for_skill" : 
-                        this.manager.statsWidget.cypher_count.value = parseInt( this.manager.statsWidget.cypher_count.value ) - 1;
+                        this.manager.statsControl.cypher_count.value = parseInt( this.manager.statsControl.cypher_count.value ) - 1;
                         this.manager.createListItem( "ability_list", { text : "Ⓣ ${input:choose any non-combat}", from : [ "cust" ] });
                         this.manager.updateCypherList();
                         break;
@@ -482,25 +482,25 @@ function( declare,
                         lang.mixin( this.manager, this._poolfloors );
                         for( var o in this._pools )
                         {
-                            this.manager.statsWidget[ o ].value = this._pools[ o ];
+                            this.manager.statsControl[ o ].value = this._pools[ o ];
                         }
                         break;
-                        this.manager.statsWidget.checkCaps();
+                        this.manager.statsControl.checkCaps();
                     case "edge" :
                         lang.mixin( this.manager, this._edgefloors );
                         for( var o in this._edges )
                         {
-                            this.manager.statsWidget[ o ].value = this._edges[ o ];
+                            this.manager.statsControl[ o ].value = this._edges[ o ];
                         }
-                        this.manager.statsWidget.checkCaps();
+                        this.manager.statsControl.checkCaps();
                         break;
                     case "skill_for_cypher" :
-                        this.manager.statsWidget.cypher_count.value = parseInt( this.manager.statsWidget.cypher_count.value ) - 1;
+                        this.manager.statsControl.cypher_count.value = parseInt( this.manager.statsControl.cypher_count.value ) - 1;
                         this.manager._lists.ability_list[ 0 ].toggleDeleted();
                         this.manager.updateCypherList();
                         break;
                     case "cypher_for_skill" :
-                        this.manager.statsWidget.cypher_count.value = parseInt( this.manager.statsWidget.cypher_count.value ) + 1;
+                        this.manager.statsControl.cypher_count.value = parseInt( this.manager.statsControl.cypher_count.value ) + 1;
                         this.manager._lists.ability_list.pop().destroy();
                         this.manager.updateCypherList();
                         break;
@@ -544,7 +544,7 @@ function( declare,
             {
                 this._perkSelector.selectNode.selectedIndex = idx;
             }
-            this.manager.statsWidget.augmentStats( this.invertStats( this.manager.getFocus().advancement[ 0 ].stats ) );
+            this.manager.statsControl.augmentStats( this.invertStats( this.manager.getFocus().advancement[ 0 ].stats ) );
         },
         unCustomizeFocus : function()
         {
@@ -553,7 +553,7 @@ function( declare,
             this._toggleDeletedAbilities( this.manager._lists.ability_list, "focus" );
             this._toggleDeletedAbilities( this.manager._lists.special_list, "focus" );
             this._toggleDeletedAbilities( this.manager._lists.bonus_list, "focus" );
-            this.manager.statsWidget.augmentStats( this.manager.getFocus().advancement[ 0 ].stats );
+            this.manager.statsControl.augmentStats( this.manager.getFocus().advancement[ 0 ].stats );
             this.manager.customized = false;
         },
         /**
@@ -594,11 +594,11 @@ function( declare,
          */
         _checkCap : function( prop )
         {
-            var diff = this._pools[ prop ] - this.manager.statsWidget.pool_cap;
+            var diff = this._pools[ prop ] - this.manager.statsControl.pool_cap;
             if( diff > 0 )
             {
-                this.manager.statsWidget[ prop ].value = this.manager.statsWidget.pool_cap;
-                this.manager.statsWidget.free_pool.value = parseInt( this.manager.statsWidget.free_pool.value ) + diff;
+                this.manager.statsControl[ prop ].value = this.manager.statsControl.pool_cap;
+                this.manager.statsControl.free_pool.value = parseInt( this.manager.statsControl.free_pool.value ) + diff;
             }
         }
     });

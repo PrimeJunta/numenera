@@ -81,12 +81,12 @@ function( declare,
             this._wl( "equipment_list", "equipment_list" );
             this._wl( "description_text", "description_text" );
             this._wl( "notes_list", "notes_list" );
-            this.portrait_src = this.manager.statsWidget.portraitWidget.getHref();
+            this.portrait_src = this.manager.statsControl.portraitWidget.getHref();
             if( this.portrait_src )
             {
                 this.portraitImage.setAttribute( "src", this.portrait_src );
                 this.portraitImage.style.visibility = "visible";
-                if( this.manager.statsWidget.portraitWidget.isTM() )
+                if( this.manager.statsControl.portraitWidget.isTM() )
                 {
                     this.portraitTMNode.style.display = "block";
                 }

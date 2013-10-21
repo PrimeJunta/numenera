@@ -314,14 +314,14 @@ function( declare,
                 type : this.selectValue( this.typeSelect ).value,
                 focus : this.selectValue( this.focusSelect ).value,
                 finalized : this.finalized,
-                tier : this.statsWidget.character_tier.value,
-                cyphers : this.statsWidget.cypher_count.value,
+                tier : this.statsControl.character_tier.value,
+                cyphers : this.statsControl.cypher_count.value,
                 selects : idxs.join( this._listDelimiter ),
                 inputs : vals.join( this._listDelimiter ),
                 extra_equipment_text : this.extra_equipment_text.value,
                 notes_text : this.notes_text.value,
                 description_text : this.description_text.value,
-                img : this.statsWidget.portraitWidget.getHref(),
+                img : this.statsControl.portraitWidget.getHref(),
                 disabled : disb.join( "" ),
                 deleted : dels.join( "" )
             }
@@ -340,7 +340,7 @@ function( declare,
             var kwObj = ioQuery.queryToObject( qString );
             if( kwObj.img )
             {
-                this.statsWidget.portraitWidget.setHref( kwObj.img );
+                this.statsControl.portraitWidget.setHref( kwObj.img );
             }
             var idxs = kwObj.selects.split( this._listDelimiter );
             var vals = kwObj.inputs.split( this._listDelimiter );
@@ -395,9 +395,9 @@ function( declare,
             }
             if( this.finalized )
             {
-                this.statsWidget.moveCaps();
+                this.statsControl.moveCaps();
             }
-            this.statsWidget.checkCaps();
+            this.statsControl.checkCaps();
             var d = 0;
             for( var i = 0; i < this._controls.length; i++ )
             {

@@ -279,7 +279,7 @@ function( declare,
                     this.skillTypeSelector.disabled = true;
                     break;
             }
-            this.manager.statsWidget.moveCaps();
+            this.manager.statsControl.moveCaps();
             var cbs = 0;
             cbs += this._applyCheckbox( this.pool_checkbox, "free_pool", 4 ) ;
             cbs += this._applyCheckbox( this.edge_checkbox, "free_edge", 1 );
@@ -444,14 +444,14 @@ function( declare,
          */
         applyNewTier : function()
         {
-            this.manager.statsWidget.augmentStats( this.standardBenefits );
+            this.manager.statsControl.augmentStats( this.standardBenefits );
             if( this._typeData.stats )
             {
-                this.manager.statsWidget.augmentStats( this._typeData.stats );
+                this.manager.statsControl.augmentStats( this._typeData.stats );
             }
             if( this._focusData.stats )
             {
-                this.manager.statsWidget.augmentStats( this._focusData.stats );
+                this.manager.statsControl.augmentStats( this._focusData.stats );
             }
             if( this.tier > 1 )
             {
@@ -573,10 +573,10 @@ function( declare,
          */
         _adjust : function( /* String */ prop, /* int */ val )
         {
-            this.manager.statsWidget[ prop ].value = parseInt( this.manager.statsWidget[ prop ].value ) + val;
+            this.manager.statsControl[ prop ].value = parseInt( this.manager.statsControl[ prop ].value ) + val;
             if( prop.indexOf( "free_" ) == 0 )
             {
-                this.manager.statsWidget.checkLimits( prop.substring( 5 ) );
+                this.manager.statsControl.checkLimits( prop.substring( 5 ) );
             }
         },
         /**

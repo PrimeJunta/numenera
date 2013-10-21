@@ -102,7 +102,7 @@ function( declare,
             this._populating = [];
             this._controls = [];
             this.setupOptionals(); // from optionals
-            this.statsWidget.manager = this;
+            this.statsControl.manager = this;
             this.writePhraseSelects();
             this._splashPane = this.createSplashCharacterPane({ manager : this }).placeAt( this.domNode );
             this._currentNodes = [ this._splashPane.domNode ];
@@ -236,11 +236,11 @@ function( declare,
         },
         updateStats : function()
         {
-            this.statsWidget.resetStats();
-            this.statsWidget.applyAdjustments( this.getType() );
-            this.statsWidget.moveCaps();
-            this.statsWidget.applyAdjustments( this.getFocus() );
-            this.statsWidget.applyAdjustments( this.getDescriptor() );
+            this.statsControl.resetStats();
+            this.statsControl.applyAdjustments( this.getType() );
+            this.statsControl.moveCaps();
+            this.statsControl.applyAdjustments( this.getFocus() );
+            this.statsControl.applyAdjustments( this.getDescriptor() );
         },
         /**
          * Triggered when the user selects a focus. Does updateValues and completes with updateLink.
@@ -272,7 +272,7 @@ function( declare,
         {
             if( !( from == "focus" && this.customized ) )
             {
-                this.statsWidget.undoAdjustments( this[ "current_" + from ] );
+                this.statsControl.undoAdjustments( this[ "current_" + from ] );
             }
             this.clearItems( from ); // in list
             if( !data )
@@ -281,7 +281,7 @@ function( declare,
                 this._hideCharacterData( true );
                 return;
             }
-            this.statsWidget.applyAdjustments( data );
+            this.statsControl.applyAdjustments( data );
             this[ "current_" + from ] = data;
             this._appendToLists( data.lists, from );
             var idx = array.indexOf([ "type", "focus", "desc" ], from );
@@ -307,7 +307,7 @@ function( declare,
             }
             var type = this.getType();
             var focus = this.getFocus();
-            tier = !isNaN( parseInt( tier ) ) ? parseInt( tier ) : parseInt( this.statsWidget.character_tier.value );
+            tier = !isNaN( parseInt( tier ) ) ? parseInt( tier ) : parseInt( this.statsControl.character_tier.value );
             if( !this.finalized )
             {
                 this._clearAdvancementControl();
@@ -319,8 +319,8 @@ function( declare,
                 this.mainTabContainer.addChild( this._advancementControl );
                 this._advancementControl.advanceTier( tier );
             }
-            this.statsWidget.moveCaps();
-            if( this.statsWidget.free_edge.value == "0" && this.statsWidget.free_pool.value == "0" )
+            this.statsControl.moveCaps();
+            if( this.statsControl.free_edge.value == "0" && this.statsControl.free_pool.value == "0" )
             {
                 this.finalizeButton.set( "disabled", true );
             }
@@ -593,11 +593,11 @@ function( declare,
             this.notes_text.set( "value", "" );
             this.extra_equipment_text.set( "value", "" );
             this.setDisabled([ "descriptorSelect", "typeSelect", "focusSelect" ], false );
-            this.statsWidget.setValues([ "character_tier", "character_effort", "might_pool", "speed_pool", "intellect_pool", "might_edge", "speed_edge", "intellect_edge", "free_pool", "free_edge", "shin_count", "cypher_count", "armor_bonus" ], "" );
+            this.statsControl.setValues([ "character_tier", "character_effort", "might_pool", "speed_pool", "intellect_pool", "might_edge", "speed_edge", "intellect_edge", "free_pool", "free_edge", "shin_count", "cypher_count", "armor_bonus" ], "" );
             var lists = [ "ability_list", "inability_list", "special_list", "equipment_list", "bonus_list" ];
             this.updateLink();
             this.setDisabled([ "saveButton", "printButton" ], true );
-            this.statsWidget.setDisabled([ "increment_might_pool", "decrement_might_pool", "increment_speed_pool", "decrement_speed_pool", "increment_intellect_pool", "decrement_intellect_pool","increment_might_edge", "decrement_might_edge", "increment_speed_edge", "decrement_speed_edge", "increment_intellect_edge", "decrement_intellect_edge" ], true );
+            this.statsControl.setDisabled([ "increment_might_pool", "decrement_might_pool", "increment_speed_pool", "decrement_speed_pool", "increment_intellect_pool", "decrement_intellect_pool","increment_might_edge", "decrement_might_edge", "increment_speed_edge", "decrement_speed_edge", "increment_intellect_edge", "decrement_intellect_edge" ], true );
         }
     });
 });
