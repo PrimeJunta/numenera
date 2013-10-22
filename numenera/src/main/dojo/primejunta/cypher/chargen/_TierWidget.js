@@ -15,7 +15,8 @@ define([ "dojo/_base/declare",
          "./_ListItem",
          "./_UtilityMixin",
          "./optional/customize/_CustomFocusAdvancementMixin",
-         "./_UnlockableMixin" ],
+         "./_UnlockableMixin",
+         "dojo/text!./templates/_TierWidget.html" ],
 function( declare,
           lang,
           topic,
@@ -30,7 +31,8 @@ function( declare,
           _ListItem,
           _UtilityMixin,
           _CustomFocusAdvancementMixin,
-          _UnlockableMixin )
+          _UnlockableMixin,
+          template )
 {
     return declare( "primejunta.numenera.chargen._TierWidget", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _UtilityMixin, _UnlockableMixin, _CustomFocusAdvancementMixin ], {
         /**
@@ -63,6 +65,10 @@ function( declare,
         standardBenefits : {
             recovery_roll : 1
         },
+        /**
+         * Template
+         */
+        templateString : template,
         /**
          * Initializes internal arrays, reads type and focus data and such.
          */

@@ -70,9 +70,29 @@
         data-dojo-props="tabStrip:false,persist:false"
         class="num-mainTabContainer">
         <div data-dojo-type="dijit/layout/ContentPane"
+          data-dojo-props="title:'Description'"
+          data-dojo-attach-point="descriptionPane">
+          <div class="cg-resultsPane num-mainWidgetContent">
+            <img
+              data-dojo-type="primejunta/cypher/chargen/_CharacterPortrait"
+              data-dojo-props="portraitHome:'${portraitHome}',portraits:76"
+              data-dojo-attach-point="portraitWidget" />
+            <h2 data-dojo-attach-point="description_text_label">Background</h2>
+            <textarea data-dojo-attach-point="description_text"
+              class="num-inputTextArea"
+              data-dojo-type="dijit/form/Textarea"
+              data-dojo-attach-event="onKeyUp:connectTextareaListener,onChange:descriptionUpdated"></textarea>
+            <h2>Notes</h2>
+            <textarea data-dojo-attach-point="notes_text"
+              class="num-inputTextArea"
+              data-dojo-type="dijit/form/Textarea"
+              data-dojo-attach-event="onKeyUp:connectTextareaListener,onChange:descriptionUpdated"></textarea>
+          </div>
+        </div>
+        <div data-dojo-type="dijit/layout/ContentPane"
           data-dojo-props="title:'Statistics'"
           data-dojo-attach-point="statsPane">
-          <div data-dojo-type="primejunta/numenera/chargen/_StatsPane" data-dojo-attach-point="statsControl"></div>
+          <div data-dojo-type="primejunta/cypher/chargen/_StatsPane" data-dojo-attach-point="statsControl"></div>
         </div>
         <div data-dojo-type="dijit/layout/ContentPane"
           data-dojo-props="title:'Possessions'">
@@ -103,16 +123,6 @@
             <ul data-dojo-attach-point="bonus_list"></ul>
             <h2 data-dojo-attach-point="special_list_label"></h2>
             <ul data-dojo-attach-point="special_list"></ul>
-            <h2 data-dojo-attach-point="description_text_label">Background</h2>
-            <textarea data-dojo-attach-point="description_text"
-              class="num-inputTextArea"
-              data-dojo-type="dijit/form/Textarea"
-              data-dojo-attach-event="onKeyUp:connectTextareaListener,onChange:descriptionUpdated"></textarea>
-            <h2>Notes</h2>
-            <textarea data-dojo-attach-point="notes_text"
-              class="num-inputTextArea"
-              data-dojo-type="dijit/form/Textarea"
-              data-dojo-attach-event="onKeyUp:connectTextareaListener,onChange:descriptionUpdated"></textarea>
           </div>
         </div>
       </div>
@@ -120,7 +130,7 @@
     <div data-dojo-type="dijit/layout/ContentPane"
       data-dojo-props="region:'bottom'" class="num-footer"
       data-dojo-attach-point="footerNode">
-      <div class="num-mainWidgetContent">
+      <div class="cg-floatingButtonContainer">
         <div>
           <table width="100%" cellspacing="0" cellpadding="0"
             style="margin-top: 5px;">
@@ -211,23 +221,33 @@
       </div>
     </div>
   </div>
-  <div class="num-mainWidgetContent"
+  <div class="cg-floatingButtonContainer"
     data-dojo-attach-point="mainButtonsNode" style="opacity:0">
-    <div class="cg-mainButtonsNode">
-      <button data-dojo-attach-point="printButton"
-        data-dojo-type="dijit/form/Button"
-        data-dojo-attach-event="onClick:makePrint"
-        class="num-smallButton" disabled="true">
-        <i class="icon-print"></i>
-      </button>
-      <button data-dojo-attach-point="saveButton"
-        data-dojo-type="dijit/form/Button"
-        data-dojo-attach-event="onClick:storeCharacter"
-        class="num-smallButton" disabled="true">
-        <i class="icon-save"></i>
-      </button>
-      <span data-dojo-attach-point="customizeButtonNode"
-        class="num-smallButton"></span>
+    <div class="cg-floatingButtonContent">
+      <div class="cg-leftButtonsNode">
+        <button data-dojo-attach-point="printButton"
+          data-dojo-type="dijit/form/Button"
+          data-dojo-attach-event="onClick:makePrint"
+          class="num-smallButton" disabled="true">
+          <i class="icon-print"></i>
+        </button>
+        <button data-dojo-attach-point="playViewButton"
+          data-dojo-type="dijit/form/Button"
+          data-dojo-attach-event="onClick:showPlayView"
+          class="num-smallButton" disabled="true">
+          <i class="icon-play"></i>
+        </button>
+      </div>
+      <div class="cg-rightButtonsNode">
+        <button data-dojo-attach-point="customizeButtonNode"
+          class="num-smallButton"></button>
+        <button data-dojo-attach-point="saveButton"
+          data-dojo-type="dijit/form/Button"
+          data-dojo-attach-event="onClick:storeCharacter"
+          class="num-smallButton" disabled="true">
+          <i class="icon-save"></i>
+        </button>
+      </div>
     </div>
   </div>
 </div>

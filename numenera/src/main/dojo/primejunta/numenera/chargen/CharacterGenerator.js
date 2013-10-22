@@ -7,10 +7,9 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "primejunta/cypher/chargen/_CharacterGeneratorBase",
-         "./_StatsPane",
+         "primejunta/cypher/chargen/_StatsPane",
          "./_SplashCharacterPane",
          "./_CharacterRecord",
-         "./_AdvancementControl",
          "./data/descriptors",
          "./data/types",
          "./data/foci",
@@ -27,7 +26,6 @@ function( declare,
           _StatsPane,
           _SplashCharacterPane,
           _CharacterRecord,
-          _AdvancementControl,
           descriptors,
           types,
           foci,
@@ -90,6 +88,7 @@ function( declare,
          * Path to icons and other graphic goodies.
          */
         iconSrc : require.toUrl( "primejunta/numenera/themes/images" ),
+        portraitHome : require.toUrl( "primejunta/numenera/chargen/portraits" ),
         /**
          * Return a _CharacterRecord.
          */
@@ -100,10 +99,6 @@ function( declare,
         createSplashCharacterPane : function( props )
         {
             return new _SplashCharacterPane( props );
-        },
-        createAdvancementControl : function( props )
-        {
-            return new _AdvancementControl( props );
         }
     });
 });

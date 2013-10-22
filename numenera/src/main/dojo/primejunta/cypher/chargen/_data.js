@@ -321,7 +321,7 @@ function( declare,
                 extra_equipment_text : this.extra_equipment_text.value,
                 notes_text : this.notes_text.value,
                 description_text : this.description_text.value,
-                img : this.statsControl.portraitWidget.getHref(),
+                img : this.portraitWidget.getHref(),
                 disabled : disb.join( "" ),
                 deleted : dels.join( "" )
             }
@@ -340,7 +340,7 @@ function( declare,
             var kwObj = ioQuery.queryToObject( qString );
             if( kwObj.img )
             {
-                this.statsControl.portraitWidget.setHref( kwObj.img );
+                this.portraitWidget.setHref( kwObj.img );
             }
             var idxs = kwObj.selects.split( this._listDelimiter );
             var vals = kwObj.inputs.split( this._listDelimiter );

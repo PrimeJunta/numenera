@@ -8,9 +8,11 @@ define([ "dojo/_base/declare",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
+         "./_TierWidget",
          "dijit/form/Button",
          "dijit/layout/BorderContainer",
-         "dijit/layout/ContentPane" ],
+         "dijit/layout/ContentPane",
+         "dojo/text!./templates/_AdvancementControl.html" ],
 function( declare,
           lang,
           topic,
@@ -18,9 +20,11 @@ function( declare,
           _WidgetBase,
           _TemplatedMixin,
           _WidgetsInTemplateMixin,
+          _TierWidget,
           Button,
           BorderContainer,
-          ContentPane )
+          ContentPane,
+          template )
 {
     return declare([ ContentPane, _TemplatedMixin, _WidgetsInTemplateMixin ], {
         gutters : false,
@@ -41,6 +45,10 @@ function( declare,
          * Advancement data from focus.
          */
         focusData : {},
+        /**
+         * Template
+         */
+        templateString : template,
         /**
          * Initialize _controls.
          */
@@ -93,6 +101,7 @@ function( declare,
          */
         createTierWidget : function( props )
         {
+            return new _TierWidget( props );
         },
         /**
          * Checks if the previous tier is complete, and applies a new one.

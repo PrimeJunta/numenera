@@ -9,7 +9,8 @@ define([ "dojo/_base/declare",
          "./_UtilityMixin",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
-         "dijit/_WidgetsInTemplateMixin" ],
+         "dijit/_WidgetsInTemplateMixin",
+         "dojo/text!./templates/_StatsPane.html" ],
 function( declare,
           lang,
           domClass,
@@ -18,9 +19,14 @@ function( declare,
           _UtilityMixin,
           _WidgetBase,
           _TemplatedMixin,
-          _WidgetsInTemplateMixin )
+          _WidgetsInTemplateMixin,
+          template )
 {
     return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _UtilityMixin ], {
+        /**
+         * Portrait home, set by instantiator.
+         */
+        portraitHome : "",
         /**
          * Cap for pools
          */
@@ -29,6 +35,10 @@ function( declare,
          * Cap for edge.
          */
         edge_cap : 1,
+        /**
+         * Template.
+         */
+        templateString : template,
         /**
          * Connects click event listeners to increment and decrement controls.
          */

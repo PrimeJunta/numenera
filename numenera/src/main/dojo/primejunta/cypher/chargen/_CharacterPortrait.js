@@ -1,5 +1,6 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
+         "dojo/request/xhr",
          "dojo/topic",
          "dijit/Dialog",
          "dijit/form/Button",
@@ -11,6 +12,7 @@ define([ "dojo/_base/declare",
          "dojo/text!./templates/_CharacterPortrait.html" ],
 function( declare,
           lang,
+          xhr,
           topic,
           Dialog,
           Button,
@@ -26,11 +28,26 @@ function( declare,
         inputValue : "enter the URL of your image",
         portraitHome : "",
         height : 350,
-        portraits : 0,
         postCreate : function()
         {
             topic.subscribe( "CharGen/pleaseReset", lang.hitch( this, this.clear ) );
-            setTimeout( lang.hitch( this, this._populateGallery ), 1000 );
+            this.countPortraits();
+        },
+        /**
+         * Requests directory from server, extracts images from it, calls _populateGallery on it. We don't want
+         * any server components other than a regular web server, so we're looking directly at the HTML returned
+         * by it.
+         */
+        countPortraits : function()
+        {
+            xhr.get( this.portraitHome + "/", { handleAs : "text" }).then( lang.hitch( this, function( resp ) {
+                var imgs = resp.match( /\"(\w+\.jpg)\"/gm );
+                for( var i = 0; i < imgs.length; i++ )
+                {
+                    imgs[ i ] = imgs[ i ].replace( /\"/g, "" );
+                }
+                this._populateGallery( imgs );
+            }));
         },
         openSelector : function()
         {
@@ -116,7 +133,7 @@ function( declare,
          */
         _normalizeHref : function( href )
         {
-            if( href.indexOf( this.portraitHome + "/p" ) == 0 && href.indexOf( ".png" ) != -1 )
+            if( href.indexOf( "/p" ) != -1 && href.indexOf( ".png" ) != -1 )
             {
                 return href.substring( 0, href.indexOf( ".png" ) ) + ".jpg";
             }
@@ -125,11 +142,11 @@ function( declare,
                 return href;
             }
         },
-        _populateGallery : function()
+        _populateGallery : function( imgs )
         {
-            for( var i = 0; i < this.portraits; i++ )
+            while( imgs.length > 0 )
             {
-                var iw = new _PortraitSelector({ manager : this, src : this.portraitHome + "/p" + i + ".jpg" }).placeAt( this.imageList );
+                var iw = new _PortraitSelector({ manager : this, src : this.portraitHome + "/" + imgs.pop() }).placeAt( this.imageList );
             }
         }
     });

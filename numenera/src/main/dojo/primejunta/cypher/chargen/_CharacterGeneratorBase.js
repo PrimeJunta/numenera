@@ -25,6 +25,7 @@ define([ "dojo/_base/declare",
          "dijit/form/Textarea",
          "primejunta/_StartupMixin",
          "./_CharacterValidator",
+         "./_AdvancementControl",
          "./_UtilityMixin",
          "./_data",
          "./_lists",
@@ -54,6 +55,7 @@ function( declare,
           Textarea,
           _StartupMixin,
           _CharacterValidator,
+          _AdvancementControl,
           _UtilityMixin,
           _data,
           _lists,
@@ -143,6 +145,7 @@ function( declare,
          */
         createAdvancementControl : function( props )
         {
+            return new _AdvancementControl( props );
         },
         /**
          * Stub. Create and provide a character validator of the appropriate type.
@@ -519,6 +522,10 @@ function( declare,
         hideMessage : function()
         {
             this.messageDialog.hide();
+        },
+        showPlayView : function()
+        {
+            console.log( "derp" );
         },
         /**
          * Calls _showHelp with about (that's an included text module).

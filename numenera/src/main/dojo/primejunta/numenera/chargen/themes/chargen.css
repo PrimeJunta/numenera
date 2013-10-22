@@ -6,10 +6,26 @@
 @import url( 'charrec.css' );
 @import url( '../../themes/numenera.css' );
 /* main controls */
-.cg-mainButtonsNode
+.cg-floatingButtonContainer
+{
+}
+.cg-floatingButtonContent
 {
     position : absolute;
     top : 148px;
+    width : 850px;
+    margin-left : auto;
+    margin-right : auto;
+}
+.cg-leftButtonsNode
+{
+	position : absolute;
+	left : 0px;
+}
+.cg-rightButtonsNode
+{
+	position : absolute;
+	right : 0px;
 }
 .cg-resultsPane
 {
