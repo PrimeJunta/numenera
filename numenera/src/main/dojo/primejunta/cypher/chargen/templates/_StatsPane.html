@@ -10,12 +10,12 @@
           <td>Free</td>
           <td align="right">Pool</td>
           <td align="center"><input
-            class="cg-storeMe cg-statInput" type="number"
+            class="cg-storeMe cg-statInput" type="text"
             readonly="readonly"
             data-dojo-attach-point="free_pool" size="3" /></td>
           <td align="right">Edge</td>
           <td align="center"><input
-            class="cg-storeMe cg-statInput" type="number"
+            class="cg-storeMe cg-statInput" type="text"
             readonly="readonly"
             data-dojo-attach-point="free_edge" size="3" /></td>
         </tr>
@@ -29,17 +29,17 @@
                   <button class="cg-adjustButton"
                     data-dojo-type="dijit/form/Button"
                     data-dojo-attach-point="decrement_might_pool">
-                    <i class="icon-chevron-down"></i>
+                    <i class="num-redIcon icon-minus-sign"></i>
                   </button>
                 </td>
                 <td><input class="cg-storeMe cg-statInput"
-                  type="number" readonly="readonly"
+                  type="text" readonly="readonly"
                   data-dojo-attach-point="might_pool" size="3" /></td>
                 <td width="5">
                   <button class="cg-adjustButton"
                     data-dojo-type="dijit/form/Button"
                     data-dojo-attach-point="increment_might_pool">
-                    <i class="icon-chevron-up"></i>
+                    <i class="num-blueIcon icon-plus-sign"></i>
                   </button>
                 </td>
               </tr>
@@ -53,17 +53,17 @@
                   <button class="cg-adjustButton"
                     data-dojo-type="dijit/form/Button"
                     data-dojo-attach-point="decrement_might_edge">
-                    <i class="icon-chevron-down"></i>
+                    <i class="num-redIcon icon-minus-sign"></i>
                   </button>
                 </td>
                 <td><input class="cg-storeMe cg-statInput"
-                  type="number" readonly="readonly"
+                  type="text" readonly="readonly"
                   data-dojo-attach-point="might_edge" size="3" />
                 <td width="5">
                   <button class="cg-adjustButton"
                     data-dojo-type="dijit/form/Button"
                     data-dojo-attach-point="increment_might_edge">
-                    <i class="icon-chevron-up"></i>
+                    <i class="num-blueIcon icon-plus-sign"></i>
                   </button>
                 </td>
               </tr>
@@ -80,17 +80,17 @@
                   <button class="cg-adjustButton"
                     data-dojo-type="dijit/form/Button"
                     data-dojo-attach-point="decrement_speed_pool">
-                    <i class="icon-chevron-down"></i>
+                    <i class="num-redIcon icon-minus-sign"></i>
                   </button>
                 </td>
                 <td><input class="cg-storeMe cg-statInput"
-                  type="number" readonly="readonly"
+                  type="text" readonly="readonly"
                   data-dojo-attach-point="speed_pool" size="3" /></td>
                 <td width="5">
                   <button class="cg-adjustButton"
                     data-dojo-type="dijit/form/Button"
                     data-dojo-attach-point="increment_speed_pool">
-                    <i class="icon-chevron-up"></i>
+                    <i class="num-blueIcon icon-plus-sign"></i>
                   </button>
                 </td>
               </tr>
@@ -104,17 +104,17 @@
                   <button class="cg-adjustButton"
                     data-dojo-type="dijit/form/Button"
                     data-dojo-attach-point="decrement_speed_edge">
-                    <i class="icon-chevron-down"></i>
+                    <i class="num-redIcon icon-minus-sign"></i>
                   </button>
                 </td>
                 <td><input class="cg-storeMe cg-statInput"
-                  type="number" readonly="readonly"
+                  type="text" readonly="readonly"
                   data-dojo-attach-point="speed_edge" size="3" /></td>
                 <td width="5">
                   <button class="cg-adjustButton"
                     data-dojo-type="dijit/form/Button"
                     data-dojo-attach-point="increment_speed_edge">
-                    <i class="icon-chevron-up"></i>
+                    <i class="num-blueIcon icon-plus-sign"></i>
                   </button>
                 </td>
               </tr>
@@ -131,18 +131,18 @@
                   <button class="cg-adjustButton"
                     data-dojo-type="dijit/form/Button"
                     data-dojo-attach-point="decrement_intellect_pool">
-                    <i class="icon-chevron-down"></i>
+                    <i class="num-redIcon icon-minus-sign"></i>
                   </button>
                 </td>
                 <td><input class="cg-storeMe cg-statInput"
-                  type="number" readonly="readonly"
+                  type="text" readonly="readonly"
                   data-dojo-attach-point="intellect_pool"
                   size="3" /></td>
                 <td width="5">
                   <button class="cg-adjustButton"
                     data-dojo-type="dijit/form/Button"
                     data-dojo-attach-point="increment_intellect_pool">
-                    <i class="icon-chevron-up"></i>
+                    <i class="num-blueIcon icon-plus-sign"></i>
                   </button>
                 </td>
               </tr>
@@ -156,18 +156,18 @@
                   <button class="cg-adjustButton"
                     data-dojo-type="dijit/form/Button"
                     data-dojo-attach-point="decrement_intellect_edge">
-                    <i class="icon-chevron-down"></i>
+                    <i class="num-redIcon icon-minus-sign"></i>
                   </button>
                 </td>
                 <td><input class="cg-storeMe cg-statInput"
-                  type="number" readonly="readonly"
+                  type="text" readonly="readonly"
                   data-dojo-attach-point="intellect_edge"
                   size="3" /></td>
                 <td width="5">
                   <button class="cg-adjustButton"
                     data-dojo-type="dijit/form/Button"
                     data-dojo-attach-point="increment_intellect_edge">
-                    <i class="icon-chevron-up"></i>
+                    <i class="num-blueIcon icon-plus-sign"></i>
                   </button>
                 </td>
               </tr>
@@ -178,13 +178,13 @@
           <td></td>
           <td align="right">Tier</td>
           <td align="center"><input
-            class="cg-storeMe cg-statInput" type="number"
+            class="cg-storeMe cg-statInput" type="text"
             readonly="readonly"
             data-dojo-attach-point="character_tier"
             size="3" /></td>
           <td align="right">Effort</td>
           <td align="center"><input
-            class="cg-storeMe cg-statInput" type="number"
+            class="cg-storeMe cg-statInput" type="text"
             readonly="readonly"
             data-dojo-attach-point="character_effort"
             size="3" /></td>
@@ -193,11 +193,11 @@
           <td></td>
           <td align="right">Shins</td>
           <td align="center"><input
-            class="cg-storeMe cg-statInput" type="number"
+            class="cg-storeMe cg-statInput" type="text"
             data-dojo-attach-point="shin_count" size="3" /></td>
           <td align="right">Cyphers</td>
           <td align="center"><input
-            class="cg-storeMe cg-statInput" type="number"
+            class="cg-storeMe cg-statInput" type="text"
             readonly="readonly"
             data-dojo-attach-point="cypher_count" size="3" /></td>
         </tr>
@@ -205,12 +205,12 @@
           <td></td>
           <td align="right">Armor bonus</td>
           <td align="center"><input
-            class="cg-storeMe cg-statInput" type="number"
+            class="cg-storeMe cg-statInput" type="text"
             readonly="readonly"
             data-dojo-attach-point="armor_bonus" size="3" /></td>
           <td align="right">Recovery bonus</td>
           <td align="center"><input
-            class="cg-storeMe cg-statInput" type="number"
+            class="cg-storeMe cg-statInput" type="text"
             readonly="readonly"
             data-dojo-attach-point="recovery_roll" size="3" /></td>
         </tr>

@@ -141,6 +141,12 @@ function( declare,
         {
         },
         /**
+         * Stub. Return a play view of the right type.
+         */
+        createPlayView : function( props )
+        {
+        },
+        /**
          * Stub. Return a character record of the right type.
          */
         createAdvancementControl : function( props )
@@ -449,32 +455,53 @@ function( declare,
             return this.foci[  this.selectValue( this.focusSelect ).value ];
         },
         /**
-         * (Re)creates a _CharacterRecord for the record, places it, hides this widget and shows it.
+         * (Re)creates a _PrintView for the record, places it, hides this widget and shows it.
          */
-        makePrint : function()
+        showPrintView : function()
         {
-            if( this._printWidget )
+            try // the try-catch block is here to make debugging easier, as for some reason the exceptions disappear otherwise.
             {
-                this._printWidget.destroy();
+                this._printWidget = this.createCharacterRecord({ manager : this });
+                this._openSecondaryWidget( this._printWidget );
             }
+            catch( e )
+            {
+                console.log( e );
+            }
+        },
+        closePrintView : function()
+        {
+            this._closeSecondaryWidget( this._printWidget );
+        },
+        showPlayView : function()
+        {
+            try // the try-catch block is here to make debugging easier, as for some reason the exceptions disappear otherwise.
+            {
+                this._playViewWidget = this.createPlayView({ manager : this });
+                this._openSecondaryWidget( this._playViewWidget );
+            }
+            catch( e )
+            {
+                console.log( e );
+            }
+        },
+        closePlayView : function()
+        {
+            this._closeSecondaryWidget( this._playViewWidget );
+        },
+        _openSecondaryWidget : function( widg )
+        {
             this.transitionOut([ document.body ]).then( lang.hitch( this, function() {
-                try // the try-catch block is here to make debugging easier, as for some reason the exceptions disappear otherwise.
-                {
-                    this.domNode.style.display = "none";
-                    this._printWidget = this.createCharacterRecord({ manager : this }).placeAt( document.body );
-                    this.transitionIn([ document.body ]);
-                }
-                catch( e )
-                {
-                    console.log( e );
-                }
+                this.domNode.style.display = "none";
+                widg.placeAt( document.body );
+                this.transitionIn([ document.body ]);
             }));
         },
-        closePrint : function()
+        _closeSecondaryWidget : function( widg )
         {
             this.transitionOut([ document.body ]).then( lang.hitch( this, function() {
                 this.domNode.style.display = "block";
-                this._printWidget.destroy();
+                widg.destroy();
                 this._kick();
                 this.transitionIn([ document.body ]);
             }));
@@ -500,7 +527,6 @@ function( declare,
             this.phraseDisplayNode.style.display = "none";
             this.characterNameInput.value = this.DEFAULT_CHARACTER_NAME;
             this.normalizeClass( this.characterNameInput );
-            this.setDisabled([ "saveButton", "printButton" ], true );
             this.mainTabContainer.selectChild( this.abilityPane );
             topic.publish( "CharGen/pleaseReset" );
             if( deferred )
@@ -522,10 +548,6 @@ function( declare,
         hideMessage : function()
         {
             this.messageDialog.hide();
-        },
-        showPlayView : function()
-        {
-            console.log( "derp" );
         },
         /**
          * Calls _showHelp with about (that's an included text module).
@@ -615,7 +637,7 @@ function( declare,
             this.statsControl.setValues([ "character_tier", "character_effort", "might_pool", "speed_pool", "intellect_pool", "might_edge", "speed_edge", "intellect_edge", "free_pool", "free_edge", "shin_count", "cypher_count", "armor_bonus" ], "" );
             var lists = [ "ability_list", "inability_list", "special_list", "equipment_list", "bonus_list" ];
             this.updateLink();
-            this.setDisabled([ "saveButton", "printButton" ], true );
+            this.setDisabled([ "saveButton" ], true );
             this.statsControl.setDisabled([ "increment_might_pool", "decrement_might_pool", "increment_speed_pool", "decrement_speed_pool", "increment_intellect_pool", "decrement_intellect_pool","increment_might_edge", "decrement_might_edge", "increment_speed_edge", "decrement_speed_edge", "increment_intellect_edge", "decrement_intellect_edge" ], true );
         }
     });

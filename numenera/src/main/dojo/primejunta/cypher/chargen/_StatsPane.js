@@ -3,6 +3,7 @@
  */
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
+         "dojo/_base/array",
          "dojo/dom-class",
          "dojo/on",
          "./_CharacterPortrait",
@@ -13,6 +14,7 @@ define([ "dojo/_base/declare",
          "dojo/text!./templates/_StatsPane.html" ],
 function( declare,
           lang,
+          array,
           domClass,
           on,
           _CharacterPortrait,
@@ -36,6 +38,23 @@ function( declare,
          */
         edge_cap : 1,
         /**
+         * List of stats handled by this widget.
+         */
+        stats : [ "free_pool",
+                  "free_edge",
+                  "might_pool",
+                  "might_edge",
+                  "speed_pool",
+                  "speed_edge",
+                  "intellect_pool",
+                  "intellect_edge",
+                  "cypher_count",
+                  "shin_count",
+                  "character_tier",
+                  "character_effort",
+                  "armor_bonus",
+                  "recovery_roll" ],
+        /**
          * Template.
          */
         templateString : template,
@@ -57,6 +76,28 @@ function( declare,
             on( this.decrement_intellect_pool, "click", lang.hitch( this, this._adjust, "intellect", "pool", -1 ) );
             on( this.decrement_intellect_edge, "click", lang.hitch( this, this._adjust, "intellect", "edge", -1 ) );
         },
+        get : function( prop )
+        {
+            if( array.indexOf( this.stats, prop ) != -1 )
+            {
+                return this._getStat( prop );
+            }
+            else
+            {
+                return this.inherited( arguments );
+            }
+        },
+        set : function( prop, val )
+        {
+            if( array.indexOf( this.stats, prop ) != -1 )
+            {
+                this[ prop ].value = val;
+            }
+            else
+            {
+                this.inherited( arguments );
+            }
+        },
         /**
          * Adjust value of field:
          * * stat = "might"|"speed"|"intellect"
@@ -66,12 +107,12 @@ function( declare,
          */
         _adjust : function( /* String */ stat, /* String */ prop, /* int */ by )
         {
-            var _from = parseInt( this[ "free_" + prop ].value );
-            var _to = parseInt( this[ stat + "_" + prop ].value );
+            var _from = this.get( "free_" + prop );
+            var _to = this.get( stat + "_" + prop );
             _from += -by;
             _to += by;
-            this[ "free_" + prop ].value = _from;
-            this[ stat + "_" + prop ].value = _to;
+            this.set(  "free_" + prop, _from );
+            this.set(  stat + "_" + prop, _to );
             this[ stat + "_" + prop ].adjustment += by;
             this.checkLimits( prop );
             this.updateLink();
@@ -114,28 +155,28 @@ function( declare,
          */
         _checkLimits : function( /* String */ stat, /* String */ prop )
         {
-            var _from = parseInt( this[ "free_" + prop ].value );
-            var ddis = ( parseInt( this[ stat + "_" + prop ].value ) == this[ stat + "_" + prop + "_floor" ] );
-            var edis = ( ( parseInt( this[ stat + "_" + prop ].value ) >= this[ prop + "_cap" ] || _from == 0 ) );
+            var _from = this.get( "free_" + prop );
+            var ddis = ( this.get( stat + "_" + prop ) == this[ stat + "_" + prop + "_floor" ] );
+            var edis = ( ( this.get( stat + "_" + prop ) >= this[ prop + "_cap" ] || _from == 0 ) );
             this.setDisabled([ "decrement_" + stat + "_" + prop ], ddis );
             this.setDisabled([ "increment_" + stat + "_" + prop ], edis );
         },
         resetStats : function()
         {
-            this.might_pool.value = 0;
-            this.speed_pool.value = 0;
-            this.intellect_pool.value = 0;
-            this.might_edge.value = 0;
-            this.speed_edge.value = 0;
-            this.intellect_edge.value = 0;
-            this.free_pool.value = 0;
-            this.free_edge.value = 0;
-            this.character_tier.value = 0;
-            this.character_effort.value = 0;
-            this.shin_count.value = 0;
-            this.cypher_count.value = 0;
-            this.armor_bonus.value = 0;
-            this.recovery_roll.value = 0;
+            this.set( "might_pool", 0 );
+            this.set( "speed_pool", 0 );
+            this.set( "intellect_pool", 0 );
+            this.set( "might_edge", 0 );
+            this.set( "speed_edge", 0 );
+            this.set( "intellect_edge", 0 );
+            this.set( "free_pool", 0 );
+            this.set( "free_edge", 0 );
+            this.set( "character_tier", 0 );
+            this.set( "character_effort", 0 );
+            this.set( "shin_count", 0 );
+            this.set( "cypher_count", 0 );
+            this.set( "armor_bonus", 0 );
+            this.set( "recovery_roll", 0 );
         },
         /**
          * Iterates through stats and adds each item's value to value of matching input in template (as int).
@@ -160,7 +201,7 @@ function( declare,
             this.augmentStats( data.stats );
             if( data.advancement )
             {
-                var tier = parseInt( this.character_tier.value );
+                var tier = this.get( "character_tier" );
                 for( var i = 0; i < tier; i++ )
                 {
                     this.augmentStats( data.advancement[ i ].stats );
@@ -177,7 +218,7 @@ function( declare,
             this.augmentStats( this.invertStats( data.stats ) );
             if( data.advancement )
             {
-                var tier = parseInt( this.character_tier.value );
+                var tier = this.get( "character_tier" );
                 for( var i = 0; i < tier; i++ )
                 {
                     this.augmentStats( this.invertStats( data.advancement[ i ].stats ) );
@@ -187,17 +228,17 @@ function( declare,
         },
         _augmentStat : function( stat, by )
         {
-            var val = parseInt( this[ stat ].value );
+            var val = this.get( stat );
             if( isNaN( val ) )
             {
                 val = 0;
             }
-            this[ stat ].value = val + by;
+            this.set( stat, val + by );
             this[ stat + "_floor" ] += by;
             this[ stat + "_adjustment" ] += by;
             if( stat == "cypher_count" )
             {
-                this.manager.augmentCypherList( parseInt( this[ stat ].value ) );
+                this.manager.augmentCypherList( this.get( stat ) );
             }
         },
         /**
@@ -214,12 +255,16 @@ function( declare,
                 this.manager.augmentCypherList( val );
             }
         },
+        _getStat : function( /* String */ stat )
+        {
+            return parseInt( this[ stat ].value );
+        },
         /**
          * Sets floor of stat to its current value.
          */
         _resetFloor : function( stat )
         {
-            this[ stat + "_floor" ] = parseInt( this[ stat ].value );
+            this[ stat + "_floor" ] = this.get( stat );
         }
     });
 });

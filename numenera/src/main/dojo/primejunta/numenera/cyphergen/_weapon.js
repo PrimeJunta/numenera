@@ -61,7 +61,7 @@ function( declare,
             }
             else if( eType == "status" )
             {
-                this._cypher.status_type = this._fromObject( bricks.common_data.status_types , true ).name;
+                this._cypher.status_type = this._fromObject( bricks.common_data.status_types, true ).name;
                 if( bricks.common_data.status_types[ this._cypher.status_type ].duration )
                 {
                     this._cypher.duration = this._fromArray( bricks.common_data.status_types[ this._cypher.status_type ].duration ).name;
@@ -70,7 +70,7 @@ function( declare,
             }
             else if( eType == "special" )
             {
-                this._cypher.special_type = this._fromObject( bricks.common_data.special_types , true ).name;
+                this._cypher.special_type = this._fromObject( bricks.common_data.special_types, true ).name;
                 template += "affected targets to ${special_type}";
             }
             if( cypher_type.effect_types[ this._cypher.effect ].extra_text )

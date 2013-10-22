@@ -4,7 +4,6 @@
  */
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
-         "dojo/cookie",
          "dojo/json",
          "dijit/form/Button",
          "./_UtilityMixin",
@@ -13,7 +12,6 @@ define([ "dojo/_base/declare",
          "dijit/_WidgetsInTemplateMixin"],
 function( declare,
           lang,
-          cookie,
           json,
           Button,
           _UtilityMixin,
@@ -103,73 +101,12 @@ function( declare,
             {
                 this.inabilityContainer.style.display = "block";
             }
-            this._updatePrint();
         },
         /**
          * Self-destructs and shows manager.domNode.
          */
         closeMe : function()
         {
-            this.manager.closePrint();
-        },
-        /**
-         * You can control a few print settings. They're stored in a cookie.
-         */
-        printSettingsChanged : function()
-        {
-            cookie( "printSettings", json.stringify({
-                showShins : this.showShinsCheckbox.checked,
-                showXP : this.showXPCheckbox.checked,
-                showCyphers : this.showCyphersCheckbox.checked
-            }), { expires : 30 });
-            this._updatePrint();
-        },
-        /**
-         * Triggered after you've changed your print settings. Shows/hides some fields according to them.
-         */
-        _updatePrint : function()
-        {
-            var settings = cookie( "printSettings" );
-            if( !settings )
-            {
-                return;
-            }
-            try
-            {
-                settings = json.parse( settings );
-            }
-            catch( e )
-            {
-                cookie( "printSettings", null, { expires : -1 });
-                return;
-            }
-            if( !settings.showShins )
-            {
-                this.shin_count.style.visibility = "hidden";
-                this.showShinsCheckbox.checked = false;
-            }
-            else
-            {
-                this.shin_count.style.visibility = "visible";
-            }
-            if( !settings.showXP )
-            {
-                this.character_xp.style.visibility = "hidden";
-                this.showXPCheckbox.checked = false;
-            }
-            else
-            {
-                this.character_xp.style.visibility = "visible";
-            }
-            if( !settings.showCyphers )
-            {
-                this.cypher_list.style.visibility = "hidden";
-                this.showCyphersCheckbox.checked = false;
-            }
-            else
-            {
-                this.cypher_list.style.visibility = "visible";
-            }
         },
         /**
          * Utility method. Writes contents of this.character[ ln ] into field matching to.

@@ -579,7 +579,7 @@ function( declare,
          */
         _adjust : function( /* String */ prop, /* int */ val )
         {
-            this.manager.statsControl[ prop ].value = parseInt( this.manager.statsControl[ prop ].value ) + val;
+            this.manager.statsControl.set( prop, this.manager.statsControl.get( prop ) + val );
             if( prop.indexOf( "free_" ) == 0 )
             {
                 this.manager.statsControl.checkLimits( prop.substring( 5 ) );

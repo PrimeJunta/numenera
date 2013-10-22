@@ -87,7 +87,7 @@ function( declare,
                 this.populateFromQueryString();
                 if( window.location.search.indexOf( "&print=true" ) != -1 )
                 {
-                    this.makePrint();
+                    this.showPrintView();
                 }
             }
         },
@@ -227,7 +227,6 @@ function( declare,
                 return;
             }
             this.saveButton.set( "disabled", false );
-            this.printButton.set( "disabled", false );
             var qString = this._getCharacterData();
             var href = window.location.origin + window.location.pathname + "?" + qString; 
             this._buffer.push( qString );

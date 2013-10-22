@@ -7,7 +7,7 @@
     <div data-dojo-type="dijit/layout/ContentPane"
       data-dojo-props="region:'top'" data-dojo-attach-point="headerPane"
       style="height: 150px; overflow: hidden;">
-      <div class="num-mainWidgetContent">
+      <div class="">
         <div style="text-align: center">
           <div data-dojo-attach-point="basicControlsNode">
             <div data-dojo-attach-point="phrase_pane">
@@ -33,12 +33,33 @@
                   </tr>
                 </tbody>
               </table>
-              <div class="cg-characterNameInputBox">
-                <input data-dojo-attach-point="characterNameInput"
-                  type="text" value="${DEFAULT_CHARACTER_NAME}"
-                  spellcheck="false"
-                  class="cg-storeMe cg-characterNameInput num-valueNotSet" />
-              </div>
+              <table width="100%">
+                <tbody>
+                  <tr valign="top">
+                    <td align="left" width="10%">
+                      <button data-dojo-type="dijit/form/Button"
+                        class="num-redButton"
+                        data-dojo-attach-event="onClick:clearAll"
+                        data-dojo-attach-point="clearButton">
+                        <i class="icon-refresh"></i> Clear</button>
+                    </td>
+                    <td align="center">
+                      <div class="cg-characterNameInputBox">
+                        <input data-dojo-attach-point="characterNameInput"
+                          type="text" value="${DEFAULT_CHARACTER_NAME}"
+                          spellcheck="false"
+                          class="cg-storeMe cg-characterNameInput num-valueNotSet" />
+                      </div>
+                    </td>
+                    <td align="right" width="10%">
+                      <button data-dojo-type="dijit/form/Button"
+                        class="num-blueButton"
+                        data-dojo-attach-point="finalizeButton"
+                        data-dojo-attach-event="onClick:finalize">Advance <i class="icon-double-angle-up"></i></button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
               <div data-dojo-attach-point="phraseSelectorNode"
                 class="cg-phraseSelectors">
                 <span class="">the </span><select class="cg-desc"
@@ -57,6 +78,7 @@
               </div>
               <div class="cg-selectedPhrase"
                 data-dojo-attach-point="phraseDisplayNode"></div>
+
             </div>
           </div>
         </div>
@@ -130,38 +152,6 @@
     <div data-dojo-type="dijit/layout/ContentPane"
       data-dojo-props="region:'bottom'" class="num-footer"
       data-dojo-attach-point="footerNode">
-      <div class="cg-floatingButtonContainer">
-        <div>
-          <table width="100%" cellspacing="0" cellpadding="0"
-            style="margin-top: 5px;">
-            <tbody>
-              <tr>
-                <td width="15%">
-                  <button data-dojo-type="dijit/form/Button"
-                    class="num-redButton"
-                    data-dojo-attach-event="onClick:clearAll"
-                    data-dojo-attach-point="clearButton">
-                    <i class="icon-refresh"></i> Clear
-                  </button>
-                </td>
-                <td align="center">
-                  <button data-dojo-type="dijit/form/Button"
-                    data-dojo-attach-event="onClick:openCharacter">Remembered
-                    Heroes</button>
-                </td>
-                <td align="right" width="15%">
-                  <button data-dojo-type="dijit/form/Button"
-                    class="num-blueButton"
-                    data-dojo-attach-point="finalizeButton"
-                    data-dojo-attach-event="onClick:finalize">
-                    <i class="icon-double-angle-up"></i> Advance
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
       <div class="num-copyright">
         <span style="cursor:pointer" data-dojo-attach-event="onClick:showLicenses">
         Numenera and its logo are trademarks of Monte Cook Games, LLC in
@@ -227,20 +217,22 @@
       <div class="cg-leftButtonsNode">
         <button data-dojo-attach-point="printButton"
           data-dojo-type="dijit/form/Button"
-          data-dojo-attach-event="onClick:makePrint"
-          class="num-smallButton" disabled="true">
+          data-dojo-attach-event="onClick:showPrintView"
+          class="num-smallButton" disabled="false">
           <i class="icon-print"></i>
         </button>
         <button data-dojo-attach-point="playViewButton"
           data-dojo-type="dijit/form/Button"
           data-dojo-attach-event="onClick:showPlayView"
-          class="num-smallButton" disabled="true">
+          class="num-smallButton" disabled="false">
           <i class="icon-play"></i>
         </button>
       </div>
       <div class="cg-rightButtonsNode">
         <button data-dojo-attach-point="customizeButtonNode"
           class="num-smallButton"></button>
+        <button data-dojo-type="dijit/form/Button"
+          data-dojo-attach-event="onClick:openCharacter"><i class="icon-folder-open"></i></button>
         <button data-dojo-attach-point="saveButton"
           data-dojo-type="dijit/form/Button"
           data-dojo-attach-event="onClick:storeCharacter"

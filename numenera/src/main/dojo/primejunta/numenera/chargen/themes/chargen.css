@@ -34,8 +34,6 @@
 /* stats */
 .cg-statsPane
 {
-    border-left : 1px solid silver;
-    border : 1px solid silver;
     margin-bottom : 20px;
 }
 .cg-statisticsTable
@@ -64,11 +62,11 @@
 .cg-statInput
 {
     font-size : 18px;
-    height : 38px;
-    width : 72px;
+    height : 50px;
+    width : 50px;
     text-align : center;
     border : 1px solid #848484;
-    border-radius : 3px;
+    border-radius : 30px;
 }
 input[readonly].cg-statInput
 {
@@ -77,9 +75,12 @@ input[readonly].cg-statInput
 }
 .cg-adjustButton .dijitButtonNode
 {
-    font-family : 'Oxygen';
-    font-size : 18px;
-    height : 36px;
+    font-size : 24px;
+    height : 24px;
+    vertical-align : 10px;
+    margin : -10px 0 0;
+    background : none !important;
+    border : none !important;
 }
 .cg-adjustButton .dijitButtonContents
 {
@@ -88,20 +89,22 @@ input[readonly].cg-statInput
 /* other inputs */
 .cg-characterNameInputBox
 {
-    height : 36px;
-    padding : 0 0 8px 0;
+    height : 33px;
+    padding : 8px 0 0;
+    margin : 0 0 8px;
+    background-color : #233343;
+    background-image : url( '../../themes/images/grain-l.png' );
 }
 .cg-characterNameInput
 {
-    border : 1px;
+	padding : 0 0 0 0;
+	border : none;
     text-align : center;
     font-size : large;
-    width : 680px;
-    padding : 10px;
+    width : 100%;
     font-family : Prata;
-    background-color : #233343;
-    background-image : url( '../../themes/images/grain-l.png' );
     color : white;
+    background : none;
 }
 .cg-phraseSelectors
 {

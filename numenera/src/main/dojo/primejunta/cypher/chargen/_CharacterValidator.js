@@ -2,7 +2,7 @@
  * Most of the "intelligence" of this utility is here. Assembles lists collected from CharacterGenerator,
  * merges duplicate (T)rained skills into (S)pecialized, applies bonuses from special abilities, checks for
  * duplicate perks and other stupidities, and so on. Writes the result into a cleaned-up object that can
- * go into the _CharacterRecord. Also used to check that a character is ready for advancement.
+ * go into the _PrintView. Also used to check that a character is ready for advancement.
  */
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
@@ -102,7 +102,7 @@ function( declare,
             {
                 errs.push( "Please select a descriptor, type, and focus." );
             }
-            if( this.manager.statsControl.free_pool.value != "0" || this.manager.statsControl.free_edge.value != "0" )
+            if( this.manager.statsControl.get( "free_pool" ) != 0 || this.manager.statsControl.get( "free_edge" ) != 0 )
             {
                 errs.push( "Please assign all of your character points." );
             }
@@ -676,7 +676,7 @@ function( declare,
         {
             if( this.manager.statsControl[ fld ] )
             {
-                return this.manager.statsControl[ fld ].value;
+                return this.manager.statsControl.get( fld );
             }
             else if( this.manager[ fld ] )
             {
@@ -708,7 +708,7 @@ function( declare,
          */
         _ss : function( /* String */ fieldName, /* String */ from )
         {
-            var val = parseInt( this._gf( from ) );
+            var val = this._gf( from );
             this._cdata[ fieldName ] = isNaN( val ) ? 0 : val;
         },
         /**

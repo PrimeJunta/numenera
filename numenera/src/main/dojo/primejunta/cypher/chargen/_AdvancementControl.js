@@ -30,7 +30,7 @@ function( declare,
         gutters : false,
         title : "Advancement",
         /**
-         * The instantiating _CharacterRecord.
+         * The instantiating _PrintView.
          */
         manager : {},
         /**
@@ -86,7 +86,7 @@ function( declare,
                 }).placeAt( this.tierContainerNode ) );
                 domClass.add( this._controls[ this._controls.length - 1 ].domNode, this._controls.length % 2 == 0 ? "num-evenBackground" : "num-oddBackground" );
             }
-            this.manager.statsControl.character_tier.value = this.tier;
+            this.manager.statsControl.set( "character_tier", this.tier );
             this.manager.statsControl.moveCaps();
         },
         changeFocus : function( focus )
