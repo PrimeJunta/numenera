@@ -1,0 +1,46 @@
+@import url( ../../../../dojox/mobile/themes/custom/custom.css );
+.pv-playViewRoot
+{
+	width : 100%;
+	height : 100%;
+	position : absolute;
+	top : 0px;
+	left : 0px;
+	overflow : hidden;
+	z-index: 99999;
+	background-color : white;
+}
+.mblTabBarButtonLabel i
+{
+	font-size : 24px;
+	font-weight : 100;
+	color : silver;
+}
+.mblTabBarButtonLabel .num-blueIcon
+{
+	color : #446dff;
+}
+.mblTabBarButtonSelected i
+{
+	color : #00ddbb;
+}
+.mblTabBarButton
+{
+	height : 36px;
+	margin : 5px 0 0 !important;
+}
+.pv-viewWrapper
+{
+	width : 100%;
+	height : 100%;
+}
+.pv-viewContent
+{
+	width : 100%;
+	height : 100%;
+	overflow : auto;
+}
+pv-content
+{
+	text-align : center;
+}

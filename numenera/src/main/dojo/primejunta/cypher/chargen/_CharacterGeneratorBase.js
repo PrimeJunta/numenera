@@ -494,6 +494,7 @@ function( declare,
             this.transitionOut([ document.body ]).then( lang.hitch( this, function() {
                 this.domNode.style.display = "none";
                 widg.placeAt( document.body );
+                widg.startup();
                 this.transitionIn([ document.body ]);
             }));
         },
@@ -502,7 +503,7 @@ function( declare,
             this.transitionOut([ document.body ]).then( lang.hitch( this, function() {
                 this.domNode.style.display = "block";
                 widg.destroy();
-                this._kick();
+                setTimeout( lang.hitch( this, this._kick ), 50 );
                 this.transitionIn([ document.body ]);
             }));
         },
@@ -527,7 +528,7 @@ function( declare,
             this.phraseDisplayNode.style.display = "none";
             this.characterNameInput.value = this.DEFAULT_CHARACTER_NAME;
             this.normalizeClass( this.characterNameInput );
-            this.mainTabContainer.selectChild( this.abilityPane );
+            this.mainTabContainer.selectChild( this.descriptionPane );
             topic.publish( "CharGen/pleaseReset" );
             if( deferred )
             {

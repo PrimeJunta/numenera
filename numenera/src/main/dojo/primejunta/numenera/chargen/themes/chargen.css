@@ -4,6 +4,7 @@
 
 /* Import charrec and main theme. */
 @import url( 'charrec.css' );
+@import url( 'playview.css' );
 @import url( '../../themes/numenera.css' );
 /* main controls */
 .cg-floatingButtonContainer

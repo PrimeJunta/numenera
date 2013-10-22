@@ -144,9 +144,10 @@ function( declare,
         },
         _populateGallery : function( imgs )
         {
-            while( imgs.length > 0 )
+            var iw = new _PortraitSelector({ manager : this, src : this.portraitHome + "/" + imgs.pop() }).placeAt( this.imageList );
+            if( imgs.length > 0 )
             {
-                var iw = new _PortraitSelector({ manager : this, src : this.portraitHome + "/" + imgs.pop() }).placeAt( this.imageList );
+                setTimeout( lang.hitch( this, this._populateGallery, imgs ), 100 )
             }
         }
     });
