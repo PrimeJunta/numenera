@@ -36,7 +36,8 @@
 }
 .pv-viewContent
 {
-	width : 100%;
+	margin : 0 auto 0 auto;
+	width : 850px;
 	height : 100%;
 	overflow : auto;
 }

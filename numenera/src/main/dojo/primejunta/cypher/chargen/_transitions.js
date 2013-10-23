@@ -8,61 +8,84 @@ function( declare,
           Deferred )
 {
     return declare([], {
-        transitionTo : function( nodes )
+        transitionTo : function( viewName )
         {
+            console.log( "TRANSITION TO", viewName );
+            var view = this.views[ viewName ];
             var deferred = new Deferred();
-            if( this._currentNodes.length == nodes.length && this._currentNodes[ 0 ] == nodes[ 0 ] ) // we're already there
+            if( view.selected )
             {
                 deferred.resolve();
             }
             else
             {
-                this.transitionOut( this._currentNodes ).then( lang.hitch( this, this.transitionIn, nodes, deferred ) );
+                this.transitionOut().then( lang.hitch( this, this.transitionIn, viewName, deferred ) );
             }
             return deferred;
         },
-        transitionOut : function( nodes, deferred )
-        {
-            return this._transition( "out", nodes, deferred );
-        },
-        transitionIn : function( nodes, deferred )
-        {
-            return this._transition( "in", nodes, deferred );
-        },
-        _transition : function( transition, nodes, deferred, disp )
+        transitionOut : function( deferred )
         {
             if( !deferred )
             {
                 deferred = new Deferred();
             }
-            var func = transition == "out" ? fx.fadeOut : fx.fadeIn;
-            if( transition == "in" )
+            for( var o in this.views )
             {
-                for( var i = 0; i < nodes.length; i++ )
+                if( this.views[ o ].selected )
                 {
-                    nodes[ i ].style.display = "block";
-                    this._kick();
+                    return this._transition( o, false, deferred );
                 }
             }
-            for( var i = 0; i < nodes.length - 1; i++ )
+            deferred.resolve();
+            return deferred;
+        },
+        transitionIn : function( viewName, deferred )
+        {
+            return this._transition( viewName, true, deferred );
+        },
+        _transition : function( viewName, want, deferred )
+        {
+            console.log( "TRANSITION", viewName, want, deferred );
+            if( !deferred )
             {
-                func({ node : nodes[ i ] }).play();
+                deferred = new Deferred();
             }
-            func({
-                node : nodes[ nodes.length - 1 ],
-                onEnd : lang.hitch( this, function() {
-                    if( transition == "out" )
+            var view = this.views[ viewName ];
+            if( view.selected == want ) // we're already there
+            {
+                deferred.resolve();
+                return deferred;
+            }
+            else
+            {
+                view.selected = want;
+                if( want )
+                {
+                    setTimeout( lang.hitch( this, this._kick ), 100 );
+                    for( var i = 0; i < view.nodes.length; i++ )
                     {
-                        for( var i = 0; i < nodes.length; i++ )
+                        view.nodes[ i ].style.display = "block";
+                    }
+                }
+                console.log( "REQUESTING TRANSITION", want );
+                return this._performTransition( want ? fx.fadeIn : fx.fadeOut, view, deferred );
+            }
+        },
+        _performTransition : function( func, view, deferred )
+        {
+            console.log( "PLAYING TRANSITION" );
+            func({
+                node : document.body,
+                onEnd : lang.hitch( this, function() {
+                    if( !view.selected )
+                    {
+                        for( var i = 0; i < view.nodes.length; i++ )
                         {
-                            nodes[ i ].style.display = "none";
+                            view.nodes[ i ].style.display = "none";
                         }
                     }
-                    else
-                    {
-                        this._currentNodes = nodes;
-                    }
                     deferred.resolve();
+                    console.log( "TRANSITION COMPLETE" );
                 })
             }).play();
             return deferred;
@@ -72,15 +95,27 @@ function( declare,
          */
         _showCharacterData : function()
         {
-            return this.transitionTo( this.mainNodes );
+            if( this._characterDataShowing )
+            {
+                return;
+            }
+            console.log( "SCD" );
+            this._characterDataShowing = true;
+            return this.transitionTo( "main" );
         },
         /**
          * Hides the character generator pane and its main buttons node and resets and shows the splash pane.
          */
         _hideCharacterData : function( /* boolean */ withCurrentSelection )
         {
+            if( !this._characterDataShowing )
+            {
+                return;
+            }
+            console.log( "HCD" );
+            this._characterDataShowing = false;
             this._splashPane.reset( withCurrentSelection );
-            return this.transitionTo([ this._splashPane.domNode ]);
+            return this.transitionTo( "splash" );
         }
     });
 });

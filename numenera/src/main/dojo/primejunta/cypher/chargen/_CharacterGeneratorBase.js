@@ -106,7 +106,7 @@ function( declare,
             this.setupOptionals(); // from optionals
             this.statsControl.manager = this;
             this.writePhraseSelects();
-            this._splashPane = this.createSplashCharacterPane({ manager : this }).placeAt( this.domNode );
+            this._splashPane = this.createSplashCharacterPane({ manager : this }).placeAt( document.body );
             this._currentNodes = [ this._splashPane.domNode ];
             this.mainNodes = [ this.mainButtonsNode, this.characterGeneratorPane.domNode ];
             on( this.characterNameInput, "keydown", lang.hitch( this, this.normalizeClass, this.characterNameInput ) );
@@ -118,6 +118,15 @@ function( declare,
             topic.subscribe( "CharGen/lockSheetControls", lang.hitch( this, this.lockControls ) );
             topic.subscribe( "CharGen/pleaseShowUnlock", lang.hitch( this, this.setFinalizedClass, false ) );
             topic.subscribe( "CharGen/pleaseHideUnlock", lang.hitch( this, this.setFinalizedClass, true ) );
+            this.views = {
+                "splash" : {
+                    "nodes" : [ this._splashPane.domNode ],
+                    "selected" : true
+                },
+                "main" : { 
+                    "nodes" : [ this.domNode ]
+                }
+            }
             this.inherited( arguments );
             this.checkForStartupQuery();
             this.start();
@@ -445,7 +454,7 @@ function( declare,
          */
         getDescriptor : function()
         {
-            return this.descriptors[  this.selectValue( this.descriptorSelect ).value ];
+            return this.descriptors[ this.selectValue( this.descriptorSelect ).value ];
         },
         /**
          * Returns currently selected focus (or undefined if not set).
@@ -462,7 +471,7 @@ function( declare,
             try // the try-catch block is here to make debugging easier, as for some reason the exceptions disappear otherwise.
             {
                 this._printWidget = this.createCharacterRecord({ manager : this });
-                this._openSecondaryWidget( this._printWidget );
+                this._openSecondaryWidget( "print", this._printWidget );
             }
             catch( e )
             {
@@ -478,7 +487,7 @@ function( declare,
             try // the try-catch block is here to make debugging easier, as for some reason the exceptions disappear otherwise.
             {
                 this._playViewWidget = this.createPlayView({ manager : this });
-                this._openSecondaryWidget( this._playViewWidget );
+                this._openSecondaryWidget( "play", this._playViewWidget );
             }
             catch( e )
             {
@@ -489,22 +498,20 @@ function( declare,
         {
             this._closeSecondaryWidget( this._playViewWidget );
         },
-        _openSecondaryWidget : function( widg )
+        _openSecondaryWidget : function( viewName, widg )
         {
-            this.transitionOut([ document.body ]).then( lang.hitch( this, function() {
-                this.domNode.style.display = "none";
+            this.views[ viewName ] = { nodes : widg.domNode };
+            this.transitionOut().then( lang.hitch( this, function() {
                 widg.placeAt( document.body );
                 widg.startup();
-                this.transitionIn([ document.body ]);
+                this.transitionIn( viewName );
             }));
         },
         _closeSecondaryWidget : function( widg )
         {
-            this.transitionOut([ document.body ]).then( lang.hitch( this, function() {
-                this.domNode.style.display = "block";
+            this.transitionOut().then( lang.hitch( this, function() {
                 widg.destroy();
-                setTimeout( lang.hitch( this, this._kick ), 50 );
-                this.transitionIn([ document.body ]);
+                this.transitionIn( "main" );
             }));
         },
         /**
@@ -605,7 +612,9 @@ function( declare,
          */
         _kick : function()
         {
+            console.log( this, this.characterGeneratorPane );
             this.characterGeneratorPane.layout();
+            this.characterGeneratorPane.resize();
         },
         /**
          * Resets the control to its pristine state, except for the fields at top. We do this every time the user selects a

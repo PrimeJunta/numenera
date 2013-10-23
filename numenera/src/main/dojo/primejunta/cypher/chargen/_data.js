@@ -419,7 +419,7 @@ function( declare,
         _populateFromStoredData : function( /* String */ qString )
         {
             this._populating.push( 3 );
-            this.transitionOut( this._currentNodes ).then( lang.hitch( this, function()
+            this.transitionOut().then( lang.hitch( this, function()
             {
                 this.doClearAll();
                 var populateMethod = this._getPopulateMethod( qString );
@@ -430,7 +430,7 @@ function( declare,
                 }
                 this._populating.pop();
                 topic.publish( "CharGen/pleaseCheckState" );
-                this.transitionIn( this.mainNodes );
+                this.transitionIn( "main" );
             }));
         },
         /**
