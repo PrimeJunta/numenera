@@ -147,7 +147,7 @@ function( declare,
         /**
          * Stub. Return a character record of the right type.
          */
-        createCharacterRecord : function( props )
+        createPrintView : function( props )
         {
         },
         /**
@@ -234,6 +234,7 @@ function( declare,
             this._printLists();
             this._populating.pop();
             this.updateLink();
+            this.checkSwitchToMain();
         },
         /**
          * Triggered when the user selects a type. Does updateValues and completes with updateLink.
@@ -288,7 +289,6 @@ function( declare,
             this._printLists();
             this.postUpdateFocus( arguments ); // from _OptionalRulesMixin
             this._populating.pop();
-            this.checkSwitchToMain();
         },
         updateItems : function( from, data )
         {
@@ -311,9 +311,20 @@ function( declare,
         },
         checkSwitchToMain : function()
         {
-            if( this._populating.length == 0 && this.getType() && this.getDescriptor() && this.getFocus() )
+            if( this._populating.length > 0 )
             {
+                return;
+            }
+            if( this.getType() && this.getDescriptor() && this.getFocus() )
+            {
+                console.log( "WANT TO main" );
                 this.transitionTo( "main" );
+            }
+            else
+            {
+                console.log( "WANT TO splash" );
+                this._splashPane.reset( true );
+                this.transitionTo( "splash" );
             }
         },
         /**
@@ -476,7 +487,7 @@ function( declare,
         {
             try // the try-catch block is here to make debugging easier, as for some reason the exceptions disappear otherwise.
             {
-                this._printWidget = this.createCharacterRecord({ manager : this });
+                this._printWidget = this.createPrintView({ manager : this });
                 this._openSecondaryWidget( "print", this._printWidget );
             }
             catch( e )
@@ -508,7 +519,7 @@ function( declare,
         {
             this.views[ viewName ] = { nodes : widg.domNode };
             this.transitionOut().then( lang.hitch( this, function() {
-                widg.placeAt( document.body );
+                widg.placeAt( document.body, "first" );
                 widg.startup();
                 this.transitionIn( viewName );
             }));
@@ -527,12 +538,14 @@ function( declare,
         clearAll : function()
         {
             var deferred = new Deferred();
+            this._splashPane.reset();
             this.transitionTo( "splash" ).then( lang.hitch( this, this.doClearAll, deferred ) );
             return deferred;
         },
         doClearAll : function( deferred )
         {
             this._clear();
+            this._splashPane.reset();
             this.descriptorSelect.selectedIndex = 0;
             this.typeSelect.selectedIndex = 0;
             this.focusSelect.selectedIndex = 0;

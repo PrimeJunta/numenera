@@ -94,7 +94,7 @@ function( declare,
         /**
          * Return a _PrintView.
          */
-        createCharacterRecord : function( props )
+        createPrintView : function( props )
         {
             return new _PrintView( props );
         },

@@ -20,6 +20,7 @@ function( declare,
          */
         DEFAULT_VALUES : {
             "a Hero of the Ninth World" : true,
+            "a Stranger" : true,
             "choose" : true,
             "GM chooses" : true,
             "choose topic" : true,

@@ -53,7 +53,7 @@ function( declare,
         selectDescriptor : function()
         {
             this.manager.descriptorSelect.selectedIndex = this.descriptorSelect.selectedIndex;
-            this.manager.selectDescriptor();
+            this.manager.selectDescriptor( true );
         },
         /**
          * Sets manager's matching select's selectedIndex and calls the same method there.
@@ -61,7 +61,7 @@ function( declare,
         selectType : function()
         {
             this.manager.typeSelect.selectedIndex = this.typeSelect.selectedIndex;
-            this.manager.selectType();
+            this.manager.selectType( true );
         },
         /**
          * Sets manager's matching select's selectedIndex and calls the same method there.
@@ -69,7 +69,7 @@ function( declare,
         selectFocus : function()
         {
             this.manager.focusSelect.selectedIndex = this.focusSelect.selectedIndex;
-            this.manager.selectFocus();
+            this.manager.selectFocus( true );
         },
         /**
          * Calls manager.openCharacter.

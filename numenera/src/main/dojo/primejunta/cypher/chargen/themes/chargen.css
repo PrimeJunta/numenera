@@ -88,6 +88,18 @@ input[readonly].cg-statInput
     padding-top : 7px;
 }
 /* other inputs */
+.cg-splashCharacterNameInput
+{
+    text-align : center;
+	border : none;
+	padding : 10px;
+	width: 680px;
+    font-size : large;
+    font-family : Prata;
+    color : white;
+    background-color : #233343;
+    background-image : url( '../../themes/images/grain-l.png' );
+}
 .cg-characterNameInputBox
 {
     height : 33px;
