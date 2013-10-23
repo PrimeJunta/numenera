@@ -1,0 +1,218 @@
+/**
+ * Main Character Generator stylesheet.
+ */
+
+/* Import charrec and main theme. */
+@import url( 'charrec.css' );
+@import url( 'playview.css' );
+@import url( '../../themes/cypher.css' );
+/* main controls */
+.cg-floatingButtonContainer
+{
+}
+.cg-floatingButtonContent
+{
+    position : absolute;
+    top : 148px;
+    width : 850px;
+    margin-left : auto;
+    margin-right : auto;
+}
+.cg-leftButtonsNode
+{
+	position : absolute;
+	left : 0px;
+}
+.cg-rightButtonsNode
+{
+	position : absolute;
+	right : 0px;
+}
+.cg-resultsPane
+{
+    padding : 10px 30px 10px 30px;
+}
+/* stats */
+.cg-statsPane
+{
+    margin-bottom : 20px;
+}
+.cg-statisticsTable
+{
+}
+.cg-statisticsTop td
+{
+    border-bottom : 1px solid gray;
+}
+.cg-statisticsBottom
+{
+}
+.cg-statisticsMiddle td
+{
+    border-bottom : 1px solid gray;
+}
+.cg-statisticsMiddle td td
+{
+    border-bottom : none;
+}
+.cg-thumbnail
+{
+	margin : 4px;
+}
+/* various inputs */
+.cg-statInput
+{
+    font-size : 18px;
+    height : 50px;
+    width : 50px;
+    text-align : center;
+    border : 1px solid #848484;
+    border-radius : 30px;
+}
+input[readonly].cg-statInput
+{
+    border : 1px solid #b4b4b4;
+    background-color : #f5f5f5;
+}
+.cg-adjustButton .dijitButtonNode
+{
+    font-size : 24px;
+    height : 24px;
+    vertical-align : 10px;
+    margin : -10px 0 0;
+    background : none !important;
+    border : none !important;
+}
+.cg-adjustButton .dijitButtonContents
+{
+    padding-top : 7px;
+}
+/* other inputs */
+.cg-characterNameInputBox
+{
+    height : 33px;
+    padding : 8px 0 0;
+    margin : 0 0 8px;
+    background-color : #233343;
+    background-image : url( '../../themes/images/grain-l.png' );
+}
+.cg-characterNameInput
+{
+	padding : 0 0 0 0;
+	border : none;
+    text-align : center;
+    font-size : large;
+    width : 100%;
+    font-family : Prata;
+    color : white;
+    background : none;
+}
+.cg-phraseSelectors
+{
+    text-align:center;
+    height : 28px;
+    padding : 12px 0 4px;
+    color : white;
+}
+.cg-selectedPhrase
+{
+    text-align : center;
+    height : 24px;
+    padding : 14px 0 2px 0;
+    color : #e4e4e4;
+    font-family : Prata;
+    font-style : italic;
+}
+/* type, descriptor, focus */
+
+/* color codes for type, description, and focus */
+.cg-type
+{
+    color : black !important;
+}
+.cg-desc
+{
+    color : #8b1616 !important;
+}
+.cg-focus
+{
+    color : #345c8c !important;
+}
+.cg-mutation
+{
+    color : #8F4700 !important;
+}
+.cg-harmful
+{
+    color : #663300;
+}
+.cg-cust
+{
+    color : salmon;
+}
+/* mutations */
+.cg-mutationTextNode
+{
+    width : 20px;
+}
+.cg-mutationTextWithSelectNode
+{
+    width : 65px;
+}
+
+/* advancement controls */
+.cg-advancementHeader
+{
+}
+.cg-advancementContent
+{
+}
+.cg-tierRow select, .cg-tierRow.input[type=text]
+{
+    width : 300px;
+}
+.cg-smallCell
+{
+    width : 55px;
+    padding-right : 15px;
+}
+td.cg-tierTitleCell
+{
+    width : 100px;
+    background-image : url( '../../themes/images/cloudbg.jpg' );
+}
+.num-evenBackground .cg-tierTitleCell
+{
+    opacity : 0.75;
+}
+.num-evenBackground .cg-tierTitleCell h3
+{
+    color : black;
+}
+.cg-tierTitle
+{
+    text-align : center;
+    transform : rotate( -90deg );
+    -ms-transform : rotate( -90deg ); /* IE 9 */
+    -webkit-transform : rotate( -90deg ); /* Safari and Chrome */
+}
+.cg-tierContent
+{
+    padding : 10px;
+}
+.cg-finalized .num-hiddenControl
+{
+    display : none !important;
+}
+/* character manager */
+.cg-characterManager:hover
+{
+    background-color : #d4e4f4;
+    cursor : pointer;
+}
+/* image container */
+.cg-imageContainer
+{
+    text-align : center;
+    margin : 20px;
+}
