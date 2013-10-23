@@ -56,17 +56,17 @@ function( declare,
             this._subs.push( topic.subscribe( "CharGen/pleaseHideUnlock", lang.hitch( this, this.hideUnlockControls ) ) );
             this._subs.push( topic.subscribe( "CharGen/pleaseLockUnlock", lang.hitch( this, this.lockUnlockControls ) ) );
             this.unlockButton = new Button({
-                label : "<i class=\"icon-lock\"></i>",
+                label : "<i class=\"fa fa-lock\"></i>",
                 onClick : lang.hitch( this, this.unlock )
             }).placeAt( this.unlockControlNode );
             this.cancelButton = new Button({
                 style : "display:none",
-                label : "<i class=\"icon-unlock-alt\"></i>",
+                label : "<i class=\"fa fa-unlock-o\"></i>",
                 onClick : lang.hitch( this, this.cancelChange )
             }).placeAt( this.unlockControlNode );
             this.applyChangeButton = new Button({
                 style : "display:none",
-                label : "<i class=\"icon-ok-circle\"></i>",
+                label : "<i class=\"fa fa-check-circle-o\"></i>",
                 onClick : lang.hitch( this, this.applyChange )
             }).placeAt( this.unlockControlNode );
             //domClass.add( this.cancelButton.domNode, "num-redButton" );

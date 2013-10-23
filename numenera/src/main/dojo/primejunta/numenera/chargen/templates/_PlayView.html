@@ -1,27 +1,34 @@
 <div class="pv-playViewRoot">
+  <div class="pv-copyright" style="">Numenera and its logo
+    are trademarks of Monte Cook Games, LLC in the U.S.A. and
+    other countries. All Monte Cook Games characters and character
+    names, and the distinctive likenesses thereof, are trademarks
+    of Monte Cook Games, LLC. Content derived from Monte Cook
+    Games publications is © 2013 Monte Cook Games, LLC.</div>
+
   <div>
     <div data-dojo-type="dojox/mobile/TabBar"
       data-dojo-props="fill:'always'">
       <div data-dojo-type="dojox/mobile/TabBarButton"
         data-dojo-attach-event='onClick:closeMe'>
-        <i class="icon-resize-small num-blueIcon"></i>
+        <i class="fa fa-resize-small num-blueIcon"></i>
       </div>
       <div data-dojo-type="dojox/mobile/TabBarButton"
-        data-dojo-attach-event="onClick:toDescriptionView"
+        data-dojo-attach-event="onClick:toDescriptionView">
+        <i class="fa fa-user"></i>
+      </div>
+      <div data-dojo-type="dojox/mobile/TabBarButton"
+        data-dojo-attach-event="onClick:toStatsView"
         data-dojo-props='selected:true'>
-        <i class="icon-user"></i>
-      </div>
-      <div data-dojo-type="dojox/mobile/TabBarButton"
-        data-dojo-attach-event="onClick:toStatsView">
-        <i class="icon-dashboard"></i>
+        <i class="fa fa-dashboard"></i>
       </div>
       <div data-dojo-type="dojox/mobile/TabBarButton"
         data-dojo-attach-event="onClick:toAbilitiesView">
-        <i class="icon-bolt"></i>
+        <i class="fa fa-bolt"></i>
       </div>
       <div data-dojo-type="dojox/mobile/TabBarButton"
         data-dojo-attach-event="onClick:toPossessionsView">
-        <i class="icon-suitcase"></i>
+        <i class="fa fa-suitcase"></i>
       </div>
     </div>
     <div data-dojo-type="dojox/mobile/View" data-dojo-attach-point="descriptionView"
@@ -39,12 +46,12 @@
             </div>
             <div style="text-align:center">
             <div class="cr-name" data-dojo-attach-point="name_field"></div>
-            <span class="cr-smallLabel" style="text-transform: lowercase">the</span>
+            <span class="cr-definition">the</span>
             <span class="cr-definition">
               <span data-dojo-attach-point="descriptor_field"></span> <span
                 data-dojo-attach-point="type_field"></span>
             </span>
-            <span class="cr-smallLabel" style="text-transform: lowercase">who</span>
+            <span class="cr-definition">who</span>
             <span class="cr-definition">
               <span data-dojo-attach-point="focus_field"></span>
             </span>
@@ -74,46 +81,86 @@
               class="pv-listContent"></div>
           </div>
         </div>
-
-        <div class="cr-copyright" style="">Numenera and its logo
-          are trademarks of Monte Cook Games, LLC in the U.S.A. and
-          other countries. All Monte Cook Games characters and character
-          names, and the distinctive likenesses thereof, are trademarks
-          of Monte Cook Games, LLC. Content derived from Monte Cook
-          Games publications is © 2013 Monte Cook Games, LLC.</div>
       </div>
     </div>
-    <div data-dojo-type="dojox/mobile/View" data-dojo-attach-point="statsView">
+    <div data-dojo-type="dojox/mobile/View" data-dojo-attach-point="statsView" data-dojo-props="selected:true">
       <div class="pv-viewContent">
         <div class="cr-marker cr-listBox cr-stats">
           <div class="cr-content">
-            <table width="100%">
+            <table>
               <tbody>
                 <tr>
-                  <td width="17%">
+                  <td align="center" width="50">
+                    <div class="pv-smallLabel">Tier</div>
+                  </td>
+                  <td width="190"></td>
+                  <td colspan="3" align="center">
+                    <div class="pv-smallLabel">XP</div>
+                  </td>
+                  <td colspan="3" align="center">
+                    <div class="pv-smallLabel">Effort</div>
+                  </td>
+                  <td width="100"></td>
+                  <td align="center" colspan="2">
+                    <div class="pv-smallLabel">Recovery</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
                     <div class="cr-statBoxContainer">
-                      <div class="cr-smallLabel">Tier</div>
-                      <div class="cr-statBox"
+                      <div class="cr-statBox pv-staticStatBox"
                         data-dojo-attach-point="character_tier"></div>
                     </div>
                   </td>
-                  <td width="17%">
-                    <div class="cr-smallLabel">Effort</div>
-                    <div class="cr-statBox"
-                      data-dojo-attach-point="character_effort"></div>
+                  <td></td>
+                  <td width="5">
+                    <button class="cg-adjustButton"
+                      data-dojo-type="dijit/form/Button"
+                      data-dojo-attach-point="decrement_character_xp">
+                      <i class="num-redIcon fa fa-minus-circle"></i>
+                    </button>
                   </td>
-                  <td width="17%">
-                    <div class="cr-smallLabel">XP</div>
+                  <td>
                     <div class="cr-statBox">
                       <span data-dojo-attach-point="character_xp"></span>
                     </div>
                   </td>
-                  <td width="15%"></td>
-                  <td width="35%" style="text-align: center">
-                    <div class="cr-smallLabel">Recovery: 1d6+</div>
+                  <td width="5">
+                    <button class="cg-adjustButton"
+                      data-dojo-type="dijit/form/Button"
+                      data-dojo-attach-point="increment_character_xp">
+                      <i class="num-blueIcon fa fa-plus-circle"></i>
+                    </button>
+                  </td>
+                  <td width="5">
+                    <button class="cg-adjustButton"
+                      data-dojo-type="dijit/form/Button"
+                      data-dojo-attach-point="decrement_character_effort">
+                      <i class="num-redIcon fa fa-minus-circle"></i>
+                    </button>
+                  </td>
+                  <td>
                     <div class="cr-statBox"
+                      data-dojo-attach-point="character_effort"></div>
+                  </td>
+                  <td width="5">
+                    <button class="cg-adjustButton"
+                      data-dojo-type="dijit/form/Button"
+                      data-dojo-attach-point="increment_character_effort">
+                      <i class="num-blueIcon fa fa-plus-circle"></i>
+                    </button>
+                  </td>
+                  <td width="50"></td>
+                  <td style="text-align: center">
+                    <div class="cr-statBox pv-staticStatBox"
                       style="margin-left: auto; margin-right: auto;"
                       data-dojo-attach-point="recovery_roll"></div>
+                  </td>
+                  <td style="text-align: center">
+                    <div class="cr-statBox pv-staticStatBox pv-activeStatBox"
+                      style="margin-left: auto; margin-right: auto;"
+                      data-dojo-attach-point="recovery_roll_control"
+                      data-dojo-attach-event="onClick:recoveryRoll">A</div>
                   </td>
                 </tr>
               </tbody>
@@ -125,61 +172,127 @@
 
             <table>
               <tbody>
+                <tr valign="top">
+                  <td align="center" width="50">
+                    <div class="pv-smallLabel">Edge</div>
+                  </td>
+                  <td width="190"></td>
+                  <td></td>
+                  <td align="center">
+                    <div class="pv-smallLabel">Pool</div>
+                  </td>
+                  <td></td>
+                  <td width="50"></td>
+                  <td></td>
+                  <td rowspan="4" width="145"></td>
+                  <td rowspan="4" align="center">
+                    <div class="pv-smallLabel" style="margin-bottom:20px">Damage track</div>
+                    <div><i class="fa fa-circle num-largeIcon num-blueIcon" data-dojo-attach-point="damage_track_0_icon"></i></div>
+                    <div><i class="fa fa-circle-o num-largeIcon num-redIcon num-grayIcon" data-dojo-attach-point="damage_track_1_icon"></i></div>
+                    <div><i class="fa fa-circle-o num-largeIcon num-redIcon num-grayIcon" data-dojo-attach-point="damage_track_2_icon"></i></div>
+                    <div><i class="fa fa-circle-o num-largeIcon num-grayIcon" data-dojo-attach-point="damage_track_3_icon"></i></div>
+                  </td>
+                </tr>
                 <tr valign="middle">
-                  <td><h3 class="pv-heading"
-                      style="text-align: right;">Might</h3></td>
                   <td>
-                    <div class="cr-smallLabel">Pool</div>
+                    <div class="cr-statBox pv-staticStatBox"
+                      data-dojo-attach-point="might_edge"></div>
+                  </td>
+                  <td><h3 class="pv-heading"
+                      style="text-align: center;">Might</h3></td>
+                  <td width="5">
+                    <button class="cg-adjustButton"
+                      data-dojo-type="dijit/form/Button"
+                      data-dojo-attach-point="decrement_might_pool">
+                      <i class="num-redIcon fa fa-minus-circle"></i>
+                    </button>
+                  </td>
+                  <td>
                     <div class="cr-statBox"
                       data-dojo-attach-point="might_pool"></div>
                   </td>
-                  <td>
-                    <div class="cr-smallLabel">Edge</div>
-                    <div class="cr-statBox"
-                      data-dojo-attach-point="might_edge"></div>
+                  <td width="5">
+                    <button class="cg-adjustButton"
+                      data-dojo-type="dijit/form/Button"
+                      data-dojo-attach-point="increment_might_pool">
+                      <i class="num-blueIcon fa fa-plus-circle"></i>
+                    </button>
                   </td>
+                  <td width="5"></td>
                   <td>
-                    <div class="cr-smallLabel">Current</div>
-                    <div class="cr-statBox"
-                      data-dojo-attach-point="might_current"></div>
+                    <button class="cg-adjustButton"
+                      data-dojo-type="dijit/form/Button"
+                      data-dojo-attach-point="apply_might_pool_effort">
+                      <i class="num-redIcon fa fa-heart"></i>
+                    </button>
                   </td>
                 </tr>
                 <tr valign="middle">
-                  <td><h3 class="pv-heading"
-                      style="text-align: right;">Speed</h3></td>
                   <td>
-                    <div class="cr-smallLabel">Pool</div>
+                    <div class="cr-statBox pv-staticStatBox"
+                      data-dojo-attach-point="speed_edge"></div>
+                  </td>
+                  <td><h3 class="pv-heading"
+                      style="text-align: center;">Speed</h3></td>
+                  <td width="5">
+                    <button class="cg-adjustButton"
+                      data-dojo-type="dijit/form/Button"
+                      data-dojo-attach-point="decrement_speed_pool">
+                      <i class="num-redIcon fa fa-minus-circle"></i>
+                    </button>
+                  </td>
+                  <td>
                     <div class="cr-statBox"
                       data-dojo-attach-point="speed_pool"></div>
                   </td>
-                  <td>
-                    <div class="cr-smallLabel">Edge</div>
-                    <div class="cr-statBox"
-                      data-dojo-attach-point="speed_edge"></div>
+                  <td width="5">
+                    <button class="cg-adjustButton"
+                      data-dojo-type="dijit/form/Button"
+                      data-dojo-attach-point="increment_speed_pool">
+                      <i class="num-blueIcon fa fa-plus-circle"></i>
+                    </button>
                   </td>
-                  <td>
-                    <div class="cr-smallLabel">Current</div>
-                    <div class="cr-statBox"
-                      data-dojo-attach-point="speed_current"></div>
+                  <td width="5"></td>
+                  <td width="5">
+                    <button class="cg-adjustButton"
+                      data-dojo-type="dijit/form/Button"
+                      data-dojo-attach-point="apply_speed_pool_effort">
+                      <i class="num-redIcon fa fa-heart"></i>
+                    </button>
                   </td>
                 </tr>
                 <tr valign="middle">
-                  <td><h3 class="pv-heading"
-                      style="text-align: right;">Intellect</h3></td>
                   <td>
-                    <div class="cr-smallLabel">Pool</div>
+                    <div class="cr-statBox pv-staticStatBox"
+                      data-dojo-attach-point="intellect_edge"></div>
+                  </td>
+                  <td><h3 class="pv-heading"
+                      style="text-align: center;">Intellect</h3></td>
+                  <td width="5">
+                    <button class="cg-adjustButton"
+                      data-dojo-type="dijit/form/Button"
+                      data-dojo-attach-point="decrement_intellect_pool">
+                      <i class="num-redIcon fa fa-minus-circle"></i>
+                    </button>
+                  </td>
+                  <td>
                     <div class="cr-statBox"
                       data-dojo-attach-point="intellect_pool"></div>
                   </td>
-                  <td>
-                    <div class="cr-smallLabel">Edge</div>
-                    <div class="cr-statBox"
-                      data-dojo-attach-point="intellect_edge"></div>
+                  <td width="5">
+                    <button class="cg-adjustButton"
+                      data-dojo-type="dijit/form/Button"
+                      data-dojo-attach-point="increment_intellect_pool">
+                      <i class="num-blueIcon fa fa-plus-circle"></i>
+                    </button>
                   </td>
-                  <td>
-                    <div class="cr-smallLabel">Current</div>
-                    <div class="cr-statBox"
-                      data-dojo-attach-point="intellect_current"></div>
+                  <td width="5"></td>
+                  <td width="5">
+                    <button class="cg-adjustButton"
+                      data-dojo-type="dijit/form/Button"
+                      data-dojo-attach-point="apply_intellect_pool_effort">
+                      <i class="num-redIcon fa fa-heart"></i>
+                    </button>
                   </td>
                 </tr>
               </tbody>
@@ -191,8 +304,8 @@
               <tbody>
                 <tr valign="top">
                   <td width="25%">
-                    <div class="cr-smallLabel">Heavy</div>
-                    <div class="cr-statBox cr-armor"
+                    <div class="pv-smallLabel" style="text-align:center">Heavy</div>
+                    <div class="cr-statBox cr-armor pv-staticStatBox"
                       data-dojo-attach-point="armor_value_heavy"></div>
                     <div style="text-align: center">
                       (<span
@@ -203,8 +316,8 @@
                     </div>
                   </td>
                   <td width="25%">
-                    <div class="cr-smallLabel">Medium</div>
-                    <div class="cr-statBox cr-armor"
+                    <div class="pv-smallLabel" style="text-align:center">Medium</div>
+                    <div class="cr-statBox cr-armor pv-staticStatBox"
                       data-dojo-attach-point="armor_value_medium"></div>
                     <div style="text-align: center">
                       (<span
@@ -215,8 +328,8 @@
                     </div>
                   </td>
                   <td width="25%">
-                    <div class="cr-smallLabel">Light</div>
-                    <div class="cr-statBox cr-armor"
+                    <div class="pv-smallLabel" style="text-align:center">Light</div>
+                    <div class="cr-statBox cr-armor pv-staticStatBox"
                       data-dojo-attach-point="armor_value_light"></div>
                     <div style="text-align: center">
                       (<span
@@ -227,8 +340,8 @@
                     </div>
                   </td>
                   <td width="25%">
-                    <div class="cr-smallLabel">None</div>
-                    <div class="cr-statBox cr-armor"
+                    <div class="pv-smallLabel" style="text-align:center">None</div>
+                    <div class="cr-statBox cr-armor pv-staticStatBox"
                       data-dojo-attach-point="armor_value_none"></div>
                   </td>
                 </tr>
@@ -278,18 +391,16 @@
           <div class="cr-content">
             <table class="cr-layoutTable" width="100%">
               <tbody>
-                <tr valign="top">
-                  <td><img src="${iconSource}/h-pixel.png" alt=""
-                    class="cr-hrule" />
+                <tr valign="middle">
+                  <td>
                     <h2 class="pv-heading" style="text-align: left;">Cyphers</h2>
-                    <img src="${iconSource}/h-pixel.png" alt=""
-                    class="cr-hrule" /></td>
-                  <td width="25%">
+                  </td>
+                  <td width="70">
                     <table class="cr-cypherLimitTable">
                       <tbody>
                         <tr>
                           <td>
-                            <div class="cr-smallLabel"
+                            <div class="pv-smallLabel"
                               style="text-align: right;">Limit</div>
                           </td>
                           <td>
@@ -311,18 +422,16 @@
           <div class="cr-content">
             <table class="cr-layoutTable" width="100%">
               <tbody>
-                <tr valign="top">
-                  <td><img src="${iconSource}/h-pixel.png" alt=""
-                    class="cr-hrule" />
+                <tr valign="middle">
+                  <td>
                     <h2 class="pv-heading" style="text-align: left;">Possessions</h2>
-                    <img src="${iconSource}/h-pixel.png" alt=""
-                    class="cr-hrule" /></td>
-                  <td width="25%">
+                  </td>
+                  <td width="70">
                     <table class="cr-cypherLimitTable">
                       <tbody>
                         <tr>
                           <td>
-                            <div class="cr-smallLabel"
+                            <div class="pv-smallLabel"
                               style="text-align: right;">Shins</div>
                           </td>
                           <td>

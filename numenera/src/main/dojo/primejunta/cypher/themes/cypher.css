@@ -57,7 +57,7 @@ body, .mobile body
 {
     background-color : #182838;
     background-image : url( 'images/grain.png' );
-    font-size : 16px !important;
+    font-size : 16px;
 }
 select 
 {
@@ -358,7 +358,6 @@ a.num-infoLink
     background-image : linear-gradient(to bottom, #303030 0%, #606060 100%) !important;
     border : 1px solid #484848 !important;
 }
-/* ADD */
 .num-blueButton .dijitButtonDisabled .dijitButtonNode
 {
     background-image : -webkit-linear-gradient(to bottom, #FFFFFF 0%, #335C99 100%);
@@ -368,7 +367,6 @@ a.num-infoLink
 {
 	color : silver;
 }
-/* END */
 .num-redIcon
 {
 	color : #ff6d44;
@@ -376,7 +374,23 @@ a.num-infoLink
 .num-blueIcon
 {
 	color : #446dff;
-},
+}
+.num-grayIcon
+{
+	color : gray;
+}
+.num-largeIcon
+{
+	font-size : 22px;
+}
+.num-mediumIcon
+{
+	font-size : 18px;
+}
+.num-smallIcon
+{
+	font-size : 13px;
+}
 .num-greenButton
 {
     color : #345C8C;

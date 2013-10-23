@@ -69,11 +69,11 @@ function( declare,
             var cyph = this._cf.getRandomCypher( this.cypher_type );
             if( cyph.cypher_class == "occultic" )
             {
-                cyph.icon_class = "icon-fire num-redIcon";
+                cyph.icon_class = "fa fa-fire num-redIcon";
             }
             else
             {
-                cyph.icon_class = "icon-asterisk num-blueIcon";
+                cyph.icon_class = "fa fa-asterisk num-blueIcon";
             }
             try
             {

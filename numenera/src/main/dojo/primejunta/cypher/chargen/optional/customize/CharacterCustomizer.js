@@ -42,7 +42,7 @@ function( declare,
         /**
          * Button label.
          */
-        label : "<i class=\"icon-gears\"></i>",
+        label : "<i class=\"fa fa-gears\"></i>",
         /**
          * Map of possible customizations. Everything starts out set to false.
          */

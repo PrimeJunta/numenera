@@ -77,7 +77,7 @@ function( declare,
             this._ss( "recovery_roll", "recovery_roll" );
             this._ss( "cypher_count", "cypher_count" );
             this._ss( "shin_count", "shin_count" );
-            this._ss( "character_xp", "character_xp" );
+            this._ss( "character_xp", "character_xp", true );
             this._st( "description_text", this._textAsList( "description_text" ) );
             this._wl( "ability_list", this._getSkillList() );
             this._wl( "special_list", this._getSpecialList() );
@@ -672,7 +672,7 @@ function( declare,
         /**
          * Returns field value of fld in character generator, if present, or false.
          */
-        _gf : function( /* String */ fld )
+        _gf : function( /* String */ fld, /* boolean */ isInt )
         {
             if( this.manager.statsControl[ fld ] )
             {
@@ -680,7 +680,7 @@ function( declare,
             }
             else if( this.manager[ fld ] )
             {
-                return this.manager[ fld ].value;
+                return isInt ? parseInt( this.manager[ fld ].value ) : this.manager[ fld ].value;
             }
             else
             {
@@ -706,9 +706,9 @@ function( declare,
          * Sets stat value matching fieldName to integer parsed from character generator, or zero if not set or
          * not a number.
          */
-        _ss : function( /* String */ fieldName, /* String */ from )
+        _ss : function( /* String */ fieldName, /* String */ from, /* boolean */ isInt )
         {
-            var val = this._gf( from );
+            var val = this._gf( from, isInt );
             this._cdata[ fieldName ] = isNaN( val ) ? 0 : val;
         },
         /**
