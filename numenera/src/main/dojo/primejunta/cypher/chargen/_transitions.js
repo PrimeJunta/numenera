@@ -10,7 +10,6 @@ function( declare,
     return declare([], {
         transitionTo : function( viewName )
         {
-            console.log( "TRANSITION TO", viewName );
             var view = this.views[ viewName ];
             var deferred = new Deferred();
             if( view.selected )
@@ -45,7 +44,6 @@ function( declare,
         },
         _transition : function( viewName, want, deferred )
         {
-            console.log( "TRANSITION", viewName, want, deferred );
             if( !deferred )
             {
                 deferred = new Deferred();
@@ -61,19 +59,17 @@ function( declare,
                 view.selected = want;
                 if( want )
                 {
-                    setTimeout( lang.hitch( this, this._kick ), 100 );
                     for( var i = 0; i < view.nodes.length; i++ )
                     {
                         view.nodes[ i ].style.display = "block";
                     }
+                    this._kick();
                 }
-                console.log( "REQUESTING TRANSITION", want );
                 return this._performTransition( want ? fx.fadeIn : fx.fadeOut, view, deferred );
             }
         },
         _performTransition : function( func, view, deferred )
         {
-            console.log( "PLAYING TRANSITION" );
             func({
                 node : document.body,
                 onEnd : lang.hitch( this, function() {
@@ -85,37 +81,9 @@ function( declare,
                         }
                     }
                     deferred.resolve();
-                    console.log( "TRANSITION COMPLETE" );
                 })
             }).play();
             return deferred;
-        },
-        /**
-         * Hides the splash pane and shows the character generator pane and its main buttons node.
-         */
-        _showCharacterData : function()
-        {
-            if( this._characterDataShowing )
-            {
-                return;
-            }
-            console.log( "SCD" );
-            this._characterDataShowing = true;
-            return this.transitionTo( "main" );
-        },
-        /**
-         * Hides the character generator pane and its main buttons node and resets and shows the splash pane.
-         */
-        _hideCharacterData : function( /* boolean */ withCurrentSelection )
-        {
-            if( !this._characterDataShowing )
-            {
-                return;
-            }
-            console.log( "HCD" );
-            this._characterDataShowing = false;
-            this._splashPane.reset( withCurrentSelection );
-            return this.transitionTo( "splash" );
         }
     });
 });

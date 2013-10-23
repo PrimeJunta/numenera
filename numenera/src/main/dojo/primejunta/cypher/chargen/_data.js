@@ -84,11 +84,25 @@ function( declare,
             on( document, "keyup", lang.hitch( this, this.handleKeyUp ) );
             if( window.location.search != "" )
             {
-                this.populateFromQueryString();
-                if( window.location.search.indexOf( "&print=true" ) != -1 )
-                {
-                    this.showPrintView();
-                }
+                this.populateFromQueryString().then( lang.hitch( this, function() {
+                    if( window.location.hash.indexOf( "view=print" ) != -1 )
+                    {
+                        this.showPrintView();
+                    }
+                    else if( window.location.hash.indexOf( "view=play" ) != -1 )
+                    {
+                        this.showPlayView();
+                    }
+                    else
+                    {
+                        console.log( "CALL TO main" );
+                        this.transitionTo( "main") ;
+                    }
+                }));
+            }
+            else
+            {
+                this.transitionTo( "splash" );
             }
         },
         /**
@@ -107,10 +121,16 @@ function( declare,
          */
         populateFromQueryString : function()
         {
+            var deferred = new Deferred();
             if( !this._storage )
             {
-                this._initStorage( this._doPopulateFromQueryString );
+                this._initStorage().then( lang.hitch( this, this._doPopulateFromQueryString, deferred ));
             }
+            else
+            {
+                this._doPopulateFromQueryString( deferred );
+            }
+            return deferred;
         },
         /**
          * Calls _initStorage if necessary to start up our local storage manager; then stores the character
@@ -120,7 +140,8 @@ function( declare,
         {
             if( !this._storage )
             {
-                this._initStorage();
+                this._initStorage().then( lang.hitch( this, this.storeCharacter ) );
+                return;
             }
             var key = this._getKey( this.characterNameInput.value );
             var val = {
@@ -139,7 +160,8 @@ function( declare,
         {
             if( !this._storage )
             {
-                this._initStorage();
+                this._initStorage().then( lang.hitch( this, this.openCharacter ) );
+                return;
             }
             var chars = this._storage.getKeys();
             this._cwa = [];
@@ -196,6 +218,7 @@ function( declare,
             this.closeCharacterManager();
             this.populateFromStoredData( val );
             this.updateLink();
+            this.transitionTo( "main" );
         },
         /**
          * Deletes checked characters from local store.
@@ -419,19 +442,15 @@ function( declare,
         _populateFromStoredData : function( /* String */ qString )
         {
             this._populating.push( 3 );
-            this.transitionOut().then( lang.hitch( this, function()
+            this.doClearAll();
+            var populateMethod = this._getPopulateMethod( qString );
+            if( populateMethod )
             {
-                this.doClearAll();
-                var populateMethod = this._getPopulateMethod( qString );
-                if( populateMethod )
-                {
-                    this._prepareCharacterLoad( qString );
-                    lang.hitch( this, populateMethod )( qString );
-                }
-                this._populating.pop();
-                topic.publish( "CharGen/pleaseCheckState" );
-                this.transitionIn( "main" );
-            }));
+                this._prepareCharacterLoad( qString );
+                lang.hitch( this, populateMethod )( qString );
+            }
+            this._populating.pop();
+            topic.publish( "CharGen/pleaseCheckState" );
         },
         /**
          * Parses qString into a kwObject, then checks that kwObj.version matches DATA_VERSION and that all the fields in DATA_FIELDS
@@ -506,7 +525,7 @@ function( declare,
          * Checks if the hero in the query string has been saved; if so, loads that version rather than the
          * one in the query string.
          */
-        _doPopulateFromQueryString : function()
+        _doPopulateFromQueryString : function( deferred )
         {
             var kwObj = ioQuery.queryToObject( window.location.search.substring( 1 ) );
             if( kwObj.inputs )
@@ -522,6 +541,10 @@ function( declare,
             }
             this.populateFromStoredData( window.location.search.substring( 1 ) );
             this.updateLink();
+            if( deferred )
+            {
+                deferred.resolve();
+            }
         },
         /**
          * Replaces everything that's not a letter between a and z in the character name with underscores, and
@@ -536,23 +559,25 @@ function( declare,
          * Initializes a dojox.storage.manager and puts a provider from it in this._storage. If handler is
          * provided, continues with that.
          */
-        _initStorage : function( handler )
+        _initStorage : function( deferred )
         {
+            if( !deferred )
+            {
+                deferred = new Deferred();
+            }
             if( !dojox || !dojox.storage || !dojox.storage.manager )
             {
-                setTimeout( lang.hitch( this, this._initStorage, handler ), 500 );
-                return;
+                setTimeout( lang.hitch( this, this._initStorage, deferred ), 500 );
+                return deferred;
             }
             else
             {
                 dojox.storage.manager.initialize(); // it's not ported to AMD, so...
                 this._storage = dojox.storage.manager.getProvider();
                 this._storage.initialize();
-                if( handler )
-                {
-                    lang.hitch( this, handler )();
-                }
+                deferred.resolve();
             }
+            return deferred;
         },
         /**
          * Checks if inputElem.value is a default, and if so, returns "". Else returns _escapeDelimiter on it.

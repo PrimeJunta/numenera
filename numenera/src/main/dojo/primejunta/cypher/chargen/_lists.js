@@ -119,7 +119,6 @@ function( declare,
                     refNode = this[ listName ];
                     pos = "last";
             }
-            
             domConstruct.place( itm.domNode, refNode, pos );
             this._lists[ listName ].push( itm );
             this._controls.push( itm );
@@ -177,6 +176,10 @@ function( declare,
                 return;
             }
             var count = parseInt( count );
+            while( this._lists.cypher_list.length > count )
+            {
+                this._lists.cypher_list.pop().destroy();
+            }
             while( this._lists.cypher_list.length < count )
             {
                 this.createListItem( "cypher_list", { text : "${input:GM chooses}", from : [ "type" ]});

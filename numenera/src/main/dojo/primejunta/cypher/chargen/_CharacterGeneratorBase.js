@@ -108,7 +108,6 @@ function( declare,
             this.writePhraseSelects();
             this._splashPane = this.createSplashCharacterPane({ manager : this }).placeAt( document.body );
             this._currentNodes = [ this._splashPane.domNode ];
-            this.mainNodes = [ this.mainButtonsNode, this.characterGeneratorPane.domNode ];
             on( this.characterNameInput, "keydown", lang.hitch( this, this.normalizeClass, this.characterNameInput ) );
             on( this.characterNameInput, "click", lang.hitch( this, this.onCharNameFocus, this.characterNameInput ) );
             on( this.characterNameInput, "change", lang.hitch( this, this.updateLink ) );
@@ -119,9 +118,12 @@ function( declare,
             topic.subscribe( "CharGen/pleaseShowUnlock", lang.hitch( this, this.setFinalizedClass, false ) );
             topic.subscribe( "CharGen/pleaseHideUnlock", lang.hitch( this, this.setFinalizedClass, true ) );
             this.views = {
-                "splash" : {
-                    "nodes" : [ this._splashPane.domNode ],
+                "startup" : {
+                    "nodes" : [ domQuery( "div.num-noJavaScript" )[ 0 ] ],
                     "selected" : true
+                },
+                "splash" : {
+                    "nodes" : [ this._splashPane.domNode ]
                 },
                 "main" : { 
                     "nodes" : [ this.domNode ]
@@ -129,7 +131,6 @@ function( declare,
             }
             this.inherited( arguments );
             this.checkForStartupQuery();
-            this.start();
         },
         writePhraseSelects : function()
         {
@@ -251,6 +252,7 @@ function( declare,
             this._printLists();
             this._populating.pop();
             this.updateLink();
+            this.checkSwitchToMain();
         },
         updateStats : function()
         {
@@ -268,6 +270,7 @@ function( declare,
             var focus = this.getFocus();
             this.updateFocus( focus );
             this.updateLink();
+            this.checkSwitchToMain();
         },
         updateFocus : function( focus )
         {
@@ -285,6 +288,7 @@ function( declare,
             this._printLists();
             this.postUpdateFocus( arguments ); // from _OptionalRulesMixin
             this._populating.pop();
+            this.checkSwitchToMain();
         },
         updateItems : function( from, data )
         {
@@ -296,7 +300,6 @@ function( declare,
             if( !data )
             {
                 delete this[ "current_" + from ];
-                this._hideCharacterData( true );
                 return;
             }
             this.statsControl.applyAdjustments( data );
@@ -305,9 +308,12 @@ function( declare,
             var idx = array.indexOf([ "type", "focus", "desc" ], from );
             this._writeLine( "description_text", data.description_text, idx );
             this._writeLine( "notes_text", data.notes_text, idx );
-            if( this.getType() && this.getDescriptor() && this.getFocus() )
+        },
+        checkSwitchToMain : function()
+        {
+            if( this._populating.length == 0 && this.getType() && this.getDescriptor() && this.getFocus() )
             {
-                this._showCharacterData();
+                this.transitionTo( "main" );
             }
         },
         /**
@@ -521,7 +527,7 @@ function( declare,
         clearAll : function()
         {
             var deferred = new Deferred();
-            this._hideCharacterData().then( lang.hitch( this, this.doClearAll, deferred ) );
+            this.transitionTo( "splash" ).then( lang.hitch( this, this.doClearAll, deferred ) );
             return deferred;
         },
         doClearAll : function( deferred )
@@ -612,7 +618,6 @@ function( declare,
          */
         _kick : function()
         {
-            console.log( this, this.characterGeneratorPane );
             this.characterGeneratorPane.layout();
             this.characterGeneratorPane.resize();
         },
