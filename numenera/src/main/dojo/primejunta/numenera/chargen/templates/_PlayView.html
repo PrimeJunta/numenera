@@ -1,10 +1,10 @@
 <div class="pv-playViewRoot">
-  <div class="pv-copyright" style="">Numenera and its logo
-    are trademarks of Monte Cook Games, LLC in the U.S.A. and
-    other countries. All Monte Cook Games characters and character
-    names, and the distinctive likenesses thereof, are trademarks
-    of Monte Cook Games, LLC. Content derived from Monte Cook
-    Games publications is © 2013 Monte Cook Games, LLC.</div>
+  <div class="pv-copyright" style="">Numenera and its logo are
+    trademarks of Monte Cook Games, LLC in the U.S.A. and other
+    countries. All Monte Cook Games characters and character names, and
+    the distinctive likenesses thereof, are trademarks of Monte Cook
+    Games, LLC. Content derived from Monte Cook Games publications is ©
+    2013 Monte Cook Games, LLC.</div>
 
   <div>
     <div data-dojo-type="dojox/mobile/TabBar"
@@ -30,9 +30,13 @@
         data-dojo-attach-event="onClick:toPossessionsView">
         <i class="fa fa-suitcase"></i>
       </div>
+      <div data-dojo-type="dojox/mobile/TabBarButton"
+        data-dojo-attach-event="onClick:toHelpView">
+        <i class="fa fa-info-circle"></i>
+      </div>
     </div>
-    <div data-dojo-type="dojox/mobile/View" data-dojo-attach-point="descriptionView"
-      class="pv-viewWrapper">
+    <div data-dojo-type="dojox/mobile/View"
+      data-dojo-attach-point="descriptionView" class="pv-viewWrapper">
       <div class="pv-viewContent">
         <div class="cr-marker cr-listBox cr-frontpage">
           <div class="cr-content">
@@ -44,29 +48,28 @@
                 data-dojo-attach-point="portraitTMNode">TM and ©
                 2013 Monte Cook Games, LLC</div>
             </div>
-            <div style="text-align:center">
-            <div class="cr-name" data-dojo-attach-point="name_field"></div>
-            <span class="cr-definition">the</span>
-            <span class="cr-definition">
-              <span data-dojo-attach-point="descriptor_field"></span> <span
+            <div style="text-align: center">
+              <div class="cr-name" data-dojo-attach-point="name_field"></div>
+              <span class="cr-definition">the</span> <span
+                class="cr-definition"> <span
+                data-dojo-attach-point="descriptor_field"></span> <span
                 data-dojo-attach-point="type_field"></span>
-            </span>
-            <span class="cr-definition">who</span>
-            <span class="cr-definition">
-              <span data-dojo-attach-point="focus_field"></span>
-            </span>
+              </span> <span class="cr-definition">who</span> <span
+                class="cr-definition"> <span
+                data-dojo-attach-point="focus_field"></span>
+              </span>
             </div>
           </div>
         </div>
-            <div style="text-align: center">
-              <img class="cr-whiteKnot" src="${iconSource}/knot.png" />
-            </div>
+        <div style="text-align: center">
+          <img class="cr-whiteKnot" src="${iconSource}/knot.png" />
+        </div>
 
         <div class="cr-marker cr-listBox cr-background">
           <div class="cr-content">
-            
+
             <h2 class="pv-heading">Background</h2>
-            
+
             <div data-dojo-attach-point="description_text"
               class="pv-listContent"></div>
           </div>
@@ -74,16 +77,17 @@
 
         <div class="cr-marker cr-listBox cr-notes">
           <div class="cr-content">
-            
+
             <h2 class="pv-heading">Notes</h2>
-            
+
             <div data-dojo-attach-point="notes_list"
               class="pv-listContent"></div>
           </div>
         </div>
       </div>
     </div>
-    <div data-dojo-type="dojox/mobile/View" data-dojo-attach-point="statsView" data-dojo-props="selected:true">
+    <div data-dojo-type="dojox/mobile/View"
+      data-dojo-attach-point="statsView" data-dojo-props="selected:true">
       <div class="pv-viewContent">
         <div class="cr-marker cr-listBox cr-stats">
           <div class="cr-content">
@@ -150,14 +154,15 @@
                       <i class="num-blueIcon fa fa-plus-circle"></i>
                     </button>
                   </td>
-                  <td width="50"></td>
+                  <td width="50" style="text-align:right">1d6+</td>
                   <td style="text-align: center">
                     <div class="cr-statBox pv-staticStatBox"
                       style="margin-left: auto; margin-right: auto;"
                       data-dojo-attach-point="recovery_roll"></div>
                   </td>
                   <td style="text-align: center">
-                    <div class="cr-statBox pv-staticStatBox pv-activeStatBox"
+                    <div
+                      class="cr-statBox pv-largeControl pv-activeStatBox"
                       style="margin-left: auto; margin-right: auto;"
                       data-dojo-attach-point="recovery_roll_control"
                       data-dojo-attach-event="onClick:recoveryRoll">A</div>
@@ -165,10 +170,10 @@
                 </tr>
               </tbody>
             </table>
-            
+
 
             <h2 class="pv-heading">Statistics</h2>
-            
+
 
             <table>
               <tbody>
@@ -186,11 +191,27 @@
                   <td></td>
                   <td rowspan="4" width="145"></td>
                   <td rowspan="4" align="center">
-                    <div class="pv-smallLabel" style="margin-bottom:20px">Damage track</div>
-                    <div><i class="fa fa-circle num-largeIcon num-blueIcon" data-dojo-attach-point="damage_track_0_icon"></i></div>
-                    <div><i class="fa fa-circle-o num-largeIcon num-redIcon num-grayIcon" data-dojo-attach-point="damage_track_1_icon"></i></div>
-                    <div><i class="fa fa-circle-o num-largeIcon num-redIcon num-grayIcon" data-dojo-attach-point="damage_track_2_icon"></i></div>
-                    <div><i class="fa fa-circle-o num-largeIcon num-grayIcon" data-dojo-attach-point="damage_track_3_icon"></i></div>
+                    <div class="pv-smallLabel"
+                      style="margin-bottom: 20px">Damage track</div>
+                    <div>
+                      <i class="fa fa-circle num-largeIcon num-blueIcon"
+                        data-dojo-attach-point="damage_track_0_icon"></i>
+                    </div>
+                    <div>
+                      <i
+                        class="fa fa-circle-o num-largeIcon num-redIcon num-grayIcon"
+                        data-dojo-attach-point="damage_track_1_icon"></i>
+                    </div>
+                    <div>
+                      <i
+                        class="fa fa-circle-o num-largeIcon num-redIcon num-grayIcon"
+                        data-dojo-attach-point="damage_track_2_icon"></i>
+                    </div>
+                    <div>
+                      <i
+                        class="fa fa-circle-o num-largeIcon num-grayIcon"
+                        data-dojo-attach-point="damage_track_3_icon"></i>
+                    </div>
                   </td>
                 </tr>
                 <tr valign="middle">
@@ -297,14 +318,15 @@
                 </tr>
               </tbody>
             </table>
-            
+
             <h2 class="pv-heading">Armor</h2>
-            
+
             <table width="100%">
               <tbody>
                 <tr valign="top">
                   <td width="25%">
-                    <div class="pv-smallLabel" style="text-align:center">Heavy</div>
+                    <div class="pv-smallLabel"
+                      style="text-align: center">Heavy</div>
                     <div class="cr-statBox cr-armor pv-staticStatBox"
                       data-dojo-attach-point="armor_value_heavy"></div>
                     <div style="text-align: center">
@@ -316,7 +338,8 @@
                     </div>
                   </td>
                   <td width="25%">
-                    <div class="pv-smallLabel" style="text-align:center">Medium</div>
+                    <div class="pv-smallLabel"
+                      style="text-align: center">Medium</div>
                     <div class="cr-statBox cr-armor pv-staticStatBox"
                       data-dojo-attach-point="armor_value_medium"></div>
                     <div style="text-align: center">
@@ -328,7 +351,8 @@
                     </div>
                   </td>
                   <td width="25%">
-                    <div class="pv-smallLabel" style="text-align:center">Light</div>
+                    <div class="pv-smallLabel"
+                      style="text-align: center">Light</div>
                     <div class="cr-statBox cr-armor pv-staticStatBox"
                       data-dojo-attach-point="armor_value_light"></div>
                     <div style="text-align: center">
@@ -340,7 +364,8 @@
                     </div>
                   </td>
                   <td width="25%">
-                    <div class="pv-smallLabel" style="text-align:center">None</div>
+                    <div class="pv-smallLabel"
+                      style="text-align: center">None</div>
                     <div class="cr-statBox cr-armor pv-staticStatBox"
                       data-dojo-attach-point="armor_value_none"></div>
                   </td>
@@ -351,33 +376,34 @@
         </div>
         <div class="cr-marker cr-listBox cr-attacks">
           <div class="cr-content">
-            
+
             <h2 class="pv-heading">Attacks</h2>
-            
+
             <div data-dojo-attach-point="attack_list"
               class="pv-listContent"></div>
           </div>
         </div>
       </div>
     </div>
-    <div data-dojo-type="dojox/mobile/View" data-dojo-attach-point="abilitiesView">
+    <div data-dojo-type="dojox/mobile/View"
+      data-dojo-attach-point="abilitiesView">
       <div class="pv-viewContent">
         <div class="cr-content">
-          
+
           <h2 class="pv-heading">Skills</h2>
-          
+
           <div data-dojo-attach-point="ability_list"
             class="pv-listContent"></div>
-          
+
           <h2 class="pv-heading">Special abilities</h2>
-          
+
           <div data-dojo-attach-point="special_list"
             class="pv-listContent"></div>
           <div data-dojo-attach-point="inabilityContainer"
             style="display: none">
-            
+
             <h2 class="pv-heading">Drawbacks and Inabilities</h2>
-            
+
 
             <div data-dojo-attach-point="inability_list"
               class="pv-listContent"></div>
@@ -385,7 +411,8 @@
         </div>
       </div>
     </div>
-    <div data-dojo-type="dojox/mobile/View" data-dojo-attach-point="possessionsView">
+    <div data-dojo-type="dojox/mobile/View"
+      data-dojo-attach-point="possessionsView">
       <div class="pv-viewContent">
         <div class="cr-marker cr-listBox cr-cyphers">
           <div class="cr-content">
@@ -450,6 +477,52 @@
               class="pv-listContent"></div>
           </div>
         </div>
+      </div>
+    </div>
+    <div data-dojo-type="dojox/mobile/View"
+      data-dojo-attach-point="helpView">
+      <div class="pv-viewContent">
+        <h2 class="pv-heading">Help</h2>
+        <p>This is a simple tool for displaying character data and
+          tracking changes to pools while you play. The changes are not
+          persistent: only XP will get written back to your character
+          sheet.</p>
+        <p>
+          <b>In-play adjustments:</b> Use the <i
+            class="fa fa-plus-circle num-blueIcon"></i> and <i
+            class="fa fa-minus-circle num-redIcon"></i> buttons to
+          adjust your pools. They will be disabled if you hit zero or
+          your character's maximum.
+        </p>
+        <p>
+          <b>Effort:</b> Set your level of effort from the Effort stat
+          at top. Then click <i class="fa fa-heart num-redIcon"></i>
+          button for the stat for which you want to use it. The effort
+          will be deducted from the stat, with Edge taken into account.
+        </p>
+        <p>
+          <b>Damage track:</b> Moves up and down if any of your pools
+          are at zero.
+        </p>
+        <p>
+          <b>Recovery:</b> The recovery button is enabled (and turns
+          blue) if your stats fall below their maximums. It cycles
+          through A, 10 m, 1 h, and 10 h depending on your next
+          available recovery roll. The points will be distributed
+          between your pools in an attempt to keep them relatively even.
+          If you don't like this, adjust by hand with the <i
+            class="fa fa-plus-circle num-blueIcon"></i> and <i
+            class="fa fa-minus-circle num-redIcon"></i> buttons but
+          don't cheat or your GM will get mad.
+        </p>
+        <p>
+          <b>Note:</b> The utility does not account for the Special
+          Healing needed by a hero who Fuses Flesh and Steel.
+        </p>
+        <p>
+          <b>Get back:</b> Use the <i
+            class="fa fa-resize-small num-blueIcon"></i> tab button.
+        </p>
       </div>
     </div>
   </div>

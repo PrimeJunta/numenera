@@ -1,7 +1,7 @@
 CACHE MANIFEST
 # Cache manifest for Numenera Character Creator.
 #
-# Version 1.5.4
+# Version 2.0.0-a
 #
 # Pages - including chargen.html to allow redirects to proceed correctly
 chargen.html
@@ -23,12 +23,11 @@ primejunta/numenera/chargen/themes/chargen.css
 primejunta/numenera/chargen/themes/charrec.css
 # Icon font
 font-awesome/css/font-awesome.css
-font-awesome/font/fontawesome-webfont.eot?v=3.2.1
-font-awesome/font/fontawesome-webfont.eot?#iefix&v=3.2.1
-font-awesome/font/fontawesome-webfont.woff?v=3.2.1
-font-awesome/font/fontawesome-webfont.ttf?v=3.2.1
-font-awesome/font/fontawesome-webfont.svg#fontawesomeregular?v=3.2.1
-# Scripts
+font-awesome/fonts/fontawesome-webfont.eot?v=4.0.0
+font-awesome/fonts/fontawesome-webfont.eot?#iefix&v=4.0.0
+font-awesome/fonts/fontawesome-webfont.woff?v=4.0.0
+font-awesome/fonts/fontawesome-webfont.ttf?v=4.0.0
+font-awesome/fonts/fontawesome-webfont.svg#fontawesomeregular?v=4.0.0
 dojo/dojo.js
 dojo/dojo.js.map
 dojo/resources/blank.gif

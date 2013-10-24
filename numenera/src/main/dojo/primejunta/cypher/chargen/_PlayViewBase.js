@@ -36,7 +36,7 @@ function( declare,
         _curRecoveryRoll : 0,
         postCreate : function()
         {
-            this._viewOrder = [ this.descriptionView, this.statsView, this.abilitiesView, this.possessionsView ];
+            this._viewOrder = [ this.descriptionView, this.statsView, this.abilitiesView, this.possessionsView, this.helpView ];
             this.inherited( arguments );
             this._character = lang.clone( this.character );
             this._connectStatControls();
@@ -44,6 +44,7 @@ function( declare,
         },
         closeMe : function()
         {
+            this.manager.setCharacterData( this._character );
             this.manager.closePlayView();
         },
         toDescriptionView : function()
@@ -61,6 +62,10 @@ function( declare,
         toPossessionsView : function()
         {
             this._moveTo( this.possessionsView );
+        },
+        toHelpView : function()
+        {
+            this._moveTo( this.helpView );
         },
         recoveryRoll : function()
         {

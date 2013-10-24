@@ -3,15 +3,11 @@
  */
 
 /* Import  main theme. */
-@import url( '../../themes/numenera.css' );
+@import url( '../../../cypher/themes/cypher.css' );
 body
 {
 	background-color : #282828;
-	background-image : url( '../../themes/images/grain-dark.png' );
-}
-.__num-blurb
-{
-	color : #e4e4e4;
+	background-image : url( '../../../cypher/themes/images/grain-dark.png' );
 }
 /* cyphergen */
 .cy-cardContainer

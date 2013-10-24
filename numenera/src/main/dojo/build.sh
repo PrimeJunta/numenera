@@ -6,5 +6,5 @@ chmod u+x build.sh
 util/buildScripts/build.sh --profile numenera.profile.js
 cp index.html ../release/
 cp cyphergen.html ../release/
-cp cache.manifest ../release/
+cp cypher-chargen.manifest ../release/
 cp cyphergen.manifest ../release/

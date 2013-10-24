@@ -72,6 +72,13 @@ h2.pv-heading
 {
 	font-size : 14px;
 }
+.pv-largeControl
+{
+	background-color : #C0C0C0;
+	color : white;
+	font-weight : bold;
+	border : none;
+}
 .pv-activeStatBox
 {
 	background-color : #446dff;
