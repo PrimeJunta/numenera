@@ -182,6 +182,7 @@ function( declare,
             this.deleted = true;
             domClass.add( this.domNode, "num-deletedItem" );
             this.deleteControl.checked = false;
+            topic.publish( "CharGen/dataChanged" );
         },
         /**
          * Mark this as not deleted.
@@ -191,6 +192,7 @@ function( declare,
             this.deleted = false;
             domClass.remove( this.domNode, "num-deletedItem" );
             this.deleteControl.checked = true;
+            topic.publish( "CharGen/dataChanged" );
         },
         /**
          * Stores selectedIndex and inputValue for use in rollBack (see).
@@ -209,6 +211,7 @@ function( declare,
         {
             this.hasInput ? this.inputNode.value = _prevVal.inputValue : false;
             this.hasSelect ? this.selectNode.selectedIndex = _prevVal.selectedIndex : false;
+            topic.publish( "CharGen/dataChanged" );
         },
         /**
          * Stub. Return value of item as text.

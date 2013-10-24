@@ -3,12 +3,14 @@
  */
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
+         "dojo/on",
          "dojo/dom-construct",
          "dojo/dom-class",
          "dojo/dom-style",
          "dojo/topic" ],
 function( declare,
           lang,
+          on,
           domConstruct,
           domClass,
           domStyle,
@@ -48,6 +50,18 @@ function( declare,
             else
             {
                 domClass.remove( inputNode, "num-valueNotSet" );
+            }
+        },
+        intInputChanged : function( field )
+        {
+            var val = parseInt( field.value );
+            if( isNaN( val ) )
+            {
+                field.value = "";
+            }
+            else
+            {
+                field.value = val;
             }
         },
         /**
@@ -103,11 +117,11 @@ function( declare,
             }
             if( !inputNode || !inputNode.nodeType )
             {
-                if( !this.inputNode )
+                if( !this.inputNode && !this.selectNode )
                 {
                     return;
                 }
-                inputNode = this.inputNode;
+                inputNode = this.inputNode ? this.inputNode : this.selectNode;
             }
             topic.publish( "CharGen/dataChanged", inputNode );
         },

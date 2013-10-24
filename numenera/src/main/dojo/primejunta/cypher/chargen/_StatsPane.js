@@ -75,6 +75,7 @@ function( declare,
             on( this.decrement_speed_edge, "click", lang.hitch( this, this._adjust, "speed", "edge", -1 ) );
             on( this.decrement_intellect_pool, "click", lang.hitch( this, this._adjust, "intellect", "pool", -1 ) );
             on( this.decrement_intellect_edge, "click", lang.hitch( this, this._adjust, "intellect", "edge", -1 ) );
+            on( this.shin_count, "blur", lang.hitch( this, this.intInputChanged, this.shin_count ) );
         },
         get : function( prop )
         {
@@ -103,7 +104,7 @@ function( declare,
          * * stat = "might"|"speed"|"intellect"
          * * prop = "pool" | "edge"
          * * by = integer, normally 1 or -1.
-         * Disables decrement control if the new value hits the floor defined in type, checkCaps, and updateLink.
+         * Disables decrement control if the new value hits the floor defined in type, checkCaps, and autoSave.
          */
         _adjust : function( /* String */ stat, /* String */ prop, /* int */ by )
         {
@@ -115,7 +116,7 @@ function( declare,
             this.set(  stat + "_" + prop, _to );
             this[ stat + "_" + prop ].adjustment += by;
             this.checkLimits( prop );
-            this.updateLink();
+            this.manager.autoSave();
         },
         /**
          * Just shorthand for checking caps on both pool and edge.

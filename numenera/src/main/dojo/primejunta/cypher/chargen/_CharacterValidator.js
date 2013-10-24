@@ -680,11 +680,26 @@ function( declare,
             }
             else if( this.manager[ fld ] )
             {
-                return isInt ? parseInt( this.manager[ fld ].value ) : this.manager[ fld ].value;
+                if( isInt )
+                {
+                    var val = parseInt( this.manager[ fld ].value );
+                    if( isNaN( val ) )
+                    {
+                        return 0;
+                    }
+                    else
+                    {
+                        return val;
+                    }
+                }
+                else
+                {
+                    return this.manager[ fld ].value;
+                }
             }
             else
             {
-                return false;
+                return isInt ? 0 : false;
             }
         },
         /**

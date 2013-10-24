@@ -110,7 +110,7 @@ function( declare,
             this._currentNodes = [ this._splashPane.domNode ];
             on( this.characterNameInput, "keydown", lang.hitch( this, this.normalizeClass, this.characterNameInput ) );
             on( this.characterNameInput, "click", lang.hitch( this, this.onCharNameFocus, this.characterNameInput ) );
-            on( this.characterNameInput, "change", lang.hitch( this, this.updateLink ) );
+            on( this.characterNameInput, "change", lang.hitch( this, this.autoSave ) );
             on( this.characterNameInput, "focus", lang.hitch( this, this.onCharNameFocus, this.characterNameInput ) );
             on( this.characterNameInput, "blur", lang.hitch( this, this.onCharNameBlur, this.characterNameInput ) );
             topic.subscribe( "CharGen/pleaseCheckState", lang.hitch( this, this.normalizeClass, this.characterNameInput ) );
@@ -216,7 +216,7 @@ function( declare,
         },
         /**
          * Triggered when user picks a descriptor from the list. Sets the article on the page to "a" or "an",
-         * depending, and continues with updateValues and updateLink. We use a stack to keep track of programmatic
+         * depending, and continues with updateValues and autoSave. We use a stack to keep track of programmatic
          * changes to the data so we don't spam the Ctrl-Z queue.
          */
         selectDescriptor : function()
@@ -233,11 +233,11 @@ function( declare,
             this.updateStats();
             this._printLists();
             this._populating.pop();
-            this.updateLink();
+            this.autoSave();
             this.checkSwitchToMain();
         },
         /**
-         * Triggered when the user selects a type. Does updateValues and completes with updateLink.
+         * Triggered when the user selects a type. Does updateValues and completes with autoSave.
          */
         selectType : function()
         {
@@ -252,7 +252,7 @@ function( declare,
             }
             this._printLists();
             this._populating.pop();
-            this.updateLink();
+            this.autoSave();
             this.checkSwitchToMain();
         },
         updateStats : function()
@@ -264,13 +264,13 @@ function( declare,
             this.statsControl.applyAdjustments( this.getDescriptor() );
         },
         /**
-         * Triggered when the user selects a focus. Does updateValues and completes with updateLink.
+         * Triggered when the user selects a focus. Does updateValues and completes with autoSave.
          */
         selectFocus : function()
         {
             var focus = this.getFocus();
             this.updateFocus( focus );
-            this.updateLink();
+            this.autoSave();
             this.checkSwitchToMain();
         },
         updateFocus : function( focus )
@@ -317,12 +317,10 @@ function( declare,
             }
             if( this.getType() && this.getDescriptor() && this.getFocus() )
             {
-                console.log( "WANT TO main" );
                 this.transitionTo( "main" );
             }
             else
             {
-                console.log( "WANT TO splash" );
                 this._splashPane.reset( true );
                 this.transitionTo( "splash" );
             }
@@ -393,7 +391,7 @@ function( declare,
             this.updatePhrase();
             this.phraseSelectorNode.style.display = "none";
             this.phraseDisplayNode.style.display = "block";
-            this.updateLink();
+            this.autoSave();
         },
         /**
          * When customizations have been un-applied.
@@ -411,7 +409,7 @@ function( declare,
             this.updatePhrase();
             this.phraseSelectorNode.style.display = "block";
             this.phraseDisplayNode.style.display = "none";
-            this.updateLink();
+            this.autoSave();
         },
         updatePhrase : function()
         {
@@ -434,7 +432,7 @@ function( declare,
         unlockFinalize : function()
         {
             this.finalizeButton.set( "disabled", false );
-            this.updateLink();
+            this.autoSave();
         },
         /**
          * We're using dijit/form/Textareas for textareas. They have the annoying characteristic of emitting
@@ -521,7 +519,7 @@ function( declare,
             {
                 this._advancementControl.character_xp.value = data.character_xp;
             }
-            this.updateLink();
+            this.autoSave();
         },
         _openSecondaryWidget : function( viewName, widg )
         {
@@ -672,7 +670,7 @@ function( declare,
             this.setDisabled([ "descriptorSelect", "typeSelect", "focusSelect" ], false );
             this.statsControl.setValues([ "character_tier", "character_effort", "might_pool", "speed_pool", "intellect_pool", "might_edge", "speed_edge", "intellect_edge", "free_pool", "free_edge", "shin_count", "cypher_count", "armor_bonus" ], "" );
             var lists = [ "ability_list", "inability_list", "special_list", "equipment_list", "bonus_list" ];
-            this.updateLink();
+            this.autoSave();
             this.setDisabled([ "saveButton" ], true );
             this.statsControl.setDisabled([ "increment_might_pool", "decrement_might_pool", "increment_speed_pool", "decrement_speed_pool", "increment_intellect_pool", "decrement_intellect_pool","increment_might_edge", "decrement_might_edge", "increment_speed_edge", "decrement_speed_edge", "increment_intellect_edge", "decrement_intellect_edge" ], true );
         }

@@ -52,11 +52,11 @@ function( declare,
         checkState : function()
         {
             this.onBlurInput( this.inputNode );
-            this._validateInt( this.mightAdjustmentNode, true );
-            this._validateInt( this.speedAdjustmentNode, true );
-            this._validateInt( this.intellectAdjustmentNode, true );
-            this._validateInt( this.armorAdjustmentNode, true );
-            this._validateInt( this.recoveryAdjustmentNode, true );
+            this.intInputChanged( this.mightAdjustmentNode, true );
+            this.intInputChanged( this.speedAdjustmentNode, true );
+            this.intInputChanged( this.intellectAdjustmentNode, true );
+            this.intInputChanged( this.armorAdjustmentNode, true );
+            this.intInputChanged( this.recoveryAdjustmentNode, true );
             if( this.inputNode.disabled && !this.getText() )
             {
                 this.domNode.style.display = "none";
@@ -152,7 +152,7 @@ function( declare,
         /**
          * If present, checks that inputNode.value is an int, and clears it if not.
          */
-        _validateInt : function( /* Input? */ inputNode, /* boolean */ hideIfEmpty )
+        intInputChanged : function( /* Input? */ inputNode, /* boolean */ hideIfEmpty )
         {
             if( !inputNode )
             {

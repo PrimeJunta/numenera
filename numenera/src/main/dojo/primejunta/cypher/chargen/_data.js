@@ -80,7 +80,7 @@ function( declare,
          */
         checkForStartupQuery : function()
         {
-            topic.subscribe( "CharGen/dataChanged", lang.hitch( this, this.updateLink ) );
+            topic.subscribe( "CharGen/dataChanged", lang.hitch( this, this.autoSave ) );
             on( document, "keyup", lang.hitch( this, this.handleKeyUp ) );
             if( window.location.search != "" )
             {
@@ -115,17 +115,21 @@ function( declare,
             }
         },
         /**
-         * Calls populateFromStoredData on the query string, and updateLink.
+         * Calls populateFromStoredData on the query string, and autoSave.
          */
         populateFromQueryString : function()
         {
             this._doPopulateFromQueryString();
         },
+        pleaseStoreCharacter : function()
+        {
+            this.storeCharacter();
+        },
         /**
          * Calls _initStorage if necessary to start up our local storage manager; then stores the character
          * under a key derived from the character name with _getKey.
          */
-        storeCharacter : function()
+        storeCharacter : function( data )
         {
             if( !this._storage )
             {
@@ -135,10 +139,10 @@ function( declare,
             var key = this._getKey( this.characterNameInput.value );
             var val = {
                 name : this._sanitize( this.characterNameInput.value ),
-                data : this._getCharacterData()
+                data : data ? data : this._getCharacterData()
             };
             this._storage.put( key, val, lang.hitch( this, function() {
-                this.saveButton.set( "disabled", true );
+                if( !data ) this.saveButton.set( "disabled", true ); // TODO: nuke when no more save button
             }));
         },
         /**
@@ -206,7 +210,7 @@ function( declare,
             var val = this._storage.get( key ).data;
             this.closeCharacterManager();
             this.populateFromStoredData( val );
-            this.updateLink();
+            this.autoSave();
             this.transitionTo( "main" );
         },
         /**
@@ -228,7 +232,7 @@ function( declare,
          * then enables the save and print buttons and updates the link with the character data. Also pushes
          * the same data into the undo buffer.
          */
-        updateLink : function()
+        autoSave : function()
         {
             if( this._populating.length > 0 )
             {
@@ -239,10 +243,15 @@ function( declare,
                 return;
             }
             this.saveButton.set( "disabled", false );
+            setTimeout( lang.hitch( this, this._doAutoSave, 100 ) ); // async to stop the UI from stuttering in case things take time
+        },
+        _doAutoSave : function()
+        {
             var qString = this._getCharacterData();
             var href = window.location.origin + window.location.pathname + "?" + qString; 
             this._buffer.push( qString );
             this.linkNode.setAttribute( "href", href );
+            //this.storeCharacter( qString );
         },
         /**
          * Wraps _popualteFromStoredData in a try-catch block and displays a polite alert if something bad happened, e.g. because
@@ -517,7 +526,7 @@ function( declare,
         _doPopulateFromQueryString : function()
         {
             this.populateFromStoredData( window.location.search.substring( 1 ) );
-            this.updateLink();
+            this.autoSave();
         },
         /**
          * Replaces everything that's not a letter between a and z in the character name with underscores, and

@@ -3,11 +3,13 @@
  */
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
+         "dojo/on",
          "dojo/topic",
          "dojo/dom-class",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
+         "./_UtilityMixin",
          "./_TierWidget",
          "dijit/form/Button",
          "dijit/layout/BorderContainer",
@@ -15,18 +17,20 @@ define([ "dojo/_base/declare",
          "dojo/text!./templates/_AdvancementControl.html" ],
 function( declare,
           lang,
+          on,
           topic,
           domClass,
           _WidgetBase,
           _TemplatedMixin,
           _WidgetsInTemplateMixin,
+          _UtilityMixin,
           _TierWidget,
           Button,
           BorderContainer,
           ContentPane,
           template )
 {
-    return declare([ ContentPane, _TemplatedMixin, _WidgetsInTemplateMixin ], {
+    return declare([ ContentPane, _TemplatedMixin, _WidgetsInTemplateMixin, _UtilityMixin ], {
         gutters : false,
         title : "Advancement",
         /**
@@ -61,7 +65,8 @@ function( declare,
          */
         postCreate : function()
         {
-            this.manager.character_xp = this.character_xp;
+            this.manager.character_xp = this.character_xp; // what's this for?
+            on( this.character_xp, "blur", lang.hitch( this, this.intInputChanged, this.character_xp ) );
         },
         /**
          * If tier is provided, sets this.tier to it. Then publishes lockSheetControls and creates enough _TierWidgets

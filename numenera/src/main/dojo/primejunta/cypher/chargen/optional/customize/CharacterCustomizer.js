@@ -561,6 +561,10 @@ function( declare,
          */
         _getAbilityToSwap : function()
         {
+            if( !this.manager.getType() )
+            {
+                return "c";
+            }
             var type = this.manager.getType().id;
             var mySel = registry.byId( type + "Ability" );
             return mySel ? mySel.get( "value" ) : "c";
