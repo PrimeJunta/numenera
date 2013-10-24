@@ -100,28 +100,26 @@ function( declare,
          */
         storeCharacter : function( data, tempStore )
         {
-            if( false && this.manager._populating.length > 0 )
-            {
-                return;
-            }
             if( !this._storage )
             {
-                this._initStorage().then( lang.hitch( this, this.storeCharacter ) );
+                this._initStorage().then( lang.hitch( this, this.storeCharacter, data, tempStore ) );
                 return;
             }
             var key = this._getKey( this.manager.characterNameInput.value, tempStore );
             var val = {
                 name : this._sanitize( this.manager.characterNameInput.value ),
-                data : data ? data : this._getCharacterData(),
+                data : data ? data : this.manager._getCharacterData(),
                 time : new Date().getTime()
             };
             if( tempStore )
             {
                 val.temp = true;
             }
-            this._storage.put( key, val, lang.hitch( this, function() {
-                if( !tempStore ) this.saveButton.set( "disabled", true ); // TODO: nuke when no more save button
-            }));
+            this._storage.put( key, val );
+            if( !tempStore )
+            {
+                this.manager.saveButton.set( "disabled", true ); 
+            }
         },
         loadCharacter : function( key )
         {
