@@ -84,21 +84,19 @@ function( declare,
             on( document, "keyup", lang.hitch( this, this.handleKeyUp ) );
             if( window.location.search != "" )
             {
-                this.populateFromQueryString().then( lang.hitch( this, function() {
-                    if( window.location.hash.indexOf( "view=print" ) != -1 )
-                    {
-                        this.showPrintView();
-                    }
-                    else if( window.location.hash.indexOf( "view=play" ) != -1 )
-                    {
-                        this.showPlayView();
-                    }
-                    else
-                    {
-                        console.log( "CALL TO main" );
-                        this.transitionTo( "main") ;
-                    }
-                }));
+                this.populateFromQueryString();
+                if( window.location.hash.indexOf( "view=print" ) != -1 )
+                {
+                    this.showPrintView();
+                }
+                else if( window.location.hash.indexOf( "view=play" ) != -1 )
+                {
+                    this.showPlayView();
+                }
+                else
+                {
+                    this.transitionTo( "main") ;
+                }
             }
             else
             {
@@ -121,16 +119,7 @@ function( declare,
          */
         populateFromQueryString : function()
         {
-            var deferred = new Deferred();
-            if( !this._storage )
-            {
-                this._initStorage().then( lang.hitch( this, this._doPopulateFromQueryString, deferred ));
-            }
-            else
-            {
-                this._doPopulateFromQueryString( deferred );
-            }
-            return deferred;
+            this._doPopulateFromQueryString();
         },
         /**
          * Calls _initStorage if necessary to start up our local storage manager; then stores the character
@@ -525,26 +514,10 @@ function( declare,
          * Checks if the hero in the query string has been saved; if so, loads that version rather than the
          * one in the query string.
          */
-        _doPopulateFromQueryString : function( deferred )
+        _doPopulateFromQueryString : function()
         {
-            var kwObj = ioQuery.queryToObject( window.location.search.substring( 1 ) );
-            if( kwObj.inputs )
-            {
-                var hName = kwObj.inputs.split( this._listDelimiter )[ 0 ];
-                var hero = this._storage.get( this._getKey( hName ) );
-                if( hero && hero.name == hName )
-                {
-                    this.populateFromStoredData( hero.data );
-                    this.updateLink();
-                    return;
-                }
-            }
             this.populateFromStoredData( window.location.search.substring( 1 ) );
             this.updateLink();
-            if( deferred )
-            {
-                deferred.resolve();
-            }
         },
         /**
          * Replaces everything that's not a letter between a and z in the character name with underscores, and
