@@ -217,6 +217,11 @@ td.cg-tierTitleCell
     display : none !important;
 }
 /* character manager */
+.cg-restoredCharacter
+{
+	font-weight : bold;
+	background-color : #FFFFCC;
+}
 .cg-characterManager:hover
 {
     background-color : #d4e4f4;

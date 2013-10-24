@@ -18,6 +18,14 @@ function( declare,
 {
     return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin ], {
         /**
+         * If it's just been restored, set to true.
+         */
+        restored : false,
+        /**
+         * Extra classes.
+         */
+        extraClasses : "",
+        /**
          * Key for stored character data.
          */
         key : "",
@@ -33,6 +41,13 @@ function( declare,
          * Template.
          */
         templateString : template,
+        postMixInProperties : function()
+        {
+            if( this.restored )
+            {
+                this.extraClasses = "cg-restoredCharacter";
+            }
+        },
         /**
          * Calls manager.loadCharacter (from _data).
          */

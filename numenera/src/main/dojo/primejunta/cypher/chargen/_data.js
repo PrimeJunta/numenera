@@ -13,9 +13,7 @@ define([ "dojo/_base/declare",
          "dijit/registry",
          "dojo/on",
          "dojo/topic",
-         "dijit/form/Button",
-         "dojox/storage",
-         "./_CharacterManager" ],
+         "dijit/form/Button" ],
 function( declare,
           lang,
           domConstruct,
@@ -26,9 +24,7 @@ function( declare,
           registry,
           on,
           topic, 
-          Button,
-          storage,
-          _CharacterManager )
+          Button )
 {
     return declare([], {
         /**
@@ -69,6 +65,7 @@ function( declare,
                         "disabled",
                         "deleted" ]
         },
+        _tempStoreToken : "_CCG_TMP_",
         /**
          * Character used to break up lists in the data. We picked one that doesn't get escaped when we URL
          * encode it, rather than, say, a comma. This saves space.
@@ -123,27 +120,7 @@ function( declare,
         },
         pleaseStoreCharacter : function()
         {
-            this.storeCharacter();
-        },
-        /**
-         * Calls _initStorage if necessary to start up our local storage manager; then stores the character
-         * under a key derived from the character name with _getKey.
-         */
-        storeCharacter : function( data )
-        {
-            if( !this._storage )
-            {
-                this._initStorage().then( lang.hitch( this, this.storeCharacter ) );
-                return;
-            }
-            var key = this._getKey( this.characterNameInput.value );
-            var val = {
-                name : this._sanitize( this.characterNameInput.value ),
-                data : data ? data : this._getCharacterData()
-            };
-            this._storage.put( key, val, lang.hitch( this, function() {
-                if( !data ) this.saveButton.set( "disabled", true ); // TODO: nuke when no more save button
-            }));
+            this._characterStore.storeCharacter();
         },
         /**
          * Call _initStorage if necessary; then getKeys and display the stored characters in a manage dialog
@@ -151,81 +128,17 @@ function( declare,
          */
         openCharacter : function()
         {
-            if( !this._storage )
-            {
-                this._initStorage().then( lang.hitch( this, this.openCharacter ) );
-                return;
-            }
-            var chars = this._storage.getKeys();
-            this._cwa = [];
-            domConstruct.empty( this.characterManagerContentNode );
-            var nde = domConstruct.create( "div", { style : "width:100%;margin-bottom:30px;" }, this.characterManagerContentNode );
-            for( var i = 0; i < chars.length; i++ )
-            {
-                var _char = this._storage.get( chars[ i ] );
-                if( _char.name && _char.data )
-                {
-                    this._cwa.push( new _CharacterManager({ key : chars[ i ], character : _char, manager : this }).placeAt( nde ) );
-                }
-            }
-            if( this._cwa.length == 0 )
-            {
-                nde.innerHTML = "No saved characters.";
-            }
-            this.characterManagerDialog.show();
-        },
-        /**
-         * Clears character manager widgets and closes character manager dialog.
-         */
-        closeCharacterManager : function()
-        {
-            while( this._cwa.length > 0 )
-            {
-                this._cwa.pop().destroy();
-            }
-            this.characterManagerDialog.hide();
-        },
-        /**
-         * Displays list of saved characters as links for saving or pasting into a mail or something.
-         */
-        displayCharacterLinks : function()
-        {
-            var loc = window.location.origin + window.location.pathname;
-            var characterList = "<div>\n<h2>My Numenera Characters</h2>\n"
-                + "<ul>\n";
-            for( var i = 0; i < this._cwa.length; i++ )
-            {
-                characterList += "<li><a href=\"" + loc + "?" + this._cwa[ i ].character.data + "\">" + this._cwa[ i ].character.name + "</a></li>\n";
-            }
-            characterList += "</ul>\n</div>\n";
-            characterList += "<p>Copy-paste and save this list in case something bad happens to your browser, or if you want to mail them to someone.</p>";
-            this.characterManagerDialog.hide();
-            this.tell( characterList );
+            this._characterStore.show();
         },
         /**
          * Loads character matching key from local store and hides dialog.
          */
-        loadCharacter : function( /* String */ key )
+        loadCharacter : function( data )
         {
-            var val = this._storage.get( key ).data;
-            this.closeCharacterManager();
-            this.populateFromStoredData( val );
+            this.populateFromStoredData( data );
             this.autoSave();
+            this.saveButton.set( "disabled", true );
             this.transitionTo( "main" );
-        },
-        /**
-         * Deletes checked characters from local store.
-         */
-        deleteSelectedCharacters : function()
-        {
-            for( var i = 0; i < this._cwa.length; i++ )
-            {
-                if( this._cwa[ i ].deletionCheckbox.checked )
-                {
-                    this._storage.remove( this._cwa[ i ].key );
-                }
-            }
-            this.openCharacter();
         },
         /**
          * Checks that we're not in the middle of something and that a type, focus, and descriptor are set;
@@ -251,7 +164,7 @@ function( declare,
             var href = window.location.origin + window.location.pathname + "?" + qString; 
             this._buffer.push( qString );
             this.linkNode.setAttribute( "href", href );
-            //this.storeCharacter( qString );
+            this._characterStore.storeCharacter( qString, true );
         },
         /**
          * Wraps _popualteFromStoredData in a try-catch block and displays a polite alert if something bad happened, e.g. because
@@ -259,6 +172,7 @@ function( declare,
          */
         populateFromStoredData : function( /* String */ qString )
         {
+            this._populating.push( 7 );
             try
             {
                 this._populateFromStoredData( qString );
@@ -269,7 +183,8 @@ function( declare,
                 this.clearAll();
                 this.tell( "An error occurred loading the character. Perhaps the link was corrupted.<br/><br/>Sorry about that." );
             }
-            this.onCharNameBlur( this.characterNameInput )
+            this.onCharNameBlur( this.characterNameInput );
+            this._populating.pop();
         },
         _getCharacterData : function()
         {
@@ -527,39 +442,6 @@ function( declare,
         {
             this.populateFromStoredData( window.location.search.substring( 1 ) );
             this.autoSave();
-        },
-        /**
-         * Replaces everything that's not a letter between a and z in the character name with underscores, and
-         * returns it. This is so our characters are stored by name, more or less. If you have two different
-         * characters named Röbin Høød and Røbin Hööd, you're SOL though 'cuz both will be stored as R_bin_H__d.
-         */
-        _getKey : function( nameStr )
-        {
-            return nameStr.replace( /[^a-z|A-Z]+/g, "_" );
-        },
-        /**
-         * Initializes a dojox.storage.manager and puts a provider from it in this._storage. If handler is
-         * provided, continues with that.
-         */
-        _initStorage : function( deferred )
-        {
-            if( !deferred )
-            {
-                deferred = new Deferred();
-            }
-            if( !dojox || !dojox.storage || !dojox.storage.manager )
-            {
-                setTimeout( lang.hitch( this, this._initStorage, deferred ), 500 );
-                return deferred;
-            }
-            else
-            {
-                dojox.storage.manager.initialize(); // it's not ported to AMD, so...
-                this._storage = dojox.storage.manager.getProvider();
-                this._storage.initialize();
-                deferred.resolve();
-            }
-            return deferred;
         },
         /**
          * Checks if inputElem.value is a default, and if so, returns "". Else returns _escapeDelimiter on it.

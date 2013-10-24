@@ -41,9 +41,13 @@ function( declare,
 {
     return declare( "primejunta/numenera/chargen/CharacterGenerator", [ _CharacterGeneratorBase ], {
         /**
+         * Filename for character backups.
+         */
+        dataFileName : "Ninth-World-Heroes",
+        /**
          * Public version number.
          */
-        version : "2.0.1",
+        version : "2.1.0",
         /**
          * Descriptor data.
          */

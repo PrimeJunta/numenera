@@ -24,6 +24,7 @@ define([ "dojo/_base/declare",
          "dijit/form/Button",
          "dijit/form/Textarea",
          "primejunta/_StartupMixin",
+         "./_CharacterStore",
          "./_CharacterValidator",
          "./_AdvancementControl",
          "./_UtilityMixin",
@@ -54,6 +55,7 @@ function( declare,
           Button,
           Textarea,
           _StartupMixin,
+          _CharacterStore,
           _CharacterValidator,
           _AdvancementControl,
           _UtilityMixin,
@@ -66,6 +68,10 @@ function( declare,
           _WidgetsInTemplateMixin )
 {
     return declare( "primejunta/numenera/chargen/_CharacterGeneratorBase", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _StartupMixin, _UtilityMixin, _data, _lists, _transitions, _OptionalRulesMixin ], {
+        /**
+         * Filename for character backups.
+         */
+        dataFileName : "Ninth-World-Heroes",
         /**
          * Default title.
          */
@@ -106,6 +112,7 @@ function( declare,
             this.setupOptionals(); // from optionals
             this.statsControl.manager = this;
             this.writePhraseSelects();
+            this._characterStore = new _CharacterStore({ manager : this });
             this._splashPane = this.createSplashCharacterPane({ manager : this }).placeAt( document.body );
             this._currentNodes = [ this._splashPane.domNode ];
             on( this.characterNameInput, "keydown", lang.hitch( this, this.normalizeClass, this.characterNameInput ) );
@@ -666,6 +673,7 @@ function( declare,
             delete this._listdata;
             this.description_text.set( "value", "" );
             this.notes_text.set( "value", "" );
+            this.character_xp = 0;
             this.extra_equipment_text.set( "value", "" );
             this.setDisabled([ "descriptorSelect", "typeSelect", "focusSelect" ], false );
             this.statsControl.setValues([ "character_tier", "character_effort", "might_pool", "speed_pool", "intellect_pool", "might_edge", "speed_edge", "intellect_edge", "free_pool", "free_edge", "shin_count", "cypher_count", "armor_bonus" ], "" );
