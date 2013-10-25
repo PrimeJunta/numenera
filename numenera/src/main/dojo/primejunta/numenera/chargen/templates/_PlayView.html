@@ -109,8 +109,8 @@
                 </tr>
                 <tr>
                   <td>
-                    <div class="cr-statBoxContainer">
-                      <div class="cr-statBox pv-staticStatBox"
+                    <div class="pv-statBoxContainer">
+                      <div class="pv-statBox pv-staticStatBox"
                         data-dojo-attach-point="character_tier"></div>
                     </div>
                   </td>
@@ -123,7 +123,7 @@
                     </button>
                   </td>
                   <td>
-                    <div class="cr-statBox">
+                    <div class="pv-statBox">
                       <span data-dojo-attach-point="character_xp"></span>
                     </div>
                   </td>
@@ -142,7 +142,7 @@
                     </button>
                   </td>
                   <td>
-                    <div class="cr-statBox"
+                    <div class="pv-statBox"
                       data-dojo-attach-point="character_effort"></div>
                   </td>
                   <td width="5">
@@ -154,13 +154,13 @@
                   </td>
                   <td width="50" style="text-align:right">1d6+</td>
                   <td style="text-align: center">
-                    <div class="cr-statBox pv-staticStatBox"
+                    <div class="pv-statBox pv-staticStatBox"
                       style="margin-left: auto; margin-right: auto;"
                       data-dojo-attach-point="recovery_roll"></div>
                   </td>
                   <td style="text-align: center">
                     <div
-                      class="cr-statBox pv-largeControl pv-activeStatBox"
+                      class="pv-statBox pv-largeControl pv-activeStatBox"
                       style="margin-left: auto; margin-right: auto;"
                       data-dojo-attach-point="recovery_roll_control"
                       data-dojo-attach-event="onClick:recoveryRoll">A</div>
@@ -214,7 +214,7 @@
                 </tr>
                 <tr valign="middle">
                   <td>
-                    <div class="cr-statBox pv-staticStatBox"
+                    <div class="pv-statBox pv-staticStatBox"
                       data-dojo-attach-point="might_edge"></div>
                   </td>
                   <td><h3 class="pv-heading"
@@ -227,7 +227,7 @@
                     </button>
                   </td>
                   <td>
-                    <div class="cr-statBox"
+                    <div class="pv-statBox"
                       data-dojo-attach-point="might_pool"></div>
                   </td>
                   <td width="5">
@@ -248,7 +248,7 @@
                 </tr>
                 <tr valign="middle">
                   <td>
-                    <div class="cr-statBox pv-staticStatBox"
+                    <div class="pv-statBox pv-staticStatBox"
                       data-dojo-attach-point="speed_edge"></div>
                   </td>
                   <td><h3 class="pv-heading"
@@ -261,7 +261,7 @@
                     </button>
                   </td>
                   <td>
-                    <div class="cr-statBox"
+                    <div class="pv-statBox"
                       data-dojo-attach-point="speed_pool"></div>
                   </td>
                   <td width="5">
@@ -282,7 +282,7 @@
                 </tr>
                 <tr valign="middle">
                   <td>
-                    <div class="cr-statBox pv-staticStatBox"
+                    <div class="pv-statBox pv-staticStatBox"
                       data-dojo-attach-point="intellect_edge"></div>
                   </td>
                   <td><h3 class="pv-heading"
@@ -295,7 +295,7 @@
                     </button>
                   </td>
                   <td>
-                    <div class="cr-statBox"
+                    <div class="pv-statBox"
                       data-dojo-attach-point="intellect_pool"></div>
                   </td>
                   <td width="5">
@@ -325,7 +325,7 @@
                   <td width="25%">
                     <div class="pv-smallLabel"
                       style="text-align: center">Heavy</div>
-                    <div class="cr-statBox cr-armor pv-staticStatBox"
+                    <div class="pv-statBox cr-armor pv-staticStatBox"
                       data-dojo-attach-point="armor_value_heavy"></div>
                     <div style="text-align: center">
                       (<span
@@ -338,7 +338,7 @@
                   <td width="25%">
                     <div class="pv-smallLabel"
                       style="text-align: center">Medium</div>
-                    <div class="cr-statBox cr-armor pv-staticStatBox"
+                    <div class="pv-statBox cr-armor pv-staticStatBox"
                       data-dojo-attach-point="armor_value_medium"></div>
                     <div style="text-align: center">
                       (<span
@@ -351,7 +351,7 @@
                   <td width="25%">
                     <div class="pv-smallLabel"
                       style="text-align: center">Light</div>
-                    <div class="cr-statBox cr-armor pv-staticStatBox"
+                    <div class="pv-statBox cr-armor pv-staticStatBox"
                       data-dojo-attach-point="armor_value_light"></div>
                     <div style="text-align: center">
                       (<span
@@ -364,7 +364,7 @@
                   <td width="25%">
                     <div class="pv-smallLabel"
                       style="text-align: center">None</div>
-                    <div class="cr-statBox cr-armor pv-staticStatBox"
+                    <div class="pv-statBox cr-armor pv-staticStatBox"
                       data-dojo-attach-point="armor_value_none"></div>
                   </td>
                 </tr>
@@ -429,7 +429,7 @@
                               style="text-align: right;">Limit</div>
                           </td>
                           <td>
-                            <div class="cr-statBox"
+                            <div class="pv-statBox"
                               data-dojo-attach-point="cypher_count"></div>
                           </td>
                         </tr>
@@ -460,7 +460,7 @@
                               style="text-align: right;">Shins</div>
                           </td>
                           <td>
-                            <div class="cr-statBox">
+                            <div class="pv-statBox">
                               <span data-dojo-attach-point="shin_count"></span>
                             </div>
                           </td>
@@ -482,9 +482,9 @@
       <div class="pv-viewContent">
         <h2 class="pv-heading">Help</h2>
         <p>This is a simple tool for displaying character data and
-          tracking changes to pools while you play. The changes are not
-          persistent: only XP will get written back to your character
-          sheet.</p>
+          tracking changes to pools while you play. The temporary
+          changes to your stats will not be written back to your
+          character sheet when you close the view.</p>
         <p>
           <b>In-play adjustments:</b> Use the <i
             class="fa fa-plus-circle num-blueIcon"></i> and <i

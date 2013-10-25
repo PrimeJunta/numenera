@@ -57,7 +57,7 @@
 .pv-copyright
 {
 	color : gray;
-	font-size : 10px;
+	font-size : 11px;
 	text-align : center;
 	position : absolute;
 	bottom : 0px;
@@ -78,6 +78,17 @@ h2.pv-heading
 	color : white;
 	font-weight : bold;
 	border : none;
+    cursor : pointer;
+}
+.pv-statBox
+{
+    font-size : 18px;
+    height : 37px;
+    width : 50px;
+    text-align : center;
+    border : 1px solid #848484;
+    padding : 13px 0 0;
+    border-radius : 30px;
 }
 .pv-activeStatBox
 {
