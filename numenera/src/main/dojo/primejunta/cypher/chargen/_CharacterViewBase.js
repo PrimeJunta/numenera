@@ -78,7 +78,7 @@ function( declare,
             this._wl( "cypher_list", "cypher_list" );
             this._wl( "equipment_list", "equipment_list" );
             this._wl( "description_text", "description_text" );
-            this._wl( "notes_list", "notes_list" );
+            this._wl( "notes_text", "notes_text" );
             this.portrait_src = this.manager.portraitWidget.getHref();
             if( this.portrait_src )
             {

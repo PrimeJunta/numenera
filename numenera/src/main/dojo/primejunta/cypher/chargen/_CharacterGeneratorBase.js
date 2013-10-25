@@ -519,13 +519,6 @@ function( declare,
         closePlayView : function()
         {
             this._closeSecondaryWidget( this._playViewWidget );
-        },
-        setCharacterData : function( data )
-        {
-            if( this._advancementControl )
-            {
-                this._advancementControl.character_xp.value = data.character_xp;
-            }
             this.autoSave();
         },
         _openSecondaryWidget : function( viewName, widg )

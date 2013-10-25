@@ -10,6 +10,7 @@ define([ "dojo/_base/declare",
          "dojox/mobile/ScrollableView",
          "dojox/mobile/TabBar",
          "dojox/mobile/TabBarButton",
+         "dijit/form/Textarea",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
@@ -23,6 +24,7 @@ function( declare,
           ScrollableView,
           TabBar,
           TabBarButton,
+          Textarea,
           _WidgetBase,
           _TemplatedMixin,
           _WidgetsInTemplateMixin,
@@ -33,6 +35,7 @@ function( declare,
         effortStats : [ "might_pool", "speed_pool", "intellect_pool" ],
         unlimitedStats : [ "character_xp" ],
         recoveryCycle : [ "A", "10 m", "1 h", "10 h" ],
+        _textAreas : [ "notes_text", "description_text" ],
         _curRecoveryRoll : 0,
         postCreate : function()
         {
@@ -44,7 +47,15 @@ function( declare,
         },
         closeMe : function()
         {
-            this.manager.setCharacterData( this._character );
+            if( this._advancementControl )
+            {
+                this._advancementControl.character_xp.value = data.character_xp;
+            }
+            for( var i = 0; i < this._textAreas.length; i++ )
+            {
+                var cur = this._textAreas[ i ];
+                this.manager[ cur ].set( "value", this[ cur ].get( "value" ) );
+            }
             this.manager.closePlayView();
         },
         toDescriptionView : function()
@@ -249,6 +260,17 @@ function( declare,
             }
             var dir = array.indexOf( this._viewOrder, view ) - array.indexOf( this._viewOrder, curView ) < 0 ? -1 : 1;
             curView.performTransition( view.id, dir, "slide" );
+        },
+        _wl : function( fieldName, from )
+        {
+            if( array.indexOf( this._textAreas, fieldName ) != -1 )
+            {
+                this[ fieldName ].set( "value", this.manager[ from ].get( "value" ) );
+            }
+            else
+            {
+                this.inherited( arguments );
+            }
         }
     });
 });
