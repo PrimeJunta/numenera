@@ -135,12 +135,13 @@ function( declare,
         {
             if( href.indexOf( "/p" ) != -1 && href.indexOf( ".png" ) != -1 )
             {
-                return href.substring( 0, href.indexOf( ".png" ) ) + ".jpg";
+                href = href.substring( 0, href.indexOf( ".png" ) ) + ".jpg";
             }
-            else
+            if( href.indexOf( "primejunta" ) == 0 && href.indexOf( "portraits" ) != -1 )
             {
-                return href;
+                href = this.portraitHome + href.substring( href.lastIndexOf( "/" ) );
             }
+            return href;
         },
         _populateGallery : function( imgs )
         {

@@ -94,7 +94,7 @@ function( declare,
          * Path to icons and other graphic goodies.
          */
         iconSrc : require.toUrl( "primejunta/numenera/themes/images" ),
-        portraitHome : require.toUrl( "primejunta/numenera/chargen/portraits" ),
+        portraitHome : require.toUrl( "assets/numenera/portraits" ),
         /**
          * Return a _PrintView.
          */

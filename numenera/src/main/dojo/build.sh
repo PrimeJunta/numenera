@@ -6,6 +6,7 @@ rm -rf primejunta
 cp -r ~/git/numenera/numenera/src/main/dojo/* .
 chmod u+x build.sh
 util/buildScripts/build.sh --profile numenera.profile.js
+cp -r ~/git/numenera/numenera/src/main/assets ../release/
 cp index.html ../release/
 cp cyphergen.html ../release/
 cp cypher-chargen.manifest ../release/
