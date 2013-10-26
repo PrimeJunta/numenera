@@ -51,20 +51,69 @@ function( declare,
             this._connectStatControls();
             this._checkStatLimits();
             this._initPartyView();
-            this.addCharacterButton( this.character.character_name );
+            if( this.manager._currentRoster )
+            {
+                for( var i = 0; i < this.manager._currentRoster.length; i++ )
+                {
+                    this.addCharacterButton( this.manager._currentRoster[ i ] );
+                }
+            }
+            else
+            {
+                this.addCharacterButton( this.character.character_name );
+            }
+        },
+        adjustFields : function()
+        {
+            if( this._storedCharacters && this._storedCharacters[ this.character.character_name ].adjusted )
+            {
+                this._character = this._storedCharacters[ this.character.character_name ].adjusted;
+                this._curRecoveryRoll = this._character.current_recovery_roll;
+                var stats = this.limitedStats.concat( this.unlimitedStats );
+                while( stats.length > 0 )
+                {
+                    var stat = stats.pop();
+                    this[ stat ].innerHTML = this._character[ stat ];
+                }
+                for( var i = 0; i < this._textAreas.length; i++ )
+                {
+                    this[ this._textAreas[ i ] ].set( "value", this._character[ this._textAreas[ i ] + "_content" ] );
+                }
+                this._checkStatLimits();
+            }
+            else
+            {
+                this._character = lang.clone( this.character );
+                this._checkStatLimits();
+            }
         },
         closeMe : function()
         {
-            if( this._advancementControl )
+            this.commitChanges();
+            this.manager._currentRoster = this.getRoster();
+            this.manager.closePlayView();
+        },
+        commitChanges : function()
+        {
+            if( this.manager._advancementControl )
             {
-                this._advancementControl.character_xp.value = data.character_xp;
+                this.manager._advancementControl.character_xp.value = this._character.character_xp;
             }
             for( var i = 0; i < this._textAreas.length; i++ )
             {
                 var cur = this._textAreas[ i ];
                 this.manager[ cur ].set( "value", this[ cur ].get( "value" ) );
             }
-            this.manager.closePlayView();
+        },
+        getRoster : function()
+        {
+            var out = [];
+            for( var i = 0; i < this._characterButtons.length; i++ )
+            {
+                var cur = this._characterButtons[ i ];
+                out.push( cur.label );
+            }
+            return out;
         },
         toDescriptionView : function()
         {
@@ -97,19 +146,15 @@ function( declare,
             {
                 this._curRecoveryRoll = 0;
             }
-            this.recovery_roll_control.innerHTML = this.recoveryCycle[ this._curRecoveryRoll ];
             var roll = Math.ceil( Math.random() * 6 ) + this._character.recovery_roll;
             var stats = this._getRStats();
-            while( roll > 0 )
+            while( roll > 0 && stats.length > 0 )
             {
                 roll--;
                 this._adjustStat( stats[ 0 ].stat, 1 );
                 stats = this._getRStats();
-                if( stats.length == 0 )
-                {
-                    return;
-                }
             }
+            this._checkStatLimits();
         },
         includeCharacter : function( character, picked )
         {
@@ -149,7 +194,14 @@ function( declare,
             }
             else
             {
-                console.log( this._storedCharacters[ name ] );
+                for( var i = 0; i < this._textAreas.length; i++ )
+                {
+                    this._character[ this._textAreas[ i ] + "_content" ] = this[ this._textAreas[ i ] ].get( "value" );
+                }
+                this._character.current_recovery_roll = this._curRecoveryRoll;
+                this.commitChanges();
+                this.manager.pleaseStoreCharacter();
+                this._storedCharacters[ this.character.character_name ].adjusted = lang.clone( this._character );
                 this.loadCharacter( this._storedCharacters[ name ].data );
             }
         },
@@ -158,10 +210,19 @@ function( declare,
             this.manager.populateFromStoredData( data );
             this.initializeCharacterData();
             this.populateFields();
+            this.adjustFields();
             if( this.rosterView.getShowingView() == this.rosterView )
             {
-                this.toDescriptionView();
+                this.toDescriptionButton._onClick(); // will also set selected on the buttons correctly
             }
+        },
+        destroy : function()
+        {
+            while( this._characterButtons.length > 0 )
+            {
+                this._characterButtons.pop().destroy();
+            }
+            this.inherited( arguments );
         },
         _checkSelectedCharacterButton : function()
         {
@@ -251,6 +312,17 @@ function( declare,
             for( var i = 0; i < this.unlimitedStats.length; i++ )
             {
                 var cur = this._character[ this.unlimitedStats[ i ] ];
+                if( cur === false )
+                {
+                    this._disLow( this.unlimitedStats[ i ] );
+                    this._disHigh( this.unlimitedStats[ i ] );
+                    this[ this.unlimitedStats[ i ] ].innerHTML = "–";
+                    domClass.add( this[ this.unlimitedStats[ i ] ], "pv-staticStatBox" );
+                }
+                else
+                {
+                    domClass.remove( this[ this.unlimitedStats[ i ] ], "pv-staticStatBox" );
+                }
                 if( cur <= 0 )
                 {
                     this._disLow( this.unlimitedStats[ i ] );
@@ -277,6 +349,7 @@ function( declare,
                     recoveryPossible = true;
                 }
             }
+            this.recovery_roll_control.innerHTML = this.recoveryCycle[ this._curRecoveryRoll ];
             if( recoveryPossible )
             {
                 domClass.add( this.recovery_roll_control, "pv-activeStatBox" );

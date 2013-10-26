@@ -98,8 +98,7 @@
                     </button>
                   </td>
                   <td>
-                    <div class="pv-statBox">
-                      <span data-dojo-attach-point="character_xp"></span>
+                    <div class="pv-statBox" data-dojo-attach-point="character_xp">
                     </div>
                   </td>
                   <td width="5">
@@ -468,6 +467,7 @@
     <div data-dojo-type="dojox/mobile/TabBar"
       data-dojo-props="fill:'always'" style="position:fixed;bottom:0px;width:100%;">
       <div data-dojo-type="dojox/mobile/TabBarButton"
+        data-dojo-attach-point="toDescriptionButton"
         data-dojo-attach-event="onClick:toDescriptionView">
         <i class="fa fa-large fa-user"></i>
       </div>
@@ -490,7 +490,7 @@
       </div>
       <div data-dojo-type="dojox/mobile/TabBarButton"
         data-dojo-attach-event="onClick:toHelpView">
-        <i class="fa fa-large fa-info-circle"></i>
+        <i class="fa fa-large fa-question-circle"></i>
       </div>
     </div>
     

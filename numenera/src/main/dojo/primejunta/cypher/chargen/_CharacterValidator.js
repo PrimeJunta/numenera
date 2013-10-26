@@ -685,7 +685,7 @@ function( declare,
                     var val = parseInt( this.manager[ fld ].value );
                     if( isNaN( val ) )
                     {
-                        return 0;
+                        return false;
                     }
                     else
                     {
@@ -699,7 +699,7 @@ function( declare,
             }
             else
             {
-                return isInt ? 0 : false;
+                return false;
             }
         },
         /**
@@ -724,7 +724,7 @@ function( declare,
         _ss : function( /* String */ fieldName, /* String */ from, /* boolean */ isInt )
         {
             var val = this._gf( from, isInt );
-            this._cdata[ fieldName ] = isNaN( val ) ? 0 : val;
+            this._cdata[ fieldName ] = val;
         },
         /**
          * Sets _cdata property fieldName to val.
