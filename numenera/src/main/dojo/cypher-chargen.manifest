@@ -1,10 +1,8 @@
 CACHE MANIFEST
 # Cache manifest for Numenera Character Creator.
 #
-# Version 2.2.1-a
+# Version 2.2.2-a
 #
-# Page
-index.html
 # Graphics
 primejunta/cypher/themes/images/icon.png
 primejunta/cypher/themes/images/h-pixel.png
@@ -15,16 +13,18 @@ primejunta/cypher/themes/images/knot.png
 primejunta/cypher/themes/images/cloudbg.jpg
 primejunta/cypher/themes/images/grain.png
 primejunta/cypher/themes/images/grain-l.png
+
 # Main stylesheet
 primejunta/cypher/chargen/themes/chargen.css
 primejunta/cypher/chargen/themes/charrec.css
 # Icon font
-font-awesome/css/font-awesome.css
+font-awesome/css/font-awesome.min.css
 font-awesome/fonts/fontawesome-webfont.eot?v=4.0.0
 font-awesome/fonts/fontawesome-webfont.eot?#iefix&v=4.0.0
 font-awesome/fonts/fontawesome-webfont.woff?v=4.0.0
 font-awesome/fonts/fontawesome-webfont.ttf?v=4.0.0
 font-awesome/fonts/fontawesome-webfont.svg#fontawesomeregular?v=4.0.0
+# Dojo
 dojo/dojo.js
 dojo/dojo.js.map
 dojo/resources/blank.gif
@@ -53,5 +53,6 @@ dijit/themes/tundra/images/buttonActive.png
 dijit/themes/tundra/images/titleBar.png
 dijit/themes/tundra/images/tabClose.png
 dijit/themes/tundra/images/tabHover.gif
+
 NETWORK:
 *

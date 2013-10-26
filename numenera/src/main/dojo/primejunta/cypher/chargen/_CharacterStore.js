@@ -36,6 +36,7 @@ function( declare,
     return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _UtilityMixin ], {
         manager : {},
         templateString : template,
+        _tempStoreToken : "_CCG_TMP_",
         _cwa : [],
         postCreate : function()
         {
@@ -54,6 +55,15 @@ function( declare,
             var _data = this.getStoredCharacters( restored ).then( lang.hitch( this, function( _data ) {
                 for( var c in _data )
                 {
+                    // In case of corrupted data
+                    if( !_data[ c ] )
+                    {
+                        _data[ c ] = { key : c };
+                    }
+                    else if( !_data[ c ].key )
+                    {
+                        _data[ c ].key = c;
+                    }
                     var cm = new _CharacterManager( _data[ c ] ).placeAt( nde );
                     cm.manager = this;
                     this._cwa.push( cm );
@@ -84,7 +94,7 @@ function( declare,
                 var _char = this._storage.get( chars[ i ] );
                 if( this._characterIsValid( _char ) )
                 {
-                    var props = { key : chars[ i ], character : _char };
+                    var props = _char;
                     if( array.indexOf( restored, _char.name ) != -1 )
                     {
                         props.restored = true;
@@ -112,6 +122,10 @@ function( declare,
          */
         storeCharacter : function( data, tempStore )
         {
+            if( tempStore )
+            {
+                return; // we're not doing anything with the tempStore yet so let's not pollute it
+            }
             if( !this._storage )
             {
                 this._initStorage().then( lang.hitch( this, this.storeCharacter, data, tempStore ) );
@@ -119,6 +133,7 @@ function( declare,
             }
             var key = this._getKey( this.manager.characterNameInput.value, tempStore );
             var val = {
+                key : key,
                 name : this._sanitize( this.manager.characterNameInput.value ),
                 data : data ? data : this.manager._getCharacterData(),
                 time : new Date().getTime()
@@ -133,10 +148,10 @@ function( declare,
                 this.manager.saveButton.set( "disabled", true ); 
             }
         },
-        loadCharacter : function( character )
+        loadCharacter : function( data )
         {
             this.close();
-            this.manager.loadCharacter( character );
+            this.manager.loadCharacter( data);
         },
         fileAttached : function()
         {
@@ -188,7 +203,7 @@ function( declare,
             var restored = [];
             for( var o in obj )
             {
-                if( array.indexOf( keys, o ) == -1 )
+                if( true || array.indexOf( keys, o ) == -1 )
                 {
                     restored.push( o );
                     this._storage.put( o, obj[ o ] );

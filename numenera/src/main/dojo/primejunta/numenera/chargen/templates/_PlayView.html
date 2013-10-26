@@ -10,7 +10,12 @@
           <td align="center">
             <div data-dojo-type="dojox/mobile/TabBar" data-dojo-props='barType:"segmentedControl"' data-dojo-attach-point="characterTabs" class="pv-characterPickerBar"></div>
           </td>
-          <td width="50"></td>
+          <td width="50" align="right">
+            <div data-dojo-type="dojox/mobile/ToolBarButton"
+              data-dojo-attach-event="onClick:toHelpView">
+              <i class="fa fa-large fa-question-circle fa-lg num-blueIcon"></i>
+            </div>
+          </td>
         </tr>
       </table>
     </div>
@@ -487,10 +492,6 @@
       <div data-dojo-type="dojox/mobile/TabBarButton"
         data-dojo-attach-event="onClick:toRosterView">
         <i class="fa fa-large fa-group"></i>
-      </div>
-      <div data-dojo-type="dojox/mobile/TabBarButton"
-        data-dojo-attach-event="onClick:toHelpView">
-        <i class="fa fa-large fa-question-circle"></i>
       </div>
     </div>
     

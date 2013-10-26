@@ -65,7 +65,6 @@ function( declare,
                         "disabled",
                         "deleted" ]
         },
-        _tempStoreToken : "_CCG_TMP_",
         /**
          * Character used to break up lists in the data. We picked one that doesn't get escaped when we URL
          * encode it, rather than, say, a comma. This saves space.

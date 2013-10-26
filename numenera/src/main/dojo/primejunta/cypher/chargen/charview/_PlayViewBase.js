@@ -414,17 +414,17 @@ function( declare,
             this._pickers = [];
             for( var o in chars )
             {
-                this._storedCharacters[ chars[ o ].character.name ] = chars[ o ].character;
+                this._storedCharacters[ chars[ o ].name ] = chars[ o ];
                 var picked = false;
-                if( chars[ o ].character.name == this._character.character_name )
+                if( chars[ o ].name == this._character.character_name )
                 {
                     picked = true;
                 }
-                if( this.manager._currentRoster && array.indexOf( this.manager._currentRoster, chars[ o ].character.name ) != -1 )
+                if( this.manager._currentRoster && array.indexOf( this.manager._currentRoster, chars[ o ].name ) != -1 )
                 {
                     picked = true;
                 }
-                var picker = new _CharacterPicker({ manager : this, character : chars[ o ].character, picked : picked }).placeAt( this.party_list );
+                var picker = new _CharacterPicker({ manager : this, character : chars[ o ], picked : picked }).placeAt( this.party_list );
                 this._pickers.push( picker );
                 this.own( picker );
             }

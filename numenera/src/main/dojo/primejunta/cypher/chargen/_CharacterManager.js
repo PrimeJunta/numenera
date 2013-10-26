@@ -30,6 +30,14 @@ function( declare,
          */
         key : "",
         /**
+         * Character name.
+         */
+        name : "",
+        /**
+         * Character data.
+         */
+        data : "",
+        /**
          * Creator of the widget.
          */
         manager : {},
@@ -53,7 +61,7 @@ function( declare,
          */
         loadMe : function()
         {
-            this.manager.loadCharacter( this.character.data );
+            this.manager.loadCharacter( this.data );
         }
     });
 });
