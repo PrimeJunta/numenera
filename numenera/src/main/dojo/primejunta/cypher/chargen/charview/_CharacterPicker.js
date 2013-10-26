@@ -26,6 +26,17 @@ function( declare,
             this.picked = !this.picked;
             this.chooserNode.checked = this.picked;
             this.manager.includeCharacter( this.character, this.picked );
+        },
+        set : function( what, to )
+        {
+            if( what == "disabled" )
+            {
+                this.chooserNode.disabled = to;
+            }
+            else
+            {
+                this.inherited( arguments );
+            }
         }
     });
 });

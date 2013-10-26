@@ -133,6 +133,7 @@ function( declare,
         },
         toRosterView : function()
         {
+            this._disablePicker( this.character.character_name );
             this._moveTo( this.rosterView );
         },
         toHelpView : function()
@@ -410,10 +411,36 @@ function( declare,
         _doInitPartyView : function( chars )
         {
             this._storedCharacters = {};
+            this._pickers = [];
             for( var o in chars )
             {
                 this._storedCharacters[ chars[ o ].character.name ] = chars[ o ].character;
-                this.own( new _CharacterPicker({ manager : this, character : chars[ o ].character, picked : ( chars[ o ].character.name == this._character.character_name ) }).placeAt( this.party_list ));
+                var picked = false;
+                if( chars[ o ].character.name == this._character.character_name )
+                {
+                    picked = true;
+                }
+                if( this.manager._currentRoster && array.indexOf( this.manager._currentRoster, chars[ o ].character.name ) != -1 )
+                {
+                    picked = true;
+                }
+                var picker = new _CharacterPicker({ manager : this, character : chars[ o ].character, picked : picked }).placeAt( this.party_list );
+                this._pickers.push( picker );
+                this.own( picker );
+            }
+        },
+        _disablePicker : function( character )
+        {
+            for( var i = 0; i < this._pickers.length; i++ )
+            {
+                if( this._pickers[ i ].character.name == character )
+                {
+                    this._pickers[ i ].set( "disabled", true );
+                }
+                else
+                {
+                    this._pickers[ i ].set( "disabled", false );
+                }
             }
         },
         _moveTo : function( view )
