@@ -5,30 +5,34 @@ define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "dojo/_base/array",
          "dojo/dom-class",
+         "dojo/dom-style",
          "dojox/mobile/Container",
          "dojox/mobile/View",
          "dojox/mobile/ScrollableView",
          "dojox/mobile/TabBar",
          "dojox/mobile/TabBarButton",
+         "dojox/mobile/Heading",
+         "dojox/mobile/ToolBarButton",
          "dijit/form/Textarea",
-         "dijit/_WidgetBase",
-         "dijit/_TemplatedMixin",
-         "dijit/_WidgetsInTemplateMixin",
-         "./_CharacterViewBase" ],
+         "./_CharacterPicker",
+         "./_CharacterViewBase",
+         "dojo/text!./doc/PlayViewHelp.html"],
 function( declare,
           lang,
           array,
           domClass,
+          domStyle,
           Container,
           View,
           ScrollableView,
           TabBar,
           TabBarButton,
+          Heading,
+          ToolBarButton,
           Textarea,
-          _WidgetBase,
-          _TemplatedMixin,
-          _WidgetsInTemplateMixin,
-          _CharacterViewBase )
+          _CharacterPicker,
+          _CharacterViewBase,
+          help )
 {
     return declare([ _CharacterViewBase ], {
         limitedStats : [ "might_pool", "speed_pool", "intellect_pool", "character_effort" ],
@@ -39,11 +43,15 @@ function( declare,
         _curRecoveryRoll : 0,
         postCreate : function()
         {
-            this._viewOrder = [ this.descriptionView, this.statsView, this.abilitiesView, this.possessionsView, this.helpView ];
-            this.inherited( arguments );
+            this.helpNode.innerHTML = help;
+            this._characterButtons = [];
+            this._viewOrder = [ this.descriptionView, this.statsView, this.abilitiesView, this.possessionsView, this.rosterView, this.helpView ];
+            this.populateFields();
             this._character = lang.clone( this.character );
             this._connectStatControls();
             this._checkStatLimits();
+            this._initPartyView();
+            this.addCharacterButton( this.character.character_name );
         },
         closeMe : function()
         {
@@ -74,6 +82,10 @@ function( declare,
         {
             this._moveTo( this.possessionsView );
         },
+        toRosterView : function()
+        {
+            this._moveTo( this.rosterView );
+        },
         toHelpView : function()
         {
             this._moveTo( this.helpView );
@@ -96,6 +108,73 @@ function( declare,
                 if( stats.length == 0 )
                 {
                     return;
+                }
+            }
+        },
+        includeCharacter : function( character, picked )
+        {
+            if( picked )
+            {
+                this.addCharacterButton( character.name );
+            }
+            else
+            {
+                this.removeCharacterButton( character.name );
+            }
+        },
+        addCharacterButton : function( name )
+        {
+            var btn = new TabBarButton({ "class" : "pv-characterPickerButton", label : name, onClick : lang.hitch( this, this.switchToCharacter, name )});
+            this.characterTabs.addChild( btn );
+            this._characterButtons.push( btn );
+            this._checkSelectedCharacterButton();
+        },
+        removeCharacterButton : function( name )
+        {
+            for( var i = 0; i < this._characterButtons.length; i++ )
+            {
+                if( this._characterButtons[ i ].label == name )
+                {
+                    this._characterButtons.splice( i, 1 )[ 0 ].destroy();
+                    this._checkSelectedCharacterButton();
+                    return;
+                }
+            }
+        },
+        switchToCharacter : function( name )
+        {
+            if( this.character.character_name == name )
+            {
+                return;
+            }
+            else
+            {
+                console.log( this._storedCharacters[ name ] );
+                this.loadCharacter( this._storedCharacters[ name ].data );
+            }
+        },
+        loadCharacter : function( data )
+        {
+            this.manager.populateFromStoredData( data );
+            this.initializeCharacterData();
+            this.populateFields();
+            if( this.rosterView.getShowingView() == this.rosterView )
+            {
+                this.toDescriptionView();
+            }
+        },
+        _checkSelectedCharacterButton : function()
+        {
+            for( var i = 0; i < this._characterButtons.length; i++ )
+            {
+                var cur = this._characterButtons[ i ];
+                if( cur.label == this.character.character_name )
+                {
+                    cur.set( "selected", true );
+                }
+                else
+                {
+                    cur.set( "selected", false );
                 }
             }
         },
@@ -250,6 +329,19 @@ function( declare,
         _enHigh : function( stat )
         {
             this[ "increment_" + stat ].set( "disabled", false );
+        },
+        _initPartyView : function()
+        {
+            this.manager.getStoredCharacters().then( lang.hitch( this, this._doInitPartyView ) );
+        },
+        _doInitPartyView : function( chars )
+        {
+            this._storedCharacters = {};
+            for( var o in chars )
+            {
+                this._storedCharacters[ chars[ o ].character.name ] = chars[ o ].character;
+                this.own( new _CharacterPicker({ manager : this, character : chars[ o ].character, picked : ( chars[ o ].character.name == this._character.character_name ) }).placeAt( this.party_list ));
+            }
         },
         _moveTo : function( view )
         {

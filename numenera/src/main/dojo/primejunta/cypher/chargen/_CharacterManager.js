@@ -53,7 +53,7 @@ function( declare,
          */
         loadMe : function()
         {
-            this.manager.loadCharacter( this.key );
+            this.manager.loadCharacter( this.character.data );
         }
     });
 });

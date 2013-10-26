@@ -1,39 +1,18 @@
-<div class="pv-playViewRoot">
-  <div class="pv-copyright" style="">Numenera and its logo are
-    trademarks of Monte Cook Games, LLC in the U.S.A. and other
-    countries. All Monte Cook Games characters and character names, and
-    the distinctive likenesses thereof, are trademarks of Monte Cook
-    Games, LLC. Content derived from Monte Cook Games publications is ©
-    2013 Monte Cook Games, LLC.</div>
-
-  <div>
-    <div data-dojo-type="dojox/mobile/TabBar"
-      data-dojo-props="fill:'always'">
-      <div data-dojo-type="dojox/mobile/TabBarButton"
-        data-dojo-attach-event='onClick:closeMe'>
-        <i class="fa fa-resize-small num-blueIcon"></i>
-      </div>
-      <div data-dojo-type="dojox/mobile/TabBarButton"
-        data-dojo-attach-event="onClick:toDescriptionView">
-        <i class="fa fa-user"></i>
-      </div>
-      <div data-dojo-type="dojox/mobile/TabBarButton"
-        data-dojo-attach-event="onClick:toStatsView"
-        data-dojo-props='selected:true'>
-        <i class="fa fa-dashboard"></i>
-      </div>
-      <div data-dojo-type="dojox/mobile/TabBarButton"
-        data-dojo-attach-event="onClick:toAbilitiesView">
-        <i class="fa fa-bolt"></i>
-      </div>
-      <div data-dojo-type="dojox/mobile/TabBarButton"
-        data-dojo-attach-event="onClick:toPossessionsView">
-        <i class="fa fa-suitcase"></i>
-      </div>
-      <div data-dojo-type="dojox/mobile/TabBarButton"
-        data-dojo-attach-event="onClick:toHelpView">
-        <i class="fa fa-info-circle"></i>
-      </div>
+<div class="pv-playViewRoot" style="width:100%;height:100%;">
+  <div style="width:100%;height:100%;">
+    <div data-dojo-type="dojox/mobile/Heading"
+      data-dojo-attach-point="headingWidget" data-dojo-props="fixed:'top'">
+      <table cellspacing="0" cellpadding="0" width="100%">
+        <tr>
+          <td width="50">
+            <div data-dojo-type="dojox/mobile/ToolBarButton" data-dojo-attach-event="onClick:closeMe" data-dojo-props="arrow:'left'">Back</div>
+          </td>
+          <td align="center">
+            <div data-dojo-type="dojox/mobile/TabBar" data-dojo-props='barType:"segmentedControl"' data-dojo-attach-point="characterTabs" class="pv-characterPickerBar"></div>
+          </td>
+          <td width="50"></td>
+        </tr>
+      </table>
     </div>
     <div data-dojo-type="dojox/mobile/View"
       data-dojo-attach-point="descriptionView" class="pv-viewWrapper">
@@ -61,10 +40,6 @@
             </div>
           </div>
         </div>
-        <div style="text-align: center">
-          <img class="cr-whiteKnot" src="${iconSource}/knot.png" />
-        </div>
-
         <div class="cr-marker cr-listBox cr-background">
           <div class="cr-content">
             <h2 class="pv-heading">Background</h2>
@@ -478,50 +453,53 @@
       </div>
     </div>
     <div data-dojo-type="dojox/mobile/View"
-      data-dojo-attach-point="helpView">
+      data-dojo-attach-point="rosterView">
       <div class="pv-viewContent">
-        <h2 class="pv-heading">Help</h2>
-        <p>This is a simple tool for displaying character data and
-          tracking changes to pools while you play. The temporary
-          changes to your stats will not be written back to your
-          character sheet when you close the view.</p>
-        <p>
-          <b>In-play adjustments:</b> Use the <i
-            class="fa fa-plus-circle num-blueIcon"></i> and <i
-            class="fa fa-minus-circle num-redIcon"></i> buttons to
-          adjust your pools. They will be disabled if you hit zero or
-          your character's maximum.
-        </p>
-        <p>
-          <b>Effort:</b> Set your level of effort from the Effort stat
-          at top. Then click <i class="fa fa-heart num-redIcon"></i>
-          button for the stat for which you want to use it. The effort
-          will be deducted from the stat, with Edge taken into account.
-        </p>
-        <p>
-          <b>Damage track:</b> Moves up and down if any of your pools
-          are at zero.
-        </p>
-        <p>
-          <b>Recovery:</b> The recovery button is enabled (and turns
-          blue) if your stats fall below their maximums. It cycles
-          through A, 10 m, 1 h, and 10 h depending on your next
-          available recovery roll. The points will be distributed
-          between your pools in an attempt to keep them relatively even.
-          If you don't like this, adjust by hand with the <i
-            class="fa fa-plus-circle num-blueIcon"></i> and <i
-            class="fa fa-minus-circle num-redIcon"></i> buttons but
-          don't cheat or your GM will get mad.
-        </p>
-        <p>
-          <b>Note:</b> The utility does not account for the Special
-          Healing needed by a hero who Fuses Flesh and Steel.
-        </p>
-        <p>
-          <b>Get back:</b> Use the <i
-            class="fa fa-resize-small num-blueIcon"></i> tab button.
-        </p>
+        <h1>Party</h1>
+        <div data-dojo-attach-point="party_list" class="pv-listContent"></div>
       </div>
     </div>
+    <div data-dojo-type="dojox/mobile/View"
+      data-dojo-attach-point="helpView">
+      <div class="pv-viewContent" data-dojo-attach-point="helpNode">
+
+      </div>
+    </div>
+    <div data-dojo-type="dojox/mobile/TabBar"
+      data-dojo-props="fill:'always'" style="position:fixed;bottom:0px;width:100%;">
+      <div data-dojo-type="dojox/mobile/TabBarButton"
+        data-dojo-attach-event="onClick:toDescriptionView">
+        <i class="fa fa-large fa-user"></i>
+      </div>
+      <div data-dojo-type="dojox/mobile/TabBarButton"
+        data-dojo-attach-event="onClick:toStatsView"
+        data-dojo-props='selected:true'>
+        <i class="fa fa-large fa-dashboard"></i>
+      </div>
+      <div data-dojo-type="dojox/mobile/TabBarButton"
+        data-dojo-attach-event="onClick:toAbilitiesView">
+        <i class="fa fa-large fa-bolt"></i>
+      </div>
+      <div data-dojo-type="dojox/mobile/TabBarButton"
+        data-dojo-attach-event="onClick:toPossessionsView">
+        <i class="fa fa-large fa-suitcase"></i>
+      </div>
+      <div data-dojo-type="dojox/mobile/TabBarButton"
+        data-dojo-attach-event="onClick:toRosterView">
+        <i class="fa fa-large fa-group"></i>
+      </div>
+      <div data-dojo-type="dojox/mobile/TabBarButton"
+        data-dojo-attach-event="onClick:toHelpView">
+        <i class="fa fa-large fa-info-circle"></i>
+      </div>
+    </div>
+    
   </div>
+    <div class="pv-copyright" style="display:none">Numenera and its logo are
+    trademarks of Monte Cook Games, LLC in the U.S.A. and other
+    countries. All Monte Cook Games characters and character names, and
+    the distinctive likenesses thereof, are trademarks of Monte Cook
+    Games, LLC. Content derived from Monte Cook Games publications is ©
+    2013 Monte Cook Games, LLC.</div>
+  
 </div>

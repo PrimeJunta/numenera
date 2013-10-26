@@ -123,6 +123,13 @@ function( declare,
             this._characterStore.storeCharacter();
         },
         /**
+         * @public Deferred
+         */
+        getStoredCharacters : function()
+        {
+            return this._characterStore.getStoredCharacters();
+        },
+        /**
          * Call _initStorage if necessary; then getKeys and display the stored characters in a manage dialog
          * that lets you delete or load them.
          */
@@ -180,8 +187,10 @@ function( declare,
             catch( e )
             {
                 console.log( e );
+                this._populating = [];
                 this.clearAll();
                 this.tell( "An error occurred loading the character. Perhaps the link was corrupted.<br/><br/>Sorry about that." );
+                return;
             }
             this.onCharNameBlur( this.characterNameInput );
             this._populating.pop();

@@ -3,7 +3,7 @@
  * process and validate the data. Much of the beef is actually in the template.
  */
 define([ "dojo/_base/declare",
-         "primejunta/cypher/chargen/_PrintViewBase",
+         "primejunta/cypher/chargen/charview/_PrintViewBase",
          "dojo/text!./templates/_PrintView.html" ],
 function( declare,
           _PrintViewBase,
@@ -13,7 +13,7 @@ function( declare,
         /**
          * Image source.
          */
-        iconSource : require.toUrl( "primejunta/numenera/themes/images" ),
+        iconSource : require.toUrl( "primejunta/cypher/themes/images" ),
         /**
          * Template. A lot of the beef is here.
          */

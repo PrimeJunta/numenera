@@ -44,44 +44,56 @@ function( declare,
         },
         show : function( restored )
         {
-            if( !this._storage )
-            {
-                this._initStorage().then( lang.hitch( this, this.show ) );
-                return;
-            }
             while( this._cwa.length > 0 )
             {
                 this._cwa.pop().destroy();
             }
+            this.clearMessages();
+            domConstruct.empty( this.characterManagerContentNode );
+            var nde = domConstruct.create( "div", { style : "width:100%;margin-bottom:30px;" }, this.characterManagerContentNode );
+            var _data = this.getStoredCharacters( restored ).then( lang.hitch( this, function( _data ) {
+                for( var c in _data )
+                {
+                    var cm = new _CharacterManager( _data[ c ] ).placeAt( nde );
+                    cm.manager = this;
+                    this._cwa.push( cm );
+                }
+                if( this._cwa.length == 0 )
+                {
+                    nde.innerHTML = "No saved characters.";
+                }
+                this.characterManagerDialog.show();
+                this.updateDownloadLink( _data );
+            }));
+        },
+        getStoredCharacters : function( restored )
+        {
+            if( !this._storage )
+            {
+                return this._initStorage().then( lang.hitch( this, this.getStoredCharacters, restored ) );
+            }
+            var deferred = new Deferred();
             if( !restored )
             {
                 restored = [];
             }
             var chars = this._storage.getKeys().sort();
             var _data = {};
-            this.clearMessages();
-            domConstruct.empty( this.characterManagerContentNode );
-            var nde = domConstruct.create( "div", { style : "width:100%;margin-bottom:30px;" }, this.characterManagerContentNode );
             for( var i = 0; i < chars.length; i++ )
             {
                 var _char = this._storage.get( chars[ i ] );
                 if( this._characterIsValid( _char ) )
                 {
-                    _data[ chars[ i ] ] = _char;
-                    var props = { key : chars[ i ], character : _char, manager : this };
+                    var props = { key : chars[ i ], character : _char };
                     if( array.indexOf( restored, _char.name ) != -1 )
                     {
                         props.restored = true;
                     }
-                    this._cwa.push( new _CharacterManager( props ).placeAt( nde ) );
+                    _data[ chars[ i ] ] = props;
                 }
             }
-            if( this._cwa.length == 0 )
-            {
-                nde.innerHTML = "No saved characters.";
-            }
-            this.characterManagerDialog.show();
-            this.updateDownloadLink( _data );
+            deferred.resolve( _data );
+            return deferred;
         },
         clearMessages : function()
         {
@@ -121,11 +133,10 @@ function( declare,
                 this.manager.saveButton.set( "disabled", true ); 
             }
         },
-        loadCharacter : function( key )
+        loadCharacter : function( character )
         {
-            var val = this._storage.get( key ).data;
             this.close();
-            this.manager.loadCharacter( val );
+            this.manager.loadCharacter( character );
         },
         fileAttached : function()
         {

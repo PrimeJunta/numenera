@@ -98,3 +98,11 @@ h2.pv-heading
 	border : none;
 	cursor : pointer;
 }
+.pv-characterPickerBar
+{
+	margin: 0 0 4px;
+}
+.pv-characterPickerButton
+{
+	width : 150px !important;
+}

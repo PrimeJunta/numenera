@@ -6,7 +6,7 @@ define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "dojo/json",
          "dijit/form/Button",
-         "./_UtilityMixin",
+         "../_UtilityMixin",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin"],
@@ -40,11 +40,22 @@ function( declare,
          * A boring method which mostly just gets data from CharacterGenerator and puts it in fields here,
          * using utility methods.
          */
+        postMixInProperties : function()
+        {
+            this.initializeCharacterData();
+        },
         postCreate : function()
         {
             window.scroll( 0, 0 );
+            this.populateFields();
+        },
+        initializeCharacterData : function()
+        {
             var vtor = this.manager.createCharacterValidator({ manager : this.manager });
             this.character = vtor.analyzeCharacter();
+        },
+        populateFields : function()
+        {
             this._sv( "name_field", "character_name" );
             this._sv( "descriptor_field", "character_descriptor" );
             this._sv( "type_field", "character_type" );
@@ -109,7 +120,7 @@ function( declare,
         {
         },
         /**
-         * Utility method. Writes contents of this.character[ ln ] into field matching to.
+         * Utility method. Writes contents of this.character[ listName ] into field matching fieldName.
          */
         _wl : function( /* String */ fieldName, /* String */ listName )
         {
