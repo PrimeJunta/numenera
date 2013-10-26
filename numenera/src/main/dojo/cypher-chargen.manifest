@@ -1,25 +1,23 @@
 CACHE MANIFEST
 # Cache manifest for Numenera Character Creator.
 #
-# Version 2.1.1
+# Version 2.2.0-a
 #
 # Page
 index.html
 # Graphics
-primejunta/numenera/themes/images/icon.png
-primejunta/numenera/themes/images/h-pixel.png
-primejunta/numenera/themes/images/v-pixel.png
-primejunta/numenera/themes/images/touch-icon-ipad.png
-primejunta/numenera/themes/images/touch-icon-ipad-retina.png
-primejunta/numenera/themes/images/Numenera_Logo.png
-primejunta/numenera/themes/images/Numenera_Logo_neg.png
-primejunta/numenera/themes/images/knot.png
-primejunta/numenera/themes/images/cloudbg.jpg
-primejunta/numenera/themes/images/grain.png
-primejunta/numenera/themes/images/grain-l.png
+primejunta/cypher/themes/images/icon.png
+primejunta/cypher/themes/images/h-pixel.png
+primejunta/cypher/themes/images/v-pixel.png
+primejunta/cypher/themes/images/touch-icon-ipad.png
+primejunta/cypher/themes/images/touch-icon-ipad-retina.png
+primejunta/cypher/themes/images/knot.png
+primejunta/cypher/themes/images/cloudbg.jpg
+primejunta/cypher/themes/images/grain.png
+primejunta/cypher/themes/images/grain-l.png
 # Main stylesheet
-primejunta/numenera/chargen/themes/chargen.css
-primejunta/numenera/chargen/themes/charrec.css
+primejunta/cypher/chargen/themes/chargen.css
+primejunta/cypher/chargen/themes/charrec.css
 # Icon font
 font-awesome/css/font-awesome.css
 font-awesome/fonts/fontawesome-webfont.eot?v=4.0.0
@@ -38,11 +36,11 @@ primejunta/nls/numenera_en.js.map
 dijit/nls/loading.js
 dijit/nls/common.js
 # Fonts
-primejunta/numenera/themes/fonts/Oxygen.woff
-primejunta/numenera/themes/fonts/Oxygen_Bold.woff
-primejunta/numenera/themes/fonts/Cinzel_Decorative.woff
-primejunta/numenera/themes/fonts/Lato.woff
-primejunta/numenera/themes/fonts/Prata.woff
+primejunta/cypher/themes/fonts/Oxygen.woff
+primejunta/cypher/themes/fonts/Oxygen_Bold.woff
+primejunta/cypher/themes/fonts/Cinzel_Decorative.woff
+primejunta/cypher/themes/fonts/Lato.woff
+primejunta/cypher/themes/fonts/Prata.woff
 # Themes
 dijit/themes/tundra/tundra.css
 dijit/themes/tundra/images/tabEnabled.png
