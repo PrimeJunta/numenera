@@ -34,7 +34,8 @@ define([ "dojo/_base/declare",
          "./optional/_OptionalRulesMixin",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
-         "dijit/_WidgetsInTemplateMixin" ],
+         "dijit/_WidgetsInTemplateMixin",
+         "dojo/text!primejunta/cypher/doc/copyright.txt" ],
 function( declare,
           lang,
           array,
@@ -65,9 +66,14 @@ function( declare,
           _OptionalRulesMixin,
           _WidgetBase,
           _TemplatedMixin,
-          _WidgetsInTemplateMixin )
+          _WidgetsInTemplateMixin,
+          copyright )
 {
     return declare( "primejunta/numenera/chargen/_CharacterGeneratorBase", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _StartupMixin, _UtilityMixin, _data, _lists, _transitions, _OptionalRulesMixin ], {
+        /**
+         * Short copyright notice, will appear in a number of places.
+         */
+        copyright : copyright,
         /**
          * Filename for character backups.
          */

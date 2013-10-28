@@ -29,14 +29,16 @@
       </div>
       <div data-dojo-attach-point="cloudBackupNode">
         <h4>
-          Cloud Backup <i class="fa fa-spinner num-blueIcon"
+          Google Drive&trade; Backup <i class="fa fa-spinner num-blueIcon"
             data-dojo-attach-point="cloudWorkingIcon"></i>
         </h4>
         <p style="text-align: right">
           <span data-dojo-attach-point="authorizeControls">
             <button data-dojo-type="dijit/form/Button"
               data-dojo-props="iconClass:'num-cloudStorageIcon'"
-              data-dojo-attach-event="onClick:startupCloudStorage">Enable
+              data-dojo-attach-point="authorizeDriveButton"
+              data-dojo-attach-event="onClick:authorizeCloudStorage"
+              disabled="true">Connect
               Google Drive</button>
           </span> <span data-dojo-attach-point="uploadControls"
             style="display: none"> Backup: <input type="text"

@@ -1,4 +1,4 @@
-<div class="num-mainWidget" style="display:none">
+<div class="num-mainWidget" style="display: none">
   <!--  Main buttons, floating -->
   <div data-dojo-attach-point="characterGeneratorPane"
     data-dojo-type="dijit/layout/BorderContainer"
@@ -15,11 +15,9 @@
                 class="" style="margin-left: auto; margin-right: auto;">
                 <tbody>
                   <tr>
-                    <td align="left" width="20%">
-                    </td>
-                    <td>
-                      <a href="http://www.numenera.com" class="num-smallTitle">NumenérA&trade;</a>
-                    </td>
+                    <td align="left" width="20%"></td>
+                    <td><a href="http://www.numenera.com"
+                      class="num-smallTitle">NumenérA&trade;</a></td>
                     <td align="right" width="20%">
                       <div class="num-linkNode">
                         <a data-dojo-attach-point="helpButton"
@@ -39,11 +37,13 @@
                         class="num-redButton"
                         data-dojo-attach-event="onClick:clearAll"
                         data-dojo-attach-point="clearButton">
-                        <i class="fa fa-refresh"></i> Clear</button>
+                        <i class="fa fa-refresh"></i> Clear
+                      </button>
                     </td>
                     <td align="center">
                       <div class="cg-characterNameInputBox">
-                        <input data-dojo-attach-point="characterNameInput"
+                        <input
+                          data-dojo-attach-point="characterNameInput"
                           type="text" value="${DEFAULT_CHARACTER_NAME}"
                           spellcheck="false"
                           class="cg-storeMe cg-characterNameInput num-valueNotSet" />
@@ -53,7 +53,9 @@
                       <button data-dojo-type="dijit/form/Button"
                         class="num-blueButton"
                         data-dojo-attach-point="finalizeButton"
-                        data-dojo-attach-event="onClick:finalize">Advance <i class="fa fa-angle-double-up"></i></button>
+                        data-dojo-attach-event="onClick:finalize">
+                        Advance <i class="fa fa-angle-double-up"></i>
+                      </button>
                     </td>
                   </tr>
                 </tbody>
@@ -112,7 +114,8 @@
         <div data-dojo-type="dijit/layout/ContentPane"
           data-dojo-props="title:'Statistics'"
           data-dojo-attach-point="statsPane">
-          <div data-dojo-type="primejunta/cypher/chargen/_StatsPane" data-dojo-attach-point="statsControl"></div>
+          <div data-dojo-type="primejunta/cypher/chargen/_StatsPane"
+            data-dojo-attach-point="statsControl"></div>
         </div>
         <div data-dojo-type="dijit/layout/ContentPane"
           data-dojo-props="title:'Possessions'">
@@ -151,14 +154,9 @@
       data-dojo-props="region:'bottom'" class="num-footer"
       data-dojo-attach-point="footerNode">
       <div class="num-copyright">
-        <span style="cursor:pointer" data-dojo-attach-event="onClick:showLicenses">
-        Numenera and its logo are trademarks of Monte Cook Games, LLC in
-        the U.S.A. and other countries. All Monte Cook Games characters
-        and character names, and the distinctive likenesses thereof, are
-        trademarks of Monte Cook Games, LLC. Content derived from Monte
-        Cook Games publications is © 2013 Monte Cook Games, LLC. <br />The
-        Character Creation Utility is an unofficial project by Petteri
-        Sulonen.</span> • <a class="num-versionInfo"
+        <span style="cursor: pointer"
+          data-dojo-attach-event="onClick:showLicenses">${copyright}</span>
+          • <a class="num-versionInfo"
           data-dojo-attach-event="onClick:showLicenses">Licenses</a> • <span
           class="num-versionInfo"> <a
           data-dojo-attach-event="onClick:showChangeLog">Version
@@ -201,7 +199,9 @@
         <button data-dojo-attach-point="customizeButtonNode"
           class="num-smallButton"></button>
         <button data-dojo-type="dijit/form/Button"
-          data-dojo-attach-event="onClick:openCharacter"><i class="fa fa-folder-open"></i></button>
+          data-dojo-attach-event="onClick:openCharacter">
+          <i class="fa fa-folder-open"></i>
+        </button>
         <button data-dojo-attach-point="saveButton"
           data-dojo-type="dijit/form/Button"
           data-dojo-attach-event="onClick:pleaseStoreCharacter"

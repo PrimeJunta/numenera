@@ -64,12 +64,7 @@ function( declare,
             {
                 this.localBackupNode.style.display = "block";
             }
-            if( cookie( "cloudStorageEnabled" ) == "true" )
-            {
-                this.authorizeControls.style.display = "none";
-                this.uploadControls.style.display = "block";
-                this.startupCloudStorage();
-            }
+            this.startupCloudStorage();
             console.log( this.cloudBackupFileName );
         },
         show : function( restored )
@@ -142,15 +137,17 @@ function( declare,
         {
             if( this.drive )
             {
-                this.drive.checkAuthorization().then( lang.hitch( this, this.setupCloudUI ));
+                return;
             }
-            else
-            {
-                this.drive = new Drive( this._driveProperties );
-                this.drive.startup().then( lang.hitch( this, this.setupCloudUI ) );
-                this._initCloudUI();
-                this._initStorage();
-            }
+            this.drive = new Drive( this._driveProperties );
+            this._setCBDisabled( true );
+            this.drive.startup().then( lang.hitch( this, this.setupCloudUI ) );
+            this._initCloudUI();
+            this._initStorage();
+        },
+        authorizeCloudStorage : function()
+        {
+            this.drive.checkAuthorization().then( lang.hitch( this, this.setupCloudUI ));
         },
         _initCloudUI : function()
         {
@@ -165,7 +162,6 @@ function( declare,
         {
             if( authResult && !authResult.error )
             {
-                cookie( "cloudStorageEnabled", "true" );
                 // set cookie so we'll start cloud storage automatically the next time
                 // Access token has been successfully retrieved, requests can be sent to the API.
                 this.uploadControls.style.display = "block";
@@ -174,7 +170,6 @@ function( declare,
             }
             else
             {
-                cookie( "cloudStorageEnabled", "false" );
                 // No access token could be retrieved, show the button to start the authorization flow.
                 if( !has( "ios" ) )
                 {
@@ -182,7 +177,8 @@ function( declare,
                 }
                 this.uploadControls.style.display = "none";
                 this.authorizeControls.style.display = "block";
-                this._setCBDisabled( true );
+                this.authorizeDriveButton.set( "disabled", false );
+                this._setCBDisabled( false );
             }
         },
         getCloudBackups : function( clear )
