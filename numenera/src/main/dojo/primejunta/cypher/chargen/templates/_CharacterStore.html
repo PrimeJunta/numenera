@@ -6,19 +6,61 @@
       <h3>Remembered Heroes</h3>
       <p>Click (or tap) to load a remembered hero.</p>
       <div data-dojo-attach-point="characterManagerContentNode"></div>
-      <p>Characters will be restored from a backup only if they don't already exist. To roll back to a backup, delete the character, then upload from the backup. Be sure to take another backup first, just in case!</p>
-      <p style="text-align : right">
-        <a data-dojo-attach-point="downloadButton" data-dojo-type="primejunta/cypher/widget/LinkButton" data-dojo-props="iconClass:'fa fa-download'">Download backup</a>
-        <br/>
-        <input type="file" data-dojo-attach-point="uploadControl" data-dojo-attach-event="onChange:fileAttached"/>
-        <button data-dojo-type="dijit/form/Button"
-          data-dojo-attach-point="uploadButton"
-          data-dojo-attach-event="onClick:uploadBackup" disabled="true"><i class="fa fa-upload"></i> Restore from backup</button>
-      </p>
+      <p>Characters will be restored from a backup only if they
+        don't already exist. To roll back to a backup, delete the
+        character, then upload from the backup. Be sure to take another
+        backup first, just in case!</p>
+      <div data-dojo-attach-point="localBackupNode"
+        style="display: none;">
+        <h4>File Backup</h4>
+        <p style="text-align: right">
+          <input type="file" data-dojo-attach-point="uploadControl"
+            data-dojo-attach-event="onChange:fileAttached" /> <a
+            data-dojo-attach-point="downloadButton"
+            data-dojo-type="primejunta/cypher/widget/LinkButton"
+            data-dojo-props="iconClass:'fa fa-download'">Backup</a>
+          <button data-dojo-type="dijit/form/Button"
+            data-dojo-attach-point="uploadButton"
+            data-dojo-attach-event="onClick:uploadBackup"
+            disabled="true">
+            <i class="fa fa-upload"></i> Restore
+          </button>
+        </p>
+      </div>
+      <div data-dojo-attach-point="cloudBackupNode">
+        <h4>
+          Cloud Backup <i class="fa fa-spinner num-blueIcon"
+            data-dojo-attach-point="cloudWorkingIcon"></i>
+        </h4>
+        <p style="text-align: right">
+          <span data-dojo-attach-point="authorizeControls">
+            <button data-dojo-type="dijit/form/Button"
+              data-dojo-props="iconClass:'num-cloudStorageIcon'"
+              data-dojo-attach-event="onClick:startupCloudStorage">Enable
+              Google Drive</button>
+          </span> <span data-dojo-attach-point="uploadControls"
+            style="display: none"> Backup: <input type="text"
+            data-dojo-attach-point="cloudBackupFileNameNode"
+            value="My Characters" />
+            <button data-dojo-type="dijit/form/Button"
+              data-dojo-attach-point="backupToCloudButton"
+              data-dojo-attach-event="onClick:backupToCloud"
+              disabled="true">
+              <i class="fa fa-cloud-upload"></i> Backup
+            </button>
+            <button data-dojo-type="dijit/form/Button"
+              data-dojo-attach-point="restoreFromCloudButton"
+              data-dojo-attach-event="onClick:restoreFromCloud"
+              disabled="true">
+              <i class="fa fa-cloud-download"></i> Restore
+            </button>
+          </span>
+        </p>
+      </div>
     </div>
-    <div data-dojo-attach-point="invalidFileMessageNode" style="display:none;">
-      The file you selected does not contain character data.
-    </div>
+    <div data-dojo-attach-point="invalidFileMessageNode"
+      style="display: none;">The file you selected does not
+      contain character data.</div>
     <table width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td>
@@ -33,7 +75,8 @@
             data-dojo-attach-event="onClick:displayCharacterLinks">List
             links</button>
           <button data-dojo-type="dijit/form/Button"
-            data-dojo-attach-event="onClick:close">Close</button></td>
+            data-dojo-attach-event="onClick:close">Close</button>
+        </td>
       </tr>
     </table>
   </div>

@@ -1,13 +1,19 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "dojo/_base/array",
+         "dojo/has",
+         "dojo/cookie",
          "dojo/json",
          "dojo/on",
+         "dojo/dom-class",
          "dojo/dom-construct",
          "dojo/Deferred",
          "dojox/storage",
          "./_CharacterManager",
          "./_UtilityMixin",
+         "dojo/store/Memory",
+         "dijit/form/ComboBox",
+         "primejunta/gapi/Drive",
          "primejunta/cypher/widget/LinkButton",
          "dijit/Dialog",
          "dijit/form/Button",
@@ -18,13 +24,19 @@ define([ "dojo/_base/declare",
 function( declare,
           lang,
           array,
+          has,
+          cookie,
           json,
           on,
+          domClass,
           domConstruct,
           Deferred,
           storage,
           _CharacterManager,
           _UtilityMixin,
+          Memory,
+          ComboBox,
+          Drive,
           LinkButton,
           Dialog,
           Button,
@@ -34,14 +46,31 @@ function( declare,
           template )
 {
     return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _UtilityMixin ], {
+        BACKUP_DESCRIPTION : "Cypher System Character Backup",
+        BACKUP_MIME_TYPE : "application/cypher-character-backup",
         manager : {},
         templateString : template,
         _tempStoreToken : "_CCG_TMP_",
+        _driveProperties : {
+            clientId : "338654774169.apps.googleusercontent.com",
+            apiKey : "AIzaSyAKGiPFw6URbWZaCuCquzgd6zKDWY3Hwgs"
+        },
         _cwa : [],
         postCreate : function()
         {
             domConstruct.place( this.characterManagerDialog.domNode, document.body );
             this.characterManagerDialog.startup();
+            if( !has( "ios" ) )
+            {
+                this.localBackupNode.style.display = "block";
+            }
+            if( cookie( "cloudStorageEnabled" ) == "true" )
+            {
+                this.authorizeControls.style.display = "none";
+                this.uploadControls.style.display = "block";
+                this.startupCloudStorage();
+            }
+            console.log( this.cloudBackupFileName );
         },
         show : function( restored )
         {
@@ -109,10 +138,153 @@ function( declare,
         {
             this.invalidFileMessageNode.style.display = "none";
         },
+        startupCloudStorage : function()
+        {
+            if( this.drive )
+            {
+                this.drive.checkAuthorization().then( lang.hitch( this, this.setupCloudUI ));
+            }
+            else
+            {
+                this.drive = new Drive( this._driveProperties );
+                this.drive.startup().then( lang.hitch( this, this.setupCloudUI ) );
+                this._initCloudUI();
+                this._initStorage();
+            }
+        },
+        _initCloudUI : function()
+        {
+            this._backupListStore = new Memory({ data : [] });
+            this.cloudBackupFileName = new ComboBox({
+                store : this._backupListStore,
+                searchAttr : "title",
+                onChange : lang.hitch( this, this._checkRestoreEnabled ),
+                value : "My Characters" }).placeAt( this.cloudBackupFileNameNode, "replace" );
+        },
+        setupCloudUI : function( authResult )
+        {
+            if( authResult && !authResult.error )
+            {
+                cookie( "cloudStorageEnabled", "true" );
+                // set cookie so we'll start cloud storage automatically the next time
+                // Access token has been successfully retrieved, requests can be sent to the API.
+                this.uploadControls.style.display = "block";
+                this.authorizeControls.style.display = "none";
+                this.getCloudBackups();
+            }
+            else
+            {
+                cookie( "cloudStorageEnabled", "false" );
+                // No access token could be retrieved, show the button to start the authorization flow.
+                if( !has( "ios" ) )
+                {
+                    this.localBackupNode.style.display = "block";
+                }
+                this.uploadControls.style.display = "none";
+                this.authorizeControls.style.display = "block";
+                this._setCBDisabled( true );
+            }
+        },
+        getCloudBackups : function( clear )
+        {
+            if( clear )
+            {
+                var itms = this._backupListStore.query();
+                for( var i = 0; i < itms.length; i++ )
+                {
+                    this._backupListStore.remove( itms[ i ].id );
+                }
+            }
+            this.drive.listFiles({
+                q : this.drive.queryFromProps({ mimeType : this.BACKUP_MIME_TYPE })
+            }).then( lang.hitch( this, function( resp ) {
+                if( resp[ 0 ] )
+                {
+                    for( var i = 0; i < resp.length; i++ )
+                    {
+                        this._backupListStore.put({ "title" : resp[ i ].title }, { "id" : resp[ i ].title, overwrite : true });
+                    }
+                    this.cloudBackupFileName.set( "value", resp[ 0 ].title );
+                    this._setCBDisabled( false );
+                }
+                else
+                {
+                    this._setCBDisabled( false );
+                    this.restoreFromCloudButton.set( "disabled", true );
+                }
+            }));
+        },
+        backupToCloud : function()
+        {
+            this._setCBDisabled( true );
+            this.getStoredCharacters().then( lang.hitch( this, function( characterData ) {
+                var fileData = {
+                        title : this.cloudBackupFileName.value,
+                        description : this.BACKUP_DESCRIPTION,
+                        mimeType : this.BACKUP_MIME_TYPE
+                };
+                this.drive.updateFileByProperties( fileData, this.characterDataToBackupData( characterData ) ).then( lang.hitch( this, function( resp ) {
+                    this.getCloudBackups( false );
+                }));
+            }));
+        },
+        restoreFromCloud : function()
+        {
+            this._setCBDisabled( true );
+            this.drive.downloadFileByProperties({
+                mimeType : this.BACKUP_MIME_TYPE,
+                title : this.cloudBackupFileName.get( "value" )
+            }).then( lang.hitch( this, function( fileData ) {
+                this._setCBDisabled( false );
+                console.log( "okay, gotta restore from", fileData );
+                var obj = this.backupDataToCharacterData( fileData );
+                if( obj )
+                {
+                    this._restoreFromBackupData( obj );
+                }
+                else
+                {
+                    // should never happen normally
+                    alert( "The file didn't contain a backup. Imagine that!" );
+                }
+            }), lang.hitch( this, function( err ) {
+                // should never happen normally
+                alert( "No matching file. Perhaps someone deleted it from your Drive while you were mucking around here." );
+                this._setCBDisabled( true );
+                this.getCloudBackups( true );
+            }));
+        },
+        _checkRestoreEnabled : function()
+        {
+            var itm = this.cloudBackupFileName.get( "value" );
+            if( this._backupListStore.get( itm ) )
+            {
+                this.restoreFromCloudButton.set( "disabled", false );
+            }
+            else
+            {
+                this.restoreFromCloudButton.set( "disabled", true );
+            }
+        },
+        _setCBDisabled : function( to )
+        {
+            if( to )
+            {
+                domClass.add( this.cloudWorkingIcon, "fa-spin" );
+                this.cloudWorkingIcon.style.visibility = "visible";
+            }
+            else
+            {
+                domClass.remove( this.cloudWorkingIcon, "fa-spin" );
+                this.cloudWorkingIcon.style.visibility = "hidden";
+            }
+            this.restoreFromCloudButton.set( "disabled", to );
+            this.backupToCloudButton.set( "disabled", to );
+        },
         updateDownloadLink : function( _data )
         {
-            _data = json.stringify( _data ); 
-            var href = "data:text/plain;,(" + encodeURIComponent( _data ) + ")";
+            _data = this.characterDataToBackupData( _data ); 
+            var href = "data:text/plain;," + encodeURIComponent( _data ) + "";
             this.downloadButton.set( "href", href );
             this.downloadButton.set( "download", this.manager.dataFileName + ".txt" );
         },
@@ -174,15 +346,14 @@ function( declare,
         },
         validateFile : function( fileData )
         {
-            try
+            var fData = this.backupDataToCharacterData( fileData );
+            if( fData )
             {
-                // Eval is evil, but our JSON is too complex to go through Dojo's secure json parser.
-                // TODO: Plug this hole if I ever add server components.
-                this._objectToUpload = eval( fileData );
+                this._objectToUpload = fData;
                 this.uploadButton.set( "disabled", false );
                 this.invalidFileMessageNode.style.display = "none";
             }
-            catch( e )
+            else
             {
                 console.log( e );
                 this.invalidFileMessageNode.style.display = "block";
@@ -190,15 +361,36 @@ function( declare,
                 this.uploadButton.set( "disabled", true );
             }
         },
+        characterDataToBackupData : function( characterData )
+        {
+            return json.stringify( characterData );
+        },
+        backupDataToCharacterData : function( fileData )
+        {
+            try
+            {
+                return json.parse( fileData );
+            }
+            catch( e )
+            {
+                console.log( "ERROR PARSING FILE DATA", e );
+                return false;
+            }
+        },
         uploadBackup : function()
+        {
+            this.uploadControl.value = "";
+            var obj = this._objectToUpload;
+            this._restoreFromBackupData( obj );
+            this.uploadButton.set( "disabled", true );
+        },
+        _restoreFromBackupData : function( obj )
         {
             if( !this._storage )
             {
-                this._initStorage.then( lang.hitch( this, this.uploadBackup ) );
+                this._initStorage.then( lang.hitch( this, this._restoreFromBackupData, obj ) );
                 return;
             }
-            this.uploadControl.value = "";
-            var obj = this._objectToUpload;
             var keys = this._storage.getKeys().sort();
             var restored = [];
             for( var o in obj )
@@ -209,7 +401,6 @@ function( declare,
                     this._storage.put( o, obj[ o ] );
                 }
             }
-            this.uploadButton.set( "disabled", true );
             setTimeout( lang.hitch( this, this.show, restored ), 300 );
         },
         /**
@@ -229,7 +420,7 @@ function( declare,
                 + "<ul>\n";
             for( var i = 0; i < this._cwa.length; i++ )
             {
-                characterList += "<li><a href=\"" + loc + "?" + this._cwa[ i ].character.data + "\">" + this._cwa[ i ].character.name + "</a></li>\n";
+                characterList += "<li><a href=\"" + loc + "?" + this._cwa[ i ].data + "\">" + this._cwa[ i ].name + "</a></li>\n";
             }
             characterList += "</ul>\n</div>\n";
             characterList += "<p>Copy-paste and save this list in case something bad happens to your browser, or if you want to mail them to someone.</p>";

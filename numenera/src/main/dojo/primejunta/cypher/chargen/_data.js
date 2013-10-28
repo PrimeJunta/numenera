@@ -169,7 +169,6 @@ function( declare,
             var qString = this._getCharacterData();
             var href = window.location.origin + window.location.pathname + "?" + qString; 
             this._buffer.push( qString );
-            this.linkNode.setAttribute( "href", href );
             this._characterStore.storeCharacter( qString, true );
         },
         /**
