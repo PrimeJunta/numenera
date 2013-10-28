@@ -469,6 +469,13 @@ a.num-infoLink
     color : black;
     box-shadow: 0px 0px 20px #000818;
 }
+.num-errorMessage
+{
+	font-weight : bold;
+	padding : 10px;
+	background-color : pink;
+	text-align : center;
+}
 .num-helpPage li
 {
 	line-height : 22px;

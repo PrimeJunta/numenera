@@ -3,33 +3,23 @@
     data-dojo-attach-point="characterManagerDialog"
     data-dojo-props="title:'Character Creation Utility'">
     <div class="num-dialogContent">
+      <div style="float: right">
+        <button data-dojo-type="dijit/form/Button"
+          data-dojo-attach-event="onClick:displayCharacterLinks">
+          <i class="fa fa-external-link"></i> Links
+        </button>
+      </div>
       <h3>Remembered Heroes</h3>
       <p>Click (or tap) to load a remembered hero.</p>
       <div data-dojo-attach-point="characterManagerContentNode"></div>
       <p>Characters will be restored from a backup only if they
         don't already exist. To roll back to a backup, delete the
-        character, then upload from the backup. Be sure to take another
+        character, then restore from the backup. Be sure to take another
         backup first, just in case!</p>
-      <div data-dojo-attach-point="localBackupNode"
-        style="display: none;">
-        <h4>File Backup</h4>
-        <p style="text-align: right">
-          <input type="file" data-dojo-attach-point="uploadControl"
-            data-dojo-attach-event="onChange:fileAttached" /> <a
-            data-dojo-attach-point="downloadButton"
-            data-dojo-type="primejunta/cypher/widget/LinkButton"
-            data-dojo-props="iconClass:'fa fa-download'">Backup</a>
-          <button data-dojo-type="dijit/form/Button"
-            data-dojo-attach-point="uploadButton"
-            data-dojo-attach-event="onClick:uploadBackup"
-            disabled="true">
-            <i class="fa fa-upload"></i> Restore
-          </button>
-        </p>
-      </div>
       <div data-dojo-attach-point="cloudBackupNode">
         <h4>
-          Google Drive&trade; Backup <i class="fa fa-spinner num-blueIcon"
+          Google Drive&trade; Backup <i
+            class="fa fa-spinner num-blueIcon"
             data-dojo-attach-point="cloudWorkingIcon"></i>
         </h4>
         <p style="text-align: right">
@@ -38,8 +28,7 @@
               data-dojo-props="iconClass:'num-cloudStorageIcon'"
               data-dojo-attach-point="authorizeDriveButton"
               data-dojo-attach-event="onClick:authorizeCloudStorage"
-              disabled="true">Connect
-              Google Drive</button>
+              disabled="true">Connect Google Drive</button>
           </span> <span data-dojo-attach-point="uploadControls"
             style="display: none"> Backup: <input type="text"
             data-dojo-attach-point="cloudBackupFileNameNode"
@@ -59,10 +48,30 @@
           </span>
         </p>
       </div>
+      <div data-dojo-attach-point="localBackupNode"
+        style="display: none;">
+        <h4>File Backup</h4>
+        <p style="text-align: right">
+          <input type="file" data-dojo-attach-point="uploadControl"
+            data-dojo-attach-event="onChange:fileAttached" /> <a
+            data-dojo-attach-point="downloadButton"
+            data-dojo-type="primejunta/cypher/widget/LinkButton"
+            data-dojo-props="iconClass:'fa fa-download'">Download</a>
+          <button data-dojo-type="dijit/form/Button"
+            data-dojo-attach-point="uploadButton"
+            data-dojo-attach-event="onClick:uploadBackup"
+            disabled="true">
+            <i class="fa fa-upload"></i> Restore
+          </button>
+        </p>
+        <p class="num-errorMessage"
+          data-dojo-attach-point="invalidFileMessageNode"
+          style="display: none;">
+          <i class="fa fa-warning num-redIcon"></i> The file you
+          selected does not contain character data.
+        </p>
+      </div>
     </div>
-    <div data-dojo-attach-point="invalidFileMessageNode"
-      style="display: none;">The file you selected does not
-      contain character data.</div>
     <table width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td>
@@ -73,9 +82,6 @@
           </button>
         </td>
         <td align="right">
-          <button data-dojo-type="dijit/form/Button"
-            data-dojo-attach-event="onClick:displayCharacterLinks">List
-            links</button>
           <button data-dojo-type="dijit/form/Button"
             data-dojo-attach-event="onClick:close">Close</button>
         </td>

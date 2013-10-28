@@ -1,6 +1,7 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "dojo/_base/array",
+         "dojo/string",
          "dojo/has",
          "dojo/cookie",
          "dojo/json",
@@ -24,6 +25,7 @@ define([ "dojo/_base/declare",
 function( declare,
           lang,
           array,
+          string,
           has,
           cookie,
           json,
@@ -351,7 +353,6 @@ function( declare,
             }
             else
             {
-                console.log( e );
                 this.invalidFileMessageNode.style.display = "block";
                 this.uploadControl.value = "";
                 this.uploadButton.set( "disabled", true );
@@ -363,9 +364,14 @@ function( declare,
         },
         backupDataToCharacterData : function( fileData )
         {
+            var _fileData = string.trim( fileData );
+            if( _fileData.indexOf( "(" ) == 0 )
+            {
+                _fileData = _fileData.substring( 1, _fileData.length - 1 );
+            }
             try
             {
-                return json.parse( fileData );
+                return json.parse( _fileData );
             }
             catch( e )
             {
