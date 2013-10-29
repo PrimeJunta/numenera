@@ -49,6 +49,9 @@ function( declare,
          * Template.
          */
         templateString : template,
+        /**
+         * Sets a special CSS class on a just-restored character.
+         */
         postMixInProperties : function()
         {
             if( this.restored )

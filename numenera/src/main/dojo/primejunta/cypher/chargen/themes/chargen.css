@@ -32,6 +32,10 @@
 {
     padding : 10px 30px 10px 30px;
 }
+.cg-dataRefreshed
+{
+	color : #446dff;
+}
 /* stats */
 .cg-statsPane
 {

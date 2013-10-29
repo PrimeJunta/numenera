@@ -68,7 +68,8 @@ function( declare,
             return promise;
         },
         /**
-         * Check if the current user has authorized the application.
+         * Check if the current user has authorized the application. If promise is provided, resolves
+         * that on complete, else resolves and returns a new one.
          * 
          * @public Deferred
          */
@@ -237,7 +238,7 @@ function( declare,
             return promise;
         },
         /**
-         * Updates file named inputData.title with contentData. If not present, inserts it. If more than one match is present,
+         * Updates file matching inputData with contentData. If not present, inserts it. If more than one match is present,
          * updates the newest one.
          * 
          * @public Deferred
@@ -264,9 +265,9 @@ function( declare,
             return promise;
         },
         /**
-         * Look for a file matching fileData.title.  If one exists and its modifiedDate is newer than fileData.modifiedDate,
+         * Look for a file matching fileData.  If one exists and its modifiedDate is newer than fileData.modifiedDate,
          * download it and resolve with "PLEASE_UPDATE", the metadata, and the content. Else updateFile on it with contentData,
-         * and resolve with "SYNCED" and the metadata. Reads boolean "dirty" property from fileData to update a file if the 
+         * and resolve with "SYNCED" and the metadata. Reads "dirty" property from fileData and will update the file if the 
          * modifyDate is the same on both. It will NOT modify the file on the server if it is newer, even if .dirty is set. 
          * Update, merge, and try again.
          * 

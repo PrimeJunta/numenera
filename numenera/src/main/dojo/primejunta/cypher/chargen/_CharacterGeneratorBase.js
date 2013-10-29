@@ -24,7 +24,7 @@ define([ "dojo/_base/declare",
          "dijit/form/Button",
          "dijit/form/Textarea",
          "primejunta/_StartupMixin",
-         "./_CharacterStore",
+         "./store/_CharacterStore",
          "./_CharacterValidator",
          "./_AdvancementControl",
          "./_UtilityMixin",
@@ -99,6 +99,10 @@ function( declare,
          */
         finalized : false,
         /**
+         * Google API properties.
+         */
+        gapiProperties : {},
+        /**
          * Sets document body style, adds a listener for application cache and
          * alerts users of inferior browsers.
          */
@@ -118,7 +122,7 @@ function( declare,
             this.setupOptionals(); // from optionals
             this.statsControl.manager = this;
             this.writePhraseSelects();
-            this._characterStore = new _CharacterStore({ manager : this });
+            this._characterStore = new _CharacterStore({ manager : this, gapiProperties : this.gapiProperties });
             this._splashPane = this.createSplashCharacterPane({ manager : this }).placeAt( document.body );
             this._currentNodes = [ this._splashPane.domNode ];
             on( this.characterNameInput, "keydown", lang.hitch( this, this.normalizeClass, this.characterNameInput ) );
@@ -130,6 +134,7 @@ function( declare,
             topic.subscribe( "CharGen/lockSheetControls", lang.hitch( this, this.lockControls ) );
             topic.subscribe( "CharGen/pleaseShowUnlock", lang.hitch( this, this.setFinalizedClass, false ) );
             topic.subscribe( "CharGen/pleaseHideUnlock", lang.hitch( this, this.setFinalizedClass, true ) );
+            topic.subscribe( "/CharacterStore/DataRefreshed", lang.hitch( this, this.setDataRefreshedReminder, true ))
             this.views = {
                 "startup" : {
                     "nodes" : [ domQuery( "div.num-noJavaScript" )[ 0 ] ],
@@ -192,6 +197,17 @@ function( declare,
             {
                 fld.value = "";
                 this.normalizeClass( fld );
+            }
+        },
+        setDataRefreshedReminder : function( to )
+        {
+            if( to )
+            {
+                domClass.add( this.characterStoreButton.domNode, "cg-dataRefreshed" );
+            }
+            else
+            {
+                domClass.remove( this.characterStoreButton.domNode, "cg-dataRefreshed" );
             }
         },
         /**

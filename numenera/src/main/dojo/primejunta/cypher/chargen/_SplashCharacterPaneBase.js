@@ -74,9 +74,9 @@ function( declare,
         /**
          * Calls manager.openCharacter.
          */
-        openCharacter : function()
+        openCharacterStore : function()
         {
-            this.manager.openCharacter();
+            this.manager.openCharacterStore();
         },
         showHelp : function()
         {

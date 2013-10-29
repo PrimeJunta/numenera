@@ -132,8 +132,9 @@ function( declare,
          * Call _initStorage if necessary; then getKeys and display the stored characters in a manage dialog
          * that lets you delete or load them.
          */
-        openCharacter : function()
+        openCharacterStore : function()
         {
+            this.setDataRefreshedReminder( false );
             this._characterStore.show();
         },
         /**

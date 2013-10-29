@@ -87,6 +87,13 @@ function( declare,
             mutations : mutations
         },
         /**
+         * Google API properties.
+         */
+        gapiProperties : {
+            clientId : "338654774169-25j70ob558p04a1mdpp4ajdldrocuatt.apps.googleusercontent.com",
+            apiKey : "AIzaSyCG2ym8CHx_tQlyCuakiK9HUQzLQVSV5fY"
+        },
+        /**
          * Template.
          */
         templateString : template,
