@@ -111,7 +111,7 @@ function( declare,
                 if( this._characterIsValid( _char ) )
                 {
                     var props = _char;
-                    if( array.indexOf( restored, _char.name ) != -1 )
+                    if( array.indexOf( restored, _char.key ) != -1 )
                     {
                         props.restored = true;
                     }
