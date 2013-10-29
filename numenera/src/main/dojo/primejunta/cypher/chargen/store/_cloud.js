@@ -82,7 +82,7 @@ function( declare,
                 return;
             }
             if( cookie( "keepDataSynced" ) == "true" ) {
-                this.syncCheckbox.checked = true;
+                this.syncCheckbox.set( "checked", true );
             };
             this._setCBDisabled( true );
             this._initCloudUI();
@@ -178,8 +178,9 @@ function( declare,
          */
         setSyncSwitch : function()
         {
-            cookie( "keepDataSynced", this.syncCheckbox.checked ? "true" : "false" );
-            this.setSyncTimer( this.syncCheckbox.checked );
+            var to = this.syncCheckbox.checked;
+            cookie( "keepDataSynced", to ? "true" : "false" );
+            this.setSyncTimer( to );
         },
         /**
          * If to is false, clears sync timer timeout. Else calls performSync.
