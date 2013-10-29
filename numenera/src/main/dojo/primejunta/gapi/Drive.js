@@ -40,9 +40,9 @@ function( declare,
         /**
          * Mix in kwObj, which presumably contains clientId and apiKey.
          * 
-         * @pubic void
+         * @public void
          */
-        constructor : function( kwObj )
+        constructor : function( /* Object */ kwObj )
         {
             lang.mixin( this, kwObj );
         },
@@ -73,7 +73,7 @@ function( declare,
          * 
          * @public Deferred
          */
-        checkAuthorization : function( promise, immediate )
+        checkAuthorization : function( /* Deferred? */ promise, /* boolean? */ immediate )
         {
             if( !promise )
             {
@@ -153,7 +153,7 @@ function( declare,
          * 
          * @public Deferred
          */
-        downloadFileByProperties : function( fileProperties )
+        downloadFileByProperties : function( /* Object */ fileProperties )
         {
             var promise = new Deferred();
             this.listFiles({ q : this.queryFromProps( fileProperties )}).then( lang.hitch( this, function( reslt ) {
@@ -420,6 +420,10 @@ function( declare,
                     out += o + " = '" + fileData[ o ] + "'";
                 }
             }
+            if( out != "" )
+            {
+                out += " and trashed = false"
+            }
             return out;
         },
         /**
@@ -453,7 +457,7 @@ function( declare,
          * 
          * @private boolean
          */
-        _includeInQuery : function( field )
+        _includeInQuery : function( /* String */ field )
         {
             if( array.indexOf( [ "title", "mimeType" ], field ) != -1 )
             {
