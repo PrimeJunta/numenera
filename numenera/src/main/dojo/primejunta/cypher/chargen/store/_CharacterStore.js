@@ -176,7 +176,7 @@ function( declare,
             }
             catch( e )
             {
-                console.log( "ERROR PARSING FILE DATA", e );
+                console.debug( "ERROR PARSING FILE DATA", e );
                 return false;
             }
         },

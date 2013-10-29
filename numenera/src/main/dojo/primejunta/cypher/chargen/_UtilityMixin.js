@@ -192,7 +192,6 @@ function( declare,
         {
             if( !arr )
             {
-                console.log( "No array for", member );
                 return;
             }
             for( var i = 0; i < arr.length; i++ )
@@ -234,10 +233,6 @@ function( declare,
                         if( cur.toggleDeleted )
                         {
                             cur.toggleDeleted();
-                        }
-                        else
-                        {
-                            console.log( "WHAT IS THIS I DONT EVEN", cur, list, from );
                         }
                     }
                 }

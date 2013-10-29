@@ -25,7 +25,7 @@ function( declare,
             }
             catch( e )
             {
-                console.log( "PROBLEM!", template, this._cypher, e );
+                console.log( "Error populating template:", template, this._cypher, e );
             }
         }
     });

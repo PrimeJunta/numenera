@@ -69,6 +69,7 @@ function( declare,
             if( !this.isValid( this.inputNode.value ) )
             {
                 this.inputNode.value = this.inputValue;
+                topic.publish( "CharGen/dataChanged", this.inputNode );
             }
             else
             {
@@ -121,6 +122,7 @@ function( declare,
             this.imageNode.setAttribute( "src", href );
             this.inputContainer.style.display = "none";
             this.imageContainer.style.display = "block";
+            this.dataChanged();
         },
         clear : function()
         {

@@ -85,7 +85,7 @@ function( declare,
             }
             catch( e )
             {
-                console.log( "ERR DISP", cyph );
+                console.log( "Display error:", cyph );
             }
         },
         hideCypher : function()

@@ -189,7 +189,6 @@ function( declare,
                     promise.resolve( xhr.responseText );
                 };
                 xhr.onerror = function() {
-                    console.log( xhr );
                     promise.reject( "XHR error." );
                 };
                 xhr.send();
@@ -209,9 +208,9 @@ function( declare,
         {
             var promise = new Deferred();
             this._assertFileDataIsValid( fileData );
-            const boundary = "-------314159265358979323846";
-            const delimiter = "\r\n--" + boundary + "\r\n";
-            const close_delim = "\r\n--" + boundary + "--";
+            var boundary = "-------314159265358979323846";
+            var delimiter = "\r\n--" + boundary + "\r\n";
+            var close_delim = "\r\n--" + boundary + "--";
             var base64Data = btoa( contentData );
             var multipartRequestBody =
                     delimiter +
@@ -248,7 +247,6 @@ function( declare,
             this._assertFileDataIsValid( inputData );
             var promise = new Deferred();
             this.listFiles({ q : this.queryFromProps( inputData ) }).then( lang.hitch( this, function( reslt ) {
-                console.log( "RESULT IS", reslt );
                 if( !reslt[ 0 ] )
                 {
                     this.insertFile( inputData, contentData ).then( lang.hitch( this, function( _reslt ) {
@@ -351,9 +349,9 @@ function( declare,
             this._assertFileDataIsValid( fileData );
             delete fileData.id;
             delete fileData.modifiedDate;
-            const boundary = '-------314159265358979323846';
-            const delimiter = "\r\n--" + boundary + "\r\n";
-            const close_delim = "\r\n--" + boundary + "--";
+            var boundary = '-------314159265358979323846';
+            var delimiter = "\r\n--" + boundary + "\r\n";
+            var close_delim = "\r\n--" + boundary + "--";
             // Updating the metadata is optional and you can instead use the value from drive.files.get.
             var base64Data = btoa( contentData );
             var multipartRequestBody =

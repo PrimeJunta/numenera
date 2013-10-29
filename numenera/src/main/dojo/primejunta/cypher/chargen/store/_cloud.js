@@ -237,7 +237,6 @@ function( declare,
                 };
                 this.drive.syncFile( fileData, this.characterDataToBackupData( characterData ) ).then(
                     lang.hitch( this, function( reslt ) {
-                        //console.log( "SYNC RESULT IS", reslt );
                         if( reslt.fileData )
                         {
                             this._storage.put( this.SYNC_TIME_KEY, reslt.fileData.modifiedDate );

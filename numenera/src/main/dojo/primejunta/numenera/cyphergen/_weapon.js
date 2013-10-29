@@ -14,7 +14,7 @@ function( declare,
         {
             if( !cypher_type.action_types[ this._cypher.action ] )
             {
-                console.log( "NO ACTION!", cypher_type.action_types, this._cypher.action );
+                console.log( "No matching action!", cypher_type.action_types, this._cypher.action );
             }
             if( cypher_type.action_types[ this._cypher.action ].effect_types )
             {
@@ -84,7 +84,7 @@ function( declare,
             }
             catch( e )
             {
-                console.log( "ERROR", template, this._cypher );
+                console.log( "Error populating template:", template, this._cypher );
             }
         }
     });
