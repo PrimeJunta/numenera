@@ -54,8 +54,8 @@ function( declare,
         templateString : template,
         _tempStoreToken : "_CCG_TMP_",
         _driveProperties : {
-            clientId : "338654774169.apps.googleusercontent.com",
-            apiKey : "AIzaSyAKGiPFw6URbWZaCuCquzgd6zKDWY3Hwgs"
+            clientId : "338654774169-25j70ob558p04a1mdpp4ajdldrocuatt.apps.googleusercontent.com",
+            apiKey : "AIzaSyCG2ym8CHx_tQlyCuakiK9HUQzLQVSV5fY"
         },
         _cwa : [],
         postCreate : function()
@@ -67,6 +67,9 @@ function( declare,
                 this.localBackupNode.style.display = "block";
             }
             this.startupCloudStorage();
+            if( cookie( "keepDataSynced" ) == "true" ) {
+                this.syncCheckbox.checked = true;
+            };
             console.log( this.cloudBackupFileName );
         },
         show : function( restored )
@@ -151,6 +154,15 @@ function( declare,
         {
             this.drive.checkAuthorization().then( lang.hitch( this, this.setupCloudUI ));
         },
+        setSyncState : function()
+        {
+            cookie( "keepDataSynced", this.syncCheckbox.checked ? "true" : "false" );
+            this.setSyncTimer( this.syncCheckbox.checked );
+        },
+        setSyncTimer : function( to )
+        {
+            // Start or stop sync timer, and if switched on, sync immediately.
+        },
         _initCloudUI : function()
         {
             this._backupListStore = new Memory({ data : [] });
@@ -169,6 +181,7 @@ function( declare,
                 this.uploadControls.style.display = "block";
                 this.authorizeControls.style.display = "none";
                 this.getCloudBackups();
+                this.setSyncTimer( this.syncCheckbox.checked );
             }
             else
             {

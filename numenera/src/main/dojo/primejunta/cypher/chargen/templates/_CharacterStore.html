@@ -18,35 +18,44 @@
         backup first, just in case!</p>
       <div data-dojo-attach-point="cloudBackupNode">
         <h4>
-          Google Drive&trade; Backup <i
+          Google Drive&trade; Sync and Backup <i
             class="fa fa-spinner num-blueIcon"
             data-dojo-attach-point="cloudWorkingIcon"></i>
         </h4>
-        <p style="text-align: right">
-          <span data-dojo-attach-point="authorizeControls">
-            <button data-dojo-type="dijit/form/Button"
-              data-dojo-props="iconClass:'num-cloudStorageIcon'"
-              data-dojo-attach-point="authorizeDriveButton"
-              data-dojo-attach-event="onClick:authorizeCloudStorage"
-              disabled="true">Connect Google Drive</button>
-          </span> <span data-dojo-attach-point="uploadControls"
-            style="display: none"> Backup: <input type="text"
-            data-dojo-attach-point="cloudBackupFileNameNode"
-            value="My Characters" />
+        <div style="text-align: right" data-dojo-attach-point="authorizeControls">
+          <button data-dojo-type="dijit/form/Button"
+            data-dojo-props="iconClass:'num-cloudStorageIcon'"
+            data-dojo-attach-point="authorizeDriveButton"
+            data-dojo-attach-event="onClick:authorizeCloudStorage"
+            disabled="disabled">Connect Google Drive</button>
+        </div>
+        <div data-dojo-attach-point="uploadControls"
+          style="display: none">
+          <div>
+            <label> <input type="checkbox"
+              data-dojo-attach-point="syncCheckbox"
+              data-dojo-attach-event="onChange:setSyncState" /> Keep my characters synced
+            </label>
+          </div>
+          <div style="text-align:right">
+            Backup: <input type="text"
+              data-dojo-attach-point="cloudBackupFileNameNode"
+              value="My Characters" />
             <button data-dojo-type="dijit/form/Button"
               data-dojo-attach-point="backupToCloudButton"
               data-dojo-attach-event="onClick:backupToCloud"
-              disabled="true">
+              disabled="disabled">
               <i class="fa fa-cloud-upload"></i> Backup
             </button>
             <button data-dojo-type="dijit/form/Button"
               data-dojo-attach-point="restoreFromCloudButton"
               data-dojo-attach-event="onClick:restoreFromCloud"
-              disabled="true">
+              disabled="disabled">
               <i class="fa fa-cloud-download"></i> Restore
             </button>
-          </span>
-        </p>
+          </div>
+        </div>
+
       </div>
       <div data-dojo-attach-point="localBackupNode"
         style="display: none;">

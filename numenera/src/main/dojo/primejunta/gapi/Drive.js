@@ -15,22 +15,32 @@ function( declare,
     return declare([], {
         /**
          * Your Google app client ID. Get it from Google Cloud Console.
+         * 
+         * @public String
          */
         clientId : "",
         /**
          * Your Google app API key, also from Google Cloud Console.
+         * 
+         * @public String
          */
         apiKey : "",
         /**
          * The scope is the Drive API.
+         * 
+         * @public @final String
          */
         SCOPES : "https://www.googleapis.com/auth/drive",
         /**
          * That's where it resides.
+         * 
+         * @public @final String
          */
         API_URL : "https://apis.google.com/js/client.js?onload=handleClientLoad",
         /**
          * Mix in kwObj, which presumably contains clientId and apiKey.
+         * 
+         * @pubic void
          */
         constructor : function( kwObj )
         {
@@ -235,20 +245,17 @@ function( declare,
         updateFileByProperties : function( /* Object */ inputData, /* String|byte[] */ contentData )
         {
             this._assertFileDataIsValid( inputData );
-            //return;
             var promise = new Deferred();
             this.listFiles({ q : this.queryFromProps( inputData ) }).then( lang.hitch( this, function( reslt ) {
                 console.log( "RESULT IS", reslt );
                 if( !reslt[ 0 ] )
                 {
-                    console.log( "NO FILE PRESENT, INSERTING" );
                     this.insertFile( inputData, contentData ).then( lang.hitch( this, function( _reslt ) {
                         promise.resolve( _reslt );
                     }));
                 }
                 else
                 {
-                    console.log( "FILE IS PRESENT, UPDATING" );
                     this.updateFile( reslt[ 0 ].id, inputData, contentData ).then( lang.hitch( this, function( _reslt ) {
                         promise.resolve( _reslt );
                     }));
@@ -277,7 +284,6 @@ function( declare,
          */
         syncFile : function( /* Object */ fileData, /* String|byte[] */ contentData )
         {
-            console.log( "SYNC FILE", fileData, contentData );
             var dirty = fileData.dirty;
             delete fileData.dirty;
             this._assertFileDataIsValid( fileData );
@@ -287,7 +293,6 @@ function( declare,
                 {
                     if( contentData )
                     {
-                        console.log( "NO FILE PRESENT, CREATE AND RESOLVE AS CREATED" );
                         this.insertFile( fileData, contentData ).then( lang.hitch( this, function( _reslt ) {
                             promise.resolve({
                                 "result" : "CREATED",
@@ -297,7 +302,6 @@ function( declare,
                     }
                     else
                     {
-                        console.log( "NO FILE, NO CONTENT DATA, RESOLVE AS NOT_PRESENT" );
                         promise.resolve({
                             "result" : "NOT_PRESENT"
                         });
@@ -307,7 +311,6 @@ function( declare,
                 {
                     if( !fileData.modifiedDate || reslt[ 0 ].modifiedDate > fileData.modifiedDate )
                     {
-                        console.log( "IT'S NEWER, RETRIEVE AND RESOLVE AS PLEASE_UPDATE" )
                         this.downloadFile( reslt[ 0 ] ).then( lang.hitch( this, function( _reslt ) {
                             promise.resolve({
                                 "result" : "PLEASE_UPDATE",
@@ -318,7 +321,6 @@ function( declare,
                     }
                     else if( reslt[ 0 ].modifiedDate == fileData.modifiedDate && !dirty )
                     {
-                        console.log( "THEY'RE THE SAME, RESOLVE AS UNCHANGED" );
                         promise.resolve({
                             "result" : "UNCHANGED",
                             "fileData" : reslt[ 0 ]
@@ -326,7 +328,6 @@ function( declare,
                     }
                     else
                     {
-                        console.log( "IT'S OLDER OR DIRTY, UPDATE AND RESOLVE AS UPDATED" );
                         this.updateFile( reslt[ 0 ].id, fileData, contentData ).then( lang.hitch( this, function( _reslt ) {
                             promise.resolve({
                                 "result" : "UPDATED",
@@ -402,29 +403,10 @@ function( declare,
             return promise;
         },
         /**
-         * Called when the client library is loaded to start the auth flow. Sets timeout and continues
-         * with checkAuthorization.
+         * Creates a Google File query from fileData Object.
          * 
-         * @private void
+         * @public String
          */
-        _handleClientLoad : function( /* Deferred */ promise )
-        {
-            window.setTimeout( lang.hitch( this, this.checkAuthorization, promise, true  ), 1 );
-        },
-        /**
-         * Checks that fileData contains title and mimeType, the minimum we need to work with them.
-         */
-        _assertFileDataIsValid : function( /* Object */ fileData )
-        {
-            if( fileData.title && fileData.mimeType )
-            {
-                return true;
-            }
-            else
-            {
-                throw( new Error( "Invalid file data." ) );
-            }
-        },
         queryFromProps : function( /* Object */ fileData )
         {
             var out = "";
@@ -441,6 +423,37 @@ function( declare,
             }
             return out;
         },
+        /**
+         * Called when the client library is loaded to start the auth flow. Sets timeout and continues
+         * with checkAuthorization.
+         * 
+         * @private void
+         */
+        _handleClientLoad : function( /* Deferred */ promise )
+        {
+            window.setTimeout( lang.hitch( this, this.checkAuthorization, promise, true  ), 1 );
+        },
+        /**
+         * Checks that fileData contains title and mimeType, the minimum we need to work with them.
+         * 
+         * @private boolean
+         */
+        _assertFileDataIsValid : function( /* Object */ fileData )
+        {
+            if( fileData.title && fileData.mimeType )
+            {
+                return true;
+            }
+            else
+            {
+                throw( new Error( "Invalid file data." ) );
+            }
+        },
+        /**
+         * Checks if field is among the ones we allow in queries, and returns true or false accordingly.
+         * 
+         * @private boolean
+         */
         _includeInQuery : function( field )
         {
             if( array.indexOf( [ "title", "mimeType" ], field ) != -1 )
