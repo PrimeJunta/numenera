@@ -6,7 +6,6 @@
  */
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
-         "dojo/cookie",
          "dojo/topic",
          "dojo/dom-class",
          "dojo/store/Memory",
@@ -15,7 +14,6 @@ define([ "dojo/_base/declare",
          "dojo/text!primejunta/cypher/doc/privacy.html" ],
 function( declare,
           lang,
-          cookie,
           topic,
           domClass,
           Memory,
@@ -70,10 +68,9 @@ function( declare,
          */
         gapiProperties : {},
         /**
-         * Sets syncCheckbox to match value from cookie, initializes cloud backup controls, calls
-         * _initCloudUI and _initStorage (from _CharacterStore), and then creates a Drive instance
-         * in this.drive, and calls .startup() on it, followed by .setupCloudUI. This is called
-         * as part of _CharacterStore's construction sequence.
+         * Initializes cloud backup controls, calls _initCloudUI and _initStorage (from _CharacterStore),
+         * and then creates a Drive instance in this.drive, and calls .startup() on it, followed by
+         * .setupCloudUI. This is called as part of _CharacterStore's construction sequence.
          * 
          * @public void
          */
@@ -83,10 +80,6 @@ function( declare,
             {
                 return;
             }
-            if( cookie( "keepDataSynced" ) == "true" )
-            {
-                this.syncCheckbox.set( "checked", true );
-            };
             this._setCBDisabled( true );
             this._initCloudUI();
             this._initStorage();
@@ -106,6 +99,10 @@ function( declare,
          */
         setupCloudUI : function( /* Object */ authResult )
         {
+            if( this._storage.get( "_CCG_SYNC_CHARACTERS" ) == "true" )
+            {
+                this.syncCheckbox.set( "checked", true );
+            };
             if( authResult && !authResult.error )
             {
                 // Access token has been successfully retrieved, requests can be sent to the API.
@@ -175,14 +172,14 @@ function( declare,
             }));
         },
         /**
-         * Sets cookie with sync preference to match syncCheckbox.checked, and calls setSyncTimer on it.
+         * Stores sync preference to match syncCheckbox.checked, and calls setSyncTimer on it.
          * 
          * @public void
          */
         setSyncSwitch : function()
         {
             var to = this.syncCheckbox.checked;
-            cookie( "keepDataSynced", to ? "true" : "false" );
+            this._storage.put( "_CCG_SYNC_CHARACTERS", to ? "true" : "false" );
             this.setSyncTimer( to );
         },
         /**
@@ -202,7 +199,7 @@ function( declare,
             }
         },
         /**
-         * If keepDataSynced cookie is unset, does nothing. Else sets a timer to start self in SYNC_INTERVAL,
+         * If _CCG_SYNC_CHARACTERS pref is unset, does nothing. Else sets a timer to start self in SYNC_INTERVAL,
          * reads sync state and time from _storage with SYNC_STATE_KEY and SYNC_TIME_KEY. If everything is cool,
          * calls drive.syncFile on data read from getStoredCharacters. If the result is PLEASE_UPDATE, performs
          * a "hard" sync with the data: i.e., it overwrites the stored character data with the result from the
@@ -219,7 +216,7 @@ function( declare,
          */
         performSync : function()
         {
-            if( cookie( "keepDataSynced" ) == "false" )
+            if( this._storage.get( "_CCG_SYNC_CHARACTERS" ) == "false" )
             {
                 return;
             }

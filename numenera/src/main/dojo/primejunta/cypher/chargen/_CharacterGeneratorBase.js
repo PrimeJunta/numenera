@@ -544,6 +544,11 @@ function( declare,
          */
         showPrintView : function()
         {
+            if( this._spv )
+            {
+                return;
+            }
+            this._spv = true;
             try // the try-catch block is here to make debugging easier, as for some reason the exceptions disappear otherwise.
             {
                 this._printWidget = this.createPrintView({ manager : this });
@@ -560,6 +565,11 @@ function( declare,
         },
         showPlayView : function()
         {
+            if( this._spv )
+            {
+                return;
+            }
+            this._spv = true;
             try // the try-catch block is here to make debugging easier, as for some reason the exceptions disappear otherwise.
             {
                 this._playViewWidget = this.createPlayView({ manager : this });
@@ -581,7 +591,9 @@ function( declare,
             this.transitionOut().then( lang.hitch( this, function() {
                 widg.placeAt( document.body, "first" );
                 widg.startup();
-                this.transitionIn( viewName );
+                this.transitionIn( viewName ).then( lang.hitch( this, function() {
+                    this._spv = false;
+                }));
             }));
         },
         _closeSecondaryWidget : function( widg )
@@ -640,6 +652,11 @@ function( declare,
          */
         showHelp : function()
         {
+            if( this._shv )
+            {
+                return;
+            }
+            this._shv = true;
             if( !this._helpViewer )
             {
                 this._helpViewer = new _HelpViewer({ manager : this, title : "About the Character Creation Utility", helpData : this.helpData }).placeAt( document.body );
@@ -647,7 +664,9 @@ function( declare,
                 this.views.help = { nodes : [ this._helpViewer.domNode ] };
             }
             this._prevView = this.getShowingView();
-            this.transitionTo( "help" );
+            this.transitionTo( "help" ).then( lang.hitch( this, function() {
+                this._shv = false;
+            }));
         },
         /**
          * Calls _showHelp with changelog (that's an included text module).

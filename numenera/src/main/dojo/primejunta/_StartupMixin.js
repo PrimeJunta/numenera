@@ -6,7 +6,14 @@ define([ "dojo/_base/declare",
          "dojo/on",
          "dojo/_base/fx",
          "dojo/text!./cypher/doc/licenses.html" ],
-function( declare, lang, domConstruct, domQuery, has, on, fx, licenses )
+function( declare,
+          lang,
+          domConstruct,
+          domQuery,
+          has,
+          on,
+          fx,
+          licenses )
 {
     return declare([], {
         setup : function()

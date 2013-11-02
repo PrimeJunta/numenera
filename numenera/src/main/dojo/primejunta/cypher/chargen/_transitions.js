@@ -24,6 +24,11 @@ function( declare,
         },
         transitionOut : function( deferred )
         {
+            if( this._toip )
+            {
+                return;
+            }
+            this._toip = true;
             if( !deferred )
             {
                 deferred = new Deferred();
@@ -50,6 +55,11 @@ function( declare,
         },
         transitionIn : function( viewName, deferred )
         {
+            if( this._tiip )
+            {
+                return;
+            }
+            this._tiip = true;
             return this._transition( viewName, true, deferred );
         },
         _transition : function( viewName, want, deferred )
@@ -89,6 +99,11 @@ function( declare,
                         {
                             view.nodes[ i ].style.display = "none";
                         }
+                        this._toip = false;
+                    }
+                    else
+                    {
+                        this._tiip = false;
                     }
                     deferred.resolve();
                 })
