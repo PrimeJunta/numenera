@@ -107,6 +107,7 @@ function( declare,
                 this._mutationControls.push( ctrl );
                 // Cleared normally on destroy.
                 this.manager._lists.bonus_list.push( ctrl );
+                this.manager._listdata.bonus_list.push({ from : [ "desc" ], widget : ctrl });
             }
         },
         /**

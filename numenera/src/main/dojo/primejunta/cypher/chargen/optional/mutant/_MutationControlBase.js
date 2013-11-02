@@ -19,7 +19,7 @@ function( declare,
         /**
          * Ends up in CSS style.
          */
-        from : "mutation",
+        from : "description",
         /**
          * Standard input value.
          */
