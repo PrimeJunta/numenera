@@ -27,6 +27,10 @@ function( declare,
         },
         togglePicked : function()
         {
+            if( this.disabled )
+            {
+                return;
+            }
             this.picked = !this.picked;
             this.chooserNode.set( "checked", this.picked );
             this.manager.includeCharacter( this.character, this.picked );
@@ -36,6 +40,7 @@ function( declare,
             if( what == "disabled" )
             {
                 this.chooserNode.set( "disabled", to );
+                this.disabled = to;
             }
             else
             {
