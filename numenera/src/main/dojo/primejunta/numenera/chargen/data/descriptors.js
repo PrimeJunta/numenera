@@ -32,7 +32,20 @@ define({
             "inability_list" : [ "Ⓘ Poor at Studying (Knowledge tasks +1 step)" ]
         }
     },
-    "D2" : {
+    "ISA_D2" : {
+        "label" : "Doomed",
+        "notes_text" : "Doomed: In Strange Aeons, p. 6",
+        "description_text" : "Doomed is a descriptor from In Strange Aeons, the Lovecraftian Numenera Glimmer.",
+        "stats" : {
+            "speed_pool" : 2
+        },
+        "lists" : {
+            "bonus_list" : [ "Ⓔ Jumpy" ],
+            "ability_list" : [ "Ⓣ Perception", "Ⓣ Speed Defense", "Ⓣ Intellect Defense against loss of sanity" ],
+            "inability_list" : [ "Ⓘ Doom (no XP for every other GM intrusion)" ]
+        }
+     },
+     "D2" : {
         "label" : "Graceful",
         "notes_text" : "Graceful: Corebook, page 48",
         "stats" : {
@@ -96,6 +109,19 @@ define({
                                  "Book: ${input:choose topic}" ]
         }
     },
+    "ISA_D1" : {
+        "label" : "Mad",
+        "notes_text" : "Mad: In Strange Aeons, p. 6",
+        "description_text" : "Mad is a descriptor from In Strange Aeons, the Lovecraftian Numenera Glimmer.",
+        "stats" : {
+            "intellect_pool" : 4
+        },
+        "lists" : {
+            "bonus_list" : [ "Ⓔ Knowledgeable", "Ⓔ Fits of Insight" ],
+            "ability_list" : [ "Ⓣ Knowledge area: Numenera" ],
+            "inability_list" : [ "Ⓘ Fragile Mind (mental defense +1 step)", "Ⓘ Erratic Behavior" ]
+        }
+     },
     "D6" : {
         "label" : "Mutant*",
         "notes_text" : "Mutant: Corebook, page 125",

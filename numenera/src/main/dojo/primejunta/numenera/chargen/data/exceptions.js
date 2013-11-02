@@ -4,7 +4,8 @@
 define({
     "Speed Defense" : {
         "descriptors" : {
-            "Graceful" : 1
+            "Graceful" : 1,
+            "Doomed" : 1
         }
     },
     "Might Defense" : {
