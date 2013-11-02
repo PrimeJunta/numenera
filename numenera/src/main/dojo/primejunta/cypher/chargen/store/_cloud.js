@@ -58,7 +58,7 @@ function( declare,
          * 
          * @public final int
          */
-        SYNC_INTERVAL : 60000,
+        SYNC_INTERVAL : 30000,
         /**
          * Google API properties: clientId and apiKey. These are set on the Google Cloud Console,
          * which then restricts access to origins specified there by me. So you can't use these
