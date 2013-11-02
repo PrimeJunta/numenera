@@ -22,5 +22,5 @@ define({
             "Masters Defense" : 4
         }
     },
-    "stacking_abilities" : [ "Ⓔ Reduce Armor Cost", "Ⓔ Recovery Roll +2", "Ⓔ Self-Improvement", "Ⓔ Bringing the Pain", "Ⓔ More Training", "-- choose --" ]
+    "stacking_abilities" : [ "Ⓔ Reduce Armor Cost", "Ⓔ Recovery Roll +2", "Ⓔ Self-Improvement", "Ⓔ Bringing The Pain", "Ⓔ More Training", "-- choose --" ]
 });

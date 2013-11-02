@@ -249,8 +249,8 @@ function( declare,
         },
         _collectWeaknesses : function( stat )
         {
-            var _il = this._cdata.inability_list;
-            if( array.indexOf( _il, "Ⓘ Weakness in " + stat ) != -1 )
+            var _il = this._listToUpperCase( this._cdata.inability_list );
+            if( array.indexOf( _il, ( "Ⓘ Weakness in " + stat ).toUpperCase() ) != -1 )
             {
                 return 1;
             }
@@ -258,6 +258,15 @@ function( declare,
             {
                 return 0;
             }
+        },
+        _listToUpperCase : function( list )
+        {
+            var out = [];
+            for( var i = 0; i < list.length; i++ )
+            {
+                out.push( list[ i ].toUpperCase() );
+            }
+            return out;
         },
         /**
          * We're parsing out weapons from equipment_list by keywords - Light, Medium, Heavy, Bashing, Bladed, Ranged.

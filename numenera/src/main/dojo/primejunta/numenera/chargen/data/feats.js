@@ -24,7 +24,7 @@ define({
         "Ⓔ Practiced With Light Weapons" : {
             "light" : 1
         },
-        "Ⓔ Bringing the Pain" : {
+        "Ⓔ Bringing The Pain" : {
             "damage_bonus" : 1
         }
     },
@@ -35,7 +35,7 @@ define({
         "Ⓔ Experienced Defender" : {
             "armor_adjustment" : 1
         },
-        "Ⓔ Practiced in Armor" : {
+        "Ⓔ Practiced In Armor" : {
             "armor_penalty_adjustment" : -2
         },
         "Ⓔ Armor Expert" : {

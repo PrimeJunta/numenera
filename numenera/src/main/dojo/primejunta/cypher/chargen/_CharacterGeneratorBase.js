@@ -29,6 +29,7 @@ define([ "dojo/_base/declare",
          "./store/_CharacterStore",
          "./_CharacterValidator",
          "./_AdvancementControl",
+         "./_HelpViewer",
          "./_UtilityMixin",
          "./_data",
          "./_lists",
@@ -63,6 +64,7 @@ function( declare,
           _CharacterStore,
           _CharacterValidator,
           _AdvancementControl,
+          _HelpViewer,
           _UtilityMixin,
           _data,
           _lists,
@@ -91,9 +93,9 @@ function( declare,
          */
         DEFAULT_CHARACTER_NAME : "a Hero of the Ninth World",
         /**
-         * Stub. Put the "about" doc here.
+         * Stub. Put help content here.
          */
-        about : "",
+        helpData : "",
         /**
          * Stub. Put the changelog here.
          */
@@ -149,7 +151,7 @@ function( declare,
                 },
                 "main" : { 
                     "nodes" : [ this.domNode ]
-                }
+                } 
             }
             this.inherited( arguments );
             this.checkForStartupQuery();
@@ -378,7 +380,7 @@ function( declare,
          */
         addExtraAbility : function()
         {
-            var phrase = this.selectValue( this.extraAbilityTypeSelect ).value + " " + this.extraAbilityDescription.value;
+            var phrase = this.selectValue( this.extraAbilityTypeSelect ).value + " " + this.toTitleCase( this.extraAbilityDescription.value );
             var _cur = this.extra_abilities_text.get( "value" );
             if( _cur != "" && _cur.charAt( _cur.length - 1 ) != '\n' )
             {
@@ -638,7 +640,13 @@ function( declare,
          */
         showHelp : function()
         {
-            this._showHelp( this.about );
+            if( !this._helpViewer )
+            {
+                this._helpViewer = new _HelpViewer({ manager : this, title : "About the Character Creation Utility", helpData : this.helpData }).placeAt( document.body );
+                this._helpViewer.startup();
+                this.views.help = { nodes : [ this._helpViewer.domNode ] };
+            }
+            this.transitionTo( "help" );
         },
         /**
          * Calls _showHelp with changelog (that's an included text module).

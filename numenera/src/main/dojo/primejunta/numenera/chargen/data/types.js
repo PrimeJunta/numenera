@@ -35,7 +35,7 @@ define({
                                  "Explorer's pack", 
                                  "Oddity: ${input:GM chooses}" ],
             "ability_list" : [ "Ⓣ ${select:1:Balancing|Climbing|Jumping|Swimming}" ],
-            "bonus_list" : [ "Ⓔ Practiced in Armor",
+            "bonus_list" : [ "Ⓔ Practiced In Armor",
                              "Ⓔ Practiced With All Weapons" ]
         },
         "advancement" : [
@@ -163,7 +163,7 @@ define({
                              "Ⓔ Practiced With Light/Medium Weapons" ]
         },
         "advancement" : [{
-            "perk_list" : "Ⓐ Bash (1 might)|Ⓐ Hedge Magic (1 intellect)|Ⓐ Pierce (1 speed)|Ⓐ Thrust (1 might)|Ⓔ Practiced in Armor|Ⓔ Trained Without Armor|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense"
+            "perk_list" : "Ⓐ Bash (1 might)|Ⓐ Hedge Magic (1 intellect)|Ⓐ Pierce (1 speed)|Ⓐ Thrust (1 might)|Ⓔ Practiced In Armor|Ⓔ Trained Without Armor|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense"
         },
         {
            "bonus_perks" : [ "Ⓣ ${input:choose any non-combat}" ],

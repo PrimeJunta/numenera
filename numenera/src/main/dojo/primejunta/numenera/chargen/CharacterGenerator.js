@@ -19,7 +19,11 @@ define([ "dojo/_base/declare",
          "./optional/customize/data/advancement",
          "./optional/mutant/data/mutations",
          "dojo/text!./templates/CharacterGenerator.html",
-         "dojo/text!./doc/about.html",
+         "dojo/text!./doc/overview.html",
+         "dojo/text!./doc/rules.html",
+         "dojo/text!./doc/technical.html",
+         "dojo/text!../../cypher/doc/privacy.html",
+         "dojo/text!../../cypher/doc/licenses.html",
          "dojo/text!./doc/changelog.html" ],
 function( declare,
           lang,
@@ -36,7 +40,11 @@ function( declare,
           customAdvancement,
           mutations,
           template,
-          about,
+          overview,
+          rules,
+          technical,
+          privacy,
+          licenses,
           changelog )
 {
     return declare( "primejunta/numenera/chargen/CharacterGenerator", [ _CharacterGeneratorBase ], {
@@ -69,9 +77,16 @@ function( declare,
          */
         featStackingExceptions : featStackingExceptions,
         /**
-         * General info.
+         * Help data.
          */
-        about : about,
+        helpData : {
+            "Overview" : overview,
+            "Rules" : rules,
+            "Privacy" : privacy,
+            "Technical" : technical,
+            "Changelog" : changelog,
+            "Licenses" : licenses
+        },
         /**
          * Changelog.
          */
