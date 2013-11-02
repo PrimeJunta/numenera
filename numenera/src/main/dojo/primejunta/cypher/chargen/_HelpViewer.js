@@ -38,7 +38,7 @@ function( declare,
         },
         hide : function()
         {
-            this.manager.transitionTo( "main" );
+            this.manager.transitionTo( this.manager._prevView );
         }
     });
 });

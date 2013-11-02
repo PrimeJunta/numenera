@@ -646,6 +646,7 @@ function( declare,
                 this._helpViewer.startup();
                 this.views.help = { nodes : [ this._helpViewer.domNode ] };
             }
+            this._prevView = this.getShowingView();
             this.transitionTo( "help" );
         },
         /**

@@ -38,6 +38,16 @@ function( declare,
             deferred.resolve();
             return deferred;
         },
+        getShowingView : function()
+        {
+            for( var o in this.views )
+            {
+                if( this.views[ o ].selected )
+                {
+                    return o;
+                }
+            }
+        },
         transitionIn : function( viewName, deferred )
         {
             return this._transition( viewName, true, deferred );
