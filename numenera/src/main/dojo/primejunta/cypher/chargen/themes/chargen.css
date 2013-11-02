@@ -39,6 +39,20 @@
     background-image : -webkit-linear-gradient(to bottom, #282828 0%, #404040 100%) !important;
     background-image : linear-gradient(to bottom, #282828 0%, #404040 100%) !important;
 }
+.cg-buttonBar .mblToolBarButtonSelected
+{
+    background-color : #808080;
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0.00, #404040),
+        color-stop(1.00, #808080 )
+    ) !important;
+    background-image : -webkit-linear-gradient(to bottom, #404040 0%, #808080 100%) !important;
+    background-image : linear-gradient(to bottom, #404040 0%, #808080 100%) !important;
+	
+}
 .cg-resultsPane
 {
     padding : 10px 30px 10px 30px;

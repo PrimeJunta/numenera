@@ -373,6 +373,9 @@ function( declare,
                 this._gmControlsOn = true;
             }
         },
+        /**
+         * GM control: adds an ability with one of the circle prefixes.
+         */
         addExtraAbility : function()
         {
             var phrase = this.selectValue( this.extraAbilityTypeSelect ).value + " " + this.extraAbilityDescription.value;
@@ -383,6 +386,7 @@ function( declare,
             }
             this.extra_abilities_text.set( "value", _cur + phrase );
             this.extraAbilityDescription.value = "";
+            this.autoSave();
         },
         /**
          * If the character passes validation with .validateCharacter, marks it as ready for advacement.
