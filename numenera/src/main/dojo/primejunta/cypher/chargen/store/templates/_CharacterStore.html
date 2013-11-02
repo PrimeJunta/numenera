@@ -22,7 +22,13 @@
             class="fa fa-spinner num-blueIcon"
             data-dojo-attach-point="cloudWorkingIcon"></i>
         </h4>
-        <div style="text-align: right" data-dojo-attach-point="authorizeControls">
+        <p>
+          Please read and understand the <a href="#"
+            data-dojo-attach-event="onClick:showPrivacyPolicy">Privacy
+            Policy</a> before enabling Google Drive services.
+        </p>
+        <div style="text-align: right"
+          data-dojo-attach-point="authorizeControls">
           <button data-dojo-type="dijit/form/Button"
             data-dojo-props="iconClass:'num-cloudStorageIcon'"
             data-dojo-attach-point="authorizeDriveButton"
@@ -32,12 +38,12 @@
         <div data-dojo-attach-point="uploadControls"
           style="display: none">
           <div>
-            <input type="checkbox"
-              data-dojo-type="dijit/form/CheckBox"
+            <input type="checkbox" data-dojo-type="dijit/form/CheckBox"
               data-dojo-attach-point="syncCheckbox"
-              data-dojo-attach-event="onChange:setSyncSwitch" /> Keep my characters synced
+              data-dojo-attach-event="onChange:setSyncSwitch" /> Keep
+            my characters synced
           </div>
-          <div style="text-align:right">
+          <div style="text-align: right">
             Backup: <input type="text"
               data-dojo-attach-point="cloudBackupFileNameNode"
               value="My Characters" />

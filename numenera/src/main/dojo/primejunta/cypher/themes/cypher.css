@@ -105,7 +105,7 @@ a.num-smallTitle
 	letter-spacing : -2px;
     margin : 5px;
 	font-size : 28px;
-	color : #d4d4d4;
+	color : #383838;
     text-shadow : 0px 0px 3px #ddeeff;
 }
 .num-tm
@@ -172,7 +172,7 @@ select
 /* base layout elements */
 .num-mainWidget
 {
-    width : 850px;
+  /* width : 850px; */
     height : 100%;
     overflow : hidden;
     margin-left : auto;
@@ -253,6 +253,10 @@ a.num-infoLink
 {
     text-decoration : none;
     cursor : pointer;
+}
+.num-infoLink
+{
+	color : #e4e4e4;
 }
 .num-inputTextArea
 {
@@ -355,7 +359,7 @@ a.num-infoLink
     border : 1px solid #ff6d44;
     color : white;
 }
-.num-selectedButton .dijitButtonNode
+.num-selectedButton, .num-selectedButton .dijitButtonNode
 {
 	color : #66C2FF !important;
     background-image: -webkit-gradient(
@@ -368,6 +372,11 @@ a.num-infoLink
     background-image : -webkit-linear-gradient(to bottom, #303030 0%, #606060 100%) !important;
     background-image : linear-gradient(to bottom, #303030 0%, #606060 100%) !important;
     border : 1px solid #484848 !important;
+    text-shadow : none;
+}
+.mblToolBarButton .num-mediumIcon
+{
+	vertical-align : -3px;
 }
 .num-blueButton .dijitButtonDisabled .dijitButtonNode
 {
@@ -410,6 +419,11 @@ a.num-infoLink
 {
 	width : 30px;
 }
+.num-framelessButton
+{
+    background : none !important;
+    border : none !important;
+}
 /* delete item button */
 .num-hiddenControl 
 {
@@ -418,7 +432,7 @@ a.num-infoLink
     width : 24px;
     height : 24px;
     line-height : 24px;
-    cursor : pointer;§
+    cursor : pointer;
     text-decoration : none;
     border : none;
     background-color : transparent;
@@ -446,6 +460,7 @@ a.num-infoLink
 {
    text-decoration : line-through;  
 }
+
 /* help and dialogs */
 .num-helpDiv
 {

@@ -462,7 +462,7 @@ function( declare,
         _getSkillList : function()
         {
             var list = this._listAsText( "ability_list" );
-            var _slist = this._listAsText( "special_list" );
+            var _slist = this._listAsText( "special_list" ).concat( this.manager.extra_abilities_text.get( "value" ).split( "\n" ) );
             while( _slist.length > 0 )
             {
                 var cur = _slist.shift();
@@ -498,7 +498,7 @@ function( declare,
          */
         _getSpecialList : function()
         {
-            var _sl = this._listAsText( "special_list");
+            var _sl = this._listAsText( "special_list").concat( this.manager.extra_abilities_text.get( "value" ).split( "\n" ) );
             var out = [];
             while( _sl.length > 0 )
             {
@@ -517,7 +517,7 @@ function( declare,
         _getInabilityList : function()
         {
             var _il = this._listAsText( "inability_list");
-            var _sl = this._listAsText( "special_list" );
+            var _sl = this._listAsText( "special_list" ).concat( this.manager.extra_abilities_text.get( "value" ).split( "\n" ) );
             while( _sl.length > 0 )
             {
                 var cur = _sl.shift();

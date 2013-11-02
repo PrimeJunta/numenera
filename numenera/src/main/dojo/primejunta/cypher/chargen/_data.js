@@ -264,6 +264,7 @@ function( declare,
                 extra_equipment_text : this.extra_equipment_text.value,
                 notes_text : this.notes_text.value,
                 description_text : this.description_text.value,
+                extra_abilities_text : this.extra_abilities_text.value,
                 img : this.portraitWidget.getHref(),
                 disabled : disb.join( "" ),
                 deleted : dels.join( "" )
@@ -356,6 +357,7 @@ function( declare,
             this.description_text.set( "value", kwObj.description_text );
             this.notes_text.set( "value", kwObj.notes_text );
             this.extra_equipment_text.set( "value", kwObj.extra_equipment_text );
+            this.extra_abilities_text.set( "value", kwObj.extra_abilities_text ? kwObj.extra_abilities_text : "" );
         },
         /**
          * Gets populate method for qString with _getPopulateMethod, then runs it if provided.

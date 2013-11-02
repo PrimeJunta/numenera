@@ -23,6 +23,8 @@ define([ "dojo/_base/declare",
          "dijit/Dialog",
          "dijit/form/Button",
          "dijit/form/Textarea",
+         "dojox/mobile/ToolBarButton",
+         "dojox/mobile/Heading",
          "primejunta/_StartupMixin",
          "./store/_CharacterStore",
          "./_CharacterValidator",
@@ -55,6 +57,8 @@ function( declare,
           Dialog,
           Button,
           Textarea,
+          ToolBarButton,
+          Heading,
           _StartupMixin,
           _CharacterStore,
           _CharacterValidator,
@@ -259,7 +263,7 @@ function( declare,
             }
             this._splashPane.articleNode.innerHTML = _art;
             this.updateItems( "desc", this.getDescriptor() );
-            this.updateStats();
+            //this.updateStats();
             this._printLists();
             this._populating.pop();
             this.autoSave();
@@ -284,14 +288,6 @@ function( declare,
             this.autoSave();
             this.checkSwitchToMain();
         },
-        updateStats : function()
-        {
-            this.statsControl.resetStats();
-            this.statsControl.applyAdjustments( this.getType() );
-            this.statsControl.moveCaps();
-            this.statsControl.applyAdjustments( this.getFocus() );
-            this.statsControl.applyAdjustments( this.getDescriptor() );
-        },
         /**
          * Triggered when the user selects a focus. Does updateValues and completes with autoSave.
          */
@@ -301,6 +297,14 @@ function( declare,
             this.updateFocus( focus );
             this.autoSave();
             this.checkSwitchToMain();
+        },
+        updateStats : function()
+        {
+            this.statsControl.resetStats();
+            this.statsControl.applyAdjustments( this.getType() );
+            this.statsControl.moveCaps();
+            this.statsControl.applyAdjustments( this.getFocus() );
+            this.statsControl.applyAdjustments( this.getDescriptor() );
         },
         updateFocus : function( focus )
         {
@@ -353,6 +357,32 @@ function( declare,
                 this._splashPane.reset( true );
                 this.transitionTo( "splash" );
             }
+        },
+        toggleGMControls : function()
+        {
+            if( this._gmControlsOn )
+            {
+                domClass.remove( this.domNode, "gm-controls-enabled" );
+                this.statsControl.setFloorCheck( true );
+                this._gmControlsOn = false;
+            }
+            else
+            {
+                domClass.add( this.domNode, "gm-controls-enabled" );
+                this.statsControl.setFloorCheck( false );
+                this._gmControlsOn = true;
+            }
+        },
+        addExtraAbility : function()
+        {
+            var phrase = this.selectValue( this.extraAbilityTypeSelect ).value + " " + this.extraAbilityDescription.value;
+            var _cur = this.extra_abilities_text.get( "value" );
+            if( _cur != "" && _cur.charAt( _cur.length - 1 ) != '\n' )
+            {
+                _cur += "\n";
+            }
+            this.extra_abilities_text.set( "value", _cur + phrase );
+            this.extraAbilityDescription.value = "";
         },
         /**
          * If the character passes validation with .validateCharacter, marks it as ready for advacement.
@@ -414,12 +444,9 @@ function( declare,
          */
         lockControls : function()
         {
-            this.descriptorSelect.disabled = true;
             this.typeSelect.disabled = true;
-            this.focusSelect.disabled = true;
             this.updatePhrase();
-            this.phraseSelectorNode.style.display = "none";
-            this.phraseDisplayNode.style.display = "block";
+            domClass.add( this.domNode, "cg-controlsLocked" );
             this.autoSave();
         },
         /**
@@ -436,8 +463,7 @@ function( declare,
             this.typeSelect.disabled = false;
             this.focusSelect.disabled = false;
             this.updatePhrase();
-            this.phraseSelectorNode.style.display = "block";
-            this.phraseDisplayNode.style.display = "none";
+            domClass.remove( this.domNode, "cg-controlsLocked" );
             this.autoSave();
         },
         updatePhrase : function()
@@ -578,8 +604,7 @@ function( declare,
             this.typeSelect.selectedIndex = 0;
             this.focusSelect.selectedIndex = 0;
             this.phraseDisplayNode.innerHTML = "";
-            this.phraseSelectorNode.style.display = "block";
-            this.phraseDisplayNode.style.display = "none";
+            domClass.remove( this.domNode, "cg-controlsLocked" );
             this.characterNameInput.value = this.DEFAULT_CHARACTER_NAME;
             this.normalizeClass( this.characterNameInput );
             this.mainTabContainer.selectChild( this.descriptionPane );

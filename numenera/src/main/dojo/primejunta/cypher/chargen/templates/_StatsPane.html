@@ -9,7 +9,55 @@
         <tr class="cg-statisticsTop">
           <td>Free</td>
           <td align="right">Pool</td>
-          <td align="center"><input
+          <td align="center">
+            <table cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="5">
+                  <button class="cg-adjustButton cg-gmControl"
+                    data-dojo-type="dijit/form/Button"
+                    data-dojo-attach-point="decrement_free_pool">
+                    <i class="num-redIcon fa fa-minus-circle"></i>
+                  </button>
+                </td>
+                <td><input class="cg-storeMe cg-statInput"
+                  type="text" readonly="readonly"
+                  data-dojo-attach-point="free_pool" size="3" /></td>
+                <td width="5">
+                  <button class="cg-adjustButton cg-gmControl"
+                    data-dojo-type="dijit/form/Button"
+                    data-dojo-attach-point="increment_free_pool">
+                    <i class="num-blueIcon fa fa-plus-circle"></i>
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td align="right">Edge</td>
+          <td align="center">
+            <table cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="5">
+                  <button class="cg-adjustButton cg-gmControl"
+                    data-dojo-type="dijit/form/Button"
+                    data-dojo-attach-point="decrement_free_edge">
+                    <i class="num-redIcon fa fa-minus-circle"></i>
+                  </button>
+                </td>
+                <td><input class="cg-storeMe cg-statInput"
+                  type="text" readonly="readonly"
+                  data-dojo-attach-point="free_edge" size="3" /></td>
+                <td width="5">
+                  <button class="cg-adjustButton cg-gmControl"
+                    data-dojo-type="dijit/form/Button"
+                    data-dojo-attach-point="increment_free_edge">
+                    <i class="num-blueIcon fa fa-plus-circle"></i>
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </td>
+          <!-- 
+        <td align="center"><input
             class="cg-storeMe cg-statInput" type="text"
             readonly="readonly"
             data-dojo-attach-point="free_pool" size="3" /></td>
@@ -17,7 +65,7 @@
           <td align="center"><input
             class="cg-storeMe cg-statInput" type="text"
             readonly="readonly"
-            data-dojo-attach-point="free_edge" size="3" /></td>
+            data-dojo-attach-point="free_edge" size="3" /></td>  -->
         </tr>
         <tr>
           <td>Might</td>
@@ -136,8 +184,7 @@
                 </td>
                 <td><input class="cg-storeMe cg-statInput"
                   type="text" readonly="readonly"
-                  data-dojo-attach-point="intellect_pool"
-                  size="3" /></td>
+                  data-dojo-attach-point="intellect_pool" size="3" /></td>
                 <td width="5">
                   <button class="cg-adjustButton"
                     data-dojo-type="dijit/form/Button"
@@ -161,8 +208,7 @@
                 </td>
                 <td><input class="cg-storeMe cg-statInput"
                   type="text" readonly="readonly"
-                  data-dojo-attach-point="intellect_edge"
-                  size="3" /></td>
+                  data-dojo-attach-point="intellect_edge" size="3" /></td>
                 <td width="5">
                   <button class="cg-adjustButton"
                     data-dojo-type="dijit/form/Button"
@@ -177,41 +223,33 @@
         <tr class="cg-statisticsBottom">
           <td></td>
           <td align="right">Tier</td>
-          <td align="center"><input
-            class="cg-storeMe cg-statInput" type="text"
-            readonly="readonly"
-            data-dojo-attach-point="character_tier"
-            size="3" /></td>
+          <td align="center"><input class="cg-storeMe cg-statInput"
+            type="text" readonly="readonly"
+            data-dojo-attach-point="character_tier" size="3" /></td>
           <td align="right">Effort</td>
-          <td align="center"><input
-            class="cg-storeMe cg-statInput" type="text"
-            readonly="readonly"
-            data-dojo-attach-point="character_effort"
-            size="3" /></td>
+          <td align="center"><input class="cg-storeMe cg-statInput"
+            type="text" readonly="readonly"
+            data-dojo-attach-point="character_effort" size="3" /></td>
         </tr>
         <tr class="cg-statisticsBottom">
           <td></td>
           <td align="right">Shins</td>
-          <td align="center"><input
-            class="cg-storeMe cg-statInput" type="text"
-            data-dojo-attach-point="shin_count" size="3" /></td>
+          <td align="center"><input class="cg-storeMe cg-statInput"
+            type="text" data-dojo-attach-point="shin_count" size="3" /></td>
           <td align="right">Cyphers</td>
-          <td align="center"><input
-            class="cg-storeMe cg-statInput" type="text"
-            readonly="readonly"
+          <td align="center"><input class="cg-storeMe cg-statInput"
+            type="text" readonly="readonly"
             data-dojo-attach-point="cypher_count" size="3" /></td>
         </tr>
         <tr class="cg-statisticsBottom cg-statisticsBottomRow">
           <td></td>
           <td align="right">Armor bonus</td>
-          <td align="center"><input
-            class="cg-storeMe cg-statInput" type="text"
-            readonly="readonly"
+          <td align="center"><input class="cg-storeMe cg-statInput"
+            type="text" readonly="readonly"
             data-dojo-attach-point="armor_bonus" size="3" /></td>
           <td align="right">Recovery bonus</td>
-          <td align="center"><input
-            class="cg-storeMe cg-statInput" type="text"
-            readonly="readonly"
+          <td align="center"><input class="cg-storeMe cg-statInput"
+            type="text" readonly="readonly"
             data-dojo-attach-point="recovery_roll" size="3" /></td>
         </tr>
       </tbody>

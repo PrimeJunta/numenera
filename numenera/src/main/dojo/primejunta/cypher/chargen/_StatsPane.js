@@ -59,22 +59,18 @@ function( declare,
          */
         templateString : template,
         /**
+         * Check stat floor against derived value? If false, checks against 0 only.
+         */
+        _checkFloor : true,
+        /**
          * Connects click event listeners to increment and decrement controls.
          */
         postCreate : function()
         {
-            on( this.increment_might_pool, "click", lang.hitch( this, this._adjust, "might", "pool", 1 ) );
-            on( this.increment_might_edge, "click", lang.hitch( this, this._adjust, "might", "edge", 1 ) );
-            on( this.increment_speed_pool, "click", lang.hitch( this, this._adjust, "speed", "pool", 1 ) );
-            on( this.increment_speed_edge, "click", lang.hitch( this, this._adjust, "speed", "edge", 1 ) );
-            on( this.increment_intellect_pool, "click", lang.hitch( this, this._adjust, "intellect", "pool", 1 ) );
-            on( this.increment_intellect_edge, "click", lang.hitch( this, this._adjust, "intellect", "edge", 1 ) );
-            on( this.decrement_might_pool, "click", lang.hitch( this, this._adjust, "might", "pool", -1 ) );
-            on( this.decrement_might_edge, "click", lang.hitch( this, this._adjust, "might", "edge", -1 ) );
-            on( this.decrement_speed_pool, "click", lang.hitch( this, this._adjust, "speed", "pool", -1 ) );
-            on( this.decrement_speed_edge, "click", lang.hitch( this, this._adjust, "speed", "edge", -1 ) );
-            on( this.decrement_intellect_pool, "click", lang.hitch( this, this._adjust, "intellect", "pool", -1 ) );
-            on( this.decrement_intellect_edge, "click", lang.hitch( this, this._adjust, "intellect", "edge", -1 ) );
+            for( var i = 0; i < this.stats.length; i++ )
+            {
+                this._connectAdjustmentControls( this.stats[ i ] );
+            }
             on( this.shin_count, "blur", lang.hitch( this, this.intInputChanged, this.shin_count ) );
         },
         get : function( prop )
@@ -93,6 +89,14 @@ function( declare,
             if( array.indexOf( this.stats, prop ) != -1 )
             {
                 this[ prop ].value = val;
+                if( val < 0 )
+                {
+                    domClass.add( this[ prop ], "cg-negative-stat" );
+                }
+                else
+                {
+                    domClass.remove( this[ prop ], "cg-negative-stat" );
+                }
             }
             else
             {
@@ -149,18 +153,6 @@ function( declare,
             this._checkLimits( "might", prop );
             this._checkLimits( "speed", prop );
             this._checkLimits( "intellect", prop );
-        },
-        /**
-         * Checks if the field stat_prop (e.g. might_pool, speed_edge) has hit either its ceiling or _floor, and
-         * disables/enables its decrement_/increment_ buttons accordingly.
-         */
-        _checkLimits : function( /* String */ stat, /* String */ prop )
-        {
-            var _from = this.get( "free_" + prop );
-            var ddis = ( this.get( stat + "_" + prop ) == this[ stat + "_" + prop + "_floor" ] );
-            var edis = ( ( this.get( stat + "_" + prop ) >= this[ prop + "_cap" ] || _from == 0 ) );
-            this.setDisabled([ "decrement_" + stat + "_" + prop ], ddis );
-            this.setDisabled([ "increment_" + stat + "_" + prop ], edis );
         },
         resetStats : function()
         {
@@ -227,6 +219,23 @@ function( declare,
             }
             this.checkCaps();
         },
+        setFloorCheck : function( to )
+        {
+            this._checkFloor = to;
+            this.checkCaps();
+        },
+        _connectAdjustmentControls : function( stat )
+        {
+            var pair = stat.split( "_" );
+            if( this[ "increment_" + stat ] )
+            {
+                this.own( on( this[ "increment_" + stat ], "click", lang.hitch( this, this._adjust, pair[ 0 ], pair[ 1 ], 1 ) ) );
+            }
+            if( this[ "decrement_" + stat ] )
+            {
+                this.own( on( this[ "decrement_" + stat ], "click", lang.hitch( this, this._adjust, pair[ 0 ], pair[ 1 ], -1 ) ) );
+            }
+        },
         _augmentStat : function( stat, by )
         {
             var val = this.get( stat );
@@ -259,6 +268,18 @@ function( declare,
         _getStat : function( /* String */ stat )
         {
             return parseInt( this[ stat ].value );
+        },
+        /**
+         * Checks if the field stat_prop (e.g. might_pool, speed_edge) has hit either its ceiling or _floor, and
+         * disables/enables its decrement_/increment_ buttons accordingly.
+         */
+        _checkLimits : function( /* String */ stat, /* String */ prop )
+        {
+            var _from = this.get( "free_" + prop );
+            var ddis = ( this.get( stat + "_" + prop ) == ( this._checkFloor ? this[ stat + "_" + prop + "_floor" ] : 0 ) );
+            var edis = ( ( this.get( stat + "_" + prop ) >= this[ prop + "_cap" ] || _from <= 0 ) );
+            this.setDisabled([ "decrement_" + stat + "_" + prop ], ddis );
+            this.setDisabled([ "increment_" + stat + "_" + prop ], edis );
         },
         /**
          * Sets floor of stat to its current value.

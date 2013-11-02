@@ -7,26 +7,37 @@
 @import url( 'playview.css' );
 @import url( '../../themes/cypher.css' );
 /* main controls */
-.cg-floatingButtonContainer
+.cg-buttonBar
 {
+	border-color : black;
+	text-align : center;
+	background-color : #282828;
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0.00, #000000),
+        color-stop(1.00, #282828 )
+    ) !important;
+    background-image : -webkit-linear-gradient(to bottom, #000000 0%, #282828 100%) !important;
+    background-image : linear-gradient(to bottom, #000000 0%, #282828 100%) !important;
 }
-.cg-floatingButtonContent
+.cg-buttonBar .mblToolBarButton
 {
-    position : absolute;
-    top : 148px;
-    width : 850px;
-    margin-left : auto;
-    margin-right : auto;
-}
-.cg-leftButtonsNode
-{
-	position : absolute;
-	left : 0px;
-}
-.cg-rightButtonsNode
-{
-	position : absolute;
-	right : 0px;
+	border : 1px solid black;
+	border-radius : 5px;
+	color : #e4e4e4;
+	text-shadow : none;
+	background-color : #404040;
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0.00, #282828),
+        color-stop(1.00, #404040 )
+    ) !important;
+    background-image : -webkit-linear-gradient(to bottom, #282828 0%, #404040 100%) !important;
+    background-image : linear-gradient(to bottom, #282828 0%, #404040 100%) !important;
 }
 .cg-resultsPane
 {
@@ -48,6 +59,10 @@
 {
     border-bottom : 1px solid gray;
 }
+.cg-statisticsTop td td
+{
+	border : none;
+}
 .cg-statisticsBottom
 {
 }
@@ -63,12 +78,15 @@
 {
 	margin : 4px;
 }
-/* various inputs */
 .cg-statInput
 {
     font-size : 18px;
     height : 50px;
     width : 50px;
+    padding : 0;
+    margin : 0;
+    background-color : white;
+    background-image : none;
     text-align : center;
     border : 1px solid #848484;
     border-radius : 30px;
@@ -78,6 +96,15 @@ input[readonly].cg-statInput
     border : 1px solid #b4b4b4;
     background-color : #f5f5f5;
 }
+.cg-negative-stat, input[readonly].cg-negative-stat
+{
+    background-color : #cc0000;
+    color : white;
+    font-weight : bold;
+    border : 1px solid #cc0000;
+}
+
+/* various inputs */
 .cg-adjustButton .dijitButtonNode
 {
     font-size : 24px;
@@ -106,15 +133,15 @@ input[readonly].cg-statInput
 }
 .cg-characterNameInputBox
 {
-    height : 33px;
-    padding : 8px 0 0;
-    margin : 0 0 8px;
+    padding : 0;
+    margin : 10px 0 0;
+    width:680px;
     background-color : #233343;
     background-image : url( '../../themes/images/grain-l.png' );
 }
 .cg-characterNameInput
 {
-	padding : 0 0 0 0;
+	padding : 8px 0 8px;
 	border : none;
     text-align : center;
     font-size : large;
@@ -138,7 +165,17 @@ input[readonly].cg-statInput
     color : #e4e4e4;
     font-family : Prata;
     font-style : italic;
+    display : none;
 }
+.cg-controlsLocked .cg-phraseSelectors
+{
+    display : none;
+}
+.cg-controlsLocked .cg-selectedPhrase
+{
+    display : block;
+}
+
 /* type, descriptor, focus */
 
 /* color codes for type, description, and focus */
@@ -236,4 +273,36 @@ td.cg-tierTitleCell
 {
     text-align : center;
     margin : 20px;
+}
+/* GM controls */
+.cg-gmControl
+{
+    visibility : hidden;
+}
+.gm-controls-enabled .cg-gmControl
+{
+    visibility : visible;
+}
+.gm-controls-enabled .cg-gmControlSwitch 
+{
+   color : #66C2FF !important;
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0.00, #303030),
+        color-stop(1.00, #606060 )
+    ) !important;
+    background-image : -webkit-linear-gradient(to bottom, #303030 0%, #606060 100%) !important;
+    background-image : linear-gradient(to bottom, #303030 0%, #606060 100%) !important;
+    border : 1px solid #484848 !important;
+    text-shadow : none;
+}
+.gm-controls-enabled .cg-phraseSelectors
+{
+    display : block;
+}
+.gm-controls-enabled .cg-selectedPhrase
+{
+    display : none;
 }

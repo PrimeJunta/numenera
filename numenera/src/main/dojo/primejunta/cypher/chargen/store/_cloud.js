@@ -11,7 +11,8 @@ define([ "dojo/_base/declare",
          "dojo/dom-class",
          "dojo/store/Memory",
          "dijit/form/ComboBox",
-         "primejunta/gapi/Drive" ],
+         "primejunta/gapi/Drive",
+         "dojo/text!primejunta/cypher/doc/privacy.html" ],
 function( declare,
           lang,
           cookie,
@@ -19,7 +20,8 @@ function( declare,
           domClass,
           Memory,
           ComboBox,
-          Drive )
+          Drive,
+          privacy )
 {
     return declare([], {
         /**
@@ -81,7 +83,8 @@ function( declare,
             {
                 return;
             }
-            if( cookie( "keepDataSynced" ) == "true" ) {
+            if( cookie( "keepDataSynced" ) == "true" )
+            {
                 this.syncCheckbox.set( "checked", true );
             };
             this._setCBDisabled( true );
@@ -334,6 +337,11 @@ function( declare,
                 // someone might've dirtied it while we were syncing, and we don't want to flag it clean
                 this._storage.put( this.SYNC_STATE_KEY, state );
             }
+        },
+        showPrivacyPolicy : function()
+        {
+            this.manager._showHelp( privacy );
+            return false;
         },
         /**
          * Creates a Memory datastore and a ComboBox connected to it, and places it in the widget.

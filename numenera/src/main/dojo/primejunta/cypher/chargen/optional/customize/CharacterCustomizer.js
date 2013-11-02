@@ -11,10 +11,11 @@ define([ "dojo/_base/declare",
          "dojo/on",
          "dojo/query",
          "dojo/dom-class",
+         "dojo/dom-style",
          "primejunta/cypher/chargen/_UtilityMixin",
          "./_AlternativePerkSelector",
          "dijit/registry",
-         "dijit/form/Button",
+         "dojox/mobile/ToolBarButton",
          "dijit/form/TextBox",
          "dijit/form/CheckBox",
          "dijit/form/Select",
@@ -28,6 +29,7 @@ function( declare,
           on,
           domQuery,
           domClass,
+          domStyle,
           _UtilityMixin,
           _AlternativePerkSelector,
           registry,
@@ -42,7 +44,7 @@ function( declare,
         /**
          * Button label.
          */
-        label : "<i class=\"fa fa-gears\"></i>",
+        label : "<i class=\"fa fa-gears\"></i> Customize",
         /**
          * Map of possible customizations. Everything starts out set to false.
          */
@@ -108,6 +110,7 @@ function( declare,
         postCreate : function()
         {
             this.inherited( arguments );
+            domStyle.set( this.domNode, { "float" : "right" });
             this._dlog = new Dialog({ title : "Character Creation Utility", style : "z-index:9999;width:600px;" }).placeAt( document.body );
             this._dlog.applyChanges = lang.hitch( this, this.applyChanges );
             this._dlog.showAbilitySelect = lang.hitch( this, this.showAbilitySelect );

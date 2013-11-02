@@ -7,39 +7,80 @@
     <div data-dojo-type="dijit/layout/ContentPane"
       data-dojo-props="region:'top'" data-dojo-attach-point="headerPane"
       style="height: 150px; overflow: hidden;">
+      <div data-dojo-type="dojox/mobile/Heading" class="cg-buttonBar">
+        <table style="width:900px;margin-left:auto;margin-right:auto;" cellspacing="0" cellpadding="0">
+          <tr>
+            <td align="left">
+              <button data-dojo-type="dojox/mobile/ToolBarButton"
+                class="num-redButton"
+                data-dojo-attach-event="onClick:clearAll"
+                data-dojo-attach-point="clearButton">
+                <i class="fa fa-times-circle num-redIcon num-mediumIcon"></i>
+              </button>
+            </td>
+            <!-- 
+            <td align="left"><a href="http://www.numenera.com"
+              class="num-smallTitle">NumenérA&trade;</a></td>
+             -->
+            <td align="left">
+              <button data-dojo-attach-point="printButton"
+                data-dojo-type="dojox/mobile/ToolBarButton"
+                data-dojo-attach-event="onClick:showPrintView" class=""
+                style="float: left">
+                <i class="fa fa-print"></i> Print
+              </button>
+              <button data-dojo-attach-point="playViewButton"
+                data-dojo-type="dojox/mobile/ToolBarButton"
+                data-dojo-attach-event="onClick:showPlayView" class=""
+                style="float: left">
+                <i class="fa fa-fullscreen"></i> Play
+              </button>
+              <button data-dojo-attach-point="saveButton"
+                data-dojo-type="dojox/mobile/ToolBarButton"
+                data-dojo-attach-event="onClick:pleaseStoreCharacter"
+                style="float: left" class="" disabled="true">
+                <i class="fa fa-save"></i> Save
+              </button>
+              <button data-dojo-type="dojox/mobile/ToolBarButton"
+                data-dojo-attach-point="characterStoreButton"
+                data-dojo-attach-event="onClick:openCharacterStore"
+                style="float: left">
+                <i class="fa fa-folder-open"></i> Open
+              </button>
+            </td>
+            <td align="right">
+              <button data-dojo-attach-point="helpButton"
+                data-dojo-type="dojox/mobile/ToolBarButton"
+                data-dojo-attach-event="onClick:showHelp"
+                style="float: right" class="">
+                <i class="fa fa-question-circle num-mediumIcon num-blueIcon"></i>
+              </button>
+              <button data-dojo-attach-point="customizeButtonNode"
+                class="" style="float:right"></button>
+              <button data-dojo-type="dojox/mobile/ToolBarButton"
+                data-dojo-attach-event="onClick:toggleGMControls"
+                data-dojo-attach-point="gmControlsToggle"
+                class="cg-gmControlSwitch" style="float: right">
+                <i class="fa fa-gavel"></i> GM Controls
+              </button>
+              <button data-dojo-type="dojox/mobile/ToolBarButton"
+                class="" data-dojo-attach-point="finalizeButton"
+                style="float: right"
+                data-dojo-attach-event="onClick:finalize">
+                <i class="fa fa-angle-double-up"></i> Advance
+              </button>
+            </td>
+          </tr>
+        </table>
+      </div>
       <div class="">
         <div style="text-align: center">
           <div data-dojo-attach-point="basicControlsNode">
             <div data-dojo-attach-point="phrase_pane">
-              <table width="100%" data-dojo-attach-point="controlsNode"
-                class="" style="margin-left: auto; margin-right: auto;">
-                <tbody>
-                  <tr>
-                    <td align="left" width="20%"></td>
-                    <td><a href="http://www.numenera.com"
-                      class="num-smallTitle">NumenérA&trade;</a></td>
-                    <td align="right" width="20%">
-                      <div class="num-linkNode">
-                        <a data-dojo-attach-point="helpButton"
-                          data-dojo-attach-event="onClick:showHelp"
-                          class="num-infoLink"><i
-                          class="fa fa-question-circle"></i></a>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
               <table width="100%">
                 <tbody>
                   <tr valign="top">
-                    <td align="left" width="10%">
-                      <button data-dojo-type="dijit/form/Button"
-                        class="num-redButton"
-                        data-dojo-attach-event="onClick:clearAll"
-                        data-dojo-attach-point="clearButton">
-                        <i class="fa fa-times-circle"></i> Clear
-                      </button>
-                    </td>
+                    <td align="left" width="10%"></td>
                     <td align="center">
                       <div class="cg-characterNameInputBox">
                         <input
@@ -49,17 +90,11 @@
                           class="cg-storeMe cg-characterNameInput num-valueNotSet" />
                       </div>
                     </td>
-                    <td align="right" width="10%">
-                      <button data-dojo-type="dijit/form/Button"
-                        class="num-blueButton"
-                        data-dojo-attach-point="finalizeButton"
-                        data-dojo-attach-event="onClick:finalize">
-                        Advance <i class="fa fa-angle-double-up"></i>
-                      </button>
-                    </td>
+                    <td align="right" width="10%"></td>
                   </tr>
                 </tbody>
               </table>
+              <div style="float: right"></div>
               <div data-dojo-attach-point="phraseSelectorNode"
                 class="cg-phraseSelectors">
                 <span class="">the </span><select class="cg-desc"
@@ -146,6 +181,27 @@
             <ul data-dojo-attach-point="bonus_list"></ul>
             <h2 data-dojo-attach-point="special_list_label"></h2>
             <ul data-dojo-attach-point="special_list"></ul>
+            <h2 data-dojo-attach-point="extra_abilities_label">Additional
+              Characteristics</h2>
+            <textarea data-dojo-attach-point="extra_abilities_text"
+              class="num-inputTextArea cg-gmTextArea"
+              data-dojo-type="dijit/form/Textarea"></textarea>
+            <div class="cg-gmControl">
+              <select data-dojo-attach-point="extraAbilityTypeSelect">
+                <option>Ⓐ</option>
+                <option>Ⓔ</option>
+                <option>Ⓣ</option>
+                <option>Ⓢ</option>
+                <option>Ⓘ</option>
+                <option>Ⓜ︎</option>
+              </select> <input type="text" class="num-itemInput"
+                data-dojo-attach-point="extraAbilityDescription" />
+              <button data-dojo-type="dijit/form/Button"
+                class="num-smallIcon"
+                data-dojo-attach-event="onClick:addExtraAbility">
+                <i class="fa fa-plus"></i>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -156,7 +212,7 @@
       <div class="num-copyright">
         <span style="cursor: pointer"
           data-dojo-attach-event="onClick:showLicenses">${copyright}</span>
-          • <a class="num-versionInfo"
+        • <a class="num-versionInfo"
           data-dojo-attach-event="onClick:showLicenses">Licenses</a> • <span
           class="num-versionInfo"> <a
           data-dojo-attach-event="onClick:showChangeLog">Version
@@ -175,40 +231,6 @@
               data-dojo-attach-event="onClick:hideMessage">OK</button>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-  <div class="cg-floatingButtonContainer"
-    data-dojo-attach-point="mainButtonsNode" style="">
-    <div class="cg-floatingButtonContent">
-      <div class="cg-leftButtonsNode">
-        <button data-dojo-attach-point="printButton"
-          data-dojo-type="dijit/form/Button"
-          data-dojo-attach-event="onClick:showPrintView"
-          class="num-smallButton">
-          <i class="fa fa-print"></i>
-        </button>
-        <button data-dojo-attach-point="playViewButton"
-          data-dojo-type="dijit/form/Button"
-          data-dojo-attach-event="onClick:showPlayView"
-          class="num-smallButton">
-          <i class="fa fa-fullscreen"></i>
-        </button>
-      </div>
-      <div class="cg-rightButtonsNode">
-        <button data-dojo-attach-point="customizeButtonNode"
-          class="num-smallButton"></button>
-        <button data-dojo-type="dijit/form/Button"
-          data-dojo-attach-point="characterStoreButton"
-          data-dojo-attach-event="onClick:openCharacterStore">
-          <i class="fa fa-folder-open"></i>
-        </button>
-        <button data-dojo-attach-point="saveButton"
-          data-dojo-type="dijit/form/Button"
-          data-dojo-attach-event="onClick:pleaseStoreCharacter"
-          class="num-smallButton" disabled="true">
-          <i class="fa fa-save"></i>
-        </button>
       </div>
     </div>
   </div>
