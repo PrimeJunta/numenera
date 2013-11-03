@@ -167,7 +167,6 @@ function( declare,
                     {
                         this._backupListStore.put({ "title" : resp[ i ].title }, { "id" : resp[ i ].title, overwrite : true });
                     }
-                    this.cloudBackupFileName.set( "value", resp[ 0 ].title );
                     this.cloudSyncFileName.set( "value", this.getSyncFileTitle() );
                     this.cloudBackupFileName.set( "value", this.getBackupFileTitle() );
                     this._setCBDisabled( false );
@@ -269,6 +268,7 @@ function( declare,
             {
                 return;
             }
+            this._setCBSpinner( true );
             this._storage.put( this.SYNC_STATE_KEY, "PENDING" ); // starting the sync
             this.getStoredCharacters().then( lang.hitch( this, function( characterData ) {
                 var fileData = {
@@ -299,6 +299,8 @@ function( declare,
                             }
                         }
                         this.setSyncState( "CLEAN" );
+                        this.getCloudBackups( false );
+                        this._setCBSpinner( false );
                     }),
                     lang.hitch( this, function( err ) {
                         // fail silently and try again after the timeout
@@ -311,9 +313,10 @@ function( declare,
          */
         setSyncFileTitle : function()
         {
-            if( this.syncFileTitle.get( "value" ) != "" )
+            if( this.cloudSyncFileName.get( "value" ) != "" )
             {
-                this._storage.put( "_CCG_SYNC_FILE_TITLE", this.syncFileTitle.get( "value" ) );
+                this._storage.put( "_CCG_SYNC_FILE_TITLE", this.cloudSyncFileName.get( "value" ) );
+                this.performSync();
             }
         },
         /**
@@ -410,6 +413,7 @@ function( declare,
             this.cloudSyncFileName = new ComboBox({
                 store : this._backupListStore,
                 searchAttr : "title",
+                onChange : lang.hitch( this, this.setSyncFileTitle ),
                 value : "My Characters" }).placeAt( this.cloudSyncFileNameNode, "replace" );
         },
         /**
@@ -439,6 +443,17 @@ function( declare,
          */
         _setCBDisabled : function( to )
         {
+            this._setCBSpinner( to );
+            this.restoreFromCloudButton.set( "disabled", to );
+            this.backupToCloudButton.set( "disabled", to );
+        },
+        /**
+         * Sets state of cloud backup spinner to show something is going on.
+         * 
+         * @private void
+         */
+        _setCBSpinner : function( to )
+        {
             if( to )
             {
                 domClass.add( this.cloudWorkingIcon, "fa-spin" );
@@ -449,8 +464,6 @@ function( declare,
                 domClass.remove( this.cloudWorkingIcon, "fa-spin" );
                 this.cloudWorkingIcon.style.visibility = "hidden";
             }
-            this.restoreFromCloudButton.set( "disabled", to );
-            this.backupToCloudButton.set( "disabled", to );
         }
     });
 });
