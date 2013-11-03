@@ -205,7 +205,7 @@ select
 }
 .num-noJavaScript
 {
-    padding : 50px;
+    padding : 30px;
     color : #e4e4e4;
     width : 700px;
     margin-left:auto;
@@ -526,7 +526,7 @@ h1.num-helpViewerTitle
 }
 .num-helpViewer, .num-helpViewer .dijitBorderContainer, .num-helpViewer .dijitBorderContainerNoGutter
 {
-	width : 800px;
+	width : 750px;
 	margin-left : auto;
 	margin-right : auto;
 	height : 100%;
@@ -567,13 +567,13 @@ h1.num-helpViewerTitle
 /* footer */
 .num-footer
 {
-	height : 60px;
+	height : 70px;
 	overflow : hidden;
 }
 /* copyright notice */
 .num-copyright
 {
-	width : 900px;
+	width : 700px;
 	font-family : Lato;
     text-align : center;
     font-size : 10px;

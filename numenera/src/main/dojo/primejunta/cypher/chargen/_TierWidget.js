@@ -12,6 +12,7 @@ define([ "dojo/_base/declare",
          "dijit/_WidgetsInTemplateMixin",
          "dijit/form/Button",
          "dijit/form/ToggleButton",
+         "dijit/form/CheckBox",
          "./_ListItem",
          "./_UtilityMixin",
          "./optional/customize/_CustomFocusAdvancementMixin",
@@ -28,6 +29,7 @@ function( declare,
           _WidgetsInTemplateMixin,
           Button,
           ToggleButton,
+          CheckBox,
           _ListItem,
           _UtilityMixin,
           _CustomFocusAdvancementMixin,
@@ -200,7 +202,7 @@ function( declare,
                 {
                     if( ctrls[ i ].type == "checkbox" )
                     {
-                        if( ctrls[ i ].checked )
+                        if( ctrls[ i ].get( "checked" ) )
                         {
                             return true;
                         }
@@ -372,7 +374,7 @@ function( declare,
          */
         _cbCost : function( cb )
         {
-            if( !this[ cb ].disabled && this[ cb ].checked )
+            if( !this[ cb ].get( "disabled" ) && this[ cb ].get( "checked" ) )
             {
                 return 4;
             }
@@ -562,7 +564,7 @@ function( declare,
          */
         _applyCheckbox : function( /* Checkbox */ cb, /* String */ prop, /* int */ val )
         {
-            if( cb.disabled )
+            if( cb.get( "disabled" ) )
             {
                 return 0;
             }
@@ -570,7 +572,7 @@ function( declare,
             {
                 return 0;
             }
-            cb.disabled = true;
+            cb.set( "disabled", true );
             this._adjust( prop, val );
             return 1;
         },

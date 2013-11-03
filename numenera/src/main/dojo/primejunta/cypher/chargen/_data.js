@@ -215,7 +215,7 @@ function( declare,
         getCharacterDataObj : function()
         {
             var sels = domQuery( "select.cg-storeMe", this.domNode );
-            var inps = domQuery( "input.cg-storeMe", this.domNode );
+            var inps = domQuery( "input.cg-storeMe,div.cg-storeMe", this.domNode );
             var idxs = [];
             var vals = [];
             var disb = [];
@@ -227,15 +227,23 @@ function( declare,
             }
             for( var i = 0; i < inps.length; i++ )
             {
-                if( inps[ i ].type == "checkbox" )
+                var widg = registry.byId( inps[ i ].getAttribute( "widgetid" ) );
+                if( widg )
+                {
+                    vals.push( widg.get( "checked" ) ? "1" : "0" );
+                    disb.push( widg.get( "disabled" ) ? "1" : "0" );
+                }
+                // REMOVE THE FOLLOWING BLOCK WHEN NO LONGER NEEDED
+                else if( inps[ i ].type == "checkbox" )
                 {
                     vals.push( inps[ i ].checked ? "1" : "0" );
                 }
+                // END REMOVE
                 else
                 {
                     vals.push( this._preprocessInput( inps[ i ] ) );
+                    disb.push( inps[ i ].disabled ? 1 : 0 );
                 }
-                disb.push( inps[ i ].disabled ? 1 : 0 );
             }
             for( var i = 0; i < this._controls.length; i++ )
             {
@@ -303,7 +311,7 @@ function( declare,
             }
             this.populateOptionalData( kwObj );
             var sels = domQuery( "select.cg-storeMe", this.domNode );
-            var inps = domQuery( "input.cg-storeMe", this.domNode );
+            var inps = domQuery( "input.cg-storeMe,div.cg-storeMe", this.domNode );
             for( var i = 0; i < idxs.length; i++ )
             {
                 if( sels[ i ] )
@@ -326,15 +334,33 @@ function( declare,
             {
                 if( inps[ i ] )
                 {
-                    if( inps[ i ].type == "checkbox" )
+                    var widg = registry.byId( inps[ i ].getAttribute( "widgetid" ) );
+                    if( widg )
                     {
-                        inps[ i ].checked = vals[ i ] == "1" ? true : false;
+                        widg.set( "checked", ( vals[ i ] == "1" ? true : false ) );
+                        widg.set( "disabled", ( disb[ sels.length + i ] == "1" ) );
                     }
+                    // REMOVE THE FOLLOWING BLOCK SOONISH
+                    else if( inps[ i ].type == "checkbox" )
+                    {
+                        console.log( "these should all be gone" );
+                        if( registry.byId( inps[ i ].id ) )
+                        {
+                            console.log( "Setting checked" );
+                            registry.byId( inps[ i ].id ).set( "checked", ( vals[ i ] == "1" ? true : false ) );
+                        }
+                        else
+                        {
+                            console.log( "shouldn't have any of these" );
+                            inps[ i ].checked = vals[ i ] == "1" ? true : false;
+                        }
+                    }
+                    // END BLOCK TO REMOVE
                     else
                     {
                         inps[ i ].value = this._unescapeDelimiter( vals[ i ] );
+                        inps[ i ].disabled = ( disb[ sels.length + i ] == "1" )
                     }
-                    inps[ i ].disabled = ( disb[ sels.length + i ] == "1" )
                 }
             }
             if( this.finalized )

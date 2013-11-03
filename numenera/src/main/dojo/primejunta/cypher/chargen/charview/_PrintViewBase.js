@@ -3,9 +3,11 @@
  */
 define([ "dojo/_base/declare",
          "dojo/cookie",
+         "dojo/json",
          "./_CharacterViewBase" ],
 function( declare,
           cookie,
+          json,
           _CharacterViewBase )
 {
     return declare([ _CharacterViewBase ], {

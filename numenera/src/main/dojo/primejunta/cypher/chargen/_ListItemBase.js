@@ -13,6 +13,7 @@ define([ "dojo/_base/declare",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
          "dijit/form/Button",
+         "dijit/form/CheckBox",
          "./_UnlockableMixin",
          "./_UtilityMixin" ],
 function( declare,
@@ -25,6 +26,7 @@ function( declare,
           _TemplatedMixin,
           _WidgetsInTemplateMixin,
           Button,
+          CheckBox,
           _UnlockableMixin,
           _UtilityMixin )
 {
@@ -181,7 +183,7 @@ function( declare,
         {
             this.deleted = true;
             domClass.add( this.domNode, "num-deletedItem" );
-            this.deleteControl.checked = false;
+            this.deleteControl.set( "checked", false );
             topic.publish( "CharGen/dataChanged" );
         },
         /**
@@ -191,7 +193,7 @@ function( declare,
         {
             this.deleted = false;
             domClass.remove( this.domNode, "num-deletedItem" );
-            this.deleteControl.checked = true;
+            this.deleteControl.set( "checked", true );
             topic.publish( "CharGen/dataChanged" );
         },
         /**

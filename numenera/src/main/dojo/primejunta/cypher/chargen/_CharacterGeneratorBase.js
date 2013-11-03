@@ -366,6 +366,7 @@ function( declare,
             {
                 domClass.remove( this.domNode, "gm-controls-enabled" );
                 this.statsControl.setFloorCheck( true );
+                this.updatePhrase();
                 this._gmControlsOn = false;
             }
             else
