@@ -589,7 +589,7 @@ function( declare,
         },
         _openSecondaryWidget : function( viewName, widg )
         {
-            this.views[ viewName ] = { nodes : widg.domNode };
+            this.views[ viewName ] = { nodes : [ widg.domNode ]};
             this.transitionOut().then( lang.hitch( this, function() {
                 widg.placeAt( document.body, "first" );
                 widg.startup();
@@ -598,11 +598,11 @@ function( declare,
                 }));
             }));
         },
-        _closeSecondaryWidget : function( widg )
+        _closeSecondaryWidget : function( widg, view )
         {
             this.transitionOut().then( lang.hitch( this, function() {
                 widg.destroy();
-                this.transitionIn( "main" );
+                this.transitionIn( view ? view : "main" );
             }));
         },
         /**
@@ -654,21 +654,14 @@ function( declare,
          */
         showHelp : function()
         {
-            if( this._shv )
+            if( this._spv )
             {
                 return;
             }
-            this._shv = true;
-            if( !this._helpViewer )
-            {
-                this._helpViewer = new _HelpViewer({ manager : this, title : "About the Character Creation Utility", helpData : this.helpData }).placeAt( document.body );
-                this._helpViewer.startup();
-                this.views.help = { nodes : [ this._helpViewer.domNode ] };
-            }
+            this._spv = true;
+            this._helpViewer = new _HelpViewer({ manager : this, title : "About the Character Creation Utility", helpData : this.helpData });
             this._prevView = this.getShowingView();
-            this.transitionTo( "help" ).then( lang.hitch( this, function() {
-                this._shv = false;
-            }));
+            this._openSecondaryWidget( "help", this._helpViewer );
         },
         /**
          * Calls _showHelp with changelog (that's an included text module).
