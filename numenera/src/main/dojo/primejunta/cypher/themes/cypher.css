@@ -567,6 +567,8 @@ h1.num-helpViewerTitle
 /* footer */
 .num-footer
 {
+	background-color : #282828;
+	background-image : url( images/grain-dark.png );
 	height : 70px;
 	overflow : hidden;
 }

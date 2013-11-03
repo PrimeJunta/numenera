@@ -6,6 +6,7 @@ define([ "dojo/_base/declare",
          "dojo/json",
          "dojo/dom-construct",
          "dojo/Deferred",
+         "dojo/io-query",
          "dojox/storage",
          "./_cloud",
          "./_file",
@@ -26,6 +27,7 @@ function( declare,
           json,
           domConstruct,
           Deferred,
+          ioQuery,
           storage,
           _cloud,
           _file,
@@ -190,7 +192,7 @@ function( declare,
                 + "<ul>\n";
             for( var i = 0; i < this._cwa.length; i++ )
             {
-                characterList += "<li><a href=\"" + loc + "?" + this._cwa[ i ].data + "\">" + this._cwa[ i ].name + "</a></li>\n";
+                characterList += "<li><a href=\"" + loc + "?" + this._preprocessLinkData( this._cwa[ i ].data ) + "\">" + this._cwa[ i ].name + "</a></li>\n";
             }
             characterList += "</ul>\n</div>\n";
             characterList += "<p>Copy-paste and save this list in case something bad happens to your browser, or if you want to mail them to someone.</p>";
@@ -319,6 +321,15 @@ function( declare,
                 deferred.resolve();
             }
             return deferred;
+        },
+        _preprocessLinkData : function( data )
+        {
+            var obj = ioQuery.queryToObject( data );
+            if( obj.img_data )
+            {
+                delete obj.img_data;
+            }
+            return ioQuery.objectToQuery( obj );
         }
     });
 });

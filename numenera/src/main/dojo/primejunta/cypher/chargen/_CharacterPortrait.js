@@ -87,16 +87,29 @@ function( declare,
         },
         setImage : function()
         {
-            this.setHref( this.inputNode.value, true );
+            this.setHref( this.inputNode.value, false, true );
             this.tmNode.style.display = "none";
             this.closeSelector();
         },
         getHref : function()
         {
-            return this.imageNode.getAttribute( "src" );
+            return this.href;
         },
-        setHref : function( href, validate )
+        getData : function()
         {
+            return this.data;
+        },
+        setHref : function( href, imgData, validate )
+        {
+            console.log( "SETTING", href, imgData, validate );
+            if( imgData && imgData != "false" )
+            {
+                this.data = imgData;
+            }
+            else
+            {
+                this.data = false;
+            }
             if( validate && !this.isValid( href ) )
             {
                 this.clear();
@@ -119,10 +132,50 @@ function( declare,
                 }
             }
             href = this._normalizeHref( href );
-            this.imageNode.setAttribute( "src", href );
-            this.inputContainer.style.display = "none";
-            this.imageContainer.style.display = "block";
+            this.href = href;
+            if( this.data )
+            {
+                this.imageNode.setAttribute( "src", this.data );
+                this.inputContainer.style.display = "none";
+                this.imageContainer.style.display = "block";
+            }
+            else if( href.indexOf( this.portraitHome ) == 0 )
+            {
+                this.readImageData( href );
+            }
+            else
+            {
+                this.imageNode.setAttribute( "src", this.href );
+                this.inputContainer.style.display = "none";
+                this.imageContainer.style.display = "block";
+            }
             this.dataChanged();
+        },
+        readImageData : function( href )
+        {
+            // We're using XMLHttpRequest directly b/c the Dojo wrapper doesn't
+            // understand the arraybuffer response handler type
+            var _xhr = new XMLHttpRequest();
+            _xhr.open( "GET", href, true );
+            _xhr.responseType = "arraybuffer";
+            _xhr.addEventListener( "load", lang.hitch( this, function() {
+                if( _xhr.status === 200 )
+                {
+                    var blob = new Blob( [ _xhr.response ], { type : "image/jpeg" });
+                    var fileReader = new FileReader();
+                    fileReader.onload = lang.hitch( this, function( evt )
+                    {
+                        var result = evt.target.result;
+                        this.data = result;
+                        this.imageNode.setAttribute( "src", result );
+                        this.inputContainer.style.display = "none";
+                        this.imageContainer.style.display = "block";
+                        this.dataChanged();
+                    });
+                    fileReader.readAsDataURL( blob );
+                }
+            }));
+            _xhr.send();
         },
         clear : function()
         {

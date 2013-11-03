@@ -131,6 +131,7 @@ function( declare,
             this._characterStore = new _CharacterStore({ manager : this, gapiProperties : this.gapiProperties });
             this._splashPane = this.createSplashCharacterPane({ manager : this }).placeAt( document.body );
             this._currentNodes = [ this._splashPane.domNode ];
+            this.portraitWidget.manager = this;
             on( this.characterNameInput, "keydown", lang.hitch( this, this.normalizeClass, this.characterNameInput ) );
             on( this.characterNameInput, "click", lang.hitch( this, this.onCharNameFocus, this.characterNameInput ) );
             on( this.characterNameInput, "change", lang.hitch( this, this.autoSave ) );

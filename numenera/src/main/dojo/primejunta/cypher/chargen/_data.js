@@ -233,12 +233,6 @@ function( declare,
                     vals.push( widg.get( "checked" ) ? "1" : "0" );
                     disb.push( widg.get( "disabled" ) ? "1" : "0" );
                 }
-                // REMOVE THE FOLLOWING BLOCK WHEN NO LONGER NEEDED
-                else if( inps[ i ].type == "checkbox" )
-                {
-                    vals.push( inps[ i ].checked ? "1" : "0" );
-                }
-                // END REMOVE
                 else
                 {
                     vals.push( this._preprocessInput( inps[ i ] ) );
@@ -274,6 +268,7 @@ function( declare,
                 description_text : this.description_text.value,
                 extra_abilities_text : this.extra_abilities_text.value,
                 img : this.portraitWidget.getHref(),
+                img_data : this.portraitWidget.getData(),
                 disabled : disb.join( "" ),
                 deleted : dels.join( "" )
             }
@@ -292,7 +287,7 @@ function( declare,
             var kwObj = ioQuery.queryToObject( qString );
             if( kwObj.img )
             {
-                this.portraitWidget.setHref( kwObj.img );
+                this.portraitWidget.setHref( kwObj.img, kwObj.img_data );
             }
             var idxs = kwObj.selects.split( this._listDelimiter );
             var vals = kwObj.inputs.split( this._listDelimiter );
@@ -340,22 +335,6 @@ function( declare,
                         widg.set( "checked", ( vals[ i ] == "1" ? true : false ) );
                         widg.set( "disabled", ( disb[ sels.length + i ] == "1" ) );
                     }
-                    // REMOVE THE FOLLOWING BLOCK SOONISH
-                    else if( inps[ i ].type == "checkbox" )
-                    {
-                        console.log( "these should all be gone" );
-                        if( registry.byId( inps[ i ].id ) )
-                        {
-                            console.log( "Setting checked" );
-                            registry.byId( inps[ i ].id ).set( "checked", ( vals[ i ] == "1" ? true : false ) );
-                        }
-                        else
-                        {
-                            console.log( "shouldn't have any of these" );
-                            inps[ i ].checked = vals[ i ] == "1" ? true : false;
-                        }
-                    }
-                    // END BLOCK TO REMOVE
                     else
                     {
                         inps[ i ].value = this._unescapeDelimiter( vals[ i ] );

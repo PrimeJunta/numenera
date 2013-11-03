@@ -90,7 +90,10 @@ function( declare,
             this._wl( "equipment_list", "equipment_list" );
             this._wl( "description_text", "description_text" );
             this._wl( "notes_text", "notes_text" );
-            this.portrait_src = this.manager.portraitWidget.getHref();
+            var imgData = this.manager.portraitWidget.getData();
+            var imgHref = this.manager.portraitWidget.getHref();
+            console.log( imgData, imgHref );
+            this.portrait_src = imgData ? imgData : imgHref;
             if( this.portrait_src )
             {
                 this.portraitImage.setAttribute( "src", this.portrait_src );
