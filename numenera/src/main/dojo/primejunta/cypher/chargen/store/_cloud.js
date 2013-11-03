@@ -50,6 +50,11 @@ function( declare,
          * Ends up in fileData.title of created sync file. We use this (in combination
          * with BACKUP_MIME_TYPE) as the foreign key to access the sync file.
          */
+        BACKUP_FILE_TITLE : "My Characters",
+        /**
+         * Ends up in fileData.title of created sync file. We use this (in combination
+         * with BACKUP_MIME_TYPE) as the foreign key to access the sync file.
+         */
         SYNC_FILE_TITLE : "Cypher System Sync File",
         /**
          * Interval between syncs, in millis.
@@ -81,10 +86,11 @@ function( declare,
                 return;
             }
             this._setCBDisabled( true );
-            this._initCloudUI();
-            this._initStorage();
-            this.drive = new Drive( this.gapiProperties );
-            this.drive.startup().then( lang.hitch( this, this.setupCloudUI ) );
+            this._initStorage().then( lang.hitch( this, function() {
+                this._initCloudUI();
+                this.drive = new Drive( this.gapiProperties );
+                this.drive.startup().then( lang.hitch( this, this.setupCloudUI ) );
+            }));
         },
         /**
          * Sets up UI for cloud storage after authorization has been checked; the authorization result
@@ -145,7 +151,7 @@ function( declare,
         getCloudBackups : function( /* boolean */ clear )
         {
             this.drive.listFiles({
-                q : this.drive.queryFromProps({ mimeType : this.BACKUP_MIME_TYPE }) + " and not title = '" + this.SYNC_FILE_TITLE + "'"
+                q : this.drive.queryFromProps({ mimeType : this.BACKUP_MIME_TYPE })
             }).then( lang.hitch( this, function( resp ) {
                 if( resp[ 0 ] )
                 {
@@ -162,6 +168,8 @@ function( declare,
                         this._backupListStore.put({ "title" : resp[ i ].title }, { "id" : resp[ i ].title, overwrite : true });
                     }
                     this.cloudBackupFileName.set( "value", resp[ 0 ].title );
+                    this.cloudSyncFileName.set( "value", this.getSyncFileTitle() );
+                    this.cloudBackupFileName.set( "value", this.getBackupFileTitle() );
                     this._setCBDisabled( false );
                 }
                 else
@@ -170,6 +178,40 @@ function( declare,
                     this.restoreFromCloudButton.set( "disabled", true );
                 }
             }));
+        },
+        /**
+         * Returns current sync file title.
+         * 
+         * @public String
+         */
+        getSyncFileTitle : function()
+        {
+            var syncFileTitle = this._storage.get( "_CCG_SYNC_FILE_TITLE" );
+            if( !syncFileTitle )
+            {
+                return this.SYNC_FILE_TITLE;
+            }
+            else
+            {
+                return syncFileTitle;
+            }
+        },
+        /**
+         * Returns current backup file title.
+         * 
+         * @public String
+         */
+        getBackupFileTitle : function()
+        {
+            var backupFileTitle = this._storage.get( "_CCG_BACKUP_FILE_TITLE" );
+            if( !backupFileTitle )
+            {
+                return this.BACKUP_FILE_TITLE;
+            }
+            else
+            {
+                return backupFileTitle;
+            }
         },
         /**
          * Stores sync preference to match syncCheckbox.checked, and calls setSyncTimer on it.
@@ -220,6 +262,7 @@ function( declare,
             {
                 return;
             }
+            var syncFileTitle = this.getSyncFileTitle();
             this._syncTimer = setTimeout( lang.hitch( this, this.performSync ), this.SYNC_INTERVAL );
             var syncState = this._storage.get( this.SYNC_STATE_KEY );
             if( syncState == "CONFLICT" )
@@ -229,7 +272,7 @@ function( declare,
             this._storage.put( this.SYNC_STATE_KEY, "PENDING" ); // starting the sync
             this.getStoredCharacters().then( lang.hitch( this, function( characterData ) {
                 var fileData = {
-                    title : this.SYNC_FILE_TITLE,
+                    title : syncFileTitle,
                     mimeType : this.BACKUP_MIME_TYPE,
                     description : this.BACKUP_DESCRIPTION,
                     dirty : syncState == "DIRTY" ? true : false,
@@ -262,6 +305,16 @@ function( declare,
                         this.setSyncState( "FAILED" );
                     }));
             }));
+        },
+        /**
+         * Stores preference for sync file title for performing syncs and future reference.
+         */
+        setSyncFileTitle : function()
+        {
+            if( this.syncFileTitle.get( "value" ) != "" )
+            {
+                this._storage.put( "_CCG_SYNC_FILE_TITLE", this.syncFileTitle.get( "value" ) );
+            }
         },
         /**
          * Backup character data to cloud, then refresh list of backups. The title of the file will be read
@@ -347,12 +400,17 @@ function( declare,
          */
         _initCloudUI : function()
         {
+            var syncFileTitle = this.getSyncFileTitle();
             this._backupListStore = new Memory({ data : [] });
             this.cloudBackupFileName = new ComboBox({
                 store : this._backupListStore,
                 searchAttr : "title",
                 onChange : lang.hitch( this, this._checkRestoreEnabled ),
                 value : "My Characters" }).placeAt( this.cloudBackupFileNameNode, "replace" );
+            this.cloudSyncFileName = new ComboBox({
+                store : this._backupListStore,
+                searchAttr : "title",
+                value : "My Characters" }).placeAt( this.cloudSyncFileNameNode, "replace" );
         },
         /**
          * Connected to onChange in filename selector. Checks if the value matches an item in its data store, and
@@ -363,6 +421,7 @@ function( declare,
         _checkRestoreEnabled : function()
         {
             var itm = this.cloudBackupFileName.get( "value" );
+            this._storage.put( "_CCG_BACKUP_FILE_TITLE", itm );
             if( this._backupListStore.get( itm ) )
             {
                 this.restoreFromCloudButton.set( "disabled", false );

@@ -37,31 +37,42 @@
         </div>
         <div data-dojo-attach-point="uploadControls"
           style="display: none">
-          <div>
-            <input type="checkbox" data-dojo-type="dijit/form/CheckBox"
-              data-dojo-attach-point="syncCheckbox"
-              data-dojo-attach-event="onChange:setSyncSwitch" /> Keep
-            my characters synced
-          </div>
-          <div style="text-align: right">
-            Backup: <input type="text"
-              data-dojo-attach-point="cloudBackupFileNameNode"
-              value="My Characters" />
-            <button data-dojo-type="dijit/form/Button"
-              data-dojo-attach-point="backupToCloudButton"
-              data-dojo-attach-event="onClick:backupToCloud"
-              disabled="disabled">
-              <i class="fa fa-cloud-upload"></i> Backup
-            </button>
-            <button data-dojo-type="dijit/form/Button"
-              data-dojo-attach-point="restoreFromCloudButton"
-              data-dojo-attach-event="onClick:restoreFromCloud"
-              disabled="disabled">
-              <i class="fa fa-cloud-download"></i> Restore
-            </button>
-          </div>
-        </div>
+          <table width="100%" cellspacing="0" cellpadding="0">
+            <tr>
+              <td align="right">Sync file: <input type="text"
+                data-dojo-attach-point="cloudSyncFileNameNode"
+                data-dojo-attach-event="onChange:setSyncFileTitle"
+                value="${SYNC_FILE_TITLE}" />
 
+              </td>
+              <td align="right"><input type="checkbox"
+                data-dojo-type="dijit/form/CheckBox"
+                data-dojo-attach-point="syncCheckbox"
+                data-dojo-attach-event="onChange:setSyncSwitch" /> Keep
+                my characters synced</td>
+            </tr>
+            <tr>
+              <td align="right">Backup: <input type="text"
+                data-dojo-attach-point="cloudBackupFileNameNode"
+                value="My Characters" />
+              </td>
+              <td align="right">
+                <button data-dojo-type="dijit/form/Button"
+                  data-dojo-attach-point="backupToCloudButton"
+                  data-dojo-attach-event="onClick:backupToCloud"
+                  disabled="disabled">
+                  <i class="fa fa-cloud-upload"></i> Backup
+                </button>
+                <button data-dojo-type="dijit/form/Button"
+                  data-dojo-attach-point="restoreFromCloudButton"
+                  data-dojo-attach-event="onClick:restoreFromCloud"
+                  disabled="disabled">
+                  <i class="fa fa-cloud-download"></i> Restore
+                </button>
+              </td>
+            </tr>
+          </table>
+        </div>
       </div>
       <div data-dojo-attach-point="localBackupNode"
         style="display: none;">
