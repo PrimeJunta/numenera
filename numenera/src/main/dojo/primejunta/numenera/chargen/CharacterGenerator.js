@@ -11,13 +11,20 @@ define([ "dojo/_base/declare",
          "./_SplashCharacterPane",
          "./_PrintView",
          "./_PlayView",
-         "./data/descriptors",
-         "./data/types",
-         "./data/foci",
-         "./data/feats",
-         "./data/exceptions",
+         "./data/origins/numenera/descriptors",
+         "./data/origins/numenera/types",
+         "./data/origins/numenera/feats",
+         "./data/origins/numenera/exceptions",
+         "./data/origins/numenera/mutant/mutations",
+         "./data/origins/strange/descriptors",
+         "./data/origins/strange/types",
+         "./data/origins/strange/feats",
+         "./data/origins/strange/exceptions",
+         "./data/recursions/earth/foci",
+         "./data/recursions/ardeyn/foci",
+         "./data/recursions/ruk/foci",
+         "./data/recursions/ninth_world/foci",
          "./optional/customize/data/advancement",
-         "./optional/mutant/data/mutations",
          "dojo/text!./templates/CharacterGenerator.html",
          "dojo/text!./doc/overview.html",
          "dojo/text!./doc/rules.html",
@@ -32,13 +39,20 @@ function( declare,
           _SplashCharacterPane,
           _PrintView,
           _PlayView,
-          descriptors,
-          types,
-          foci,
-          featAdjustments,
-          featStackingExceptions,
+          numeneraDescriptors,
+          numeneraTypes,
+          numeneraFeatAdjustments,
+          numeneraFeatStackingExceptions,
+          numeneraMutations,
+          strangeDescriptors,
+          strangeTypes,
+          strangeFeatAdjustments,
+          strangeFeatStackingExceptions,
+          earthFoci,
+          ardeynFoci,
+          rukFoci,
+          ninthWorldFoci,
           customAdvancement,
-          mutations,
           template,
           overview,
           rules,
@@ -59,23 +73,64 @@ function( declare,
         /**
          * Descriptor data.
          */
-        descriptors : descriptors,
+        descriptors : numeneraDescriptors,
         /**
          * Type data.
          */
-        types : types,
+        types : numeneraTypes,
         /**
          * Focus data.
          */
-        foci : foci,
+        foci : ninthWorldFoci,
+        /**
+         * Current origin.
+         */
+        origin : "numenera",
+        /**
+         * Current recursion.
+         */
+        recursion : "ninth_world",
+        /**
+         * Origin map.
+         */
+        origins : {
+            "numenera" : {
+                "types" : numeneraTypes,
+                "descriptors" : numeneraDescriptors,
+                "featAdjustments" : numeneraFeatAdjustments,
+                "featStackingExceptions" : numeneraFeatStackingExceptions,
+                "defaultRecursion" : "ninth_world",
+                "optionalData" : {
+                    "mutations" : numeneraMutations
+                }
+            },
+            "strange" : {
+                "types" : strangeTypes,
+                "descriptors" : strangeDescriptors,
+                "featAdjustments" : strangeFeatAdjustments,
+                "featStackingExceptions" : strangeFeatStackingExceptions,
+                "defaultRecursion" : "earth",
+                "optionalData" : {
+                }
+            }
+        },
+        /**
+         * Recursion map.
+         */
+        recursions : {
+            "ninth_world" : ninthWorldFoci,
+            "earth" : earthFoci,
+            "ardeyn" : ardeynFoci,
+            "ruk" : rukFoci
+        },
         /**
          * Adjustment data applied from feats.
          */
-        featAdjustments : featAdjustments,
+        featAdjustments : numeneraFeatAdjustments,
         /**
          * Exceptions to feat stacking restrictions.
          */
-        featStackingExceptions : featStackingExceptions,
+        featStackingExceptions : numeneraFeatStackingExceptions,
         /**
          * Help data.
          */
@@ -99,7 +154,7 @@ function( declare,
          * Optional data.
          */
         optionalData : {
-            mutations : mutations
+            mutations : numeneraMutations
         },
         /**
          * Google API properties.
@@ -116,6 +171,9 @@ function( declare,
          * Path to icons and other graphic goodies.
          */
         iconSrc : require.toUrl( "primejunta/numenera/themes/images" ),
+        /**
+         * Where the portraits are.
+         */
         portraitHome : require.toUrl( "assets/numenera/portraits" ),
         /**
          * Return a _PrintView.

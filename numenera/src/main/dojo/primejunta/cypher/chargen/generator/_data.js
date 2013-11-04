@@ -171,7 +171,7 @@ function( declare,
             setTimeout( lang.hitch( this, this._doAutoSave, 100 ) ); // async to stop the UI from stuttering in case things take time
         },
         /**
-         * Wraps _popualteFromStoredData in a try-catch block and displays a polite alert if something bad happened, e.g. because
+         * Wraps _populateFromStoredData in a try-catch block and displays a polite alert if something bad happened, e.g. because
          * the data was corrupted.
          */
         populateFromStoredData : function( /* String */ qString )
@@ -179,7 +179,8 @@ function( declare,
             this._populating.push( 7 );
             try
             {
-                this._populateFromStoredData( qString );
+                var kwObj = ioQuery.queryToObject( qString );
+                this._populateFromStoredData( kwObj );
             }
             catch( e )
             {
@@ -246,8 +247,10 @@ function( declare,
                     }
                 }
             }
-            return {
+            var obj = {
                 version : this.DATA_VERSION,
+                origin : this.origin,
+                recursion : this.recursion,
                 descriptor : this.selectValue( this.descriptorSelect ).value,
                 type : this.selectValue( this.typeSelect ).value,
                 focus : this.selectValue( this.focusSelect ).value,
@@ -265,6 +268,8 @@ function( declare,
                 disabled : disb.join( "" ),
                 deleted : dels.join( "" )
             }
+            obj = lang.mixin( obj, this.getFlatRecursionData() );
+            return obj;
         },
         /**
          * Calls _characterStore.storeCharacter with character data as qString and true, which flags it as an auto-save.
@@ -284,9 +289,8 @@ function( declare,
          * tiering up, too bad, you can't bump the stats back down.) Completes by emitting a pleaseCheckState topic, which
          * will get any controls on the page to do just that.
          */
-        _populateFromData : function( /* String */ qString )
+        _populateFromData : function( /* Object */ kwObj )
         {
-            var kwObj = ioQuery.queryToObject( qString );
             if( kwObj.img )
             {
                 this.portraitWidget.setHref( kwObj.img, kwObj.img_data );
@@ -369,15 +373,15 @@ function( declare,
         /**
          * Gets populate method for qString with _getPopulateMethod, then runs it if provided.
          */
-        _populateFromStoredData : function( /* String */ qString )
+        _populateFromStoredData : function( /* String */ kwObj )
         {
             this._populating.push( 3 );
             this.doClearAll();
-            var populateMethod = this._getPopulateMethod( qString );
+            var populateMethod = this._getPopulateMethod( kwObj );
             if( populateMethod )
             {
-                this._prepareCharacterLoad( qString );
-                lang.hitch( this, populateMethod )( qString );
+                this._prepareCharacterLoad( kwObj );
+                lang.hitch( this, populateMethod )( kwObj );
             }
             this._populating.pop();
             topic.publish( "CharGen/pleaseCheckState" );
@@ -386,9 +390,8 @@ function( declare,
          * Parses qString into a kwObject, then checks that kwObj.version matches DATA_VERSION and that all the fields in DATA_FIELDS
          * are present. Displays a polite alert about the former; throws an exception about the latter.
          */
-        _getPopulateMethod : function( /* String */ qString )
+        _getPopulateMethod : function( /* Object */ kwObj )
         {
-            var kwObj = ioQuery.queryToObject( qString );
             if( kwObj.version == this.DATA_VERSION )
             {
                 return this._validateFields( kwObj ) ? this._populateFromData : false;
@@ -441,10 +444,27 @@ function( declare,
             return ioQuery.objectToQuery( dataObj ) + this.getOptionalData();
         },
         /**
-         * Extension point.
+         * Sets up origin and recursion.
          */
-        _prepareCharacterLoad : function( qString )
+        _prepareCharacterLoad : function( kwObj )
         {
+            if( !kwObj.origin )
+            {
+                this._doSetOrigin( this.DEFAULT_ORIGIN );
+            }
+            else
+            {
+                this._doSetOrigin( kwObj.origin );
+            }
+            if( !kwObj.recursion )
+            {
+                this.setRecursion( this.DEFAULT_RECURSION, kwObj.focus );
+            }
+            else
+            {
+                this.setRecursion( kwObj.recursion, kwObj.focus );
+                this.readRecursionData( kwObj );
+            }
         },
         /**
          * Checks kwObj.version and other features in it to check if the data can be loaded, and returns true or false accordingly.

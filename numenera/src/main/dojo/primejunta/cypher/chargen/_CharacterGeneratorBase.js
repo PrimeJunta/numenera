@@ -28,6 +28,7 @@ define([ "dojo/_base/declare",
          "./generator/_gm",
          "./generator/_lists",
          "./generator/_phrase",
+         "./generator/_recursions",
          "./generator/_textarea",
          "./generator/_transitions",
          "./generator/_widgets",
@@ -60,6 +61,7 @@ function( declare,
           _gm,
           _lists,
           _phrase,
+          _recursions,
           _textarea,
           _transitions,
           _widgets,
@@ -69,7 +71,7 @@ function( declare,
           _WidgetsInTemplateMixin,
           copyright )
 {
-    return declare( "primejunta/numenera/chargen/_CharacterGeneratorBase", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _StartupMixin, _UtilityMixin, _data, _lists, _phrase, _widgets, _transitions, _gm, _textarea, _finalize, _OptionalRulesMixin ], {
+    return declare( "primejunta/numenera/chargen/_CharacterGeneratorBase", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _StartupMixin, _UtilityMixin, _data, _lists, _phrase, _widgets, _recursions, _transitions, _gm, _textarea, _finalize, _OptionalRulesMixin ], {
         /**
          * Short copyright notice, will appear in a number of places.
          */
@@ -86,6 +88,14 @@ function( declare,
          * Default character name.
          */
         DEFAULT_CHARACTER_NAME : "a Hero of the Ninth World",
+        /**
+         * Default origin.
+         */
+        DEFAULT_ORIGIN : "numenera",
+        /**
+         * Default recursion.
+         */
+        DEFAULT_RECURSION : "ninth_world",
         /**
          * Stub. Put help content here.
          */
@@ -109,6 +119,7 @@ function( declare,
         postMixInProperties : function()
         {
             this.inherited( arguments );
+            this.recursionSelectVisibility = window._allowSwitchOrigin ? "visible" : "hidden";
             this.setup(); // from _StartupMixin
         },
         /**
@@ -119,6 +130,7 @@ function( declare,
             this._buffer = [];
             this._populating = [];
             this._controls = [];
+            this.initializeRecursions();
             this.setupOptionals(); // from optionals
             this.statsControl.manager = this;
             this.writePhraseSelects();
@@ -240,6 +252,9 @@ function( declare,
          */
         doClearAll : function( deferred )
         {
+            this._doSetOrigin( this.DEFAULT_ORIGIN );
+            this.setRecursion( this.DEFAULT_RECURSION );
+            this._recursionData = {};
             this._clear();
             this._splashPane.reset();
             this.descriptorSelect.selectedIndex = 0;

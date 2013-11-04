@@ -71,6 +71,35 @@ function( declare,
             this.manager.focusSelect.selectedIndex = this.focusSelect.selectedIndex;
             this.manager.selectFocus( true );
         },
+        switchOrigin : function()
+        {
+            if( !window._allowSwitchOrigin )
+            {
+                return;
+            }
+            var found = false, first = false;
+            for( var o in this.manager.origins )
+            {
+                if( !first )
+                {
+                    first = o;
+                }
+                if( found )
+                {
+                    this.setOrigin( o );
+                    return;
+                }
+                if( this.manager.origin == o )
+                {
+                    found = true;
+                }
+            }
+            this.setOrigin( first );
+        },
+        setOrigin : function( origin )
+        {
+            this.manager.setOrigin( origin ).then( lang.hitch( this, this.writePhraseSelects ) );
+        },
         /**
          * Calls manager.openCharacter.
          */

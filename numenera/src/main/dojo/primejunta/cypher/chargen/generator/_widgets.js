@@ -9,6 +9,7 @@ define([ "dojo/_base/declare",
          "dojo/dom-construct",
          "../_CharacterValidator",
          "../_AdvancementControl",
+         "../_RecursionInitializer",
          "../_HelpViewer" ],
 function( declare,
           lang,
@@ -18,6 +19,7 @@ function( declare,
           domConstruct,
           _CharacterValidator,
           _AdvancementControl,
+          RecursionInitializer,
           _HelpViewer )
 {
     return declare([], {
