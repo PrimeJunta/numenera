@@ -73,6 +73,9 @@ function( declare,
             }
             on( this.shin_count, "blur", lang.hitch( this, this.intInputChanged, this.shin_count ) );
         },
+        /**
+         * Intercepts gets for stats in this.stats. Returns them as int.
+         */
         get : function( prop )
         {
             if( array.indexOf( this.stats, prop ) != -1 )
@@ -84,6 +87,9 @@ function( declare,
                 return this.inherited( arguments );
             }
         },
+        /**
+         * Intercepts sets for stats in this.stats.
+         */
         set : function( prop, val )
         {
             if( array.indexOf( this.stats, prop ) != -1 )
@@ -102,25 +108,6 @@ function( declare,
             {
                 this.inherited( arguments );
             }
-        },
-        /**
-         * Adjust value of field:
-         * * stat = "might"|"speed"|"intellect"
-         * * prop = "pool" | "edge"
-         * * by = integer, normally 1 or -1.
-         * Disables decrement control if the new value hits the floor defined in type, checkCaps, and autoSave.
-         */
-        _adjust : function( /* String */ stat, /* String */ prop, /* int */ by )
-        {
-            var _from = this.get( "free_" + prop );
-            var _to = this.get( stat + "_" + prop );
-            _from += -by;
-            _to += by;
-            this.set(  "free_" + prop, _from );
-            this.set(  stat + "_" + prop, _to );
-            this[ stat + "_" + prop ].adjustment += by;
-            this.checkLimits( prop );
-            this.manager.autoSave();
         },
         /**
          * Just shorthand for checking caps on both pool and edge.
@@ -154,6 +141,9 @@ function( declare,
             this._checkLimits( "speed", prop );
             this._checkLimits( "intellect", prop );
         },
+        /**
+         * Resets everything to zero.
+         */
         resetStats : function()
         {
             this.set( "might_pool", 0 );
@@ -185,6 +175,9 @@ function( declare,
                 this._augmentStat( o, stats[ o ] );
             }
         },
+        /**
+         * Applies adjustments from data up to tier.
+         */
         applyAdjustments : function( /* Object */ data )
         {
             if( !data )
@@ -202,6 +195,9 @@ function( declare,
             }
             this.checkCaps();
         },
+        /**
+         * Undoes adjustments from data up to tier.
+         */
         undoAdjustments : function( /* Object */ data )
         {
             if( !data )
@@ -219,12 +215,39 @@ function( declare,
             }
             this.checkCaps();
         },
+        /**
+         * Sets _checkFloor to to. This will determine if we check the stat floor for adjustments. We don't if GM controls are on.
+         */
         setFloorCheck : function( to )
         {
             this._checkFloor = to;
             this.checkCaps();
         },
-        _connectAdjustmentControls : function( stat )
+        /**
+         * Adjust value of field:
+         * * stat = "might"|"speed"|"intellect"
+         * * prop = "pool" | "edge"
+         * * by = integer, normally 1 or -1.
+         * Disables decrement control if the new value hits the floor defined in type, checkCaps, and autoSave.
+         */
+        _adjust : function( /* String */ stat, /* String */ prop, /* int */ by )
+        {
+            var _from = this.get( "free_" + prop );
+            var _to = this.get( stat + "_" + prop );
+            _from += -by;
+            _to += by;
+            this.set(  "free_" + prop, _from );
+            this.set(  stat + "_" + prop, _to );
+            this[ stat + "_" + prop ].adjustment += by;
+            this.checkLimits( prop );
+            this.manager.autoSave();
+        },
+        /**
+         * Connects adjustment controls for stat.
+         * 
+         * @param stat "might_pool"|"might_edge" ...
+         */
+        _connectAdjustmentControls : function( /* String */ stat )
         {
             var pair = stat.split( "_" );
             if( this[ "increment_" + stat ] )
@@ -236,7 +259,10 @@ function( declare,
                 this.own( on( this[ "decrement_" + stat ], "click", lang.hitch( this, this._adjust, pair[ 0 ], pair[ 1 ], -1 ) ) );
             }
         },
-        _augmentStat : function( stat, by )
+        /**
+         * Augments stat by value in by. Calls augmentCypherList if we adjusted cypher_count.
+         */
+        _augmentStat : function( /* String */ stat, /* int */ by )
         {
             var val = this.get( stat );
             if( isNaN( val ) )

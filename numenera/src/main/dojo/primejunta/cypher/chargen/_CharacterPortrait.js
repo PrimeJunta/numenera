@@ -101,7 +101,6 @@ function( declare,
         },
         setHref : function( href, imgData, validate )
         {
-            console.log( "SETTING", href, imgData, validate );
             if( imgData && imgData != "false" )
             {
                 this.data = imgData;

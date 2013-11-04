@@ -1,3 +1,6 @@
+/**
+ * Methods handling transitions between views in character generator.
+ */
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "dojo/_base/fx",
@@ -8,7 +11,12 @@ function( declare,
           Deferred )
 {
     return declare([], {
-        transitionTo : function( viewName )
+        /**
+         * Transitions from currently selected view to viewName.
+         * 
+         * @public Deferred
+         */
+        transitionTo : function( /* String */ viewName )
         {
             var view = this.views[ viewName ];
             var deferred = new Deferred();
@@ -22,7 +30,12 @@ function( declare,
             }
             return deferred;
         },
-        transitionOut : function( deferred )
+        /**
+         * Transitions out of the current pane. Returns deferred if provided, else a new one.
+         * 
+         * @public Deferred
+         */
+        transitionOut : function( /* Deferred */ deferred )
         {
             if( this._toip )
             {
@@ -43,6 +56,25 @@ function( declare,
             deferred.resolve();
             return deferred;
         },
+        /**
+         * Transitions into the pane indicated with viewName.
+         * 
+         * @public Deferred
+         */
+        transitionIn : function( /* String */ viewName, /* Deferred? */ deferred )
+        {
+            if( this._tiip )
+            {
+                return;
+            }
+            this._tiip = true;
+            return this._transition( viewName, true, deferred );
+        },
+        /**
+         * Returns ID of currently showing view.
+         * 
+         * @public String
+         */
         getShowingView : function()
         {
             for( var o in this.views )
@@ -53,31 +85,27 @@ function( declare,
                 }
             }
         },
-        transitionIn : function( viewName, deferred )
-        {
-            if( this._tiip )
-            {
-                return;
-            }
-            this._tiip = true;
-            return this._transition( viewName, true, deferred );
-        },
-        _transition : function( viewName, want, deferred )
+        /**
+         * Performs transition to or from viewName, depending on _in (true is in, false is out).
+         * 
+         * @public Deferred
+         */
+        _transition : function( viewName, _in, deferred )
         {
             if( !deferred )
             {
                 deferred = new Deferred();
             }
             var view = this.views[ viewName ];
-            if( view.selected == want ) // we're already there
+            if( view.selected == _in ) // we're already there
             {
                 deferred.resolve();
                 return deferred;
             }
             else
             {
-                view.selected = want;
-                if( want )
+                view.selected = _in;
+                if( _in )
                 {
                     for( var i = 0; i < view.nodes.length; i++ )
                     {
@@ -85,9 +113,14 @@ function( declare,
                     }
                     this._kick();
                 }
-                return this._performTransition( want ? fx.fadeIn : fx.fadeOut, view, deferred );
+                return this._performTransition( _in ? fx.fadeIn : fx.fadeOut, view, deferred );
             }
         },
+        /**
+         * Performs transition specified by func, on view, resolves and returns deferred.
+         * 
+         * @private Deferred
+         */
         _performTransition : function( func, view, deferred )
         {
             func({

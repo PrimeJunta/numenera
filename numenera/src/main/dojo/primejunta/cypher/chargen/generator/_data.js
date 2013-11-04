@@ -117,11 +117,16 @@ function( declare,
         {
             this._doPopulateFromQueryString();
         },
+        /**
+         * UI call to store character.
+         */
         pleaseStoreCharacter : function()
         {
             this._characterStore.storeCharacter();
         },
         /**
+         * Passes call to _characterStore.
+         * 
          * @public Deferred
          */
         getStoredCharacters : function()
@@ -165,13 +170,6 @@ function( declare,
             this.saveButton.set( "disabled", false );
             setTimeout( lang.hitch( this, this._doAutoSave, 100 ) ); // async to stop the UI from stuttering in case things take time
         },
-        _doAutoSave : function()
-        {
-            var qString = this._getCharacterData();
-            var href = window.location.origin + window.location.pathname + "?" + qString; 
-            this._buffer.push( qString );
-            this._characterStore.storeCharacter( qString, true );
-        },
         /**
          * Wraps _popualteFromStoredData in a try-catch block and displays a polite alert if something bad happened, e.g. because
          * the data was corrupted.
@@ -193,11 +191,6 @@ function( declare,
             }
             this.onCharNameBlur( this.characterNameInput );
             this._populating.pop();
-        },
-        _getCharacterData : function()
-        {
-            var dataObj = this.getCharacterDataObj();
-            return ioQuery.objectToQuery( dataObj ) + this.getOptionalData();
         },
         /**
          * Okay, the beef. Or one of them. We generate the character data with this method. Since we transfer the
@@ -272,6 +265,15 @@ function( declare,
                 disabled : disb.join( "" ),
                 deleted : dels.join( "" )
             }
+        },
+        /**
+         * Calls _characterStore.storeCharacter with character data as qString and true, which flags it as an auto-save.
+         */
+        _doAutoSave : function()
+        {
+            var qString = this._getCharacterData();
+            this._buffer.push( qString );
+            this._characterStore.storeCharacter( qString, true );
         },
         /**
          * Pushes something into the _populating stack, clearAll, parse out the
@@ -413,6 +415,11 @@ function( declare,
                 return false;
             }
         },
+        /**
+         * Checks that kwObj contains all fields listed in this.DATA_FIELDS for the matching version.
+         * 
+         * @private boolean
+         */
         _validateFields : function( kwObj )
         {
             var fields = this.DATA_FIELDS[ kwObj.version ];
@@ -425,6 +432,17 @@ function( declare,
             }
             return true;
         },
+        /**
+         * Returns character data as URL-encoded String.
+         */
+        _getCharacterData : function()
+        {
+            var dataObj = this.getCharacterDataObj();
+            return ioQuery.objectToQuery( dataObj ) + this.getOptionalData();
+        },
+        /**
+         * Extension point.
+         */
         _prepareCharacterLoad : function( qString )
         {
         },

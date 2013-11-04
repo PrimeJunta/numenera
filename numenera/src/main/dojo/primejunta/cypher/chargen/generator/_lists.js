@@ -7,7 +7,7 @@ define([ "dojo/_base/declare",
          "dojo/topic",
          "dojo/query",
          "dojo/dom-construct",
-         "./_ListItem" ],
+         "../_ListItem" ],
 function( declare,
           lang,
           array,
@@ -19,8 +19,6 @@ function( declare,
     return declare([], {
         /**
          * Collects list data from the form. Merges in data from _AdvancementControl if present.
-         * 
-         * TODO: maybe move some or all of this logic to _CharacterValidator instead.
          */
         listAsText : function( /* String */  listName )
         {
@@ -125,7 +123,10 @@ function( declare,
             this[ listName + "_label" ].style.display = "block";
             return itm;
         },
-        removeListItem : function( li )
+        /**
+         * Removes pointers to li from _controls and the matching list in _lists, and hides label if it was the last one.
+         */
+        removeListItem : function( /* ListItem */ li )
         {
             this.removeMember( this._controls, li );
             this.removeMember( this._lists[ li.listName ], li );
@@ -134,14 +135,73 @@ function( declare,
                 this[ li.listName + "_label" ].style.display = "none";
             }
         },
+        /**
+         * Removes any extra members from cypher_list, then calls augmentCypherList with the correct number.
+         */
         updateCypherList : function()
         {
-            var n = parseInt( this.statsControl.cypher_count.value );
+            var n = this.statsControl.get( "cypher_count" );
             while( this._lists.cypher_list.length > n )
             {
                 this._lists.cypher_list.pop().destroy();
             }
             this.augmentCypherList( n );
+        },
+        /**
+         * Adds enough new rows in the cypher list to match count.
+         */
+        augmentCypherList : function( /* String|int */ count )
+        {
+            if( !this._lists || !this._lists.cypher_list )
+            {
+                return;
+            }
+            var count = parseInt( count );
+            while( this._lists.cypher_list.length > count )
+            {
+                this._lists.cypher_list.pop().destroy();
+            }
+            while( this._lists.cypher_list.length < count )
+            {
+                this.createListItem( "cypher_list", { text : "${input:GM chooses}", from : [ "type" ]});
+            }
+        },
+        /**
+         * Clears all list items with from in their .from property. Use e.g. when switching focus or descriptor.
+         * 
+         * @param from: "desc"|"type"|"focus"
+         */
+        clearItems : function( /* String */ from )
+        {
+            for( var o in this._listdata )
+            {
+                for( var i = 0; i < this._listdata[ o ].length; i++ )
+                {
+                    var cur = this._listdata[ o ][ i ];
+                    if( cur && array.indexOf( cur.from, from ) != -1 )
+                    {
+                        if( cur.from.length == 1 )
+                        {
+                            if( cur.widget )
+                            {
+                                cur.widget.destroy();
+                            }
+                            this._listdata[ o ].splice( i, 1 );
+                            i--;
+                        }
+                        else
+                        {
+                            cur.from.splice( array.indexOf( cur.from, from ), 1 );
+                            cur.text = "Ⓣ" + cur.text.substring( cur.text.indexOf( "Ⓢ" ) + 1 );
+                            cur.widget.updateRendering();
+                        }
+                    }
+                }
+                if( this._listdata[ o ].length == 0 )
+                {
+                    this[ o + "_label" ].style.display = "none";
+                }
+            }
         },
         /**
          * Special case: a starting character gets two special abilities, so we read the first-tier perk list
@@ -164,25 +224,6 @@ function( declare,
             if( focus.advancement[ 0 ].bonus_perks )
             {
                 this._writeItems( "bonus_list", focus.advancement[ 0 ].bonus_perks, "focus" );
-            }
-        },
-        /**
-         * Adds enough new rows in the cypher list to match count.
-         */
-        augmentCypherList : function( /* String|int */ count )
-        {
-            if( !this._lists || !this._lists.cypher_list )
-            {
-                return;
-            }
-            var count = parseInt( count );
-            while( this._lists.cypher_list.length > count )
-            {
-                this._lists.cypher_list.pop().destroy();
-            }
-            while( this._lists.cypher_list.length < count )
-            {
-                this.createListItem( "cypher_list", { text : "${input:GM chooses}", from : [ "type" ]});
             }
         },
         /**
@@ -273,40 +314,8 @@ function( declare,
                 });
             }
         },
-        clearItems : function( from )
-        {
-            for( var o in this._listdata )
-            {
-                for( var i = 0; i < this._listdata[ o ].length; i++ )
-                {
-                    var cur = this._listdata[ o ][ i ];
-                    if( cur && array.indexOf( cur.from, from ) != -1 )
-                    {
-                        if( cur.from.length == 1 )
-                        {
-                            if( cur.widget )
-                            {
-                                cur.widget.destroy();
-                            }
-                            this._listdata[ o ].splice( i, 1 );
-                            i--;
-                        }
-                        else
-                        {
-                            cur.from.splice( array.indexOf( cur.from, from ), 1 );
-                            cur.text = "Ⓣ" + cur.text.substring( cur.text.indexOf( "Ⓢ" ) + 1 );
-                            cur.widget.updateRendering();
-                        }
-                    }
-                }
-                if( this._listdata[ o ].length == 0 )
-                {
-                    this[ o + "_label" ].style.display = "none";
-                }
-            }
-        },
         /**
-         * Emits an event that nukes any existing list items and recreates the lists.
+         * Recreates the lists.
          */
         _printLists : function()
         {

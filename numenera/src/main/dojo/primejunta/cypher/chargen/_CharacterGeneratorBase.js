@@ -2,21 +2,16 @@
  * Character generation utility for Monte Cook's Numenera RPG system. Numenera is (c) Monte Cook Games LLC, 2013.
  * This utility is an unofficial project by Petteri Sulonen. No rights reserved -- feel free to reuse as you wish.
  * 
- * See also _data, _lists, and _stats. Some of the logic has been parceled out there.
+ * See also the mixins under generator. This has a lot of logic and some of it has been parceled out there.
  */
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "dojo/_base/array",
-         "dojo/_base/fx",
          "dojo/Deferred",
-         "dojo/io-query",
          "dojo/on",
          "dojo/topic",
          "dojo/dom-class",
-         "dojo/dom-construct",
          "dojo/query",
-         "dojo/has",
-         "dojo/cookie",
          "dijit/layout/BorderContainer",
          "dijit/layout/TabContainer",
          "dijit/layout/ContentPane",
@@ -27,13 +22,15 @@ define([ "dojo/_base/declare",
          "dojox/mobile/Heading",
          "primejunta/_StartupMixin",
          "./store/_CharacterStore",
-         "./_CharacterValidator",
-         "./_AdvancementControl",
-         "./_HelpViewer",
          "./_UtilityMixin",
-         "./_data",
-         "./_lists",
-         "./_transitions",
+         "./generator/_data",
+         "./generator/_finalize",
+         "./generator/_gm",
+         "./generator/_lists",
+         "./generator/_phrase",
+         "./generator/_textarea",
+         "./generator/_transitions",
+         "./generator/_widgets",
          "./optional/_OptionalRulesMixin",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -42,16 +39,11 @@ define([ "dojo/_base/declare",
 function( declare,
           lang,
           array,
-          fx,
           Deferred,
-          ioQuery,
           on,
           topic,
           domClass,
-          domConstruct,
           domQuery,
-          has,
-          cookie,
           BorderContainer,
           TabContainer,
           ContentPane,
@@ -62,20 +54,22 @@ function( declare,
           Heading,
           _StartupMixin,
           _CharacterStore,
-          _CharacterValidator,
-          _AdvancementControl,
-          _HelpViewer,
           _UtilityMixin,
           _data,
+          _finalize,
+          _gm,
           _lists,
+          _phrase,
+          _textarea,
           _transitions,
+          _widgets,
           _OptionalRulesMixin,
           _WidgetBase,
           _TemplatedMixin,
           _WidgetsInTemplateMixin,
           copyright )
 {
-    return declare( "primejunta/numenera/chargen/_CharacterGeneratorBase", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _StartupMixin, _UtilityMixin, _data, _lists, _transitions, _OptionalRulesMixin ], {
+    return declare( "primejunta/numenera/chargen/_CharacterGeneratorBase", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _StartupMixin, _UtilityMixin, _data, _lists, _phrase, _widgets, _transitions, _gm, _textarea, _finalize, _OptionalRulesMixin ], {
         /**
          * Short copyright notice, will appear in a number of places.
          */
@@ -157,43 +151,35 @@ function( declare,
             this.inherited( arguments );
             this.checkForStartupQuery();
         },
-        writePhraseSelects : function()
+        /**
+         * Checks that we're not in the middle of programmatic population; if not, validates the character
+         * with a new (if necessary) _CharacterValidator, returning the result.
+         */
+        validateCharacter : function()
         {
-            this.initializeSelect( "descriptorSelect", this.descriptors );
-            this.initializeSelect( "typeSelect", this.types );
-            this.initializeSelect( "focusSelect", this.foci );
+            if( this._populating.length != 0 )
+            {
+                return true;
+            }
+            if( !this._validator )
+            {
+                this._validator = this.createCharacterValidator({ manager : this });
+            }
+            return this._validator.validateCharacter();
         },
         /**
-         * Stub. Create and return a SplashCharacterPane of the appropriate type.
+         * If the character has an _advancementControl, retrieves XP from it, else returns false.
          */
-        createSplashCharacterPane : function( props )
+        getXP : function()
         {
-        },
-        /**
-         * Stub. Return a character record of the right type.
-         */
-        createPrintView : function( props )
-        {
-        },
-        /**
-         * Stub. Return a play view of the right type.
-         */
-        createPlayView : function( props )
-        {
-        },
-        /**
-         * Stub. Return a character record of the right type.
-         */
-        createAdvancementControl : function( props )
-        {
-            return new _AdvancementControl( props );
-        },
-        /**
-         * Stub. Create and provide a character validator of the appropriate type.
-         */
-        createCharacterValidator : function( props )
-        {
-            return new _CharacterValidator( props );
+            if( this._advancementControl )
+            {
+                return this._advancementControl.getXP();
+            }
+            else
+            {
+                return false;
+            }
         },
         /**
          * If the char name has not been set, clear the field and normalizeClass.
@@ -204,17 +190,6 @@ function( declare,
             {
                 fld.value = "";
                 this.normalizeClass( fld );
-            }
-        },
-        setDataRefreshedReminder : function( to )
-        {
-            if( to )
-            {
-                domClass.add( this.characterStoreButton.domNode, "cg-dataRefreshed" );
-            }
-            else
-            {
-                domClass.remove( this.characterStoreButton.domNode, "cg-dataRefreshed" );
             }
         },
         /**
@@ -237,377 +212,21 @@ function( declare,
             this.normalizeClass( fld );
         },
         /**
-         * Iterate through data and write an option into select at attach point, with text = member.label and 
-         * value = position in array, for each member.
+         * Marks characterStoreButton as refreshed (or not).
          */
-        initializeSelect : function( /* String */ select, /* Object[] */ data )
+        setDataRefreshedReminder : function( /* boolean */ to )
         {
-            var sel = this[ select ];
-            sel.options.length = 1;
-            for( var o in data )
+            if( to )
             {
-                var opt = new Option( data[ o ].label, o );
-                sel.options[ sel.options.length ] = opt;
-            }
-        },
-        /**
-         * Triggered when user picks a descriptor from the list. Sets the article on the page to "a" or "an",
-         * depending, and continues with updateValues and autoSave. We use a stack to keep track of programmatic
-         * changes to the data so we don't spam the Ctrl-Z queue.
-         */
-        selectDescriptor : function()
-        {
-            this._populating.push( 1 );
-            var label = this.selectValue( this.descriptorSelect ).label;
-            var _art = "an";
-            if( "AEIOUYaeiouy".indexOf( label.charAt( 0 ) ) == -1 )
-            {
-                _art = "a";
-            }
-            this._splashPane.articleNode.innerHTML = _art;
-            this.updateItems( "desc", this.getDescriptor() );
-            //this.updateStats();
-            this._printLists();
-            this._populating.pop();
-            this.autoSave();
-            this.checkSwitchToMain();
-        },
-        /**
-         * Triggered when the user selects a type. Does updateValues and completes with autoSave.
-         */
-        selectType : function()
-        {
-            this._populating.push( 4 );
-            var type = this.getType();
-            this.updateItems( "type", type );
-            this.updateStats();
-            if( type )
-            {
-                this.special_list_label.innerHTML = type.special_list_label;
-                this._writeSpecialList( type );
-            }
-            this._printLists();
-            this._populating.pop();
-            this.autoSave();
-            this.checkSwitchToMain();
-        },
-        /**
-         * Triggered when the user selects a focus. Does updateValues and completes with autoSave.
-         */
-        selectFocus : function()
-        {
-            var focus = this.getFocus();
-            this.updateFocus( focus );
-            this.autoSave();
-            this.checkSwitchToMain();
-        },
-        updateStats : function()
-        {
-            this.statsControl.resetStats();
-            this.statsControl.applyAdjustments( this.getType() );
-            this.statsControl.moveCaps();
-            this.statsControl.applyAdjustments( this.getFocus() );
-            this.statsControl.applyAdjustments( this.getDescriptor() );
-        },
-        updateFocus : function( focus )
-        {
-            this._populating.push( 5 );
-            this.preUpdateFocus(); // from _OptionalRulesMixin
-            this.updateItems( "focus", focus );
-            if( this._advancementControl )
-            {
-                this._advancementControl.changeFocus( focus );
-            }
-            if( focus )
-            {
-                this._writeBonusList( focus );
-            }
-            this._printLists();
-            this.postUpdateFocus( arguments ); // from _OptionalRulesMixin
-            this._populating.pop();
-        },
-        updateItems : function( from, data )
-        {
-            if( !( from == "focus" && this.customized ) )
-            {
-                this.statsControl.undoAdjustments( this[ "current_" + from ] );
-            }
-            this.clearItems( from ); // in list
-            if( !data )
-            {
-                delete this[ "current_" + from ];
-                return;
-            }
-            this.statsControl.applyAdjustments( data );
-            this[ "current_" + from ] = data;
-            this._appendToLists( data.lists, from );
-            var idx = array.indexOf([ "type", "focus", "desc" ], from );
-            this._writeLine( "description_text", data.description_text, idx );
-            this._writeLine( "notes_text", data.notes_text, idx );
-        },
-        checkSwitchToMain : function()
-        {
-            if( this._populating.length > 0 )
-            {
-                return;
-            }
-            if( this.getType() && this.getDescriptor() && this.getFocus() )
-            {
-                this.transitionTo( "main" );
+                domClass.add( this.characterStoreButton.domNode, "cg-dataRefreshed" );
             }
             else
             {
-                this._splashPane.reset( true );
-                this.transitionTo( "splash" );
-            }
-        },
-        toggleGMControls : function()
-        {
-            if( this._gmControlsOn )
-            {
-                domClass.remove( this.domNode, "gm-controls-enabled" );
-                this.statsControl.setFloorCheck( true );
-                this.updatePhrase();
-                this._gmControlsOn = false;
-            }
-            else
-            {
-                domClass.add( this.domNode, "gm-controls-enabled" );
-                this.statsControl.setFloorCheck( false );
-                this._gmControlsOn = true;
+                domClass.remove( this.characterStoreButton.domNode, "cg-dataRefreshed" );
             }
         },
         /**
-         * GM control: adds an ability with one of the circle prefixes.
-         */
-        addExtraAbility : function()
-        {
-            var phrase = this.selectValue( this.extraAbilityTypeSelect ).value + " " + this.toTitleCase( this.extraAbilityDescription.value );
-            var _cur = this.extra_abilities_text.get( "value" );
-            if( _cur != "" && _cur.charAt( _cur.length - 1 ) != '\n' )
-            {
-                _cur += "\n";
-            }
-            this.extra_abilities_text.set( "value", _cur + phrase );
-            this.extraAbilityDescription.value = "";
-            this.autoSave();
-        },
-        /**
-         * If the character passes validation with .validateCharacter, marks it as ready for advacement.
-         * This locks the character's basic data and creates an _AdvancementControl. If tier is set (which
-         * happens when populating from a saved character, advances the controls to that tier in preparation
-         * for filling in the fields. Also disables the finalize button, and finishes with
-         * _advancementControl.checkAdvancement, which will unlock a new tier if appropriate.
-         */
-        finalize : function( /* String|int */ tier )
-        {
-            if( !this.validateCharacter() )
-            {
-                return;
-            }
-            var type = this.getType();
-            var focus = this.getFocus();
-            tier = !isNaN( parseInt( tier ) ) ? parseInt( tier ) : parseInt( this.statsControl.character_tier.value );
-            if( !this.finalized )
-            {
-                this._clearAdvancementControl();
-                this._advancementControl = this.createAdvancementControl({
-                    manager : this,
-                    typeData : type.advancement,
-                    focusData : focus.advancement
-                });
-                this.mainTabContainer.addChild( this._advancementControl );
-                this._advancementControl.advanceTier( tier );
-            }
-            this.statsControl.moveCaps();
-            if( this.statsControl.free_edge.value == "0" && this.statsControl.free_pool.value == "0" )
-            {
-                this.finalizeButton.set( "disabled", true );
-            }
-            this.finalized = true;
-            this._advancementControl.checkAdvancement();
-            if( this._populating.length == 0 )
-            {
-                this.mainTabContainer.selectChild( this._advancementControl )
-            }
-        },
-        /**
-         * Checks that we're not in the middle of programmatic population; if not, validates the character
-         * with a new (if necessary) _CharacterValidator, returning the result.
-         */
-        validateCharacter : function()
-        {
-            if( this._populating.length != 0 )
-            {
-                return true;
-            }
-            if( !this._validator )
-            {
-                this._validator = this.createCharacterValidator({ manager : this });
-            }
-            return this._validator.validateCharacter();
-        },
-        /**
-         * Locks selects and updates link. Done on finalize and when customizations have been applied.
-         */
-        lockControls : function()
-        {
-            this.typeSelect.disabled = true;
-            this.updatePhrase();
-            domClass.add( this.domNode, "cg-controlsLocked" );
-            this.autoSave();
-        },
-        /**
-         * When customizations have been un-applied.
-         */
-        unlockControls : function()
-        {
-            if( this.finalized )
-            {
-                // Finalized controls can never be unlocked.
-                return;
-            }
-            this.descriptorSelect.disabled = false;
-            this.typeSelect.disabled = false;
-            this.focusSelect.disabled = false;
-            this.updatePhrase();
-            domClass.remove( this.domNode, "cg-controlsLocked" );
-            this.autoSave();
-        },
-        updatePhrase : function()
-        {
-            if( !this.getDescriptor() || !this.getType() || !this.getFocus() )
-            {
-                return;
-            }
-            this.phraseDisplayNode.innerHTML = "the " + this.getDescriptor().label + " " + this.getType().label + " who " + this.getFocus().label;
-        },
-        /**
-         * Adds or removes finalized CSS class, which affects display of contained things.
-         */
-        setFinalizedClass : function( state )
-        {
-            state ? domClass.add( this.domNode, "cg-finalized" ) : domClass.remove( this.domNode, "cg-finalized" );
-        },
-        /**
-         * Unlocks the finalize (=Advance) button and updates link.
-         */
-        unlockFinalize : function()
-        {
-            this.finalizeButton.set( "disabled", false );
-            this.autoSave();
-        },
-        /**
-         * We're using dijit/form/Textareas for textareas. They have the annoying characteristic of emitting
-         * events after timeouts. This means they'll slip out from under our normal "populating programmatically"
-         * flag, and spam the Ctrl-Z timeline. We get around this with a _taConnected flag we unset onChange, and
-         * set onKeyDown. This means the actual dataChanged event will only fire if the user has typed in the field
-         * since the last change.
-         */
-        descriptionUpdated : function()
-        {
-            if( this._taConnected )
-            {
-                topic.publish( "CharGen/dataChanged" );
-                this._taConnected = false;
-            }
-        },
-        /**
-         * Connected to textarea's onKeyUp event. Makes subsequent onChange events fire; the onChange event will
-         * unset it again. This way we ensure that only user-entered changes are logged. See also descriptionUpdated.
-         */
-        connectTextareaListener : function()
-        {
-            this._taConnected = true;
-        },
-        /**
-         * Returns currently selected type (or undefined if not set).
-         */
-        getType : function()
-        {
-            return this.types[ this.selectValue( this.typeSelect ).value ];
-        },
-        /**
-         * Returns currently selected descriptor (or undefined if not set).
-         */
-        getDescriptor : function()
-        {
-            return this.descriptors[ this.selectValue( this.descriptorSelect ).value ];
-        },
-        /**
-         * Returns currently selected focus (or undefined if not set).
-         */
-        getFocus : function()
-        {
-            return this.foci[  this.selectValue( this.focusSelect ).value ];
-        },
-        /**
-         * (Re)creates a _PrintView for the record, places it, hides this widget and shows it.
-         */
-        showPrintView : function()
-        {
-            if( this._spv )
-            {
-                return;
-            }
-            this._spv = true;
-            try // the try-catch block is here to make debugging easier, as for some reason the exceptions disappear otherwise.
-            {
-                this._printWidget = this.createPrintView({ manager : this });
-                this._openSecondaryWidget( "print", this._printWidget );
-            }
-            catch( e )
-            {
-                console.log( e );
-            }
-        },
-        closePrintView : function()
-        {
-            this._closeSecondaryWidget( this._printWidget );
-        },
-        showPlayView : function()
-        {
-            if( this._spv )
-            {
-                return;
-            }
-            this._spv = true;
-            try // the try-catch block is here to make debugging easier, as for some reason the exceptions disappear otherwise.
-            {
-                this._playViewWidget = this.createPlayView({ manager : this });
-                this._openSecondaryWidget( "play", this._playViewWidget );
-            }
-            catch( e )
-            {
-                console.log( e );
-            }
-        },
-        closePlayView : function()
-        {
-            this._closeSecondaryWidget( this._playViewWidget );
-            this.autoSave();
-        },
-        _openSecondaryWidget : function( viewName, widg )
-        {
-            this.views[ viewName ] = { nodes : [ widg.domNode ]};
-            this.transitionOut().then( lang.hitch( this, function() {
-                widg.placeAt( document.body, "first" );
-                widg.startup();
-                this.transitionIn( viewName ).then( lang.hitch( this, function() {
-                    this._spv = false;
-                }));
-            }));
-        },
-        _closeSecondaryWidget : function( widg, view )
-        {
-            this.transitionOut().then( lang.hitch( this, function() {
-                widg.destroy();
-                this.transitionIn( view ? view : "main" );
-            }));
-        },
-        /**
-         * Calls _clear, resets the descriptor, type, and focus selects, character name input, and link,
-         * and disables the save and print buttons.
+         * Resets splash pane, transitions to it, then doClearAll.
          */
         clearAll : function()
         {
@@ -616,6 +235,9 @@ function( declare,
             this.transitionTo( "splash" ).then( lang.hitch( this, this.doClearAll, deferred ) );
             return deferred;
         },
+        /**
+         * Restores widget state to factory-fresh and resolves deferred, if provided.
+         */
         doClearAll : function( deferred )
         {
             this._clear();
@@ -648,51 +270,6 @@ function( declare,
         hideMessage : function()
         {
             this.messageDialog.hide();
-        },
-        /**
-         * Calls _showHelp with about (that's an included text module).
-         */
-        showHelp : function()
-        {
-            if( this._spv )
-            {
-                return;
-            }
-            this._spv = true;
-            this._helpViewer = new _HelpViewer({ manager : this, title : "About the Character Creation Utility", helpData : this.helpData });
-            this._prevView = this.getShowingView();
-            this._openSecondaryWidget( "help", this._helpViewer );
-        },
-        /**
-         * Calls _showHelp with changelog (that's an included text module).
-         */
-        showChangeLog : function()
-        {
-            this._showHelp( this.changelog );
-        },
-        /**
-         * Replaces line idx in textarea where with what, or adds it if not present.
-         */
-        _writeLine : function( /* Textarea */ where, /* String */ what, /* int */ idx )
-        {
-            var txt = this[ where ].get( "value" );
-            var ta = txt.split( "\n" );
-            while( ta.length < idx + 1 )
-            {
-                ta.push( "" );
-            }
-            ta[ idx ] = what;
-            this[ where ].set( "value", ta.join( "\n" ) );
-        },
-        /**
-         * Appends what to Textarea where on a new line.
-         */
-        _appendToText : function( /* Textarea */ where, /* String */ what )
-        {
-            if( what )
-            {
-                this[ where ].set( "value", this[ where ].get( "value" ) + what + "\n" );
-            }
         },
         /**
          * Removes _advancementControl from mainTabContainer, destroys it, and clears pointer to it.

@@ -77,7 +77,7 @@ function( declare,
             this._ss( "recovery_roll", "recovery_roll" );
             this._ss( "cypher_count", "cypher_count" );
             this._ss( "shin_count", "shin_count" );
-            this._ss( "character_xp", "character_xp", true );
+            this._cdata.character_xp = this.manager.getXP(); // it's a special case
             this._st( "description_text", this._textAsList( "description_text" ) );
             this._wl( "ability_list", this._getSkillList() );
             this._wl( "special_list", this._getSpecialList() );

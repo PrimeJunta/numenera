@@ -31,7 +31,13 @@ function( declare,
           template )
 {
     return declare([ ContentPane, _TemplatedMixin, _WidgetsInTemplateMixin, _UtilityMixin ], {
+        /**
+         * Inherits ContentPane which is inside a BorderContainer, so set gutters to false.
+         */
         gutters : false,
+        /**
+         * Also a ContentPane property.
+         */
         title : "Advancement",
         /**
          * The instantiating _PrintView.
@@ -65,7 +71,6 @@ function( declare,
          */
         postCreate : function()
         {
-            this.manager.character_xp = this.character_xp; // what's this for?
             on( this.character_xp, "blur", lang.hitch( this, this.intInputChanged, this.character_xp ) );
         },
         /**
@@ -94,6 +99,17 @@ function( declare,
             this.manager.statsControl.set( "character_tier", this.tier );
             this.manager.statsControl.moveCaps();
         },
+        /**
+         * Parses int from character_xp and returns it or 0 if NaN.
+         */
+        getXP : function()
+        {
+            var xp = parseInt( this.character_xp.value );
+            return isNaN( xp ) ? 0 : xp;
+        },
+        /**
+         * Calls changeFocus on each _TierWidget in _controls.
+         */
         changeFocus : function( focus )
         {
             for( var i = 0; i < this._controls.length; i++ )
