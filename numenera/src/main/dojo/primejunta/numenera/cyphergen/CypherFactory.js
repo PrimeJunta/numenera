@@ -130,10 +130,12 @@ function( declare,
                     }
                     break;
             }
+            var flavor = this.getFlavor( this._cypher ).replace( /(\s+)/g, " " );
+            var descr = this._cypher.description.replace( /(\s+)/g, " " );
             return {
                 "name" : string.substitute( "${cypher_type}: ${item_type} (level ${level})", this._cypher ),
-                "description" : this._cypher.description,
-                "flavor" : this.getFlavor( this._cypher ),
+                "description" : descr,
+                "flavor" : flavor,
                 "cypher_class" : this._cypher.cypher_class,
                 "data" : this._cypher
             }

@@ -251,8 +251,11 @@ function( declare,
         {
             str = "" + str;
             var out = str.replace( /\&/g, "&amp;" );
-            var out = out.replace( /</g, "&lt;" );
-            var out = out.replace( />/g, "&gt;" );
+            out = out.replace( /</g, "&lt;" );
+            out = out.replace( />/g, "&gt;" );
+            out = out.replace( /\n/g, "<br/>" );
+            out = out.replace( /\(Anoetic\)/g, "<i class=\"fa fa-asterisk num-blueIcon\"></i>" );
+            out = out.replace( /\(Occultic\)/g, "<i class=\"fa fa-fire num-redIcon\"></i>" );
             return out;
         },
         /**

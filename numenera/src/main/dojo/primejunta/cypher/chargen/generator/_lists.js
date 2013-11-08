@@ -7,6 +7,7 @@ define([ "dojo/_base/declare",
          "dojo/topic",
          "dojo/query",
          "dojo/dom-construct",
+         "../_Cypher",
          "../_ListItem" ],
 function( declare,
           lang,
@@ -14,6 +15,7 @@ function( declare,
           topic,
           domQuery,
           domConstruct,
+          _Cypher,
           _ListItem )
 {
     return declare([], {
@@ -79,7 +81,7 @@ function( declare,
                 this[ listName + "_label" ].style.display = "block";
                 this._lists[ listName ] = [];
             }
-            var itm =  new _ListItem({
+            var itm = this._createListItemWidget({
                 manager : this,
                 listName : listName,
                 item : itemData,
@@ -201,6 +203,17 @@ function( declare,
                 {
                     this[ o + "_label" ].style.display = "none";
                 }
+            }
+        },
+        _createListItemWidget : function( props )
+        {
+            if( props.listName == "cypher_list" )
+            {
+                return new _Cypher( props );
+            }
+            else
+            {
+                return new _ListItem( props );
             }
         },
         /**

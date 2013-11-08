@@ -209,7 +209,7 @@ function( declare,
         getCharacterDataObj : function()
         {
             var sels = domQuery( "select.cg-storeMe", this.domNode );
-            var inps = domQuery( "input.cg-storeMe,div.cg-storeMe", this.domNode );
+            var inps = domQuery( "input.cg-storeMe,div.cg-storeMe,textarea.cg-storeMe", this.domNode );
             var idxs = [];
             var vals = [];
             var disb = [];
@@ -224,8 +224,16 @@ function( declare,
                 var widg = registry.byId( inps[ i ].getAttribute( "widgetid" ) );
                 if( widg )
                 {
-                    vals.push( widg.get( "checked" ) ? "1" : "0" );
-                    disb.push( widg.get( "disabled" ) ? "1" : "0" );
+                    if( widg.declaredClass == "dijit.form.Textarea" )
+                    {
+                        vals.push( widg.get( "value" ) );
+                        disb.push( widg.get( "disabled" ) );
+                    }
+                    else
+                    {
+                        vals.push( widg.get( "checked" ) ? "1" : "0" );
+                        disb.push( widg.get( "disabled" ) ? "1" : "0" );
+                    }
                 }
                 else
                 {
@@ -312,7 +320,7 @@ function( declare,
             }
             this.populateOptionalData( kwObj );
             var sels = domQuery( "select.cg-storeMe", this.domNode );
-            var inps = domQuery( "input.cg-storeMe,div.cg-storeMe", this.domNode );
+            var inps = domQuery( "input.cg-storeMe,div.cg-storeMe,textarea.cg-storeMe", this.domNode );
             for( var i = 0; i < idxs.length; i++ )
             {
                 if( sels[ i ] )
@@ -323,7 +331,7 @@ function( declare,
                     {
                         registry.byId( sels[ i ].getAttribute( "data-parent-widget-id" ) ).selectChanged();
                         sels = domQuery( "select.cg-storeMe", this.domNode );
-                        inps = domQuery( "input.cg-storeMe", this.domNode );
+                        inps = domQuery( "input.cg-storeMe,div.cg-storeMe,textarea.cg-storeMe", this.domNode );
                     }
                 }
                 else
@@ -335,11 +343,20 @@ function( declare,
             {
                 if( inps[ i ] )
                 {
+                    console.log( vals[ i ], inps[ i ] );
                     var widg = registry.byId( inps[ i ].getAttribute( "widgetid" ) );
                     if( widg )
                     {
-                        widg.set( "checked", ( vals[ i ] == "1" ? true : false ) );
-                        widg.set( "disabled", ( disb[ sels.length + i ] == "1" ) );
+                        if( widg.declaredClass == "dijit.form.Textarea" )
+                        {
+                            widg.set( "value", vals[ i ] );
+                            widg.set( "disabled", ( disb[ sels.length + i ] == "1" ) );
+                        }
+                        else
+                        {
+                            widg.set( "checked", ( vals[ i ] == "1" ? true : false ) );
+                            widg.set( "disabled", ( disb[ sels.length + i ] == "1" ) );
+                        }
                     }
                     else
                     {

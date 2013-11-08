@@ -143,7 +143,6 @@ function( declare,
             anim.onEnd = lang.hitch( this, function(){ 
                 from.style.display = "none";
                 to.style.display = "block";
-                this.debugNode.focus(); // hack to get around weirdness in webkit
             })
             anim.play(); 
         },

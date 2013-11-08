@@ -1,0 +1,18 @@
+<li class="cg-${from}">
+  <div style="width:100%;">
+    <table cellspacing="0" cellpadding="0" width="100%">
+      <tr>
+        <td style="width: 30px;" class="num-hiddenControl num-deleteControl">
+          <input type="checkbox" data-dojo-type="dijit/form/CheckBox" data-dojo-attach-point="deleteControl"
+            data-dojo-attach-event="onClick:toggleDeleted" checked="checked"/>
+        </td>
+        <td>
+          <textarea data-dojo-attach-point="inputTextarea" data-dojo-type="dijit/form/Textarea" class="cg-storeMe num-inputTextArea"></textarea>
+        </td>
+        <td style="width: 30px;">
+          <button data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:getRandomCypher"><i class="fa fa-random"></i></button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</li>
