@@ -8,14 +8,14 @@ define([ "dojo/_base/declare",
          "dojox/fx/flip",
          "dojo/on",
          "dojo/io-query",
+         "dojo/touch",
          "./CypherFactory",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
          "dojo/text!./templates/_Cypher.html",
          "dojo/text!./templates/CypherGenerator.html",
-         "dojo/text!./doc/changelog.html",
-         "dojo/text!./doc/about.html" ],
+         "dojo/text!primejunta/cypher/doc/copyright.txt" ],
 function( declare,
           lang,
           event,
@@ -26,16 +26,21 @@ function( declare,
           flip,
           on,
           ioQuery,
+          touch,
           CypherFactory,
           _WidgetBase,
           _TemplatedMixin,
           _WidgetsInTemplateMixin,
           cypher,
           template,
-          changelog,
-          about ) 
+          copyright ) 
 {
     return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _StartupMixin ], {
+        /**
+         * Short copyright notice, will appear in a number of places.
+         */
+        copyright : copyright,
+        manager : {},
         version : "1.0.8",
         iconSrc : require.toUrl( "primejunta/numenera/themes/images" ),
         templateString : template,
@@ -55,9 +60,11 @@ function( declare,
         },
         postCreate : function()
         {
-            on( this.cypherCardOverlay, "dblclick", lang.hitch( this, function( evt ) {
+            this.own( on( this.cypherCardOverlay, "dblclick", lang.hitch( this, function( evt ) {
                 event.stop( evt );
-            }));
+            })));
+            this.own( on( this.helpLink, touch.press, lang.hitch( this.manager, this.manager.showHelp ) ) );
+            this.own( on( this.characterGeneratorLink, touch.press, lang.hitch( this, this.hideCypherGenerator ) ) );
             this._cf = new CypherFactory();
             this.start(); // from startup
         },
@@ -145,7 +152,11 @@ function( declare,
          */
         showChangeLog : function()
         {
-            this._showHelp( changelog );
+            this._showHelp( this.manager.changelog );
+        },
+        hideCypherGenerator : function()
+        {
+            this.manager._closeSecondaryWidget( this.manager._cypherGenerator, "splash" );
         }
     });
 });

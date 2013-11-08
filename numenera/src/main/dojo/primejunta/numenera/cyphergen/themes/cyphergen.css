@@ -4,7 +4,7 @@
 
 /* Import  main theme. */
 @import url( '../../../cypher/themes/cypher.css' );
-body
+.cy-cypherGenerator
 {
 	background-color : #282828;
 	background-image : url( '../../../cypher/themes/images/grain-dark.png' );

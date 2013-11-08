@@ -25,6 +25,7 @@ define([ "dojo/_base/declare",
          "./data/recursions/ruk/foci",
          "./data/recursions/ninth_world/foci",
          "./optional/customize/data/advancement",
+         "primejunta/numenera/cyphergen/CypherGenerator",
          "dojo/text!./templates/CharacterGenerator.html",
          "dojo/text!./doc/overview.html",
          "dojo/text!./doc/rules.html",
@@ -53,6 +54,7 @@ function( declare,
           rukFoci,
           ninthWorldFoci,
           customAdvancement,
+          CypherGenerator,
           template,
           overview,
           rules,
@@ -189,6 +191,14 @@ function( declare,
         createSplashCharacterPane : function( props )
         {
             return new _SplashCharacterPane( props );
+        },
+        createCypherGenerator : function( props )
+        {
+            return new CypherGenerator( props );
+        },
+        showCypherGenerator : function()
+        {
+            this._createSecondaryWidget( "cyphergen", "createCypherGenerator", "_cypherGenerator" );
         }
     });
 });

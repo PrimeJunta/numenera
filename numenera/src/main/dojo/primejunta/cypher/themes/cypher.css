@@ -233,6 +233,7 @@ select
 {
     color : #747474;
     text-decoration : none;
+    cursor : pointer;
 }
 .num-centeredLinks a:hover
 {
