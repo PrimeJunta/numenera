@@ -343,7 +343,6 @@ function( declare,
             {
                 if( inps[ i ] )
                 {
-                    console.log( vals[ i ], inps[ i ] );
                     var widg = registry.byId( inps[ i ].getAttribute( "widgetid" ) );
                     if( widg )
                     {
