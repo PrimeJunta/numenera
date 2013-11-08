@@ -68,6 +68,7 @@ function( declare,
                 this._writeSpecialList( type );
             }
             this._printLists();
+            this.updateCypherList();
             this._populating.pop();
             this.autoSave();
             this.checkSwitchToMain();

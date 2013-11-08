@@ -274,7 +274,7 @@ function( declare,
             this[ stat + "_adjustment" ] += by;
             if( stat == "cypher_count" )
             {
-                this.manager.augmentCypherList( this.get( stat ) );
+                this.manager.updateCypherList();
             }
         },
         /**
@@ -288,7 +288,7 @@ function( declare,
             this[ stat + "_adjustment" ] = 0;
             if( stat == "cypher_count" )
             {
-                this.manager.augmentCypherList( val );
+                this.manager.updateCypherList();
             }
         },
         _getStat : function( /* String */ stat )

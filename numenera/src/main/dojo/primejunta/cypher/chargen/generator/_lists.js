@@ -142,6 +142,10 @@ function( declare,
          */
         updateCypherList : function()
         {
+            if( !this._lists || !this._lists.cypher_list )
+            {
+                return;
+            }
             var n = this.statsControl.get( "cypher_count" );
             while( this._lists.cypher_list.length > n )
             {
@@ -345,7 +349,7 @@ function( declare,
                 }
                 for( var i = 0; i < this._listdata[ o ].length; i++ )
                 {
-                    if( this._listdata[ o ][ i ] && !this._listdata[ o ][ i ].widget )
+                    if( o != "cypher_list" && this._listdata[ o ][ i ] && !this._listdata[ o ][ i ].widget )
                     {
                         this._listdata[ o ][ i ].widget = this.createListItem( o, this._listdata[ o ][ i ] );
                     }
