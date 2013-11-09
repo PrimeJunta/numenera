@@ -119,7 +119,8 @@ function( declare,
         postMixInProperties : function()
         {
             this.inherited( arguments );
-            this.recursionSelectVisibility = window._allowSwitchOrigin ? "visible" : "hidden";
+            window._allowSwitchOrigin = ( window.location.hash && window.location.hash.indexOf( "morrison=hotel" ) != -1 );
+            this.recursionSelectDisplay = window._allowSwitchOrigin ? "inline-block" : "none";
             this.setup(); // from _StartupMixin
         },
         /**

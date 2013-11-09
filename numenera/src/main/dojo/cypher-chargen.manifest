@@ -1,7 +1,7 @@
 CACHE MANIFEST
 # Cache manifest for Numenera Character Creator.
 #
-# Version 2.4.4
+# Version 2.5.1
 #
 # Graphics
 primejunta/cypher/themes/images/icon.png
@@ -13,10 +13,13 @@ primejunta/cypher/themes/images/knot.png
 primejunta/cypher/themes/images/cloudbg.jpg
 primejunta/cypher/themes/images/grain.png
 primejunta/cypher/themes/images/grain-l.png
+primejunta/cypher/themes/images/grain-dark.png
+primejunta/numenera/cyphergen/themes/images/rustcard.jpg
 primejunta/gapi/themes/images/Google_Drive_Logo.png
 
 # Main stylesheet
 primejunta/cypher/chargen/themes/chargen.css
+primejunta/numenera/cyphergen/themes/cyphergen.css
 primejunta/cypher/chargen/themes/charrec.css
 # Icon font
 font-awesome/css/font-awesome.min.css

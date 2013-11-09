@@ -146,7 +146,6 @@ function( declare,
                 widg.destroy();
                 this.transitionIn( view ? view : "main" );
             }));
-        },
-
+        }
     });
 });
