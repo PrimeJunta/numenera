@@ -71,7 +71,7 @@ function( declare,
         /**
          * Public version number.
          */
-        version : "2.5.1",
+        version : "2.5.2",
         /**
          * Descriptor data.
          */

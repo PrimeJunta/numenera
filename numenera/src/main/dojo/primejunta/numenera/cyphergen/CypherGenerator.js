@@ -65,6 +65,7 @@ function( declare,
             })));
             this.own( on( this.helpLink, touch.press, lang.hitch( this.manager, this.manager.showHelp ) ) );
             this.own( on( this.characterGeneratorLink, touch.press, lang.hitch( this, this.hideCypherGenerator ) ) );
+            //this.own( on( this.homebrewLink, touch.press, lang.hitch( this, this.showHomebrewTools ) ) );
             this._cf = new CypherFactory();
             this.start(); // from startup
         },
@@ -156,6 +157,14 @@ function( declare,
         hideCypherGenerator : function()
         {
             this.manager._closeSecondaryWidget( this.manager._cypherGenerator, "splash" );
+        },
+        hideCypherGenerator : function()
+        {
+            this.manager._closeSecondaryWidget( this.manager._cypherGenerator, "splash" );
+        },
+        showHomebrewTools : function()
+        {
+            this.manager.showHomebrewTools();
         }
     });
 });

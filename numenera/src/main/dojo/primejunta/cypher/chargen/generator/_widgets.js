@@ -10,6 +10,7 @@ define([ "dojo/_base/declare",
          "../_CharacterValidator",
          "../_AdvancementControl",
          "../_RecursionInitializer",
+         "../homebrew/_HomebrewTools",
          "../_HelpViewer" ],
 function( declare,
           lang,
@@ -20,6 +21,7 @@ function( declare,
           _CharacterValidator,
           _AdvancementControl,
           RecursionInitializer,
+          _HomebrewTools,
           _HelpViewer )
 {
     return declare([], {
@@ -56,6 +58,13 @@ function( declare,
             return new _CharacterValidator( props );
         },
         /**
+         * Stub. Create and provide a character validator of the appropriate type.
+         */
+        createHomebrewTools : function( props )
+        {
+            return new _HomebrewTools( props );
+        },
+        /**
          * (Re)creates a _PrintView for the record, places it, hides this widget and shows it.
          */
         showPrintView : function()
@@ -80,6 +89,13 @@ function( declare,
         {
             this._closeSecondaryWidget( this._playViewWidget );
             this.autoSave();
+        },
+        /**
+         * Creates and shows a playView widget.
+         */
+        showHomebrewTools : function()
+        {
+            this._createSecondaryWidget( "homebrew", "createHomebrewTools", "_homebrewWidget" );
         },
         /**
          * Calls _showHelp with about (that's an included text module). Different from playView and printView
@@ -113,6 +129,7 @@ function( declare,
                 return;
             }
             this._spv = true;
+            this._prevView = this.getShowingView(); // _transitions
             try // the try-catch block is here to make debugging easier, as for some reason the exceptions disappear otherwise.
             {
                 this[ attachPoint ] = this[ creatorMethod ]({ manager : this });

@@ -324,13 +324,17 @@ a.num-infoLink
     font-size : 18px;
     font-family : Lato;
 }
+.tundra .dijitButtonNode
+{
+	border-radius : 4px;
+}
 .tundra .dijitTab
 {
 	background-image : none;
     background-color : #8F9EAE;
 	border-radius : 5px 5px 0 0;
 	border-color : #8F9EAE;
-	border-bottom-color : #CCCCCC;
+	border-bottom-color : #FFAD5C;
 	/*
 	border-top-color : #8F9EAE;
 	border-right-color: none;
@@ -339,16 +343,25 @@ a.num-infoLink
 }
 .dijitTab .tabLabel
 {
-	/* color : white; */
+	color : #383838;
 }
-.tundra .dijitTabChecked
+.tundra .dijitTabContainer .dijitTabChecked
 {
-	background-color : white;
-	opacity : 1;
+	background-color : #FFAD5C;
+	border-color : #FFAD5C;
+	border-bottom-color : transparent;
+}
+.tundra .dijitTabPaneWrapper
+{
+   background-color : #FFAD5C;
+}
+.tundra .dijitTabContainerTop-tabs
+{
+	border-color : #FFAD5C;
 }
 .dijitTabChecked .tabLabel
 {
-	color : black;
+	color : #000000;
 }
 .dijitTabContainerTopChildWrapper
 {

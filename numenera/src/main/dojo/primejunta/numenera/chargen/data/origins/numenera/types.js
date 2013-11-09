@@ -57,14 +57,12 @@ define({
             "perk_list" : "Ⓔ Capable Warrior|Ⓔ Experienced Defender|Ⓐ Feint (2 speed)|Ⓔ Minor to Major|Ⓐ Snipe (2 speed)|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense" // no stack
         },
         {
-            "skills_stack" : true,
             "stats" : { "cypher_count" : 1 },
             "bonus_perks" : [ "Ⓔ Adept Cypher Use",
                               "Ⓣ ${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged}" ], //stacks,
             "perk_list" : "Ⓐ Arc Spray (3 speed)|Ⓐ Jump Attack (5 might)|Ⓔ Mastery With Armor|Ⓔ Parry (5 speed)|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense" // stacks
         },
         {
-            "skills_stack" : true,
             "bonus_perks" : [ "Ⓣ ${select:1:Light Bashing|Light Bladed|Light Ranged|Medium Bashing|Medium Bladed|Medium Ranged|Heavy Bashing|Heavy Bladed|Heavy Ranged}" ], //stacks,
             "perk_list" : "Ⓔ Finishing Blow (5 might)|Ⓔ Slayer (3 might)|Ⓐ Spin Attack (5 speed)|Ⓐ Weapon and Body (5 speed)|Ⓣ Might Defense|Ⓣ Speed Defense|Ⓣ Intellect Defense" // stacks
         }]

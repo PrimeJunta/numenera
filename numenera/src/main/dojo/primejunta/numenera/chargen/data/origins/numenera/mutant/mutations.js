@@ -165,15 +165,15 @@ define({
         },
         {
             "roll" : 84,
-            "description" : "Ⓘ Weakness in Might (+1 cost)"
+            "description" : "Ⓘ Weakness in Might"
         },
         {
             "roll" : 92,
-            "description" : "Ⓘ Weakness in Speed (+1 cost)"
+            "description" : "Ⓘ Weakness in Speed"
         },
         {
             "roll" : 100,
-            "description" : "Ⓘ Weakness in Intellect (+1 cost)"
+            "description" : "Ⓘ Weakness in Intellect"
         }
     ],
     "powerful" : [
