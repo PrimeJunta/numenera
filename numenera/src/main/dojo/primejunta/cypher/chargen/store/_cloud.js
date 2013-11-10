@@ -61,7 +61,7 @@ function( declare,
          * 
          * @public final int
          */
-        SYNC_INTERVAL : 30000,
+        SYNC_INTERVAL : 120000,
         /**
          * Google API properties: clientId and apiKey. These are set on the Google Cloud Console,
          * which then restricts access to origins specified there by me. So you can't use these
@@ -389,6 +389,11 @@ function( declare,
             {
                 // someone might've dirtied it while we were syncing, and we don't want to flag it clean
                 this._storage.put( this.SYNC_STATE_KEY, state );
+            }
+            if( state == "DIRTY" )
+            {
+                // someone saved something, so we sync immediately
+                this.performSync();
             }
         },
         showPrivacyPolicy : function()

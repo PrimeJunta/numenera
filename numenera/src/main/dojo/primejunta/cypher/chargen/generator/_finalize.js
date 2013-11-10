@@ -3,9 +3,11 @@
  */
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
+         "dojo/topic",
          "dojo/dom-class" ],
 function( declare,
           lang,
+          topic,
           domClass )
 {
     return declare([], {
@@ -41,6 +43,7 @@ function( declare,
             {
                 this.finalizeButton.set( "disabled", true );
             }
+            topic.publish( "CharGen/lockSheetControls" );
             this.finalized = true;
             this._advancementControl.checkAdvancement();
             if( this._populating.length == 0 )

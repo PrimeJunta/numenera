@@ -84,7 +84,6 @@ function( declare,
             {
                 this.tier = tier;
             }
-            topic.publish( "CharGen/lockSheetControls" );
             while( this._controls.length < this.tier )
             {
                 this._controls.push( this.createTierWidget({

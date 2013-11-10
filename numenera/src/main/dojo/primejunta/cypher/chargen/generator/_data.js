@@ -227,7 +227,7 @@ function( declare,
                     if( widg.declaredClass == "dijit.form.Textarea" )
                     {
                         vals.push( widg.get( "value" ) );
-                        disb.push( widg.get( "disabled" ) );
+                        disb.push( widg.get( "disabled" ) ? "1" : "0" );
                     }
                     else
                     {
@@ -238,7 +238,7 @@ function( declare,
                 else
                 {
                     vals.push( this._preprocessInput( inps[ i ] ) );
-                    disb.push( inps[ i ].disabled ? 1 : 0 );
+                    disb.push( inps[ i ].disabled ? "1" : "0" );
                 }
             }
             for( var i = 0; i < this._controls.length; i++ )
@@ -299,6 +299,7 @@ function( declare,
          */
         _populateFromData : function( /* Object */ kwObj )
         {
+            kwObj = this._normalizeData( kwObj );
             if( kwObj.img )
             {
                 this.portraitWidget.setHref( kwObj.img, kwObj.img_data );
@@ -526,6 +527,16 @@ function( declare,
             {
                 return this._escapeDelimiter( val );
             }
+        },
+        /**
+         * Massages data into format used by the current version.
+         */
+        _normalizeData : function( kwObj )
+        {
+            // Fixes bugged data which appeared between v. 2.5.0 and 2.5.2
+            kwObj.disabled = kwObj.disabled.replace( /(false)/g, "0" );
+            kwObj.disabled = kwObj.disabled.replace( /(true)/g, "1" );
+            return kwObj;
         },
         /**
          * Escapes our delimiter character in our stored values with three slashes. I'm assuming users won't type three slashes in
