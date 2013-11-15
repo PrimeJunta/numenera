@@ -229,13 +229,24 @@ input[readonly].cg-statInput
 /* advancement controls */
 .cg-advancementHeader
 {
+	border-bottom : 1px solid #cccccc;
 }
 .cg-advancementContent
 {
+	background-color : #f8f6f4;
+}
+.cg-advancementTableWrapper
+{
+	width : 700px;
+	height : 100%;
+	overflow : auto;
+	margin-left : auto;
+	margin-right : auto;
 }
 .cg-advancementTable
 {
 	border : 1px solid #cccccc;
+	border-top : none;
 }
 .cg-tierRow select, .cg-tierRow.input[type=text]
 {

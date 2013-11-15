@@ -221,6 +221,16 @@ h2.cr-heading
        size: 297mm 210mm;
        margin : 0cm;
     }
+    /* Needed to make page breaks work as intended on Firefox */
+    html, body, .cr-CharacterRecordBase
+    {
+        overflow : visible !important;
+        float : none !important;
+    }
+    .cr-pageBreak
+    {
+        page-break-before : always;
+    }
     .num-noJavaScript, .cr-uiControl
     {
         display : none;
@@ -230,24 +240,19 @@ h2.cr-heading
     }
     .cr-copyright
     {
-        top : 183mm; /* override for screen */
+        top : 183mm;
     }
     .cr-cyphers 
     {
-        height : 30mm;
     }
     .cr-CharacterRecordPage1, .cr-CharacterRecordPage2
     {
-        height : 205mm; /* override for screen */
+        height : 205mm;
         width : 293mm;
     }
     .cr-listContent
     {
         font-size : 10pt;
         line-height : 14pt;
-    }
-    .cr-pageBreak
-    {
-        page-break-before : always;
     }
 }
