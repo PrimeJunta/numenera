@@ -4,6 +4,8 @@ define([ "dojo/_base/declare",
          "dojo/query",
          "dojo/has",
          "dojo/on",
+         "dojo/dom-style",
+         "dojo/cookie",
          "dojo/_base/fx",
          "dojo/text!./cypher/doc/licenses.html" ],
 function( declare,
@@ -12,6 +14,8 @@ function( declare,
           domQuery,
           has,
           on,
+          domStyle,
+          cookie,
           fx,
           licenses )
 {
@@ -23,6 +27,10 @@ function( declare,
             {
                 alert( "This webapp has only been tested on Firefox, Google Chrome, and Apple Safari. Use at your own risk." );
                 cookie( "browserCheckAlert", "1", { expires : 30 });
+            }
+            if( has( "chrome" ) && !has( "mac" ) && !has( "ios" ) )
+            {
+                domStyle.set( document.body, "-webkit-text-stroke", "0.6px" );
             }
             window.applicationCache.addEventListener( "updateready", lang.hitch( this, function( event )
             {

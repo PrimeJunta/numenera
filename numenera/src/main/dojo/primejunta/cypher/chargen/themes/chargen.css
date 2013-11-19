@@ -246,7 +246,7 @@ input[readonly].cg-statInput
 .cg-advancementTable
 {
 	border : 1px solid #cccccc;
-	border-top : none;
+    margin : 10px 0 10px 0;
 }
 .cg-tierRow select, .cg-tierRow.input[type=text]
 {

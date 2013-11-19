@@ -249,6 +249,10 @@ function( declare,
          */
         _sanitize : function( /* String */ str )
         {
+            if( str === false )
+            {
+                str = "-";
+            }
             str = "" + str;
             var out = str.replace( /\&/g, "&amp;" );
             out = out.replace( /</g, "&lt;" );
