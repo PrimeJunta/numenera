@@ -242,6 +242,22 @@ h2.cr-heading
        padding : 20px;
        color : white;
     }
+    .cr-printControls
+    {
+        border : 1px solid #404040;
+        border-radius : 8px;
+        margin-left : auto;
+        margin-right : auto;
+    }
+    .cr-printControls td, .cr-printControls th
+    {
+        padding : 8px;
+        border-left : 1px solid #404040;
+    }
+    .cr-printControls th
+    {
+        border-left : none;
+    }
 }
 /* overrides for print */
 @media print
@@ -249,7 +265,7 @@ h2.cr-heading
     @page 
     {
        size: 297mm 210mm;
-       margin : 0cm;
+       margin : 0.5cm;
     }
     /* Needed to make page breaks work as intended on Firefox */
     html, body, .cr-CharacterRecordBase
@@ -277,8 +293,8 @@ h2.cr-heading
     }
     .cr-CharacterRecordPage1, .cr-CharacterRecordPage2
     {
-        height : 205mm;
-        width : 293mm;
+        height : 200mm;
+        width : 287mm;
     }
     .cr-listContent
     {

@@ -1,28 +1,35 @@
 <div class="cr-CharacterRecordBase">
   <div class="cr-uiControl">
-    <label> <input type="checkbox"
-      data-dojo-type="dijit/form/CheckBox"
-      data-dojo-attach-point="setCompactViewCheckbox"
-      data-dojo-attach-event="onClick:printSettingsChanged"/> Compact
-    </label>
-    <label> <input type="checkbox"
-      data-dojo-type="dijit/form/CheckBox"
-      data-dojo-attach-point="showShinsCheckbox"
-      data-dojo-attach-event="onClick:printSettingsChanged"
-      checked="checked" /> Show Shins
-    </label>
-    <label> <input type="checkbox"
-      data-dojo-type="dijit/form/CheckBox"
-      data-dojo-attach-point="showXPCheckbox"
-      data-dojo-attach-event="onClick:printSettingsChanged"
-      checked="checked" /> Show XP
-    </label>
-     <label> <input type="checkbox"
-      data-dojo-type="dijit/form/CheckBox"
-      data-dojo-attach-point="showCyphersCheckbox"
-      data-dojo-attach-event="onClick:printSettingsChanged"
-      checked="checked" /> Show Cyphers
-    </label>
+  <table class="cr-printControls" cellspacing="1">
+    <tbody>
+      <tr>
+        <th>Print options:</th>
+        <td><label> <input type="checkbox"
+          data-dojo-type="dijit/form/CheckBox"
+          data-dojo-attach-point="setCompactViewCheckbox"
+          data-dojo-attach-event="onClick:printSettingsChanged"/> Single Page
+        </label></td>
+        <td><label> <input type="checkbox"
+          data-dojo-type="dijit/form/CheckBox"
+          data-dojo-attach-point="showShinsCheckbox"
+          data-dojo-attach-event="onClick:printSettingsChanged"
+          checked="checked" /> Show Shins
+        </label></td>
+        <td><label> <input type="checkbox"
+          data-dojo-type="dijit/form/CheckBox"
+          data-dojo-attach-point="showXPCheckbox"
+          data-dojo-attach-event="onClick:printSettingsChanged"
+          checked="checked" /> Show XP
+        </label></td>
+         <td><label> <input type="checkbox"
+          data-dojo-type="dijit/form/CheckBox"
+          data-dojo-attach-point="showCyphersCheckbox"
+          data-dojo-attach-event="onClick:printSettingsChanged"
+          checked="checked" /> Show Cyphers
+        </label></td>
+      </tr>
+    </tbody>
+  </table>
   </div>
   <div>
     <div class="cr-CharacterRecordPage1"
