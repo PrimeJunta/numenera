@@ -1,14 +1,24 @@
 <div class="cr-CharacterRecordBase">
   <div class="cr-uiControl">
     <label> <input type="checkbox"
+      data-dojo-type="dijit/form/CheckBox"
+      data-dojo-attach-point="setCompactViewCheckbox"
+      data-dojo-attach-event="onClick:printSettingsChanged"/> Compact
+    </label>
+    <label> <input type="checkbox"
+      data-dojo-type="dijit/form/CheckBox"
       data-dojo-attach-point="showShinsCheckbox"
       data-dojo-attach-event="onClick:printSettingsChanged"
       checked="checked" /> Show Shins
-    </label> <label> <input type="checkbox"
+    </label>
+    <label> <input type="checkbox"
+      data-dojo-type="dijit/form/CheckBox"
       data-dojo-attach-point="showXPCheckbox"
       data-dojo-attach-event="onClick:printSettingsChanged"
       checked="checked" /> Show XP
-    </label> <label> <input type="checkbox"
+    </label>
+     <label> <input type="checkbox"
+      data-dojo-type="dijit/form/CheckBox"
       data-dojo-attach-point="showCyphersCheckbox"
       data-dojo-attach-event="onClick:printSettingsChanged"
       checked="checked" /> Show Cyphers
@@ -51,12 +61,40 @@
                     
                 </div>
               </div>
+              <div class="cr-marker cr-listBox cr-notes cr-showInCompact">
+                <div class="cr-content">
+                  <img src="${iconSource}/h-pixel.png" alt=""
+                    class="cr-hrule" />
+                  <h2 class="cr-heading">Notes</h2>
+                  <img src="${iconSource}/h-pixel.png" alt=""
+                    class="cr-hrule" />
+                  <div data-dojo-attach-point="notes_text_compact"
+                    class="cr-listContent"></div>
+                </div>
+              </div>
             </td>
             <td class="cr-vRuleCell"><img
               src="${iconSource}/v-pixel.png" alt="" class="cr-vrule" />
             </td>
             <td class="cr-centerFold">
               <!--  middle fold -->
+              <div class="cr-showInCompact" style="text-align:center">
+                <div class="cr-name"
+                  data-dojo-attach-point="name_field_compact"></div>
+                <div class="cr-definition">
+                  <span>the</span>
+                  <span>
+                    <span data-dojo-attach-point="descriptor_field_compact"></span>
+                    <span data-dojo-attach-point="type_field_compact"></span>
+                  </span>
+                  <span>who</span>
+                  <span>
+                    <span data-dojo-attach-point="focus_field_compact"></span>
+                  </span>
+                </div>
+                <img src="${iconSource}/h-pixel.png" alt=""
+                  class="cr-hrule" />
+              </div>
               <div class="cr-marker cr-listBox cr-stats">
                 <div class="cr-content">
                   <table width="100%">
@@ -300,13 +338,24 @@
                     class="cr-listContent"></div>
                 </div>
               </div>
+              <div class="cr-marker cr-listBox cr-background cr-showInCompact">
+                <div class="cr-content">
+                  <img src="${iconSource}/h-pixel.png" alt=""
+                    class="cr-hrule" />
+                  <h2 class="cr-heading">Background</h2>
+                  <img src="${iconSource}/h-pixel.png" alt=""
+                    class="cr-hrule" />
+                  <div data-dojo-attach-point="description_text_compact"
+                    class="cr-listContent"></div>
+                </div>
+              </div>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-    <div class="cr-pageBreak"> </div>
-    <div class="cr-CharacterRecordPage2"
+    <div class="cr-pageBreak cr-hideInCompact"> </div>
+    <div class="cr-CharacterRecordPage2 cr-hideInCompact"
       data-dojo-attach-event="onClick:closeMe">
       <table class="cr-CharacterRecordContent">
         <tbody>

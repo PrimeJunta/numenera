@@ -30,7 +30,7 @@ function( declare,
             }
             if( has( "chrome" ) && !has( "mac" ) && !has( "ios" ) )
             {
-                domStyle.set( document.body, "-webkit-text-stroke", "0.6px" );
+                domStyle.set( document.body, "-webkit-text-stroke", "0.4px" );
             }
             window.applicationCache.addEventListener( "updateready", lang.hitch( this, function( event )
             {

@@ -4,10 +4,14 @@
 define([ "dojo/_base/declare",
          "dojo/cookie",
          "dojo/json",
+         "dojo/dom-class",
+         "dijit/form/CheckBox",
          "./_CharacterViewBase" ],
 function( declare,
           cookie,
           json,
+          domClass,
+          CheckBox,
           _CharacterViewBase )
 {
     return declare([ _CharacterViewBase ], {
@@ -16,15 +20,26 @@ function( declare,
             this.inherited( arguments );
             this._updatePrint();
         },
+        populateFields : function()
+        {
+            this.inherited( arguments );
+            this._sv( "name_field_compact", "character_name" );
+            this._sv( "descriptor_field_compact", "character_descriptor" );
+            this._sv( "type_field_compact", "character_type" );
+            this._sv( "focus_field_compact", "character_focus" );
+            this._wl( "description_text_compact", "description_text" );
+            this._wl( "notes_text_compact", "notes_text" );
+        },
         /**
          * You can control a few print settings. They're stored in a cookie.
          */
         printSettingsChanged : function()
         {
             cookie( "printSettings", json.stringify({
-                showShins : this.showShinsCheckbox.checked,
-                showXP : this.showXPCheckbox.checked,
-                showCyphers : this.showCyphersCheckbox.checked
+                showShins : this.showShinsCheckbox.get( "checked" ),
+                showXP : this.showXPCheckbox.get( "checked" ),
+                showCyphers : this.showCyphersCheckbox.get( "checked" ),
+                compactView : this.setCompactViewCheckbox.get( "checked" )
             }), { expires : 30 });
             this._updatePrint();
         },
@@ -54,7 +69,7 @@ function( declare,
             if( !settings.showShins )
             {
                 this.shin_count.style.visibility = "hidden";
-                this.showShinsCheckbox.checked = false;
+                this.showShinsCheckbox.set( "checked", false );
             }
             else
             {
@@ -63,7 +78,7 @@ function( declare,
             if( !settings.showXP )
             {
                 this.character_xp.style.visibility = "hidden";
-                this.showXPCheckbox.checked = false;
+                this.showXPCheckbox.set( "checked", false );
             }
             else
             {
@@ -72,11 +87,20 @@ function( declare,
             if( !settings.showCyphers )
             {
                 this.cypher_list.style.visibility = "hidden";
-                this.showCyphersCheckbox.checked = false;
+                this.showCyphersCheckbox.set( "checked", false );
             }
             else
             {
                 this.cypher_list.style.visibility = "visible";
+            }
+            if( settings.compactView )
+            {
+                domClass.add( this.domNode, "cr-compactRecord" );
+                this.setCompactViewCheckbox.set( "checked", true );
+            }
+            else
+            {
+                domClass.remove( this.domNode, "cr-compactRecord" );
             }
         }
     });

@@ -1,7 +1,6 @@
 /**
  * Stylesheet for character record sheet (printable).
  */
- 
 /* layout */
 .cr-CharacterRecordBase
 {
@@ -188,6 +187,37 @@ h2.cr-heading
     margin-left : auto;
     margin-right : auto;
 }
+/* compact view */
+.cr-compactRecord .cr-heading
+{
+	font-size : 12px;
+}
+.cr-compactRecord .cr-listContent
+{
+    font-size : 10px;
+}
+.cr-showInCompact
+{
+    display : none;
+}
+.cr-compactRecord .cr-showInCompact
+{
+    display : block;
+}
+.cr-compactRecord .cr-hideInCompact
+{
+    display : none;
+}
+.cr-compactRecord .cr-name
+{
+	font-family : Prata;
+	font-size : 16px;
+}
+.cr-compactRecord .cr-definition
+{
+	font-size : 9px;
+	padding : 0;
+}
 /* overrides for screen */
 @media screen
 {
@@ -255,4 +285,11 @@ h2.cr-heading
         font-size : 10pt;
         line-height : 14pt;
     }
+    /* compact view */
+    .cr-compactRecord .cr-listContent
+    {
+        font-size : 9pt;
+        line-height : 12pt;
+    }
 }
+
