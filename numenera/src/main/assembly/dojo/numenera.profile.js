@@ -24,9 +24,6 @@ var profile = {
         },
         "primejunta/numenera" : {
             include : [ "primejunta/numenera/chargen/CharacterGenerator" ]
-        },
-        "primejunta/cyphergen" : {
-            include : [ "primejunta/numenera/cyphergen/CypherGenerator" ]
         }
     },
     staticHasFeatures : {

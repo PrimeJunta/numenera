@@ -1,6 +1,0 @@
-CACHE MANIFEST
-
-# Dummy cache manifest just for Firefox, because I can't figure out how to get it to invalidate reliably.
-
-NETWORK:
-*

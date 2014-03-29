@@ -1,7 +1,7 @@
 CACHE MANIFEST
 # Cache manifest for Numenera Character Creator.
 #
-# Version 2.5.8
+# Version 2.5.9
 #
 # Graphics
 primejunta/cypher/themes/images/icon.png
@@ -23,11 +23,11 @@ primejunta/numenera/cyphergen/themes/cyphergen.css
 primejunta/cypher/chargen/themes/charrec.css
 # Icon font
 font-awesome/css/font-awesome.min.css
-font-awesome/fonts/fontawesome-webfont.eot?v=4.0.0
-font-awesome/fonts/fontawesome-webfont.eot?#iefix&v=4.0.0
-font-awesome/fonts/fontawesome-webfont.woff?v=4.0.0
-font-awesome/fonts/fontawesome-webfont.ttf?v=4.0.0
-font-awesome/fonts/fontawesome-webfont.svg#fontawesomeregular?v=4.0.0
+font-awesome/fonts/fontawesome-webfont.eot?v=4.0.3
+font-awesome/fonts/fontawesome-webfont.eot?#iefix&v=4.0.3
+font-awesome/fonts/fontawesome-webfont.woff?v=4.0.3
+font-awesome/fonts/fontawesome-webfont.ttf?v=4.0.3
+font-awesome/fonts/fontawesome-webfont.svg#fontawesomeregular?v=4.0.3
 # Dojo
 dojo/dojo.js
 dojo/dojo.js.map
