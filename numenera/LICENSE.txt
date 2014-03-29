@@ -20,10 +20,7 @@ http://www.numenera.com/fan-use-policy/.
 License for the Character Generation Utility
 
 This webapp is an unofficial fan project by Petteri Sulonen. It uses 
-features of Numenera under the Numenera Fan Use Policy, which 
-explicitly permits distributing "character sheets (including 
-character sheets that autofill or calculate numerical values)" free
-of charge.
+features of Numenera under the Numenera Fan Use Policy.
 
 I hereby grant permission to use, modify, and redistribute it, as
 long as compliance with the Numenera Fan Use Policy is maintained.
@@ -45,7 +42,7 @@ The Character Generation Utility has the following dependencies:
 
 The MIT License (MIT)
 
-Copyright (c) 2013 PrimeJunta
+Copyright (c) 2013-2014 Petteri Sulonen
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
