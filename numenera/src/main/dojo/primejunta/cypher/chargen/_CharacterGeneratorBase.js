@@ -81,6 +81,10 @@ function( declare,
          */
         dataFileName : "Ninth-World-Heroes",
         /**
+         * Cookie for sticky startup pane.
+         */
+        STARTUP_PANE_COOKIE : "_cypherCharGen_startupPane",
+        /**
          * Default title.
          */
         DEFAULT_DOCUMENT_TITLE : "9 Heroes",
@@ -159,7 +163,7 @@ function( declare,
                 },
                 "main" : { 
                     "nodes" : [ this.domNode ]
-                } 
+                }
             }
             this.inherited( arguments );
             this.checkForStartupQuery();

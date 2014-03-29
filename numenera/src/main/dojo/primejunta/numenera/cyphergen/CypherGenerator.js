@@ -1,5 +1,6 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
+         "dojo/cookie",
          "dojo/_base/event",
          "dojo/string",
          "dojo/query",
@@ -18,6 +19,7 @@ define([ "dojo/_base/declare",
          "dojo/text!primejunta/cypher/doc/copyright.txt" ],
 function( declare,
           lang,
+          cookie,
           event,
           string,
           domQuery,
@@ -65,7 +67,7 @@ function( declare,
             })));
             this.own( on( this.helpLink, touch.press, lang.hitch( this.manager, this.manager.showHelp ) ) );
             this.own( on( this.characterGeneratorLink, touch.press, lang.hitch( this, this.hideCypherGenerator ) ) );
-            //this.own( on( this.homebrewLink, touch.press, lang.hitch( this, this.showHomebrewTools ) ) );
+            this.own( on( this.homebrewLink, touch.press, lang.hitch( this, this.showHomebrewTools ) ) );
             this._cf = new CypherFactory();
             this.start(); // from startup
         },
@@ -156,15 +158,12 @@ function( declare,
         },
         hideCypherGenerator : function()
         {
-            this.manager._closeSecondaryWidget( this.manager._cypherGenerator, "splash" );
-        },
-        hideCypherGenerator : function()
-        {
+            cookie( this.manager.STARTUP_PANE_COOKIE, "splash", { expires : 365 });
             this.manager._closeSecondaryWidget( this.manager._cypherGenerator, "splash" );
         },
         showHomebrewTools : function()
         {
-            this.manager.showHomebrewTools();
+            this.manager.transitionOut().then( lang.hitch( this.manager, this.manager.showHomebrewTools ));
         }
     });
 });

@@ -136,6 +136,7 @@ function( declare,
                     }
                     else
                     {
+                        this._toip = false;
                         this._tiip = false;
                     }
                     deferred.resolve();

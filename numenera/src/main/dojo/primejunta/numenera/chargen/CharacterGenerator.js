@@ -195,10 +195,6 @@ function( declare,
         createCypherGenerator : function( props )
         {
             return new CypherGenerator( props );
-        },
-        showCypherGenerator : function()
-        {
-            this._createSecondaryWidget( "cyphergen", "createCypherGenerator", "_cypherGenerator" );
         }
     });
 });

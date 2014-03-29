@@ -3,12 +3,14 @@
  */
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
+         "dojo/cookie",
          "dojo/on",
          "dojo/touch",
          "primejunta/cypher/chargen/_SplashCharacterPaneBase",
          "dojo/text!./templates/_SplashCharacterPane.html" ],
 function( declare,
           lang,
+          cookie,
           on,
           touch,
           _SplashCharacterPaneBase,
@@ -24,7 +26,7 @@ function( declare,
             this.inherited( arguments );
             this.own( on( this.helpLink, touch.press, lang.hitch( this.manager, this.manager.showHelp ) ) );
             this.own( on( this.cypherGeneratorLink, touch.press, lang.hitch( this, this.showCypherGenerator ) ) );
-            //this.own( on( this.homebrewLink, touch.press, lang.hitch( this, this.showHomebrewTools ) ) );
+            this.own( on( this.homebrewLink, touch.press, lang.hitch( this, this.showHomebrewTools ) ) );
         },
         showCypherGenerator : function()
         {

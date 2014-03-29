@@ -1,15 +1,16 @@
-<div class="num-helpViewer">
+<div class="num-helpViewer num-homebrewPane">
   <div data-dojo-type="dijit/layout/BorderContainer"
     data-dojo-props="gutters:false">
     <div data-dojo-type="dijit/layout/ContentPane"
       data-dojo-props="region:'top'">
-      <button data-dojo-type="dojox/mobile/ToolBarButton"
-        style="float: left;margin:22px -50px 0 0;"
-        data-dojo-attach-event="onClick:hide"
-        data-dojo-props="arrow:'left'"
-        style="background:none">
-        <span style="font-family:Oxygen">Back</span>
-      </button>
+      <div class="num-centeredLinks" style="padding-top:40px;text-align:center;">
+        <a data-dojo-attach-point="characterGeneratorLink">Character
+          Creation Utility</a> | Homebrew Tools | <a
+              data-dojo-attach-point="cypherGeneratorLink">Cypher
+        Generator</a> | <a data-dojo-attach-point="helpLink"
+                           class="num-infoLink"><i class="fa fa-question-circle"></i></a>
+      </div>
+
       <div>
         <h1 class="num-helpViewerTitle">${title}</h1>
       </div>
@@ -18,8 +19,18 @@
       data-dojo-props="region:'center'"
       data-dojo-attach-point="mainTabContainer"></div>
     <div data-dojo-type="dijit/layout/ContentPane"
-      data-dojo-props="region:'bottom'">
-      <div class="num-copyright">${copyright}</div>
+         data-dojo-props="region:'bottom'" class="num-footer"
+         data-dojo-attach-point="footerNode">
+      <div class="num-copyright">
+        <span style="cursor: pointer"
+              data-dojo-attach-event="onClick:showLicenses">${copyright}</span>
+        • <a class="num-versionInfo"
+             data-dojo-attach-event="onClick:showLicenses">Licenses</a> • <span
+              class="num-versionInfo"> <a
+              data-dojo-attach-event="onClick:showChangeLog">Version
+        ${manager.version}</a>
+        </span>
+      </div>
     </div>
   </div>
 </div>

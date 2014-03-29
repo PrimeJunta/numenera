@@ -20,6 +20,7 @@ util/buildScripts/build.sh --profile numenera.profile.js
 echo Copying assets and index pages into place
 cd ..
 cp -R $NUMENERA_HOME/numenera/src/main/assets release/
+cp -R dojo-src/font-awesome release/
 cp dojo-src/index.html release/
 cp dojo-src/cypher-chargen.manifest release/
 cp dojo-src/index-firefox.html release/

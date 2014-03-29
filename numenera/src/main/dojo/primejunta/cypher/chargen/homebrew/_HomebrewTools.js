@@ -1,5 +1,8 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
+         "dojo/on",
+         "dojo/touch",
+         "dojo/cookie",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
@@ -15,6 +18,9 @@ define([ "dojo/_base/declare",
          "dojo/text!../../../cypher/doc/copyright.txt" ],
 function( declare,
           lang,
+          on,
+          touch,
+          cookie,
           _WidgetBase,
           _TemplatedMixin,
           _WidgetsInTemplateMixin,
@@ -61,10 +67,28 @@ function( declare,
             {
                 this.mainTabContainer.addChild( new ContentPane({ title : o, content : this._hbTemplates[ o ].widget.domNode }) );
             }
+            this.own( on( this.helpLink, touch.press, lang.hitch( this.manager, this.manager.showHelp ) ) );
+            this.own( on( this.cypherGeneratorLink, touch.press, lang.hitch( this, this.showCypherGenerator ) ) );
+            this.own( on( this.characterGeneratorLink, touch.press, lang.hitch( this, this.showCharacterPane ) ) );
         },
-        hide : function()
+        showCharacterPane : function()
         {
-            this.manager._closeSecondaryWidget( this, this.manager._prevView );
+            cookie( this.manager.STARTUP_PANE_COOKIE, "splash", { expires : 365 });
+            this.manager._closeSecondaryWidget( this, "splash" );
+        },
+        showCypherGenerator : function()
+        {
+            this.manager.transitionOut().then( lang.hitch( this, function() {
+                this.manager.showCypherGenerator();
+            }) );
+        },
+        showLicenses : function()
+        {
+            this.manager.showLicenses();
+        },
+        showChangeLog : function()
+        {
+            this.manager.showChangeLog();
         }
     });
 });

@@ -5,6 +5,7 @@
  */
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
+         "dojo/cookie",
          "dojo/dom-construct",
          "dojo/io-query",
          "dojo/query",
@@ -16,6 +17,7 @@ define([ "dojo/_base/declare",
          "dijit/form/Button" ],
 function( declare,
           lang,
+          cookie,
           domConstruct,
           ioQuery,
           domQuery,
@@ -92,6 +94,20 @@ function( declare,
                 else
                 {
                     this.transitionTo( "main") ;
+                }
+            }
+            else if( cookie( this.STARTUP_PANE_COOKIE ) )
+            {
+                switch( cookie( this.STARTUP_PANE_COOKIE ) )
+                {
+                    case "cyphergen" :
+                        this.showCypherGenerator();
+                        break;
+                    case "homebrew" :
+                        this.showHomebrewTools();
+                        break;
+                    default :
+                        this.transitionTo( "splash" );
                 }
             }
             else

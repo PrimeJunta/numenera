@@ -4,6 +4,8 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "dojo/_base/array",
+         "dojo/cookie",
+         "dojo/Deferred",
          "dojo/topic",
          "dojo/query",
          "dojo/dom-construct",
@@ -15,6 +17,8 @@ define([ "dojo/_base/declare",
 function( declare,
           lang,
           array,
+          cookie,
+          Deferred,
           topic,
           domQuery,
           domConstruct,
@@ -87,6 +91,7 @@ function( declare,
         },
         closePlayView : function()
         {
+            cookie( this.STARTUP_PANE_COOKIE, "splash", { expires : 365 });
             this._closeSecondaryWidget( this._playViewWidget );
             this.autoSave();
         },
@@ -95,7 +100,13 @@ function( declare,
          */
         showHomebrewTools : function()
         {
+            cookie( this.STARTUP_PANE_COOKIE, "homebrew", { expires : 365 });
             this._createSecondaryWidget( "homebrew", "createHomebrewTools", "_homebrewWidget" );
+        },
+        showCypherGenerator : function()
+        {
+            cookie( this.STARTUP_PANE_COOKIE, "cyphergen", { expires : 365 });
+            this._createSecondaryWidget( "cyphergen", "createCypherGenerator", "_cypherGenerator" );
         },
         /**
          * Calls _showHelp with about (that's an included text module). Different from playView and printView
@@ -159,10 +170,14 @@ function( declare,
          */
         _closeSecondaryWidget : function( /* Widget */ widg, /* String */ view )
         {
+            var def = new Deferred();
             this.transitionOut().then( lang.hitch( this, function() {
                 widg.destroy();
-                this.transitionIn( view ? view : "main" );
+                this.transitionIn( view ? view : "main").then( lang.hitch( this, function() {
+                    def.resolve();
+                }));
             }));
+            return def;
         }
     });
 });
