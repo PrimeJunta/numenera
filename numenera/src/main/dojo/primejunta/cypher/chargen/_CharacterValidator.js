@@ -375,7 +375,7 @@ function( declare,
                 var count = this._has( o );
                 if( count > 0 )
                 {
-                    boosts = this._merge( boosts, this.manager.featAdjustments.attack_adjustments[ o ], 2 );
+                    boosts = this._merge( boosts, this.manager.featAdjustments.attack_adjustments[ o ], 1 );
                 }
             }
             // training
