@@ -16,27 +16,20 @@
 	margin-right : auto;
     width : 340px;
     height : 490px;
-}
-.cy-cypherCardOverlay
-{
-    position : absolute;
-    top : 0px;
-    left : 0px;
-    width : 340px;
-    height : 490px;
     cursor : pointer;
-    z-index : 999;
 }
 .cy-cypherCard
 {
 	position : absolute;
-	top : 0px;
-	left : 0px;
-	width : 300px;
-	height : 450px;
+	top : 0;
+	left : 0;
+	bottom : 0;
+	right : 0;
     box-shadow: 10px 10px 20px #000000;
-    border-radius : 30px;
+    border-radius : 10px;
     border : 20px solid #f4f4f0;
+    width : 300px;
+    height : 450px;
 }
 .cy-cypherCardFront
 {
@@ -63,4 +56,42 @@
 }
 .cy-cypherLevel
 {
+}
+/* entire container, keeps perspective */
+.flip-container {
+    perspective: 1000;
+}
+/* flip the pane when hovered
+*/
+.flip-container.hover .flip-flipper {
+    transform: rotateY(180deg);
+}
+
+.flip-container, .flip-front, .flip-back {
+}
+
+/* flip speed goes here */
+.flip-flipper {
+    transition: 0.6s;
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+/* hide back of pane during swap */
+.flip-front, .flip-back {
+    backface-visibility: hidden;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* front pane, placed above back */
+.flip-front {
+    z-index: 2;
+}
+
+/* back, initially hidden pane */
+.flip-back {
+    transform: rotateY(180deg);
 }

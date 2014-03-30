@@ -28,7 +28,7 @@ var profile = {
             include : [ "dijit/dijit-all" ]
         },
         "primejunta/numenera" : {
-            include : [ "primejunta/numenera/chargen/CharacterGenerator" ]
+            include : [ "primejunta/numenera/Controller" ]
         }
     },
     staticHasFeatures : {

@@ -10,18 +10,17 @@
     <div class="num-blurb">Cypher Generator</div>
   </div>
   <div>
-    <div class="cy-cardContainer">
-      <div data-dojo-attach-point="cypherCardBack"
-        class="cy-cypherCard cy-cypherCardBack"></div>
-      <div data-dojo-attach-point="cypherCardFront"
-        class="cy-cypherCard cy-cypherCardFront" style="display: none"></div>
-      <div data-dojo-attach-point="cypherCardOverlay"
-        class="cy-cypherCardOverlay"
-        data-dojo-attach-event="onClick:toggleCypher"></div>
+    <div class="cy-cardContainer flip-container" data-dojo-attach-point="cypherCard" data-dojo-attach-event="onClick:toggleCypher">
+      <div class="flip-flipper">
+        <div data-dojo-attach-point="cypherCardBack"
+          class="cy-cypherCard cy-cypherCardBack flip-front"></div>
+        <div data-dojo-attach-point="cypherCardFront"
+          class="cy-cypherCard cy-cypherCardFront flip-back"></div>
+      </div>
     </div>
     <div>
       <div class="num-whiteKnot">
-        <!-- 
+        <!--
         <form data-dojo-attach-point="modeForm" style="padding:40px 0 0 0;color:#808080;">
         <table style="width:400px;margin:0 auto 0 auto;">
           <tbody>

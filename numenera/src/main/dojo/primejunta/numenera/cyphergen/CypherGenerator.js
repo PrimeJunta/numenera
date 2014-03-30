@@ -5,11 +5,10 @@ define([ "dojo/_base/declare",
          "dojo/string",
          "dojo/query",
          "primejunta/_StartupMixin",
-         "dojo/_base/fx",
-         "dojox/fx/flip",
          "dojo/on",
          "dojo/io-query",
          "dojo/touch",
+         "dojo/dom-class",
          "./CypherFactory",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -23,11 +22,10 @@ function( declare,
           string,
           domQuery,
           _StartupMixin,
-          baseFx,
-          flip,
           on,
           ioQuery,
           touch,
+          domClass,
           CypherFactory,
           _WidgetBase,
           _TemplatedMixin,
@@ -57,16 +55,12 @@ function( declare,
         postCreate : function()
         {
             this.moduleControlsNode.appendChild( this.controller.getModuleLinks( "cyphergen" ) );
-            this.own( on( this.cypherCardOverlay, "dblclick", lang.hitch( this, function( evt ) {
-                event.stop( evt );
-            })));
             this._cf = new CypherFactory();
             this.start(); // from startup
         },
         showCypher : function()
         {
             this._shown = true;
-            this._flip( this.cypherCardBack, this.cypherCardFront, "#f4f4f0" );
             // icon-fire, icon-star
             var cyph = this._cf.getRandomCypher( this.cypher_type );
             if( cyph.cypher_class == "occultic" )
@@ -84,6 +78,7 @@ function( declare,
                     cyph.data.cypher_name_qualifier = "";
                 }
                 this.cypherCardFront.innerHTML = string.substitute( cypher, cyph );
+                this._flip();
             }
             catch( e )
             {
@@ -93,7 +88,7 @@ function( declare,
         hideCypher : function()
         {
             this._shown = false;
-            this._flip( this.cypherCardFront, this.cypherCardBack, "#f4f4f0", "left" );
+            this._flip();
         },
         toggleCypher : function( evt )
         {
@@ -121,18 +116,7 @@ function( declare,
         },
         _flip : function( from, to, endColor, dir )
         {
-            var anim = flip.flip({ 
-                node: from,
-                dir: dir ? dir : "right",
-                depth: .3,
-                duration:400,
-                endColor : endColor
-            });
-            anim.onEnd = lang.hitch( this, function(){ 
-                from.style.display = "none";
-                to.style.display = "block";
-            })
-            anim.play(); 
+            domClass.toggle( this.cypherCard, "hover" );
         },
         show : function()
         {
