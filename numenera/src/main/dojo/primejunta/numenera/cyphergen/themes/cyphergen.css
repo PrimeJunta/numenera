@@ -2,8 +2,6 @@
  * Main Cypher Generator stylesheet.
  */
 
-/* Import  main theme. */
-@import url( '../../../cypher/themes/cypher.css' );
 .cy-cypherGenerator
 {
 	background-color : #282828;

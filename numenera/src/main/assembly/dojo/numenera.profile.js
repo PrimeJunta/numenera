@@ -5,6 +5,11 @@ var profile = {
         "dojox",
         "primejunta"
     ],
+    resourceTags : {
+        amd: function (filename, mid) {
+            return /\.js$/.test(filename);
+        }
+    },
     basePath : ".",
     action : "release",
     cssOptimize : "comments",
