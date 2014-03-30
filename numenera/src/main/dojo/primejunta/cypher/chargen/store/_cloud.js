@@ -396,8 +396,8 @@ function( declare,
         },
         showPrivacyPolicy : function()
         {
-            this.manager._showHelp( privacy );
-            return false;
+            this.close();
+            this.manager.controller.showModule( "help", "Privacy" );
         },
         /**
          * Creates a Memory datastore and a ComboBox connected to it, and places it in the widget.
