@@ -12,8 +12,7 @@ define([ "dojo/_base/declare",
          "../_CharacterValidator",
          "../_AdvancementControl",
          "../_RecursionInitializer",
-         "../homebrew/_HomebrewTools",
-         "../_HelpViewer" ],
+         "../../help/_HelpViewerBase" ],
 function( declare,
           lang,
           array,
@@ -25,7 +24,6 @@ function( declare,
           _CharacterValidator,
           _AdvancementControl,
           RecursionInitializer,
-          _HomebrewTools,
           _HelpViewer )
 {
     return declare([], {
@@ -62,13 +60,6 @@ function( declare,
             return new _CharacterValidator( props );
         },
         /**
-         * Stub. Create and provide a character validator of the appropriate type.
-         */
-        createHomebrewTools : function( props )
-        {
-            return new _HomebrewTools( props );
-        },
-        /**
          * (Re)creates a _PrintView for the record, places it, hides this widget and shows it.
          */
         showPrintView : function()
@@ -76,11 +67,18 @@ function( declare,
             this._createSecondaryWidget( "print", "createPrintView", "_printWidget" );
         },
         /**
+         * Yes, I do need this because I have my own help button.
+         */
+        showHelp : function()
+        {
+            this.controller.showModule( "help" );
+        },
+        /**
          * Closes _printWidget.
          */
         closePrintView : function()
         {
-            this._closeSecondaryWidget( this._printWidget );
+            this.transitionTo( "chargen" );
         },
         /**
          * Creates and shows a playView widget.
@@ -91,93 +89,43 @@ function( declare,
         },
         closePlayView : function()
         {
-            cookie( this.STARTUP_PANE_COOKIE, "splash", { expires : 365 });
-            this._closeSecondaryWidget( this._playViewWidget );
+            this.transitionTo( "chargen" );
             this.autoSave();
         },
         /**
-         * Creates and shows a playView widget.
+         * Transitions to viewName and sets it as this.currentView.
+         *
+         * @public Deferred
          */
-        showHomebrewTools : function()
+        transitionTo : function( /* String */ viewName )
         {
-            cookie( this.STARTUP_PANE_COOKIE, "homebrew", { expires : 365 });
-            this._createSecondaryWidget( "homebrew", "createHomebrewTools", "_homebrewWidget" );
-        },
-        showCypherGenerator : function()
-        {
-            cookie( this.STARTUP_PANE_COOKIE, "cyphergen", { expires : 365 });
-            this._createSecondaryWidget( "cyphergen", "createCypherGenerator", "_cypherGenerator" );
+            this.currentView = viewName;
+            return this.controller.showView( viewName );
         },
         /**
-         * Calls _showHelp with about (that's an included text module). Different from playView and printView
-         * because it can transition back to either "splash" or "main".
-         */
-        showHelp : function()
-        {
-            if( this._spv )
-            {
-                return;
-            }
-            this._spv = true;
-            this._helpViewer = new _HelpViewer({ manager : this, title : "About the Character Creation Utility", helpData : this.helpData });
-            this._prevView = this.getShowingView(); // _transitions
-            this._openSecondaryWidget( "help", this._helpViewer );
-        },
-        /**
-         * Calls _showHelp with changelog (that's an included text module).
-         */
-        showChangeLog : function()
-        {
-            this._showHelp( this.changelog );
-        },
-        /**
-         * Creates a secondary widget in this[ attachPoint ] with this[ creatorMethod ], and registers its domNode in views as viewName.
+         * Creates a secondary widget in this[ attachPoint ] with creatorMethod, destroying any widget previously at
+         * that attachPoint, and puts it in view matching viewName.
          */
         _createSecondaryWidget : function( /* String */ viewName, /* String */ creatorMethod, /* String */ attachPoint )
         {
-            if( this._spv )
+            if( this.controller.transitionInProgress ) // block double-clicks
             {
                 return;
             }
-            this._spv = true;
-            this._prevView = this.getShowingView(); // _transitions
             try // the try-catch block is here to make debugging easier, as for some reason the exceptions disappear otherwise.
             {
-                this[ attachPoint ] = this[ creatorMethod ]({ manager : this });
-                this._openSecondaryWidget( "play", this[ attachPoint ] );
+                if( this[ attachPoint ] )
+                {
+                    this[ attachPoint ].destroy();
+                }
+                this[ attachPoint ] = this[ creatorMethod ]({ manager : this, controller : this.controller }).placeAt( this.controller.getView( viewName ) );
+                this.transitionTo( viewName );
+                this[ attachPoint ].startup(); // ?
             }
             catch( e )
             {
                 console.log( e );
             }
-        },
-        /**
-         * Opens widget widg in viewName.
-         */
-        _openSecondaryWidget : function( /* String */ viewName, /* Widget */ widg )
-        {
-            this.views[ viewName ] = { nodes : [ widg.domNode ]};
-            this.transitionOut().then( lang.hitch( this, function() {
-                widg.placeAt( document.body, "first" );
-                widg.startup();
-                this.transitionIn( viewName ).then( lang.hitch( this, function() {
-                    this._spv = false;
-                }));
-            }));
-        },
-        /**
-         * Closes widget widg and transitions to view.
-         */
-        _closeSecondaryWidget : function( /* Widget */ widg, /* String */ view )
-        {
-            var def = new Deferred();
-            this.transitionOut().then( lang.hitch( this, function() {
-                widg.destroy();
-                this.transitionIn( view ? view : "main").then( lang.hitch( this, function() {
-                    def.resolve();
-                }));
-            }));
-            return def;
         }
     });
 });

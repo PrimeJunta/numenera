@@ -24,16 +24,22 @@ function( declare,
          */
         manager : {},
         /**
+         * App controller of the widget.
+         */
+        controller : {},
+        /**
          * Populates selects from manager.
          */
         postCreate : function()
         {
+            this.moduleControlsNode.appendChild( this.controller.getModuleLinks( "chargen" ) );
             on( this.characterNameInput, "keydown", lang.hitch( this.manager, this.manager.normalizeClass, this.characterNameInput ) );
             on( this.characterNameInput, "click", lang.hitch( this.manager, this.manager.onCharNameFocus, this.characterNameInput ) );
             on( this.characterNameInput, "change", lang.hitch( this, this.updateCharName ) );
             on( this.characterNameInput, "focus", lang.hitch( this.manager, this.manager.onCharNameFocus, this.characterNameInput ) );
             on( this.characterNameInput, "blur", lang.hitch( this.manager, this.manager.onCharNameBlur, this.characterNameInput ) );
             this.writePhraseSelects();
+
         },
         writePhraseSelects : function()
         {
@@ -109,17 +115,9 @@ function( declare,
         {
             this.manager.openCharacterStore();
         },
-        showHelp : function()
-        {
-            this.manager.showHelp();
-        },
         showLicenses : function()
         {
-            this.manager.showLicenses();
-        },
-        showChangeLog : function()
-        {
-            this.manager.showChangeLog();
+            this.controller.showModule( "help", "Licenses" );
         },
         /**
          * Resets selectedIndices to 0.

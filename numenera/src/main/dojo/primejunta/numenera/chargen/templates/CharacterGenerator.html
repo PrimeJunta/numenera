@@ -1,4 +1,4 @@
-<div class="num-mainWidget" style="display: none">
+<div class="num-mainWidget">
   <!--  Main buttons, floating -->
   <div data-dojo-attach-point="characterGeneratorPane"
     data-dojo-type="dijit/layout/BorderContainer"
@@ -207,14 +207,8 @@
     <div data-dojo-type="dijit/layout/ContentPane"
       data-dojo-props="region:'bottom'" class="num-footer"
       data-dojo-attach-point="footerNode">
-      <div class="num-copyright">
-        <span style="cursor: pointer"
-          data-dojo-attach-event="onClick:showLicenses">${copyright}</span>
-        • <a class="num-versionInfo"
-          data-dojo-attach-event="onClick:showLicenses">Licenses</a> • <span
-          class="num-versionInfo"> <a
-          data-dojo-attach-event="onClick:showChangeLog">Version
-            ${version}</a>
+      <div class="num-copyright" style="cursor: pointer" data-dojo-attach-event="onClick:showLicenses">
+        ${controller.copyright} • Version ${controller.version}
         </span>
       </div>
       <div style="display: none">

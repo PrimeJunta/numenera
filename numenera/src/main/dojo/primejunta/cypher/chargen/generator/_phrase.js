@@ -160,7 +160,7 @@ function( declare,
             }
             if( this.getType() && this.getDescriptor() && this.getFocus() )
             {
-                this.transitionTo( "main" );
+                this.transitionTo( "chargen" );
             }
             else
             {

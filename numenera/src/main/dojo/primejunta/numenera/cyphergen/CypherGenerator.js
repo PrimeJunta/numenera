@@ -15,8 +15,7 @@ define([ "dojo/_base/declare",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
          "dojo/text!./templates/_Cypher.html",
-         "dojo/text!./templates/CypherGenerator.html",
-         "dojo/text!primejunta/cypher/doc/copyright.txt" ],
+         "dojo/text!./templates/CypherGenerator.html" ],
 function( declare,
           lang,
           cookie,
@@ -34,14 +33,9 @@ function( declare,
           _TemplatedMixin,
           _WidgetsInTemplateMixin,
           cypher,
-          template,
-          copyright ) 
+          template )
 {
     return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _StartupMixin ], {
-        /**
-         * Short copyright notice, will appear in a number of places.
-         */
-        copyright : copyright,
         manager : {},
         version : "1.0.8",
         iconSrc : require.toUrl( "primejunta/numenera/themes/images" ),
@@ -62,12 +56,10 @@ function( declare,
         },
         postCreate : function()
         {
+            this.moduleControlsNode.appendChild( this.controller.getModuleLinks( "cyphergen" ) );
             this.own( on( this.cypherCardOverlay, "dblclick", lang.hitch( this, function( evt ) {
                 event.stop( evt );
             })));
-            this.own( on( this.helpLink, touch.press, lang.hitch( this.manager, this.manager.showHelp ) ) );
-            this.own( on( this.characterGeneratorLink, touch.press, lang.hitch( this, this.hideCypherGenerator ) ) );
-            this.own( on( this.homebrewLink, touch.press, lang.hitch( this, this.showHomebrewTools ) ) );
             this._cf = new CypherFactory();
             this.start(); // from startup
         },
@@ -127,13 +119,6 @@ function( declare,
                 sel.removeAllRanges();
             }
         },
-        /**
-         * Calls _showHelp with about (that's an included text module).
-         */
-        showHelp : function()
-        {
-            this._showHelp( about );
-        },
         _flip : function( from, to, endColor, dir )
         {
             var anim = flip.flip({ 
@@ -149,21 +134,9 @@ function( declare,
             })
             anim.play(); 
         },
-        /**
-         * Calls _showHelp with changelog (that's an included text module).
-         */
-        showChangeLog : function()
+        show : function()
         {
-            this._showHelp( this.manager.changelog );
-        },
-        hideCypherGenerator : function()
-        {
-            cookie( this.manager.STARTUP_PANE_COOKIE, "splash", { expires : 365 });
-            this.manager._closeSecondaryWidget( this.manager._cypherGenerator, "splash" );
-        },
-        showHomebrewTools : function()
-        {
-            this.manager.transitionOut().then( lang.hitch( this.manager, this.manager.showHomebrewTools ));
+            this.controller.showView( "cyphergen" );
         }
     });
 });

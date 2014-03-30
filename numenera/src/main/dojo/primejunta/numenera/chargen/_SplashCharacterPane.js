@@ -20,21 +20,6 @@ function( declare,
         /**
          * Template.
          */
-        templateString : template,
-        postCreate : function()
-        {
-            this.inherited( arguments );
-            this.own( on( this.helpLink, touch.press, lang.hitch( this.manager, this.manager.showHelp ) ) );
-            this.own( on( this.cypherGeneratorLink, touch.press, lang.hitch( this, this.showCypherGenerator ) ) );
-            this.own( on( this.homebrewLink, touch.press, lang.hitch( this, this.showHomebrewTools ) ) );
-        },
-        showCypherGenerator : function()
-        {
-            this.manager.showCypherGenerator();
-        },
-        showHomebrewTools : function()
-        {
-            this.manager.showHomebrewTools();
-        }
+        templateString : template
     });
 });

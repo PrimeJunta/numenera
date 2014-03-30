@@ -14,8 +14,7 @@ define([ "dojo/_base/declare",
          "./_TypeWidget",
          "./_FocusWidget",
          "./_EnablerWidget",
-         "dojo/text!./templates/_HomebrewTools.html",
-         "dojo/text!../../../cypher/doc/copyright.txt" ],
+         "dojo/text!./templates/_HomebrewTools.html" ],
 function( declare,
           lang,
           on,
@@ -32,13 +31,11 @@ function( declare,
           _TypeWidget,
           _FocusWidget,
           _EnablerWidget,
-          template,
-          copyright )
+          template )
 {
     return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin ], {
         title : "Homebrew Tools",
-        copyright : copyright,
-        manager : {},
+        controller : {},
         templateString : template,
         _hbTemplates : {
             "Descriptors" : {
@@ -56,6 +53,7 @@ function( declare,
         },
         postCreate : function()
         {
+            this.moduleControlsNode.appendChild( this.controller.getModuleLinks( "homebrew" ) );
             for( var o in this._hbTemplates )
             {
                 if( this._hbTemplates[ o ].widgetType )
@@ -67,28 +65,14 @@ function( declare,
             {
                 this.mainTabContainer.addChild( new ContentPane({ title : o, content : this._hbTemplates[ o ].widget.domNode }) );
             }
-            this.own( on( this.helpLink, touch.press, lang.hitch( this.manager, this.manager.showHelp ) ) );
-            this.own( on( this.cypherGeneratorLink, touch.press, lang.hitch( this, this.showCypherGenerator ) ) );
-            this.own( on( this.characterGeneratorLink, touch.press, lang.hitch( this, this.showCharacterPane ) ) );
-        },
-        showCharacterPane : function()
-        {
-            cookie( this.manager.STARTUP_PANE_COOKIE, "splash", { expires : 365 });
-            this.manager._closeSecondaryWidget( this, "splash" );
-        },
-        showCypherGenerator : function()
-        {
-            this.manager.transitionOut().then( lang.hitch( this, function() {
-                this.manager.showCypherGenerator();
-            }) );
         },
         showLicenses : function()
         {
-            this.manager.showLicenses();
+            this.controller.showModule( "help", "Licenses" );
         },
-        showChangeLog : function()
+        show : function()
         {
-            this.manager.showChangeLog();
+            this.controller.showView( "homebrew" );
         }
     });
 });

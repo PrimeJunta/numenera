@@ -433,6 +433,10 @@ function( declare,
         },
         _disablePicker : function( character )
         {
+            if( !this.pickers )
+            {
+                return;
+            }
             for( var i = 0; i < this._pickers.length; i++ )
             {
                 if( this._pickers[ i ].character.name == character )

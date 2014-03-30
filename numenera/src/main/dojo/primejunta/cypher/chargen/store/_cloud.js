@@ -86,11 +86,9 @@ function( declare,
                 return;
             }
             this._setCBDisabled( true );
-            this._initStorage().then( lang.hitch( this, function() {
-                this._initCloudUI();
-                this.drive = new Drive( this.gapiProperties );
-                this.drive.startup().then( lang.hitch( this, this.setupCloudUI ) );
-            }));
+            this._initCloudUI();
+            this.drive = new Drive( this.gapiProperties );
+            this.drive.startup().then( lang.hitch( this, this.setupCloudUI ) );
         },
         /**
          * Sets up UI for cloud storage after authorization has been checked; the authorization result

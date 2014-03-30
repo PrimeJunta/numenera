@@ -90,7 +90,7 @@ function( declare,
         },
         showLicenses : function()
         {
-            this._showHelp( licenses );
+            this.controller.showModule( "help", "Licenses" );
         },
         /**
          * Hides _helpNode and shows this.domNode.
@@ -105,20 +105,6 @@ function( declare,
         _reload : function()
         {
             window.location.reload();
-        },
-        /**
-         * Displays content in _helpNode, hides this.domNode and shows it.
-         */
-        _showHelp : function( /* HTMLString */ content )
-        {
-            if( !this._helpNode )
-            {
-                this._helpNode = domConstruct.create( "div", { "class" : "num-helpDiv" }, document.body );
-                on( this._helpNode, "click", lang.hitch( this, this.hideHelp ) );
-            }
-            this._helpNode.innerHTML = content;
-            this._helpNode.style.display = "block";
-            fx.fadeIn({ node : this._helpNode }).play();
         }
     });
 });

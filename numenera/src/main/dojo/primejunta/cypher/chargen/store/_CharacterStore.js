@@ -7,7 +7,7 @@ define([ "dojo/_base/declare",
          "dojo/dom-construct",
          "dojo/Deferred",
          "dojo/io-query",
-         "dojox/storage",
+         "primejunta/storage/Storage",
          "./_cloud",
          "./_file",
          "./_CharacterManager",
@@ -28,7 +28,7 @@ function( declare,
           domConstruct,
           Deferred,
           ioQuery,
-          storage,
+          Storage,
           _cloud,
           _file,
           _CharacterManager,
@@ -49,6 +49,7 @@ function( declare,
         _cwa : [],
         postCreate : function()
         {
+            this._storage = new Storage();
             domConstruct.place( this.characterManagerDialog.domNode, document.body );
             this.characterManagerDialog.startup();
             if( !has( "ios" ) )
@@ -96,10 +97,6 @@ function( declare,
         },
         getStoredCharacters : function( restored )
         {
-            if( !this._storage )
-            {
-                return this._initStorage().then( lang.hitch( this, this.getStoredCharacters, restored ) );
-            }
             var deferred = new Deferred();
             if( !restored )
             {
@@ -124,7 +121,7 @@ function( declare,
             return deferred;
         },
         /**
-         * Calls _initStorage if necessary to start up our local storage manager; then stores the character
+         * Stores the character
          * under a key derived from the character name with _getKey.
          */
         storeCharacter : function( data, tempStore )
@@ -132,11 +129,6 @@ function( declare,
             if( tempStore )
             {
                 return; // we're not doing anything with the tempStore yet so let's not pollute it
-            }
-            if( !this._storage )
-            {
-                this._initStorage().then( lang.hitch( this, this.storeCharacter, data, tempStore ) );
-                return;
             }
             var key = this._getKey( this.manager.characterNameInput.value, tempStore );
             var val = {
@@ -235,11 +227,6 @@ function( declare,
          */
         _restoreFromBackupData : function( obj, sync )
         {
-            if( !this._storage )
-            {
-                this._initStorage.then( lang.hitch( this, this._restoreFromBackupData, obj ) );
-                return false;
-            }
             var keys = this._filterKeys( this._storage.getKeys() ).sort();
             var restored = [];
             var unrestored = [];
@@ -297,30 +284,6 @@ function( declare,
         _getKey : function( nameStr, tempStore )
         {
             return ( tempStore ? this._tempStoreToken : "" ) + nameStr.replace( /[^a-z|A-Z]+/g, "_" );
-        },
-        /**
-         * Initializes a dojox.storage.manager and puts a provider from it in this._storage. If handler is
-         * provided, continues with that.
-         */
-        _initStorage : function( deferred )
-        {
-            if( !deferred )
-            {
-                deferred = new Deferred();
-            }
-            if( !dojox || !dojox.storage || !dojox.storage.manager )
-            {
-                setTimeout( lang.hitch( this, this._initStorage, deferred ), 500 );
-                return deferred;
-            }
-            else
-            {
-                dojox.storage.manager.initialize(); // it's not ported to AMD, so...
-                this._storage = dojox.storage.manager.getProvider();
-                this._storage.initialize();
-                deferred.resolve();
-            }
-            return deferred;
         },
         _preprocessLinkData : function( data )
         {

@@ -93,26 +93,12 @@ function( declare,
                 }
                 else
                 {
-                    this.transitionTo( "main") ;
-                }
-            }
-            else if( cookie( this.STARTUP_PANE_COOKIE ) )
-            {
-                switch( cookie( this.STARTUP_PANE_COOKIE ) )
-                {
-                    case "cyphergen" :
-                        this.showCypherGenerator();
-                        break;
-                    case "homebrew" :
-                        this.showHomebrewTools();
-                        break;
-                    default :
-                        this.transitionTo( "splash" );
+                    this.currentView = "chargen";
                 }
             }
             else
             {
-                this.transitionTo( "splash" );
+                this.currentView = "splash";
             }
         },
         /**
@@ -166,7 +152,7 @@ function( declare,
             this.populateFromStoredData( data );
             this.autoSave();
             this.saveButton.set( "disabled", true );
-            this.transitionTo( "main" );
+            this.transitionTo( "chargen" );
         },
         /**
          * Checks that we're not in the middle of something and that a type, focus, and descriptor are set;

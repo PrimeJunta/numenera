@@ -30,13 +30,11 @@ define([ "dojo/_base/declare",
          "./generator/_phrase",
          "./generator/_recursions",
          "./generator/_textarea",
-         "./generator/_transitions",
          "./generator/_widgets",
          "./optional/_OptionalRulesMixin",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
-         "dijit/_WidgetsInTemplateMixin",
-         "dojo/text!primejunta/cypher/doc/copyright.txt" ],
+         "dijit/_WidgetsInTemplateMixin" ],
 function( declare,
           lang,
           array,
@@ -63,19 +61,25 @@ function( declare,
           _phrase,
           _recursions,
           _textarea,
-          _transitions,
           _widgets,
           _OptionalRulesMixin,
           _WidgetBase,
           _TemplatedMixin,
-          _WidgetsInTemplateMixin,
-          copyright )
+          _WidgetsInTemplateMixin )
 {
-    return declare( "primejunta/numenera/chargen/_CharacterGeneratorBase", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _StartupMixin, _UtilityMixin, _data, _lists, _phrase, _widgets, _recursions, _transitions, _gm, _textarea, _finalize, _OptionalRulesMixin ], {
+    return declare( "primejunta/numenera/chargen/_CharacterGeneratorBase", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _StartupMixin, _UtilityMixin, _data, _lists, _phrase, _widgets, _recursions, _gm, _textarea, _finalize, _OptionalRulesMixin ], {
         /**
-         * Short copyright notice, will appear in a number of places.
+         * The view controller.
          */
-        copyright : copyright,
+        controller : {},
+        /**
+         * Map of views created by this class.
+         */
+        views : {},
+        /**
+         * Current view for this class.
+         */
+        currentView : "splash",
         /**
          * Filename for character backups.
          */
@@ -140,8 +144,8 @@ function( declare,
             this.statsControl.manager = this;
             this.writePhraseSelects();
             this._characterStore = new _CharacterStore({ manager : this, gapiProperties : this.gapiProperties });
-            this._splashPane = this.createSplashCharacterPane({ manager : this }).placeAt( document.body );
-            this._currentNodes = [ this._splashPane.domNode ];
+            this.views.splash = this.controller.getView( "splash" );
+            this._splashPane = this.createSplashCharacterPane({ manager : this, controller : this.controller }).placeAt( this.views.splash );
             this.portraitWidget.manager = this;
             on( this.characterNameInput, "keydown", lang.hitch( this, this.normalizeClass, this.characterNameInput ) );
             on( this.characterNameInput, "click", lang.hitch( this, this.onCharNameFocus, this.characterNameInput ) );
@@ -153,18 +157,6 @@ function( declare,
             topic.subscribe( "CharGen/pleaseShowUnlock", lang.hitch( this, this.setFinalizedClass, false ) );
             topic.subscribe( "CharGen/pleaseHideUnlock", lang.hitch( this, this.setFinalizedClass, true ) );
             topic.subscribe( "/CharacterStore/DataRefreshed", lang.hitch( this, this.setDataRefreshedReminder, true ))
-            this.views = {
-                "startup" : {
-                    "nodes" : [ domQuery( "div.num-noJavaScript" )[ 0 ] ],
-                    "selected" : true
-                },
-                "splash" : {
-                    "nodes" : [ this._splashPane.domNode ]
-                },
-                "main" : { 
-                    "nodes" : [ this.domNode ]
-                }
-            }
             this.inherited( arguments );
             this.checkForStartupQuery();
         },
@@ -275,6 +267,10 @@ function( declare,
             {
                 deferred.resolve();
             }
+        },
+        show : function()
+        {
+            this.controller.showView( this.currentView );
         },
         /**
          * Kinder, gentler alert.

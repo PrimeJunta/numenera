@@ -8,7 +8,7 @@ define([ "dojo/_base/declare",
          "dijit/layout/TabContainer",
          "dijit/layout/ContentPane",
          "dojox/mobile/ToolBarButton",
-         "dojo/text!./templates/_HelpViewer.html",
+         "dojo/text!./templates/HelpViewer.html",
          "dojo/text!../../cypher/doc/copyright.txt" ],
 function( declare,
           lang,
@@ -25,20 +25,31 @@ function( declare,
 {
     return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin ], {
         title : "",
-        copyright : copyright,
-        manager : {},
+        controller : {},
         templateString : template,
         helpData : {},
         postCreate : function()
         {
+            this._tabs = {};
             for( var o in this.helpData )
             {
-                this.mainTabContainer.addChild( new ContentPane({ title : o, content : this.helpData[ o ] }) );
+                var _tab = new ContentPane({ title : o, content : this.helpData[ o ] });
+                this._tabs[ o ] = _tab;
+                this.mainTabContainer.addChild( _tab );
             }
         },
         hide : function()
         {
-            this.manager._closeSecondaryWidget( this, this.manager._prevView );
+            this.controller.showModule( this.previousModule );
+        },
+        show : function( module, tab )
+        {
+            this.previousModule = module;
+            this.controller.showView( "help" );
+            if( this._tabs[ tab ] )
+            {
+                this.mainTabContainer.selectChild( this._tabs[ tab ] );
+            }
         }
     });
 });

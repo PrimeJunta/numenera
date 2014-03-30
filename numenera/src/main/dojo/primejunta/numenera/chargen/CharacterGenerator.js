@@ -26,13 +26,7 @@ define([ "dojo/_base/declare",
          "./data/recursions/ninth_world/foci",
          "./optional/customize/data/advancement",
          "primejunta/numenera/cyphergen/CypherGenerator",
-         "dojo/text!./templates/CharacterGenerator.html",
-         "dojo/text!./doc/overview.html",
-         "dojo/text!./doc/rules.html",
-         "dojo/text!./doc/technical.html",
-         "dojo/text!../../cypher/doc/privacy.html",
-         "dojo/text!../../cypher/doc/licenses.html",
-         "dojo/text!./doc/changelog.html" ],
+         "dojo/text!./templates/CharacterGenerator.html" ],
 function( declare,
           lang,
           _CharacterGeneratorBase,
@@ -68,10 +62,6 @@ function( declare,
          * Filename for character backups.
          */
         dataFileName : "Ninth-World-Heroes",
-        /**
-         * Public version number.
-         */
-        version : "2.5.9",
         /**
          * Descriptor data.
          */
@@ -133,17 +123,6 @@ function( declare,
          * Exceptions to feat stacking restrictions.
          */
         featStackingExceptions : numeneraFeatStackingExceptions,
-        /**
-         * Help data.
-         */
-        helpData : {
-            "Overview" : overview,
-            "Rules" : rules,
-            "Privacy" : privacy,
-            "Technical" : technical,
-            "Changelog" : changelog,
-            "Licenses" : licenses
-        },
         /**
          * Changelog.
          */
