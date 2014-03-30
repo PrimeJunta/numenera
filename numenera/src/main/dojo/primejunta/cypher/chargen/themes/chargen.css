@@ -53,6 +53,11 @@
     background-image : linear-gradient(to bottom, #404040 0%, #808080 100%) !important;
 	
 }
+.cg-buttonBar .num-framelessButton
+{
+    background : none !important;
+    border-color : transparent !important;
+}
 .cg-resultsPane
 {
     padding : 10px 0 30px 0;

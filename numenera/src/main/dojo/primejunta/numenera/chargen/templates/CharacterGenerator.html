@@ -11,11 +11,11 @@
         <table style="width:765px;margin-left:auto;margin-right:auto;" cellspacing="0" cellpadding="0">
           <tr>
             <td align="left">
-              <button data-dojo-type="dojox/mobile/ToolBarButton"
-                class="num-redButton"
-                data-dojo-attach-event="onClick:clearAll"
-                data-dojo-attach-point="clearButton">
-                <i class="fa fa-times-circle num-redIcon num-mediumIcon"></i>
+              <button data-dojo-attach-point="helpButton"
+                data-dojo-type="dojox/mobile/ToolBarButton"
+                data-dojo-attach-event="onClick:showHelp"
+                style="" class="">
+                <i class="fa fa-question-circle num-mediumIcon num-blueIcon"></i>
               </button>
               <button data-dojo-attach-point="printButton"
                 data-dojo-type="dojox/mobile/ToolBarButton"
@@ -41,11 +41,11 @@
                 style="float: left">
                 <i class="fa fa-folder-open"></i> Open
               </button>
-              <button data-dojo-attach-point="helpButton"
-                data-dojo-type="dojox/mobile/ToolBarButton"
-                data-dojo-attach-event="onClick:showHelp"
-                style="float: right" class="">
-                <i class="fa fa-question-circle num-mediumIcon num-blueIcon"></i>
+              <button data-dojo-type="dojox/mobile/ToolBarButton"
+                class="num-redButton num-framelessButton"
+                data-dojo-attach-event="onClick:clearAll"
+                data-dojo-attach-point="clearButton" style="float:right">
+                <i class="fa fa-times-circle num-redIcon num-mediumIcon"></i>
               </button>
               <button data-dojo-type="dojox/mobile/ToolBarButton"
                 class="" data-dojo-attach-point="finalizeButton"

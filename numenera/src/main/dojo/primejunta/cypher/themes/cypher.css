@@ -496,10 +496,10 @@ a.num-infoLink
 {
 	width : 30px;
 }
-.num-framelessButton, .num-framelessButton .dijitButtonNode
+.num-framelessButton, .num-framelessButton .dijitButtonNode, .cg-buttonBar .num-framelessButton
 {
     background : none !important;
-    border : none !important;
+    border-color : transparent !important;
 }
 .num-roundRectButton .dijitButtonNode
 {
