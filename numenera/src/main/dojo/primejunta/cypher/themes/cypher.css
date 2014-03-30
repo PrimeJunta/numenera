@@ -579,7 +579,7 @@ a.num-infoLink
 {
     margin-top : 20px;
     background-color : #e4e4e4;
-    border-radius : 3px 3px 0 0;
+    border-radius : 4px 4px 0 0;
 }
 .num-helpViewerHeader div
 {
@@ -590,6 +590,10 @@ a.num-infoLink
     background-color : #d4d4d4;
     height : 10px;
     border-top : 1px solid silver;
+}
+.num-helpViewerInnerContainer
+{
+    border-radius : 0 0 4px 4px;
 }
 .num-helpViewerTabs
 {

@@ -4,6 +4,7 @@
 echo Crafting Numenera
 export NUMENERA_HOME=~psulonen/WebstormProjects/numenera
 echo Clearing sandbox
+rm numenera.zip
 rm -Rf release
 rm -Rf dojo-src
 echo Copying resources to source directory
@@ -24,4 +25,6 @@ cp -R dojo-src/font-awesome release/
 cp dojo-src/index.html release/
 cp dojo-src/cypher-chargen.manifest release/
 cp dojo-src/index-firefox.html release/
-echo Done. Release is in directory release/.
+echo Creating package
+zip -r numenera.zip release/
+echo Done. Release is in directory release/ and a zip package in numenera.zip.

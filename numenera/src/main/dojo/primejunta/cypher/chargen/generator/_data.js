@@ -228,7 +228,7 @@ function( declare,
                 {
                     if( widg.declaredClass == "dijit.form.Textarea" )
                     {
-                        vals.push( widg.get( "value" ) );
+                        vals.push( this._escapeDelimiter( widg.get( "value" ) ) );
                         disb.push( widg.get( "disabled" ) ? "1" : "0" );
                     }
                     else
@@ -351,7 +351,7 @@ function( declare,
                     {
                         if( widg.declaredClass == "dijit.form.Textarea" )
                         {
-                            widg.set( "value", vals[ i ] );
+                            widg.set( "value", this._unescapeDelimiter( vals[ i ] ) );
                             widg.set( "disabled", ( disb[ sels.length + i ] == "1" ) );
                         }
                         else

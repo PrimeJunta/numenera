@@ -15,10 +15,12 @@
       </div>
       <div class="num-helpViewerSpacer"></div>
     </div>
-    <div data-dojo-type="dijit/layout/TabContainer"
-      data-dojo-props="region:'center'"
-      data-dojo-attach-point="mainTabContainer"
-      class="num-helpViewerTabs"></div>
+    <div data-dojo-type="dijit/layout/ContentPane" class="num-helpViewerInnerContainer" data-dojo-props="region:'center'">
+      <div data-dojo-type="dijit/layout/TabContainer"
+        data-dojo-props="region:'center'"
+        data-dojo-attach-point="mainTabContainer"
+        class="num-helpViewerTabs"></div>
+      </div>
     <div data-dojo-type="dijit/layout/ContentPane"
       data-dojo-props="region:'bottom'">
       <div class="num-copyright">

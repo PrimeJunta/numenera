@@ -17,7 +17,7 @@ function( declare,
 {
     return declare([ _ControllerBase ],
     {
-        version : "3.0.0a",
+        version : "3.0.0",
         copyright : copyright,
         modules : {
             chargen : {
@@ -28,6 +28,8 @@ function( declare,
                 persists : true,
                 properties : {}
             },
+            /*
+
             homebrew : {
                 constructor: _HomebrewTools,
                 label : "Homebrew Tools",
@@ -35,6 +37,7 @@ function( declare,
                 persists : true,
                 properties: {}
             },
+             */
             cyphergen : {
                 constructor : CypherGenerator,
                 label : "Cypher Generator",
