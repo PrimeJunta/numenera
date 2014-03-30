@@ -1,0 +1,87 @@
+<html>
+<head>
+  <title>Animation test</title>
+  <style type="text/css">
+    .container
+    {
+      position : absolute;
+      top : 50px;
+      left : 50px;
+    }
+    /* entire container, keeps perspective */
+    .flip-container {
+      perspective: 1000;
+      -webkit-perspective: 1000;
+    }
+    /* flip the pane when hovered
+    .flip-container:hover .flipper,
+    */
+    .flip-container.hover .flipper {
+      transform: rotateY(180deg);
+      -webkit-transform: rotateY(180deg);
+    }
+
+    .flip-container, .front, .back {
+      width: 320px;
+      height: 480px;
+    }
+
+    /* flip speed goes here */
+    .flipper {
+      transition: 0.6s;
+      -webkit-transition: 0.6s;
+      transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
+      position: relative;
+    }
+
+    /* hide back of pane during swap */
+    .front, .back {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    /* front pane, placed above back */
+    .front {
+      z-index: 2;
+      background-color : silver;
+
+    }
+
+    /* back, initially hidden pane */
+    .back {
+      transform: rotateY(180deg);
+      -webkit-transform: rotateY(180deg);
+      background-color : black;
+      color : white;
+
+    }
+  </style>
+  <script type="text/javascript">
+    function animate()
+    {
+      console.log( "ANIMATE" );
+      document.getElementById( "flipper").classList.toggle( 'hover' );
+      console.log( document.getElementById( "flipper") );
+    }
+  </script>
+</head>
+<body>
+<div class="container flip-container" id="flipper">
+  <div class="flipper" onclick="animate()">
+    <div class="front">
+      FRONT!
+      <!-- front content -->
+    </div>
+    <div class="back">
+      BACK!
+      <!-- back content -->
+    </div>
+  </div>
+</div>
+</body>
+</html>
