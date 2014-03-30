@@ -50,6 +50,7 @@ function( declare,
             {
                 this.mainTabContainer.selectChild( this._tabs[ tab ] );
             }
+            this.grid.resize();
         }
     });
 });

@@ -1,25 +1,29 @@
 <div class="num-helpViewer">
   <div data-dojo-type="dijit/layout/BorderContainer"
-    data-dojo-props="gutters:false">
+    data-dojo-props="gutters:false"
+    data-dojo-attach-point="grid">
     <div data-dojo-type="dijit/layout/ContentPane"
       data-dojo-props="region:'top'">
-      <button data-dojo-type="dojox/mobile/ToolBarButton"
-        style="float: left;margin:22px -50px 0 0;"
-        data-dojo-attach-event="onClick:hide"
-        data-dojo-props="arrow:'left'"
-        style="background:none">
-        <span style="font-family:Oxygen">Back</span>
-      </button>
-      <div>
-        <h1 class="num-helpViewerTitle">${title}</h1>
+      <div class="num-helpViewerHeader">
+        <div style="float: right;cursor:pointer;"
+          data-dojo-attach-event="onClick:hide">
+          <i class="fa fa-times-circle num-redIcon num-mediumIcon"></i>
+        </div>
+        <div>
+          <div class="num-helpViewerTitle">${title}</div>
+        </div>
       </div>
+      <div class="num-helpViewerSpacer"></div>
     </div>
     <div data-dojo-type="dijit/layout/TabContainer"
       data-dojo-props="region:'center'"
-      data-dojo-attach-point="mainTabContainer"></div>
+      data-dojo-attach-point="mainTabContainer"
+      class="num-helpViewerTabs"></div>
     <div data-dojo-type="dijit/layout/ContentPane"
       data-dojo-props="region:'bottom'">
-      <div class="num-copyright">${controller.copyright}</div>
+      <div class="num-copyright">
+        ${controller.copyright} • Version ${controller.version}
+      </div>
     </div>
   </div>
 </div>

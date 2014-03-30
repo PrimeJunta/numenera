@@ -18,7 +18,7 @@ function( declare,
           _HelpViewerBase )
 {
     return declare([ _HelpViewerBase ], {
-        title : "Character Creation Utilities",
+        title : "Help for Character Creation Utilities",
         /**
          * Help data.
          */

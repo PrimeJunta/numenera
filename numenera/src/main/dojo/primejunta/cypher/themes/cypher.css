@@ -575,6 +575,23 @@ a.num-infoLink
 	background-color : pink;
 	text-align : center;
 }
+.num-helpViewerHeader
+{
+    margin-top : 20px;
+    background-color : #e4e4e4;
+    border-radius : 3px 3px 0 0;
+    padding : 3px 3px 3px 5px;
+}
+.num-helpViewerSpacer
+{
+    background-color : #d4d4d4;
+    height : 10px;
+    border-top : 1px solid silver;
+}
+.num-helpViewerTabs
+{
+    background-color : #d4d4d4;
+}
 .num-helpViewer h1
 {
 	font-size : 24px;
@@ -593,7 +610,7 @@ a.num-infoLink
 }
 .num-helpViewer .num-copyright
 {
-	width : 100%;
+	width : 700px;
 	padding-bottom : 10px;
 }
 .num-homebrewPane .num-copyright
