@@ -270,7 +270,7 @@ function( declare,
         },
         show : function()
         {
-            this.controller.showView( this.currentView );
+            return this.controller.showView( this.currentView );
         },
         /**
          * Kinder, gentler alert.

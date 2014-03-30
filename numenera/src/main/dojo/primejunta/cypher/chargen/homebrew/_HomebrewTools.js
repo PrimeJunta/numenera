@@ -68,11 +68,11 @@ function( declare,
         },
         showLicenses : function()
         {
-            this.controller.showModule( "help", "Licenses" );
+            return this.controller.showModule( "help", "Licenses" );
         },
         show : function()
         {
-            this.controller.showView( "homebrew" );
+            return this.controller.showView( "homebrew" );
         }
     });
 });

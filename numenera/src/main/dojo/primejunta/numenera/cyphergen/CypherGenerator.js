@@ -120,7 +120,7 @@ function( declare,
         },
         show : function()
         {
-            this.controller.showView( "cyphergen" );
+            return this.controller.showView( "cyphergen" );
         }
     });
 });

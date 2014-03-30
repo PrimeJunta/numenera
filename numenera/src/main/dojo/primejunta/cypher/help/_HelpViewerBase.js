@@ -50,12 +50,13 @@ function( declare,
         show : function( module, tab )
         {
             this.previousModule = module;
-            this.controller.showView( "help" );
+            var prom = this.controller.showView( "help" );
             if( this._tabs[ tab ] )
             {
                 this.mainTabContainer.selectChild( this._tabs[ tab ] );
             }
             this.grid.resize();
+            return prom;
         }
     });
 });

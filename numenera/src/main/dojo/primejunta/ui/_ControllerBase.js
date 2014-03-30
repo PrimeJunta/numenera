@@ -1,5 +1,6 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
+         "dojo/Deferred",
          "dojo/dom-construct",
          "dojo/cookie",
          "dojo/on",
@@ -9,6 +10,7 @@ define([ "dojo/_base/declare",
          "dijit/_WidgetBase" ],
 function( declare,
           lang,
+          Deferred,
           domConstruct,
           cookie,
           on,
@@ -78,33 +80,37 @@ function( declare,
          */
         showView : function( name )
         {
+            var prom = new Deferred();
             var view = this.views[ name ];
             if( !view )
             {
                 console.log( "No view matching", name );
-                return;
+                prom.resolve();
+                return prom;
             }
             else if( view == this.showingView ) // already shown, so do nothing
             {
-                return;
+                prom.resolve();
+                return prom;
             }
             else if( this.showingView ) // hide the showing view first
             {
-                this.showingView.hide().then( lang.hitch( view, view.show ) );
+                return this.showingView.hide().then( lang.hitch( view, view.show ) );
             }
             else // no showing view, so just show
             {
-                view.show();
+                return view.show();
             }
         },
         showModule : function( name, opts )
         {
-            this.modules[ name ].instance.show( this.currentModule, opts ); // delegated to widget, because it might want to show other views than its main one.
+            var prom = this.modules[ name ].instance.show( this.currentModule, opts ); // delegated to widget, because it might want to show other views than its main one.
             this.currentModule = name;
             if( this.modules[ name ].persists )
             {
                 cookie( this.STARTUP_PANE_COOKIE, name, { expires : 365 } );
             }
+            return prom;
         },
         checkForFeatures : function()
         {
