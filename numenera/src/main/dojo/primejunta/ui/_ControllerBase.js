@@ -129,7 +129,7 @@ function( declare,
                     else
                     {
                         var lnk = domConstruct.create( "a", { innerHTML : this.modules[ o ].label }, links );
-                        on( lnk, touch.press, lang.hitch( this, this.showModule, o ) );
+                        on( lnk, touch.release, lang.hitch( this, this.showModule, o ) );
                     }
                     i++;
                 }

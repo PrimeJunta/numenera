@@ -1,6 +1,8 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "dojo/_base/fx",
+         "dojo/on",
+         "dojo/touch",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
@@ -13,6 +15,8 @@ define([ "dojo/_base/declare",
 function( declare,
           lang,
           fx,
+          on,
+          touch,
           _WidgetBase,
           _TemplatedMixin,
           _WidgetsInTemplateMixin,
@@ -30,6 +34,7 @@ function( declare,
         helpData : {},
         postCreate : function()
         {
+            on( this.closeButton, touch.release, lang.hitch( this, this.hide ) );
             this._tabs = {};
             for( var o in this.helpData )
             {
