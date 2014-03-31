@@ -1,0 +1,45 @@
+<div class="cr-CharacterRecordBase">
+  <div class="cr-uiControl">
+    <table class="cr-printControls" cellspacing="1">
+      <tbody>
+      <tr>
+        <th><i class="fa fa-cogs"></i></th>
+        <td><label> <input type="checkbox"
+                           data-dojo-type="dijit/form/CheckBox"
+                           data-dojo-attach-point="setCompactViewCheckbox"
+                           data-dojo-attach-event="onClick:printSettingsChanged"/> Single Page
+        </label></td>
+        <td><label> <input type="checkbox"
+                           data-dojo-type="dijit/form/CheckBox"
+                           data-dojo-attach-point="showShinsCheckbox"
+                           data-dojo-attach-event="onClick:printSettingsChanged"
+                           checked="checked" /> Show Shins
+        </label></td>
+        <td><label> <input type="checkbox"
+                           data-dojo-type="dijit/form/CheckBox"
+                           data-dojo-attach-point="showXPCheckbox"
+                           data-dojo-attach-event="onClick:printSettingsChanged"
+                           checked="checked" /> Show XP
+        </label></td>
+        <td><label> <input type="checkbox"
+                           data-dojo-type="dijit/form/CheckBox"
+                           data-dojo-attach-point="showCyphersCheckbox"
+                           data-dojo-attach-event="onClick:printSettingsChanged"
+                           checked="checked" /> Show Cyphers
+        </label></td>
+        <td>
+          <span data-dojo-attach-point="partyNode" data-dojo-attach-event="onMouseOver:popupDialog" class="cyph-activeIcon">
+            <i class="fa fa-group"></i>
+            <span data-dojo-attach-point="countNode">1</span>
+          </span>
+          <div data-dojo-type="dijit/TooltipDialog" data-dojo-props="position:['below']" data-dojo-attach-event="onMouseLeave:closeDialog" data-dojo-attach-point="party_list" style="display:none">
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div data-dojo-attach-point="printsNode">
+
+  </div>
+</div>

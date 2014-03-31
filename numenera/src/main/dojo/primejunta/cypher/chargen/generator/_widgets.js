@@ -9,6 +9,7 @@ define([ "dojo/_base/declare",
          "dojo/topic",
          "dojo/query",
          "dojo/dom-construct",
+         "../charview/_PrintController",
          "../_CharacterValidator",
          "../_AdvancementControl",
          "../_RecursionInitializer",
@@ -21,6 +22,7 @@ function( declare,
           topic,
           domQuery,
           domConstruct,
+          _PrintController,
           _CharacterValidator,
           _AdvancementControl,
           RecursionInitializer,
@@ -32,6 +34,15 @@ function( declare,
          */
         createSplashCharacterPane : function( props )
         {
+        },
+        /**
+         * Creates and returns a PrintController widget, which calls back with creatPrintView.
+         *
+         * @param props
+         */
+        createPrintController : function( props )
+        {
+            return new _PrintController( props );
         },
         /**
          * Stub. Return a character record of the right type.
@@ -64,7 +75,7 @@ function( declare,
          */
         showPrintView : function()
         {
-            this._createSecondaryWidget( "print", "createPrintView", "_printWidget" );
+            this._createSecondaryWidget( "print", "createPrintController", "_printWidget" );
         },
         /**
          * Yes, I do need this because I have my own help button.

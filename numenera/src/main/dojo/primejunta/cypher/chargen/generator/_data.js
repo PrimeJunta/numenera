@@ -5,6 +5,7 @@
  */
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
+         "dojo/json",
          "dojo/cookie",
          "dojo/dom-construct",
          "dojo/io-query",
@@ -17,6 +18,7 @@ define([ "dojo/_base/declare",
          "dijit/form/Button" ],
 function( declare,
           lang,
+          json,
           cookie,
           domConstruct,
           ioQuery,
@@ -94,6 +96,36 @@ function( declare,
                 else
                 {
                     this.currentView = "chargen";
+                }
+            }
+            else if( cookie( "_at_stored_roster" ) )
+            {
+                this.currentView = "splash";
+                try
+                {
+                    console.log( "LOADING ROSTER" );
+                    var arr = json.parse( cookie( "_at_stored_roster" ) );
+                    console.log( "ROSTER IS", arr );
+                    this._currentRoster = arr;
+                    this.getStoredCharacters().then( lang.hitch( this, function( chars ) {
+                        console.log( "CHARS ARE", chars );
+                        for( var o in chars )
+                        {
+                            if( chars[ o ].name == arr[ 0 ] )
+                            {
+                                console.log( "CHAR IS", chars[ o ]);
+                                this.populateFromStoredData( chars[ o ].data );
+                                this.currentView = "chargen";
+                                this.controller.showView( "chargen" );
+                                break;
+                            }
+                        }
+                    }));
+                }
+                catch( e )
+                {
+                    console.log( "ERROR LOADING ROSTER", e );
+                    cookie( "_at_stored_roster", null, { expires : -1 });
                 }
             }
             else

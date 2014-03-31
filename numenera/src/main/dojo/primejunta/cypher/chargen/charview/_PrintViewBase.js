@@ -15,10 +15,13 @@ function( declare,
           _CharacterViewBase )
 {
     return declare([ _CharacterViewBase ], {
+        initializeCharacterData : function()
+        {
+        },
         postCreate : function()
         {
             this.inherited( arguments );
-            this._updatePrint();
+            this.updatePrint();
         },
         populateFields : function()
         {
@@ -30,19 +33,6 @@ function( declare,
             this._wl( "description_text_compact", "description_text" );
             this._wl( "notes_text_compact", "notes_text" );
         },
-        /**
-         * You can control a few print settings. They're stored in a cookie.
-         */
-        printSettingsChanged : function()
-        {
-            cookie( "printSettings", json.stringify({
-                showShins : this.showShinsCheckbox.get( "checked" ),
-                showXP : this.showXPCheckbox.get( "checked" ),
-                showCyphers : this.showCyphersCheckbox.get( "checked" ),
-                compactView : this.setCompactViewCheckbox.get( "checked" )
-            }), { expires : 30 });
-            this._updatePrint();
-        },
         closeMe : function()
         {
             this.manager.closePrintView();
@@ -50,7 +40,7 @@ function( declare,
         /**
          * Triggered after you've changed your print settings. Shows/hides some fields according to them.
          */
-        _updatePrint : function()
+        updatePrint : function()
         {
             var settings = cookie( "printSettings" );
             if( !settings )
@@ -69,7 +59,6 @@ function( declare,
             if( !settings.showShins )
             {
                 this.shin_count.style.visibility = "hidden";
-                this.showShinsCheckbox.set( "checked", false );
             }
             else
             {
@@ -78,7 +67,6 @@ function( declare,
             if( !settings.showXP )
             {
                 this.character_xp.style.visibility = "hidden";
-                this.showXPCheckbox.set( "checked", false );
             }
             else
             {
@@ -87,7 +75,6 @@ function( declare,
             if( !settings.showCyphers )
             {
                 this.cypher_list.style.visibility = "hidden";
-                this.showCyphersCheckbox.set( "checked", false );
             }
             else
             {
@@ -96,7 +83,6 @@ function( declare,
             if( settings.compactView )
             {
                 domClass.add( this.domNode, "cr-compactRecord" );
-                this.setCompactViewCheckbox.set( "checked", true );
             }
             else
             {

@@ -15,6 +15,7 @@ define([ "dojo/_base/declare",
          "dojox/mobile/ToolBarButton",
          "dijit/form/Textarea",
          "dijit/layout/ContentPane",
+         "./_roster",
          "./_CharacterPicker",
          "./_CharacterViewBase",
          "dojo/text!./doc/PlayViewHelp.html"],
@@ -32,11 +33,12 @@ function( declare,
           ToolBarButton,
           Textarea,
           ContentPane,
+          _roster,
           _CharacterPicker,
           _CharacterViewBase,
           help )
 {
-    return declare([ _CharacterViewBase ], {
+    return declare([ _CharacterViewBase, _roster ], {
         limitedStats : [ "might_pool", "speed_pool", "intellect_pool", "character_effort" ],
         effortStats : [ "might_pool", "speed_pool", "intellect_pool" ],
         unlimitedStats : [ "character_xp" ],
@@ -46,23 +48,23 @@ function( declare,
         postCreate : function()
         {
             this.helpNode.innerHTML = help;
-            this._characterButtons = [];
+            this._characterButtons = {};
             this._viewOrder = [ this.descriptionView, this.statsView, this.abilitiesView, this.possessionsView, this.rosterView, this.helpView ];
             this.populateFields();
             this._character = lang.clone( this.character );
             this._connectStatControls();
             this._checkStatLimits();
-            this._initPartyView();
+            this.initRoster();
             if( this.manager._currentRoster )
             {
                 for( var i = 0; i < this.manager._currentRoster.length; i++ )
                 {
-                    this.addCharacterButton( this.manager._currentRoster[ i ] );
+                    this.addCharacter( this.manager._currentRoster[ i ] );
                 }
             }
             else
             {
-                this.addCharacterButton( this.character.character_name );
+                this.addCharacter( this.character.character_name );
             }
         },
         adjustFields : function()
@@ -110,10 +112,9 @@ function( declare,
         getRoster : function()
         {
             var out = [];
-            for( var i = 0; i < this._characterButtons.length; i++ )
+            for( var o in  this._characterButtons )
             {
-                var cur = this._characterButtons[ i ];
-                out.push( cur.label );
+                out.push( o );
             }
             return out;
         },
@@ -135,7 +136,7 @@ function( declare,
         },
         toRosterView : function()
         {
-            this._disablePicker( this.character.character_name );
+            this.disablePicker( this.character.character_name );
             this._moveTo( this.rosterView );
         },
         toHelpView : function()
@@ -159,35 +160,22 @@ function( declare,
             }
             this._checkStatLimits();
         },
-        includeCharacter : function( character, picked )
+        addCharacter : function( name )
         {
-            if( picked )
+            if( this._characterButtons[ name ] )
             {
-                this.addCharacterButton( character.name );
+                return;
             }
-            else
-            {
-                this.removeCharacterButton( character.name );
-            }
-        },
-        addCharacterButton : function( name )
-        {
             var btn = new TabBarButton({ "class" : "pv-characterPickerButton", label : name, onClick : lang.hitch( this, this.switchToCharacter, name )});
             this.characterTabs.addChild( btn );
-            this._characterButtons.push( btn );
+            this._characterButtons[ name ] = btn;
             this._checkSelectedCharacterButton();
         },
-        removeCharacterButton : function( name )
+        removeCharacter : function( name )
         {
-            for( var i = 0; i < this._characterButtons.length; i++ )
-            {
-                if( this._characterButtons[ i ].label == name )
-                {
-                    this._characterButtons.splice( i, 1 )[ 0 ].destroy();
-                    this._checkSelectedCharacterButton();
-                    return;
-                }
-            }
+            this._characterButtons[ name ].destroy();
+            delete this._characterButtons[ name ];
+            this._checkSelectedCharacterButton();
         },
         switchToCharacter : function( name )
         {
@@ -221,18 +209,19 @@ function( declare,
         },
         destroy : function()
         {
-            while( this._characterButtons.length > 0 )
+            for( var o in this._characterButtons )
             {
-                this._characterButtons.pop().destroy();
+                this._characterButtons[ o ].destroy();
+                delete this._characterButtons[ o ];
             }
             this.inherited( arguments );
         },
         _checkSelectedCharacterButton : function()
         {
-            for( var i = 0; i < this._characterButtons.length; i++ )
+            for( var o in this._characterButtons )
             {
-                var cur = this._characterButtons[ i ];
-                if( cur.label == this.character.character_name )
+                var cur = this._characterButtons[ o ];
+                if( o == this.character.character_name )
                 {
                     cur.set( "selected", true );
                 }
@@ -405,49 +394,6 @@ function( declare,
         _enHigh : function( stat )
         {
             this[ "increment_" + stat ].set( "disabled", false );
-        },
-        _initPartyView : function()
-        {
-            this.manager.getStoredCharacters().then( lang.hitch( this, this._doInitPartyView ) );
-        },
-        _doInitPartyView : function( chars )
-        {
-            this._storedCharacters = {};
-            this._pickers = [];
-            for( var o in chars )
-            {
-                this._storedCharacters[ chars[ o ].name ] = chars[ o ];
-                var picked = false;
-                if( chars[ o ].name == this._character.character_name )
-                {
-                    picked = true;
-                }
-                if( this.manager._currentRoster && array.indexOf( this.manager._currentRoster, chars[ o ].name ) != -1 )
-                {
-                    picked = true;
-                }
-                var picker = new _CharacterPicker({ manager : this, character : chars[ o ], picked : picked }).placeAt( this.party_list );
-                this._pickers.push( picker );
-                this.own( picker );
-            }
-        },
-        _disablePicker : function( character )
-        {
-            if( !this.pickers )
-            {
-                return;
-            }
-            for( var i = 0; i < this._pickers.length; i++ )
-            {
-                if( this._pickers[ i ].character.name == character )
-                {
-                    this._pickers[ i ].set( "disabled", true );
-                }
-                else
-                {
-                    this._pickers[ i ].set( "disabled", false );
-                }
-            }
         },
         _moveTo : function( view )
         {

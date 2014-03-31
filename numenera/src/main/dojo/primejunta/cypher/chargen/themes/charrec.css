@@ -1,6 +1,18 @@
 /**
  * Stylesheet for character record sheet (printable).
  */
+/* misc */
+.cyph-activeIcon
+{
+    cursor : pointer;
+    -moz-transition: all .2s ease-in;
+    -o-transition: all .2s ease-in;
+    -webkit-transition: all .2s ease-in;
+}
+.cyph-activeIcon:hover
+{
+    color : red;
+}
 /* layout */
 .cr-CharacterRecordBase
 {
