@@ -44,7 +44,7 @@ function( declare,
             var initialModule;
             for( var o in this.modules )
             {
-                var view = new View({ name : o, controller : this }).placeAt( document.body );
+                var view = new View({ name : o, controller : this }).placeAt( this.domNode );
                 this.views[ o ] = view;
                 var widg = new this.modules[ o ].constructor({ controller : this, view : view }).placeAt( view );
                 this.modules[ o ].instance = widg;
@@ -68,7 +68,7 @@ function( declare,
         {
             if( !this.views[ name ])
             {
-                this.views[ name ] = new View({ name : name, shown : shown, controller : this }).placeAt( document.body );
+                this.views[ name ] = new View({ name : name, shown : shown, controller : this }).placeAt( this.domNode );
             }
             return this.views[ name ];
         },
@@ -80,14 +80,12 @@ function( declare,
          */
         showView : function( name )
         {
-
-            console.log( "REQUESTED TRANSITION FROM", ( this.showingView ? this.showingView.name : null ), "TO", name );
-
+            //console.log( "REQUESTED TRANSITION FROM", ( this.showingView ? this.showingView.name : null ), "TO", name );
             var prom = new Deferred();
             var view = this.views[ name ];
             if( !view )
             {
-                console.log( "No view matching", name );
+                //console.log( "No view matching", name );
                 prom.resolve();
                 return prom;
             }
@@ -98,12 +96,12 @@ function( declare,
             }
             else if( this.showingView ) // hide the showing view first
             {
-                console.log( "PERFORMING TRANSITION FROM", this.showingView.name, "TO", name );
+                //console.log( "PERFORMING TRANSITION FROM", this.showingView.name, "TO", name );
                 return this.showingView.hide().then( lang.hitch( view, view.show ) );
             }
             else // no showing view, so just show
             {
-                console.log( "JUST SHOW", name );
+                //console.log( "JUST SHOW", name );
                 return view.show();
             }
         },

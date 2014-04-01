@@ -12,6 +12,7 @@ define([ "dojo/_base/declare",
          "dojo/topic",
          "dojo/dom-class",
          "dojo/query",
+         "dojo/cookie",
          "dijit/layout/BorderContainer",
          "dijit/layout/TabContainer",
          "dijit/layout/ContentPane",
@@ -43,6 +44,7 @@ function( declare,
           topic,
           domClass,
           domQuery,
+          cookie,
           BorderContainer,
           TabContainer,
           ContentPane,
@@ -160,6 +162,14 @@ function( declare,
             this.inherited( arguments );
             this.checkForStartupQuery();
         },
+        loadCharacterByName : function( name )
+        {
+            var char = this._characterStore.getCharacterByName( name );
+            if( char )
+            {
+                this.loadCharacter( char );
+            }
+        },
         /**
          * Checks that we're not in the middle of programmatic population; if not, validates the character
          * with a new (if necessary) _CharacterValidator, returning the result.
@@ -233,6 +243,14 @@ function( declare,
             {
                 domClass.remove( this.characterStoreButton.domNode, "cg-dataRefreshed" );
             }
+        },
+        /**
+         * Clears current character cookie, then .clearAll.
+         */
+        pleaseClearAll : function()
+        {
+            cookie( this.CURRENT_CHARACTER_COOKIE, null, { expires : -1 });
+            this.clearAll();
         },
         /**
          * Resets splash pane, transitions to it, then doClearAll.

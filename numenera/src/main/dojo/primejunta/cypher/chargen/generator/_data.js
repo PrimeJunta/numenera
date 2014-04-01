@@ -88,14 +88,11 @@ function( declare,
             {
                 try
                 {
-                    console.log( "LOADING ROSTER" );
                     var arr = json.parse( cookie( this.STORED_ROSTER_COOKIE ) );
-                    console.log( "ROSTER IS", arr );
                     this._currentRoster = arr;
                 }
                 catch( e )
                 {
-                    console.log( "ERROR LOADING ROSTER", e );
                     cookie( this.STORED_ROSTER_COOKIE, null, { expires : -1 });
                 }
             }
@@ -229,6 +226,10 @@ function( declare,
             }
             this.onCharNameBlur( this.characterNameInput );
             this._populating.pop();
+        },
+        getKey : function()
+        {
+            return this.characterNameInput.value;
         },
         /**
          * Okay, the beef. Or one of them. We generate the character data with this method. Since we transfer the

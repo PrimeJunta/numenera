@@ -29,7 +29,6 @@ function( declare,
         templateString : template,
         postCreate : function()
         {
-            this.manager.pleaseStoreCharacter();
             this.initializeCharacter();
             this.initRoster();
             this.updatePrints();

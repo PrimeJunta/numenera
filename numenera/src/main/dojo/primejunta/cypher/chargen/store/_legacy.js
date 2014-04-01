@@ -36,7 +36,7 @@ function( declare, lang, json ) {
                     }
                 }
             }
-            console.log( "NOW STORE IS", window.localStorage );
+            //console.log( "NOW STORE IS", window.localStorage );
         },
         _migrateItem : function( store, value, newKey, oldKey )
         {
@@ -59,7 +59,7 @@ function( declare, lang, json ) {
             }
             catch( e )
             {
-                console.log( "Couldn't parse, returning raw value" );
+                //console.log( "Couldn't parse, returning raw value" );
                 if( rawVal == "[object Object]" )
                 {
                     // Clean up garbage

@@ -280,14 +280,18 @@ h2.cr-heading
        margin : 0.5cm;
     }
     /* Needed to make page breaks work as intended on Firefox */
-    html, body, .cr-CharacterRecordBase
+    html, body, .cr-CharacterRecordBase, .dijitContentPane
     {
         overflow : visible !important;
         float : none !important;
     }
-    .cr-pageBreak
+    .pjViewHidden
     {
-        page-break-before : always;
+        display : none;
+    }
+    .___cr-pageBreak
+    {
+        page-break-before: always !important;
     }
     .num-noJavaScript, .cr-uiControl
     {

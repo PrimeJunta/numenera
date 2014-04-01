@@ -89,6 +89,7 @@ function( declare,
          */
         closePrintView : function()
         {
+            this.loadCharacterByName( cookie( this.CURRENT_CHARACTER_COOKIE ) );
             this.transitionTo( "chargen" );
         },
         /**
@@ -129,6 +130,8 @@ function( declare,
                 {
                     this[ attachPoint ].destroy();
                 }
+                this.pleaseStoreCharacter();
+                cookie( this.CURRENT_CHARACTER_COOKIE, this.getKey(), { expires : 90 });
                 this[ attachPoint ] = this[ creatorMethod ]({ manager : this, controller : this.controller }).placeAt( this.controller.getView( viewName ) );
                 this.transitionTo( viewName );
                 this[ attachPoint ].startup(); // ?

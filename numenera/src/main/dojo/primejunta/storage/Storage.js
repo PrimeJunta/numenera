@@ -30,7 +30,7 @@ function( declare,
             }
             catch( e )
             {
-                console.log( "Error parsing value:", key, rawVal );
+                //console.log( "Error parsing value:", key, rawVal );
                 return rawVal;
             }
         },
@@ -49,7 +49,7 @@ function( declare,
                     out.push( keys[ i ].substring( this.storeName.length + 1 ));
                 }
             }
-            console.log( "KEYS", out ); // TODO: remove this
+            //console.log( "KEYS", out ); // TODO: remove this
             return out;
         }
     });

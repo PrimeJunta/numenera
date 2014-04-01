@@ -140,7 +140,12 @@ function( declare,
             {
                 return; // we're not doing anything with the tempStore yet so let's not pollute it
             }
-            var key = this.manager.characterNameInput.value;
+            var key = this.manager.getKey()
+            if( !key )
+            {
+                console.log( "Can't store nameless character." );
+                return;
+            }
             var val = {
                 key : key,
                 name : this._sanitize( this.manager.characterNameInput.value ),
@@ -158,11 +163,19 @@ function( declare,
                 this.manager.saveButton.set( "disabled", true ); 
             }
         },
+        getCharacterByName : function( name )
+        {
+            var char = this._characterStore.get( name );
+            if( char && char.data )
+            {
+                return char.data;
+            }
+        },
         loadCharacter : function( data, name )
         {
             cookie( this.manager.CURRENT_CHARACTER_COOKIE, name, { expires : 90 });
             this.close();
-            this.manager.loadCharacter( data);
+            this.manager.loadCharacter( data );
         },
         characterDataToBackupData : function( characterData )
         {
