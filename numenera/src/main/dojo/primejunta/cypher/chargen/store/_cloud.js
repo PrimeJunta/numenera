@@ -11,6 +11,7 @@ define([ "dojo/_base/declare",
          "dojo/store/Memory",
          "dijit/form/ComboBox",
          "primejunta/gapi/Drive",
+         "primejunta/storage/Storage",
          "dojo/text!primejunta/cypher/doc/privacy.html" ],
 function( declare,
           lang,
@@ -19,6 +20,7 @@ function( declare,
           Memory,
           ComboBox,
           Drive,
+          Storage,
           privacy )
 {
     return declare([], {
@@ -103,7 +105,7 @@ function( declare,
          */
         setupCloudUI : function( /* Object */ authResult )
         {
-            if( this._storage.get( "_CCG_SYNC_CHARACTERS" ) == "true" )
+            if( this._settingsStore.get( "_CCG_SYNC_CHARACTERS" ) == "true" )
             {
                 this.syncCheckbox.set( "checked", true );
             };
@@ -183,7 +185,7 @@ function( declare,
          */
         getSyncFileTitle : function()
         {
-            var syncFileTitle = this._storage.get( "_CCG_SYNC_FILE_TITLE" );
+            var syncFileTitle = this._settingsStore.get( "_CCG_SYNC_FILE_TITLE" );
             if( !syncFileTitle )
             {
                 return this.SYNC_FILE_TITLE;
@@ -200,7 +202,7 @@ function( declare,
          */
         getBackupFileTitle : function()
         {
-            var backupFileTitle = this._storage.get( "_CCG_BACKUP_FILE_TITLE" );
+            var backupFileTitle = this._settingsStore.get( "_CCG_BACKUP_FILE_TITLE" );
             if( !backupFileTitle )
             {
                 return this.BACKUP_FILE_TITLE;
@@ -218,7 +220,7 @@ function( declare,
         setSyncSwitch : function()
         {
             var to = this.syncCheckbox.checked;
-            this._storage.put( "_CCG_SYNC_CHARACTERS", to ? "true" : "false" );
+            this._settingsStore.put( "_CCG_SYNC_CHARACTERS", to ? "true" : "false" );
             this.setSyncTimer( to );
         },
         /**
@@ -255,32 +257,32 @@ function( declare,
          */
         performSync : function()
         {
-            if( this._storage.get( "_CCG_SYNC_CHARACTERS" ) == "false" )
+            if( this._settingsStore.get( "_CCG_SYNC_CHARACTERS" ) == "false" )
             {
                 return;
             }
             var syncFileTitle = this.getSyncFileTitle();
             this._syncTimer = setTimeout( lang.hitch( this, this.performSync ), this.SYNC_INTERVAL );
-            var syncState = this._storage.get( this.SYNC_STATE_KEY );
+            var syncState = this._settingsStore.get( this.SYNC_STATE_KEY );
             if( syncState == "CONFLICT" )
             {
                 return;
             }
             this._setCBSpinner( true );
-            this._storage.put( this.SYNC_STATE_KEY, "PENDING" ); // starting the sync
+            this._settingsStore.put( this.SYNC_STATE_KEY, "PENDING" ); // starting the sync
             this.getStoredCharacters().then( lang.hitch( this, function( characterData ) {
                 var fileData = {
                     title : syncFileTitle,
                     mimeType : this.BACKUP_MIME_TYPE,
                     description : this.BACKUP_DESCRIPTION,
                     dirty : syncState == "DIRTY" ? true : false,
-                    modifiedDate : this._storage.get( this.SYNC_TIME_KEY )
+                    modifiedDate : this._settingsStore.get( this.SYNC_TIME_KEY )
                 };
                 this.drive.syncFile( fileData, this.characterDataToBackupData( characterData ) ).then(
                     lang.hitch( this, function( reslt ) {
                         if( reslt.fileData )
                         {
-                            this._storage.put( this.SYNC_TIME_KEY, reslt.fileData.modifiedDate );
+                            this._settingsStore.put( this.SYNC_TIME_KEY, reslt.fileData.modifiedDate );
                         }
                         if( reslt.result == "PLEASE_UPDATE" )
                         {
@@ -313,7 +315,7 @@ function( declare,
         {
             if( this.cloudSyncFileName.get( "value" ) != "" )
             {
-                this._storage.put( "_CCG_SYNC_FILE_TITLE", this.cloudSyncFileName.get( "value" ) );
+                this._settingsStore.put( "_CCG_SYNC_FILE_TITLE", this.cloudSyncFileName.get( "value" ) );
                 this.performSync();
             }
         },
@@ -382,11 +384,11 @@ function( declare,
          */
         setSyncState : function( /* String */ state )
         {
-            var syncState = this._storage.get( this.SYNC_STATE_KEY );
+            var syncState = this._settingsStore.get( this.SYNC_STATE_KEY );
             if( syncState != "DIRTY" )
             {
                 // someone might've dirtied it while we were syncing, and we don't want to flag it clean
-                this._storage.put( this.SYNC_STATE_KEY, state );
+                this._settingsStore.put( this.SYNC_STATE_KEY, state );
             }
             if( state == "DIRTY" )
             {
@@ -428,7 +430,7 @@ function( declare,
         _checkRestoreEnabled : function()
         {
             var itm = this.cloudBackupFileName.get( "value" );
-            this._storage.put( "_CCG_BACKUP_FILE_TITLE", itm );
+            this._settingsStore.put( "_CCG_BACKUP_FILE_TITLE", itm );
             if( this._backupListStore.get( itm ) )
             {
                 this.restoreFromCloudButton.set( "disabled", false );

@@ -31,6 +31,8 @@ function( declare,
           Button )
 {
     return declare([], {
+        CURRENT_CHARACTER_COOKIE : "CG_CURRENT_CHARACTER",
+        STORED_ROSTER_COOKIE : "CG_STORED_ROSTER",
         /**
          * Version of the data format understood by this implementation.
          */
@@ -82,6 +84,21 @@ function( declare,
         {
             topic.subscribe( "CharGen/dataChanged", lang.hitch( this, this.autoSave ) );
             on( document, "keyup", lang.hitch( this, this.handleKeyUp ) );
+            if( cookie( this.STORED_ROSTER_COOKIE  ) )
+            {
+                try
+                {
+                    console.log( "LOADING ROSTER" );
+                    var arr = json.parse( cookie( this.STORED_ROSTER_COOKIE ) );
+                    console.log( "ROSTER IS", arr );
+                    this._currentRoster = arr;
+                }
+                catch( e )
+                {
+                    console.log( "ERROR LOADING ROSTER", e );
+                    cookie( this.STORED_ROSTER_COOKIE, null, { expires : -1 });
+                }
+            }
             if( window.location.search != "" )
             {
                 this.populateFromQueryString();
@@ -98,35 +115,21 @@ function( declare,
                     this.currentView = "chargen";
                 }
             }
-            else if( cookie( "_at_stored_roster" ) )
+            else if( cookie( this.CURRENT_CHARACTER_COOKIE ) )
             {
-                this.currentView = "splash";
-                try
-                {
-                    console.log( "LOADING ROSTER" );
-                    var arr = json.parse( cookie( "_at_stored_roster" ) );
-                    console.log( "ROSTER IS", arr );
-                    this._currentRoster = arr;
-                    this.getStoredCharacters().then( lang.hitch( this, function( chars ) {
-                        console.log( "CHARS ARE", chars );
-                        for( var o in chars )
+                this.currentView = "startup";
+                this.getStoredCharacters().then( lang.hitch( this, function( chars ) {
+                    for( var o in chars )
+                    {
+                        if( chars[ o ].name == cookie( this.CURRENT_CHARACTER_COOKIE ) )
                         {
-                            if( chars[ o ].name == arr[ 0 ] )
-                            {
-                                console.log( "CHAR IS", chars[ o ]);
-                                this.populateFromStoredData( chars[ o ].data );
-                                this.currentView = "chargen";
-                                this.controller.showView( "chargen" );
-                                break;
-                            }
+                            this.populateFromStoredData( chars[ o ].data );
+                            this.currentView = "chargen";
+                            return;
                         }
-                    }));
-                }
-                catch( e )
-                {
-                    console.log( "ERROR LOADING ROSTER", e );
-                    cookie( "_at_stored_roster", null, { expires : -1 });
-                }
+                    }
+                    this.currentView = "splash";
+                }));
             }
             else
             {

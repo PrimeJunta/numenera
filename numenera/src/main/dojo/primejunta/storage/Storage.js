@@ -1,5 +1,6 @@
 /**
  * Wrapper for browser localStorage, emulating dojox.storage API. Automatically parses/stringifies JSON values.
+ * The difference is that it takes control of one field in localStorage, rather than the whole shebang.
  */
 define([ "dojo/_base/declare",
          "dojo/json" ],
@@ -7,13 +8,22 @@ function( declare,
           json )
 {
     return declare([], {
+        constructor : function( storeName )
+        {
+            if( !storeName )
+            {
+                throw( new Error( "Must create a name for the local store." ) );
+            }
+            this.storeName = storeName;
+            this._store = window.localStorage;
+        },
         put : function( key, val )
         {
-            window.localStorage[ key ] = json.stringify( val );
+            this._store[ this.storeName + "_" + key ] = json.stringify( val );
         },
         get : function( key )
         {
-            var rawVal = window.localStorage[ key ];
+            var rawVal = this._store[ this.storeName + "_" + key ];
             try
             {
                 return json.parse( rawVal );
@@ -21,24 +31,26 @@ function( declare,
             catch( e )
             {
                 console.log( "Error parsing value:", key, rawVal );
-                if( rawVal == "[object Object]" ) // TODO: Remove when no longer necessary. Hack to get rid of broken values.
-                {
-                    this.remove( key );
-                    return false;
-                }
-                else
-                {
-                    return window.localStorage[ key ];
-                }
+                return rawVal;
             }
         },
         remove : function( key )
         {
-            delete window.localStorage[ key ];
+            delete this._store[ this.storeName + "_" + key ];
         },
         getKeys : function()
         {
-            return Object.keys( window.localStorage );
+            var keys = Object.keys( this._store );
+            var out = [];
+            for( var i = 0; i < keys.length; i++ )
+            {
+                if( keys[ i ].indexOf( this.storeName ) == 0 )
+                {
+                    out.push( keys[ i ].substring( this.storeName.length + 1 ));
+                }
+            }
+            console.log( "KEYS", out ); // TODO: remove this
+            return out;
         }
     });
 });

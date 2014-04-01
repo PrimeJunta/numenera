@@ -89,7 +89,7 @@ function( declare,
                 }
             }
             this.manager._currentRoster = arr;
-            cookie( "_at_stored_roster", json.stringify( arr ), { expires : 90 });
+            cookie( "CG_STORED_ROSTER", json.stringify( arr ), { expires : 90 });
         }
     });
 });

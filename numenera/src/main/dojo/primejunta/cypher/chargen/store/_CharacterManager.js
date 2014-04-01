@@ -66,7 +66,7 @@ function( declare,
          */
         loadMe : function()
         {
-            this.manager.loadCharacter( this.data );
+            this.manager.loadCharacter( this.data, this.name );
         }
     });
 });

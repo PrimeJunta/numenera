@@ -7,9 +7,11 @@ define([ "dojo/_base/declare",
          "dojo/dom-construct",
          "dojo/Deferred",
          "dojo/io-query",
+         "dojo/cookie",
          "primejunta/storage/Storage",
          "./_cloud",
          "./_file",
+         "./_legacy",
          "./_CharacterManager",
          "../_UtilityMixin",
          "dijit/form/CheckBox",
@@ -28,9 +30,11 @@ function( declare,
           domConstruct,
           Deferred,
           ioQuery,
+          cookie,
           Storage,
           _cloud,
           _file,
+          _legacy,
           _CharacterManager,
           _UtilityMixin,
           CheckBox,
@@ -41,15 +45,22 @@ function( declare,
           _WidgetsInTemplateMixin,
           template )
 {
-    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _UtilityMixin, _cloud, _file ], {
+    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _UtilityMixin, _cloud, _file, _legacy ], {
         INTERNAL_PREFIX : "_CCG_",
+        CHARACTER_STORE_NAME : "_CG_CHARACTER_STORE",
+        /**
+         * Local storage property which contains the settings for cloud storage.
+         */
+        SETTINGS_STORE_NAME : "_CG_SETTINGS",
         manager : {},
         templateString : template,
         _tempStoreToken : "_CCG_TMP_",
         _cwa : [],
         postCreate : function()
         {
-            this._storage = new Storage();
+            this._characterStore = new Storage( this.CHARACTER_STORE_NAME );
+            this._settingsStore = new Storage( this.SETTINGS_STORE_NAME );
+            this.migrateOldStores();
             domConstruct.place( this.characterManagerDialog.domNode, document.body );
             this.characterManagerDialog.startup();
             if( !has( "ios" ) )
@@ -102,11 +113,11 @@ function( declare,
             {
                 restored = [];
             }
-            var chars = this._filterKeys( this._storage.getKeys() ).sort();
+            var chars = this._filterKeys( this._characterStore.getKeys() ).sort();
             var _data = {};
             for( var i = 0; i < chars.length; i++ )
             {
-                var _char = this._storage.get( chars[ i ] );
+                var _char = this._characterStore.get( chars[ i ] );
                 if( this._characterIsValid( _char ) )
                 {
                     var props = _char;
@@ -121,8 +132,7 @@ function( declare,
             return deferred;
         },
         /**
-         * Stores the character
-         * under a key derived from the character name with _getKey.
+         * Stores the character under the character name.
          */
         storeCharacter : function( data, tempStore )
         {
@@ -130,7 +140,7 @@ function( declare,
             {
                 return; // we're not doing anything with the tempStore yet so let's not pollute it
             }
-            var key = this._getKey( this.manager.characterNameInput.value, tempStore );
+            var key = this.manager.characterNameInput.value;
             var val = {
                 key : key,
                 name : this._sanitize( this.manager.characterNameInput.value ),
@@ -141,15 +151,16 @@ function( declare,
             {
                 val.temp = true;
             }
-            this._storage.put( key, val );
+            this._characterStore.put( key, val );
             this.setSyncState( "DIRTY" ); // from _cloud.
             if( !tempStore )
             {
                 this.manager.saveButton.set( "disabled", true ); 
             }
         },
-        loadCharacter : function( data )
+        loadCharacter : function( data, name )
         {
+            cookie( this.manager.CURRENT_CHARACTER_COOKIE, name, { expires : 90 });
             this.close();
             this.manager.loadCharacter( data);
         },
@@ -200,7 +211,7 @@ function( declare,
             {
                 if( this._cwa[ i ].deletionCheckbox.checked )
                 {
-                    this._storage.remove( this._cwa[ i ].key );
+                    this._characterStore.remove( this._cwa[ i ].key );
                     this.setSyncState( "DIRTY" ); // from _cloud.
                 }
             }
@@ -227,14 +238,14 @@ function( declare,
          */
         _restoreFromBackupData : function( obj, sync )
         {
-            var keys = this._filterKeys( this._storage.getKeys() ).sort();
+            var keys = this._filterKeys( this._characterStore.getKeys() ).sort();
             var restored = [];
             var unrestored = [];
             if( sync )
             {
                 while( keys.length > 0 )
                 {
-                    this._storage.remove( keys.pop() );
+                    this._characterStore.remove( keys.pop() );
                 }
             }
             for( var o in obj )
@@ -242,7 +253,7 @@ function( declare,
                 if( sync || array.indexOf( keys, o ) == -1 )
                 {
                     restored.push( o );
-                    this._storage.put( o, obj[ o ] );
+                    this._characterStore.put( o, obj[ o ] );
                 }
                 else
                 {
@@ -275,15 +286,6 @@ function( declare,
                 }
             }
             return out;
-        },
-        /**
-         * Replaces everything that's not a letter between a and z in the character name with underscores, and
-         * returns it. This is so our characters are stored by name, more or less. If you have two different
-         * characters named Röbin Høød and Røbin Hööd, you're SOL though 'cuz both will be stored as R_bin_H__d.
-         */
-        _getKey : function( nameStr, tempStore )
-        {
-            return ( tempStore ? this._tempStoreToken : "" ) + nameStr.replace( /[^a-z|A-Z]+/g, "_" );
         },
         _preprocessLinkData : function( data )
         {
