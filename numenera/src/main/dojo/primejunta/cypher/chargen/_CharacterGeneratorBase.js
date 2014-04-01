@@ -164,10 +164,10 @@ function( declare,
         },
         loadCharacterByName : function( name )
         {
-            var char = this._characterStore.getCharacterByName( name );
-            if( char )
+            var myChar = this._characterStore.getCharacterByName( name );
+            if( myChar )
             {
-                this.loadCharacter( char );
+                this.loadCharacter( myChar );
             }
         },
         /**
@@ -201,7 +201,7 @@ function( declare,
             }
         },
         /**
-         * If the char name has not been set, clear the field and normalizeClass.
+         * If the character name has not been set, clear the field and normalizeClass.
          */
         onCharNameFocus : function( fld )
         {
@@ -212,7 +212,7 @@ function( declare,
             }
         },
         /**
-         * If no char name has been set, puts back the default name, and normalizeClass.
+         * If no character name has been set, puts back the default name, and normalizeClass.
          */
         onCharNameBlur : function( fld )
         {

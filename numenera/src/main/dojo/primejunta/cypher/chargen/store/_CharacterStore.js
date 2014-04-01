@@ -165,10 +165,10 @@ function( declare,
         },
         getCharacterByName : function( name )
         {
-            var char = this._characterStore.get( name );
-            if( char && char.data )
+            var myChar = this._characterStore.get( name );
+            if( myChar && myChar.data )
             {
-                return char.data;
+                return myChar.data;
             }
         },
         loadCharacter : function( data, name )
