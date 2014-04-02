@@ -26,5 +26,5 @@ cp dojo-src/index.html release/
 cp dojo-src/cypher-chargen.manifest release/
 cp dojo-src/index-firefox.html release/
 echo Creating package
-zip -r numenera.zip release/
+zip -r numenera.zip release/ > /dev/null
 echo Done. Release is in directory release/ and a zip package in numenera.zip.

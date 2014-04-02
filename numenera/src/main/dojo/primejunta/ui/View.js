@@ -63,20 +63,12 @@ function( declare,
         {
             var def = new Deferred();
             this.controller.transitionInProgress = true;
-            if( evt == "show" )
-            {
-                this.domNode.style.display = "block";
-            }
             this.domNode.style.zIndex = zIndex;
             func({
                 node : this.domNode,
                 onEnd : lang.hitch( this, function() {
                     this.emit( evt, { bubbles : true, cancelable : true });
                     this.controller.transitionInProgress = false;
-                    if( evt == "hide" )
-                    {
-                        this.domNode.style.display = "none";
-                    }
                     def.resolve();
                 })
             }).play();
