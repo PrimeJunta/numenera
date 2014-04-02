@@ -202,11 +202,11 @@ h2.cr-heading
 /* compact view */
 .cr-compactRecord .cr-heading
 {
-	font-size : 12px;
+	font-size : 11px;
 }
 .cr-compactRecord .cr-listContent
 {
-    font-size : 10px;
+    font-size : 9px;
 }
 .cr-showInCompact
 {
@@ -223,7 +223,7 @@ h2.cr-heading
 .cr-compactRecord .cr-name
 {
 	font-family : Prata;
-	font-size : 16px;
+	font-size : 15px;
 }
 .cr-compactRecord .cr-definition
 {
@@ -314,14 +314,14 @@ h2.cr-heading
     }
     .cr-listContent
     {
-        font-size : 10pt;
-        line-height : 14pt;
+        font-size : 9pt;
+        line-height : 12pt;
     }
     /* compact view */
     .cr-compactRecord .cr-listContent
     {
-        font-size : 9pt;
-        line-height : 12pt;
+        font-size : 8pt;
+        line-height : 11pt;
     }
 }
 
