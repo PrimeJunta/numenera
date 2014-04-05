@@ -21,7 +21,6 @@ define([ "dojo/_base/declare",
          "dijit/form/Textarea",
          "dojox/mobile/ToolBarButton",
          "dojox/mobile/Heading",
-         "primejunta/_StartupMixin",
          "./store/_CharacterStore",
          "./_UtilityMixin",
          "./generator/_data",
@@ -53,7 +52,6 @@ function( declare,
           Textarea,
           ToolBarButton,
           Heading,
-          _StartupMixin,
           _CharacterStore,
           _UtilityMixin,
           _data,
@@ -69,7 +67,7 @@ function( declare,
           _TemplatedMixin,
           _WidgetsInTemplateMixin )
 {
-    return declare( "primejunta/numenera/chargen/_CharacterGeneratorBase", [ ContentPane, _TemplatedMixin, _WidgetsInTemplateMixin, _StartupMixin, _UtilityMixin, _data, _lists, _phrase, _widgets, _recursions, _gm, _textarea, _finalize, _OptionalRulesMixin ], {
+    return declare( "primejunta/numenera/chargen/_CharacterGeneratorBase", [ ContentPane, _TemplatedMixin, _WidgetsInTemplateMixin, _UtilityMixin, _data, _lists, _phrase, _widgets, _recursions, _gm, _textarea, _finalize, _OptionalRulesMixin ], {
         /**
          * The view controller.
          */
@@ -131,7 +129,6 @@ function( declare,
             this.inherited( arguments );
             window._allowSwitchOrigin = ( window.location.hash && window.location.hash.indexOf( "morrison=hotel" ) != -1 );
             this.recursionSelectDisplay = window._allowSwitchOrigin ? "inline-block" : "none";
-            this.setup(); // from _StartupMixin
         },
         /**
          * Initialize internal arrays, initialize selects from data, and connect various event handlers to the UI buttons.
@@ -305,6 +302,10 @@ function( declare,
         {
             this.messageDialog.hide();
         },
+        showLicenses : function()
+        {
+            this.controller.showModule( "help", "Licenses" );
+        },
         /**
          * Removes _advancementControl from mainTabContainer, destroys it, and clears pointer to it.
          */
@@ -347,7 +348,6 @@ function( declare,
             this.extra_equipment_text.set( "value", "" );
             this.setDisabled([ "descriptorSelect", "typeSelect", "focusSelect" ], false );
             this.statsControl.setValues([ "character_tier", "character_effort", "might_pool", "speed_pool", "intellect_pool", "might_edge", "speed_edge", "intellect_edge", "free_pool", "free_edge", "shin_count", "cypher_count", "armor_bonus" ], "" );
-            var lists = [ "ability_list", "inability_list", "special_list", "equipment_list", "bonus_list" ];
             this.autoSave();
             this.setDisabled([ "saveButton" ], true );
             this.statsControl.setDisabled([ "increment_might_pool", "decrement_might_pool", "increment_speed_pool", "decrement_speed_pool", "increment_intellect_pool", "decrement_intellect_pool","increment_might_edge", "decrement_might_edge", "increment_speed_edge", "decrement_speed_edge", "increment_intellect_edge", "decrement_intellect_edge" ], true );

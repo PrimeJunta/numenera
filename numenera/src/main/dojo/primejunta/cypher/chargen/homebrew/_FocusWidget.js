@@ -14,6 +14,7 @@ define([ "dojo/_base/declare",
            rukFoci )
        {
            return declare([ _FeatureBase ], {
+               has_stats : false,
                FEATURE_TYPE : "FOCUS",
                data : [{
                            origin : "ninth_world",

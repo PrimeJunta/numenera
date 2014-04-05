@@ -65,7 +65,6 @@ function( declare,
             for( var o in this._hbTemplates )
             {
                 this.mainTabContainer.addChild( this._hbTemplates[ o ].widget );
-                this._hbTemplates[ o ].widget.startup();
             }
         },
         showLicenses : function()

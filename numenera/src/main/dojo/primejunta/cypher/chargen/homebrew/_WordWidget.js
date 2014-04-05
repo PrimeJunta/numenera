@@ -1,5 +1,6 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
+         "dojo/dom-construct",
          "./_FieldControl",
          "./_TextControl",
          "./_StatControl",
@@ -9,6 +10,7 @@ define([ "dojo/_base/declare",
          "dijit/layout/ContentPane" ],
 function( declare,
           lang,
+          domConstruct,
           _FieldControl,
           _TextControl,
           _StatControl,
@@ -21,7 +23,9 @@ function( declare,
     {
         instance : {},
         oid : "",
+        stat_constraints : {},
         has_advancement : false,
+        has_stats : true,
         has_special_list : false,
         feature_structure : {
             field_list : {
@@ -75,7 +79,11 @@ function( declare,
                     label : "Cypher limit"
                 },
                 shin_count : {
-                    label : "Shins"
+                    label : "Shins",
+                    stat_constraints : {
+                        max : 99,
+                        pattern : "+#0;-#0"
+                    }
                 },
                 recovery_roll : {
                     label : "Recovery bonus"
@@ -121,12 +129,29 @@ function( declare,
             this.inherited( arguments );
             this.title = util.prettify( this.instance.label );
         },
-        postCreate : function()
+        populate : function()
         {
-            this.inherited( arguments );
-            this.field_list = new ContentPane({ content : "<h2>Names</h2>" } ).placeAt( this.containerNode );
-            this.text_list = new ContentPane({ content : "<h2>Descriptions</h2>" } ).placeAt( this.containerNode );
-            this.stats_list = new ContentPane({ content : "<h2>Stat Adjustments</h2>" } ).placeAt( this.containerNode );
+            if( this._populated )
+            {
+                return;
+            }
+            this._populated = true;
+            this.field_list = new ContentPane({ } ).placeAt( this.containerNode );
+            this.text_list = new ContentPane({ } ).placeAt( this.containerNode );
+            if( this.has_stats )
+            {
+                var st = domConstruct.create( "table", {} );
+                domConstruct.create( "caption", { }, st );
+                var tb = domConstruct.create( "tbody", {}, st );
+                var r1 = domConstruct.create( "tr", {}, tb );
+                var r2 = domConstruct.create( "tr", {}, tb );
+                this.stats_list_1 = domConstruct.create( "td", {}, r1 );
+                this.stats_list_2 = domConstruct.create( "td", {}, r1 );
+                this.stats_list_3 = domConstruct.create( "td", {}, r2 );
+                this.stats_list_4 = domConstruct.create( "td", {}, r2 );
+                var cp = new ContentPane().placeAt( this.containerNode );
+                cp.set( "content", st );
+            }
             this.list_list = new ContentPane({ content : "<h2>Features</h2>" } ).placeAt( this.containerNode );
             if( this.has_advancement )
             {
@@ -139,23 +164,43 @@ function( declare,
             this._feature_structure = lang.clone( this.feature_structure );
             for( var o in this._feature_structure.field_list )
             {
-                this._feature_structure.field_list[ o ].control = new _FieldControl({ definition : this._feature_structure.field_list[ o ], instance : this.instance }).placeAt( this.field_list );
+                this._feature_structure.field_list[ o ].control = new _FieldControl({
+                    field_id : o,
+                    definition : this._feature_structure.field_list[ o ],
+                    instance : this.instance }).placeAt( this.field_list );
             }
             for( var o in this._feature_structure.text_list )
             {
-                this._feature_structure.text_list[ o ].control = new _TextControl({ definition : this._feature_structure.text_list[ o ], instance : this.instance }).placeAt( this.text_list );
+                this._feature_structure.text_list[ o ].control = new _TextControl({ field_id : o,
+                    definition : this._feature_structure.text_list[ o ],
+                    instance : this.instance }).placeAt( this.text_list );
             }
-            for( var o in this._feature_structure.stats_list )
+            if( this.has_stats )
             {
-                this._feature_structure.stats_list[ o ].control = new _StatControl({ definition : this._feature_structure.stats_list[ o ], instance : this.instance }).placeAt( this.stats_list );
+                var s = 0;
+                for( var o in this._feature_structure.stats_list )
+                {
+                    var nref = ( s < 4 ? "1" : s < 8 ? "2" : s < 10 ? "3" : 4 );
+                    this._feature_structure.stats_list[ o ].control = new _StatControl({ field_id : o,
+                         definition : this._feature_structure.stats_list[ o ],
+                         instance : this.instance,
+                         stat_constraints : this.stat_constraints }).placeAt( this[ "stats_list" + "_" + nref ] );
+                    s++;
+                }
             }
             for( var o in this._feature_structure.list_list )
             {
-                this._feature_structure.list_list[ o ].control = new _ListControl({ definition : this._feature_structure.list_list[ o ], instance : this.instance }).placeAt( this.list_list );
+                this._feature_structure.list_list[ o ].control = new _ListControl({ path : "lists",
+                     field_id : o,
+                     definition : this._feature_structure.list_list[ o ],
+                     instance : this.instance }).placeAt( this.list_list );
             }
             if( this.has_advancement )
             {
-                this._feature_structure.advancement.control = new _AdvancementControl({ definition : this._feature_structure.advancement, instance : this.instance } ).placeAt( this.advancement );
+                this._feature_structure.advancement.control = new _AdvancementControl({ path : "advancement",
+                    field_id : o,
+                    definition : this._feature_structure.advancement,
+                    instance : this.instance } ).placeAt( this.advancement );
             }
         }
     });

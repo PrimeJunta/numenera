@@ -119,3 +119,37 @@
     color : black;
     text-decoration : none;
 }
+/* Inputs */
+.num-homebrewInput
+{
+    width : 500px;
+}
+.cg-fieldControl
+{
+}
+.cg-fieldControl .cg-fieldControlLabel
+{
+    width : 200px;
+}
+.cg-statControl
+{
+}
+.cg-statControl .cg-fieldControlLabel
+{
+    width : 200px;
+    text-align : right;
+}
+.cg-statControl .dijitInputInner
+{
+    text-align : center;
+    vertical-align : -20px !important;
+}
+.cg-statControl .cg-statInput
+{
+    height : 38px;
+    padding : 12px 0 0;
+}
+.num-itemInput .dijitInputContainer
+{
+    width : 100%; /* don't know why I have to specify this */
+}

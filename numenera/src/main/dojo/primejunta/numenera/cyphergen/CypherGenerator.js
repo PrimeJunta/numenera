@@ -4,7 +4,6 @@ define([ "dojo/_base/declare",
          "dojo/_base/event",
          "dojo/string",
          "dojo/query",
-         "primejunta/_StartupMixin",
          "dojo/on",
          "dojo/io-query",
          "dojo/touch",
@@ -21,7 +20,6 @@ function( declare,
           event,
           string,
           domQuery,
-          _StartupMixin,
           on,
           ioQuery,
           touch,
@@ -33,7 +31,7 @@ function( declare,
           cypher,
           template )
 {
-    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _StartupMixin ], {
+    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin ], {
         manager : {},
         version : "1.0.8",
         iconSrc : require.toUrl( "primejunta/numenera/themes/images" ),
@@ -41,8 +39,8 @@ function( declare,
         cypher_type : false,
         postMixInProperties : function()
         {
+            console.log( "PMIP" );
             this.inherited( arguments );
-            this.setup(); // from _StartupMixin
             if( window.location.hash.length > 0 )
             {
                 var hs = ioQuery.queryToObject( window.location.hash.substring( 1 ) );
@@ -54,9 +52,9 @@ function( declare,
         },
         postCreate : function()
         {
+            console.log( "PC", this );
             this.moduleControlsNode.appendChild( this.controller.getModuleLinks( "cyphergen" ) );
             this._cf = new CypherFactory();
-            this.start(); // from startup
         },
         showCypher : function()
         {
@@ -90,7 +88,7 @@ function( declare,
             this._shown = false;
             this._flip();
         },
-        toggleCypher : function( evt )
+        toggleCypher : function()
         {
             this.clearSelection();
             if( this._shown )
@@ -114,7 +112,11 @@ function( declare,
                 sel.removeAllRanges();
             }
         },
-        _flip : function( from, to, endColor, dir )
+        showLicenses : function()
+        {
+            this.controller.showModule( "help", "Licenses" );
+        },
+        _flip : function()
         {
             domClass.toggle( this.cypherCard, "hover" );
         },
