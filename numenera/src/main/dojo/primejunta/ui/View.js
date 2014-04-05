@@ -47,6 +47,7 @@ function( declare,
             this.controller.showingView = this;
             domClass.add( this.domNode, "pjViewVisible" );
             domClass.remove( this.domNode, "pjViewHidden" );
+            this.resize();
             return this._transition( fx.fadeIn, 1, "show" );
         },
         hide : function()

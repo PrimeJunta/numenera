@@ -33,7 +33,7 @@ function( declare,
           _EnablerWidget,
           template )
 {
-    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin ], {
+    return declare([ ContentPane, _TemplatedMixin, _WidgetsInTemplateMixin ], {
         title : "Homebrew Tools",
         controller : {},
         templateString : template,
@@ -50,6 +50,7 @@ function( declare,
             "Enablers" : {
                 "widgetType" : _EnablerWidget
             }
+            // method to add recursion
         },
         postCreate : function()
         {
@@ -58,12 +59,13 @@ function( declare,
             {
                 if( this._hbTemplates[ o ].widgetType )
                 {
-                    this._hbTemplates[ o ].widget = new this._hbTemplates[ o ].widgetType;
+                    this._hbTemplates[ o ].widget = new this._hbTemplates[ o ].widgetType({ title : o });
                 }
             }
             for( var o in this._hbTemplates )
             {
-                this.mainTabContainer.addChild( new ContentPane({ title : o, content : this._hbTemplates[ o ].widget.domNode }) );
+                this.mainTabContainer.addChild( this._hbTemplates[ o ].widget );
+                this._hbTemplates[ o ].widget.startup();
             }
         },
         showLicenses : function()

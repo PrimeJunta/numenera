@@ -8,7 +8,7 @@ define([ "dojo/_base/declare",
          "dojo/Deferred",
          "dojo/io-query",
          "dojo/cookie",
-         "primejunta/storage/Storage",
+         "primejunta/storage/Store",
          "./_cloud",
          "./_file",
          "./_legacy",
@@ -31,7 +31,7 @@ function( declare,
           Deferred,
           ioQuery,
           cookie,
-          Storage,
+          Store,
           _cloud,
           _file,
           _legacy,
@@ -58,8 +58,8 @@ function( declare,
         _cwa : [],
         postCreate : function()
         {
-            this._characterStore = new Storage( this.CHARACTER_STORE_NAME );
-            this._settingsStore = new Storage( this.SETTINGS_STORE_NAME );
+            this._characterStore = new Store( this.CHARACTER_STORE_NAME );
+            this._settingsStore = new Store( this.SETTINGS_STORE_NAME );
             this.migrateOldStores();
             domConstruct.place( this.characterManagerDialog.domNode, document.body );
             this.characterManagerDialog.startup();
@@ -83,7 +83,7 @@ function( declare,
             this.clearMessages();
             domConstruct.empty( this.characterManagerContentNode );
             var nde = domConstruct.create( "div", { style : "width:100%;margin-bottom:30px;" }, this.characterManagerContentNode );
-            var _data = this.getStoredCharacters( restored ).then( lang.hitch( this, function( _data ) {
+            this.getStoredCharacters( restored ).then( lang.hitch( this, function( _data ) {
                 for( var c in _data )
                 {
                     // In case of corrupted data
@@ -140,7 +140,7 @@ function( declare,
             {
                 return; // we're not doing anything with the tempStore yet so let's not pollute it
             }
-            var key = this.manager.getKey()
+            var key = this.manager.getKey();
             if( !key )
             {
                 console.log( "Can't store nameless character." );
@@ -278,14 +278,7 @@ function( declare,
         },
         _characterIsValid : function( _char )
         {
-            if( _char.name && _char.data && !_char.temp )
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return ( _char.name && _char.data && !_char.temp );
         },
         _filterKeys : function( /* String[] */ keys )
         {

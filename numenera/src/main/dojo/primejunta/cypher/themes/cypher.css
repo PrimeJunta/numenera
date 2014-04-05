@@ -197,16 +197,6 @@ select
 	margin-left : auto;
 	margin-right : auto;
 }
-.num-mainTabContainer .dijitTabContainerTop-tabs
-{
-	width : 100% !important;
-	text-align : center;
-}
-.num-mainTabContainer .dijitTab
-{
-	padding : 10px 20px 10px 20px;
-	font-family : Lato;
-}
 .num-noJavaScript
 {
     padding : 30px;
@@ -331,11 +321,21 @@ a.num-infoLink
 {
 	border-radius : 4px;
 }
+/* Tabs */
+.num-mainTabContainer .dijitTabContainerTop-tabs
+{
+    width : 100% !important;
+    text-align : center;
+}
+.num-mainTabContainer .dijitTab
+{
+    padding : 10px 20px 10px 20px;
+    font-family : Lato;
+}
 .tundra .dijitTab
 {
 	background-image : none;
     background-color : #8F9EAE;
-	border-radius : 5px 5px 0 0;
 	border-color : #8F9EAE;
 	border-bottom-color : #FFAD5C;
 }
@@ -361,20 +361,27 @@ a.num-infoLink
 .tundra .dijitTabContainerTop-tabs
 {
 	border-color : #FFAD5C;
+    border-width : 8px;
+}
+.tundra .dijitTabContainerTop-tabs .dijitTab
+{
+    border-radius : 5px 5px 0 0;
+}
+.tundra .dijitTabContainerLeft-tabs .dijitTab
+{
+    border-radius : 5px 0 0 5px;
+    border-color : #8F9EAE;
+    border-right-color : #FFAD5C;
 }
 .dijitTabChecked .tabLabel
 {
 	color : #000000;
 }
-.dijitTabContainerTopChildWrapper
-{
-	margin-top : 8px;
-	border-top : 1px solid #cccccc;
-}
 .tundra .dijitTabContainerTop-dijitContentPane
 {
 	background-color : #f8f6f4;
 }
+/* Mobile tabs */
 .mblToolBarButton:focus, .mblTabBarButton:focus
 {
 	outline : 0 !important;

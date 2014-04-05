@@ -1,14 +1,26 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
-         "dijit/_WidgetBase" ],
+         "./_FeatureBase",
+         "primejunta/numenera/chargen/data/origins/numenera/descriptors",
+         "primejunta/numenera/chargen/data/origins/strange/descriptors" ],
 function( declare,
           lang,
-          _WidgetBase )
+          _FeatureBase,
+          numeneraDescriptors,
+          strangeDescriptors)
 {
-    return declare([ _WidgetBase ], {
-        postCreate : function()
+    return declare([ _FeatureBase ], {
+        FEATURE_TYPE : "DESCRIPTOR",
+        data : [{
+            origin : "numenera",
+            recursion : false,
+            payload_data : numeneraDescriptors
+        },
         {
-            this.domNode.innerHTML = "Hello, world.";
-        }
+            origin : "strange",
+            recursion : false,
+            payload_data : strangeDescriptors
+
+        }]
     });
 });

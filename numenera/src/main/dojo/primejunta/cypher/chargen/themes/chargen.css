@@ -3,9 +3,10 @@
  */
 
 /* Import charrec and main theme. */
+@import url( '../../themes/cypher.css' );
 @import url( 'charrec.css' );
 @import url( 'playview.css' );
-@import url( '../../themes/cypher.css' );
+@import url( 'homebrew.css' );
 /* main controls */
 .cg-buttonBar
 {

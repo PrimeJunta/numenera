@@ -10,18 +10,14 @@ define([ "dojo/_base/declare",
          "dojo/dom-class",
          "dojo/store/Memory",
          "dijit/form/ComboBox",
-         "primejunta/gapi/Drive",
-         "primejunta/storage/Storage",
-         "dojo/text!primejunta/cypher/doc/privacy.html" ],
+         "primejunta/gapi/Drive" ],
 function( declare,
           lang,
           topic,
           domClass,
           Memory,
           ComboBox,
-          Drive,
-          Storage,
-          privacy )
+          Drive )
 {
     return declare([], {
         /**
@@ -108,7 +104,7 @@ function( declare,
             if( this._settingsStore.get( "_CCG_SYNC_CHARACTERS" ) == "true" )
             {
                 this.syncCheckbox.set( "checked", true );
-            };
+            }
             if( authResult && !authResult.error )
             {
                 // Access token has been successfully retrieved, requests can be sent to the API.
@@ -275,7 +271,7 @@ function( declare,
                     title : syncFileTitle,
                     mimeType : this.BACKUP_MIME_TYPE,
                     description : this.BACKUP_DESCRIPTION,
-                    dirty : syncState == "DIRTY" ? true : false,
+                    dirty : ( syncState == "DIRTY" ),
                     modifiedDate : this._settingsStore.get( this.SYNC_TIME_KEY )
                 };
                 this.drive.syncFile( fileData, this.characterDataToBackupData( characterData ) ).then(
@@ -289,7 +285,7 @@ function( declare,
                             var obj = this.backupDataToCharacterData( reslt.contentData );
                             if( obj )
                             {
-                                var nonRestored = this._restoreFromBackupData( obj, true ); // Overwrite restore.
+                                this._restoreFromBackupData( obj, true ); // Overwrite restore.
                                 topic.publish( "/CharacterStore/DataRefreshed" );
                             }
                             else
@@ -302,7 +298,7 @@ function( declare,
                         this.getCloudBackups( false );
                         this._setCBSpinner( false );
                     }),
-                    lang.hitch( this, function( err ) {
+                    lang.hitch( this, function() {
                         // fail silently and try again after the timeout
                         this.setSyncState( "FAILED" );
                     }));
@@ -334,7 +330,7 @@ function( declare,
                         description : this.BACKUP_DESCRIPTION,
                         mimeType : this.BACKUP_MIME_TYPE
                 };
-                this.drive.updateFileByProperties( fileData, this.characterDataToBackupData( characterData ) ).then( lang.hitch( this, function( resp ) {
+                this.drive.updateFileByProperties( fileData, this.characterDataToBackupData( characterData ) ).then( lang.hitch( this, function() {
                     this.getCloudBackups( false );
                 }));
             }));
@@ -369,7 +365,7 @@ function( declare,
                     // should never happen normally
                     alert( "The file didn't contain a backup. Imagine that!" );
                 }
-            }), lang.hitch( this, function( err ) {
+            }), lang.hitch( this, function() {
                 // should never happen normally
                 alert( "No matching file. Perhaps someone deleted it from your Drive while you were mucking around here." );
                 this._setCBDisabled( true );
@@ -408,7 +404,6 @@ function( declare,
          */
         _initCloudUI : function()
         {
-            var syncFileTitle = this.getSyncFileTitle();
             this._backupListStore = new Memory({ data : [] });
             this.cloudBackupFileName = new ComboBox({
                 store : this._backupListStore,

@@ -69,7 +69,7 @@ function( declare,
           _TemplatedMixin,
           _WidgetsInTemplateMixin )
 {
-    return declare( "primejunta/numenera/chargen/_CharacterGeneratorBase", [ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, _StartupMixin, _UtilityMixin, _data, _lists, _phrase, _widgets, _recursions, _gm, _textarea, _finalize, _OptionalRulesMixin ], {
+    return declare( "primejunta/numenera/chargen/_CharacterGeneratorBase", [ ContentPane, _TemplatedMixin, _WidgetsInTemplateMixin, _StartupMixin, _UtilityMixin, _data, _lists, _phrase, _widgets, _recursions, _gm, _textarea, _finalize, _OptionalRulesMixin ], {
         /**
          * The view controller.
          */
@@ -158,7 +158,7 @@ function( declare,
             topic.subscribe( "CharGen/lockSheetControls", lang.hitch( this, this.lockControls ) );
             topic.subscribe( "CharGen/pleaseShowUnlock", lang.hitch( this, this.setFinalizedClass, false ) );
             topic.subscribe( "CharGen/pleaseHideUnlock", lang.hitch( this, this.setFinalizedClass, true ) );
-            topic.subscribe( "/CharacterStore/DataRefreshed", lang.hitch( this, this.setDataRefreshedReminder, true ))
+            topic.subscribe( "/CharacterStore/DataRefreshed", lang.hitch( this, this.setDataRefreshedReminder, true ));
             this.inherited( arguments );
             this.checkForStartupQuery();
         },
@@ -316,14 +316,6 @@ function( declare,
                 this._advancementControl.destroy();
                 delete this._advancementControl;
             }
-        },
-        /**
-         * Kicks the layout.
-         */
-        _kick : function()
-        {
-            this.characterGeneratorPane.layout();
-            this.characterGeneratorPane.resize();
         },
         /**
          * Resets the control to its pristine state, except for the fields at top. We do this every time the user selects a

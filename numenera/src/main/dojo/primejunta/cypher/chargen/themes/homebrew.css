@@ -1,0 +1,121 @@
+.cg-nestedTabs .dijitTabController
+{
+    background-color : #f6eee6;
+    border-bottom : 1px solid silver;
+}
+.cg-nestedTabs .dijitTabListWrapper .dijitTabContainerTop-tabs
+{
+    border-bottom : none;
+}
+.cg-nestedTabs .dijitTabContainerTop-tabs
+{
+}
+.cg-nestedTabs.dijitTabContainer .dijitTab {
+    background : transparent;
+    border-color : transparent;
+    border-radius : 3px;
+    padding : 4px 12px 4px 12px;
+    margin : 6px;
+    -moz-transition: all .2s ease-in;
+    -o-transition: all .2s ease-in;
+    -webkit-transition: all .2s ease-in;
+    transition: all .2s ease-in;
+}
+.cg-nestedTabs.dijitTabContainer .dijitTab .tabLabel
+{
+    color : #901B00;
+    text-decoration : underline;
+}
+.tundra .cg-nestedTabs.dijitTabContainer .dijitTabChecked
+{
+    border : 1px solid #901b00;
+    background-color : #FFAD5C;
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0.00, #ffe58f),
+        color-stop(0.25 #FFAD5C )
+    ) !important;
+    background-image : -webkit-linear-gradient(to bottom, #ffe58f 0%, #FFAD5C 25%);
+    background-image : linear-gradient(to bottom, #ffe58f 0%, #FFAD5C 25%);
+    text-decoration : none;
+    -moz-transition: all .2s ease-in;
+    -o-transition: all .2s ease-in;
+    -webkit-transition: all .2s ease-in;
+    transition: all .2s ease-in;
+}
+.cg-nestedTabs .cg-nestedTabs.dijitTabContainer .dijitTabChecked .tabLabel
+{
+    color : #383838;
+    text-decoration : none;
+}
+
+.cg-nestedTabs.dijitTabContainer .dijitTabChecked .tabLabel
+{
+    color : #383838;
+    text-decoration : none;
+}
+.cg-nestedTabs.dijitTabContainer .dijitTab.dijitHover .tabLabel
+{
+    color : black;
+}
+.cg-nestedTabs.dijitTabContainer .dijitTab.dijitHover
+{
+    background-color : #ffe58f;
+}
+.num-homebrewTabContainer .dijitTabPane
+{
+    padding : 0;
+}
+.num-moduleContainer .dijitTabContainerLeft-tabs
+{
+    overflow : auto !important;
+    z-index : -1;
+    border : 0;
+    padding-right : 31px;
+    padding-top : 0;
+    margin : 0;
+    border-top : 1px solid #f8f6f4;
+    background-color : #f6eee6;
+}
+.num-moduleContainer .dijitTabContainerLeft-container
+{
+    overflow : auto;
+    outline : 30px solid #f8f6f4;
+    border-top-color : #f8f6f4;
+    background-color : #f8f6f4;
+    z-index : 1;
+    padding : 20px;
+    margin-top : 1px;
+    border-bottom : 0;
+}
+.num-moduleContainer .dijitTabContainerLeft-tabs .dijitTab
+{
+    margin : 0;
+    border-radius : 0;
+    border : none;
+    border-bottom : 1px solid silver;
+    background-color : #f6eee6;
+    padding : 4px 12px 4px 4px;
+    text-align : right;
+
+}
+.tundra .num-moduleContainer.dijitTabContainer .dijitTabChecked
+{
+    border : none;
+    border-bottom : 1px solid silver;
+    background-color : #f8f6f4;
+    border-right-color : #f8f6f4;
+    background-image : none;
+}
+.tundra .num-moduleContainer .dijitTab .tabLabel
+{
+    color : #808080;
+    text-decoration : none;
+}
+.tundra .num-moduleContainer .dijitTabChecked .tabLabel
+{
+    color : black;
+    text-decoration : none;
+}

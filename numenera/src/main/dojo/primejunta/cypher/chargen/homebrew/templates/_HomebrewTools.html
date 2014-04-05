@@ -11,13 +11,13 @@
     </div>
     <div data-dojo-type="dijit/layout/TabContainer"
       data-dojo-props="region:'center'"
-      data-dojo-attach-point="mainTabContainer"></div>
+      data-dojo-attach-point="mainTabContainer"
+            class="num-homebrewTabContainer"></div>
     <div data-dojo-type="dijit/layout/ContentPane"
          data-dojo-props="region:'bottom'" class="num-footer"
          data-dojo-attach-point="footerNode">
       <div class="num-copyright" style="cursor: pointer" data-dojo-attach-event="onClick:showLicenses">
         ${controller.copyright} • Version ${controller.version}
-        </span>
       </div>
     </div>
   </div>
