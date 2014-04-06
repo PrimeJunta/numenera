@@ -1,15 +1,15 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
-         "dijit/form/TextArea",
+         "dijit/form/Textarea",
          "./_FieldControlBase" ],
 function( declare,
           lang,
-          TextArea,
+          Textarea,
           _FieldControlBase ) {
     return declare([ _FieldControlBase ], {
         createControl : function()
         {
-            this._control = new TextArea({ "class" : "num-inputTextArea num-homebrewInput", value : this.value }).placeAt( this.controlNode );
+            this._control = new Textarea({ "class" : "num-inputTextArea num-homebrewInput", value : this.value }).placeAt( this.controlNode );
         }
     });
 });

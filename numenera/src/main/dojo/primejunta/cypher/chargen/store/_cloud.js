@@ -110,6 +110,7 @@ function( declare,
                 // Access token has been successfully retrieved, requests can be sent to the API.
                 this.uploadControls.style.display = "block";
                 this.authorizeControls.style.display = "none";
+                this.logoutControls.style.display = "block";
                 this.authorizeDriveButton.set( "disabled", false );
                 this.getCloudBackups();
                 this.setSyncTimer( this.syncCheckbox.checked );
@@ -119,6 +120,7 @@ function( declare,
                 // No access token could be retrieved, show the button to start the authorization flow.
                 this.uploadControls.style.display = "none";
                 this.authorizeControls.style.display = "block";
+                this.logoutControls.style.display = "none";
                 this.authorizeDriveButton.set( "disabled", false );
                 this._setCBDisabled( false );
             }
@@ -133,6 +135,10 @@ function( declare,
         {
             this.authorizeDriveButton.set( "disabled", true );
             this.drive.checkAuthorization().then( lang.hitch( this, this.setupCloudUI ) );
+        },
+        logoutFromCloudStorage : function()
+        {
+            this.drive.logout().then( lang.hitch( this, this.setupCloudUI ) );
         },
         /**
          * Fetches cloud backups by calling drive.listFiles with a query that filters them by

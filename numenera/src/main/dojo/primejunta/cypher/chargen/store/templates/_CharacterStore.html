@@ -17,24 +17,43 @@
         character, then restore from the backup. Be sure to take another
         backup first, just in case!</p>
       <div data-dojo-attach-point="cloudBackupNode">
-        <h4>
-          Google Drive&trade; Sync and Backup <i
-            class="fa fa-spinner num-blueIcon"
-            data-dojo-attach-point="cloudWorkingIcon"></i>
-        </h4>
+        <table cellpadding="0" cellspacing="0" width="100%">
+          <tbody>
+          <tr>
+            <td>
+              <h4>
+                Google Drive&trade; Sync and Backup <i
+                      class="fa fa-spinner num-blueIcon"
+                      data-dojo-attach-point="cloudWorkingIcon"></i>
+              </h4>
+
+            </td>
+            <td>
+              <div style="text-align: right"
+                   data-dojo-attach-point="authorizeControls">
+                <button data-dojo-type="dijit/form/Button"
+                        data-dojo-props="iconClass:'num-cloudStorageIcon'"
+                        data-dojo-attach-point="authorizeDriveButton"
+                        data-dojo-attach-event="onClick:authorizeCloudStorage"
+                        disabled="disabled">Authorize</button>
+              </div>
+              <div style="text-align: right" data-dojo-attach-point="logoutControls"
+                   style="display:none;">
+                <button data-dojo-type="dijit/form/Button"
+                        data-dojo-props="iconClass:'num-cloudStorageIcon'"
+                        data-dojo-attach-point="revokeDriveButton"
+                        data-dojo-attach-event="onClick:logoutFromCloudStorage">Revoke</button>
+              </div>
+
+            </td>
+          </tr>
+          </tbody>
+        </table>
         <p>
           Please read and understand the <a href="#"
             data-dojo-attach-event="onClick:showPrivacyPolicy">Privacy
             Policy</a> before enabling Google Drive services.
         </p>
-        <div style="text-align: right"
-          data-dojo-attach-point="authorizeControls">
-          <button data-dojo-type="dijit/form/Button"
-            data-dojo-props="iconClass:'num-cloudStorageIcon'"
-            data-dojo-attach-point="authorizeDriveButton"
-            data-dojo-attach-event="onClick:authorizeCloudStorage"
-            disabled="disabled">Connect Google Drive</button>
-        </div>
         <div data-dojo-attach-point="uploadControls"
           style="display: none">
           <table width="100%" cellspacing="0" cellpadding="0">

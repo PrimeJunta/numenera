@@ -96,20 +96,29 @@ function( declare,
                     cookie( this.STORED_ROSTER_COOKIE, null, { expires : -1 });
                 }
             }
-            if( window.location.search != "" )
+            if( window.location.hash != "" )
             {
-                this.populateFromQueryString();
-                if( window.location.hash.indexOf( "view=print" ) != -1 )
+                if( window.location.hash.indexOf( "access_token=" ) != -1 )
                 {
-                    this.showPrintView();
-                }
-                else if( window.location.hash.indexOf( "view=play" ) != -1 )
-                {
-                    this.showPlayView();
+                     // We got here via an iOS authentication redirect, so open the character store
+                    window.location.hash = "";
+                    this.openCharacterStore();
                 }
                 else
                 {
-                    this.currentView = "chargen";
+                    this.populateFromQueryString();
+                    if( window.location.hash.indexOf( "view=print" ) != -1 )
+                    {
+                        this.showPrintView();
+                    }
+                    else if( window.location.hash.indexOf( "view=play" ) != -1 )
+                    {
+                        this.showPlayView();
+                    }
+                    else
+                    {
+                        this.currentView = "chargen";
+                    }
                 }
             }
             else if( cookie( this.CURRENT_CHARACTER_COOKIE ) )
