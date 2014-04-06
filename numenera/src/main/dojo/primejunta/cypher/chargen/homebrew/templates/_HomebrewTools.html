@@ -1,6 +1,7 @@
 <div class="num-helpViewer num-homebrewPane">
   <div data-dojo-type="dijit/layout/BorderContainer"
-    data-dojo-props="gutters:false">
+    data-dojo-props="gutters:false"
+    data-dojo-attach-point="gridWidget">
     <div data-dojo-type="dijit/layout/ContentPane"
       data-dojo-props="region:'top'">
       <div class="num-centeredLinks" style="padding-top:40px;text-align:center;" data-dojo-attach-point="moduleControlsNode">
@@ -10,7 +11,7 @@
       </div>
     </div>
     <div data-dojo-type="dijit/layout/TabContainer"
-      data-dojo-props="region:'center'"
+      data-dojo-props="region:'center'" style="width:1000px;"
       data-dojo-attach-point="mainTabContainer"
             class="num-homebrewTabContainer"></div>
     <div data-dojo-type="dijit/layout/ContentPane"

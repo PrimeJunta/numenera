@@ -627,11 +627,6 @@ a.num-infoLink
 	width : 700px;
 	padding-bottom : 10px;
 }
-.num-homebrewPane .num-copyright
-{
-    width : 700px;
-    padding : 10px 0 0;
-}
 h1.num-helpViewerTitle
 {
 	color : #e4e4e4;
@@ -643,10 +638,6 @@ h1.num-helpViewerTitle
 	margin-left : auto;
 	margin-right : auto;
 	height : 100%;
-}
-.num-homebrewPane, .num-homebrewPane .dijitBorderContainer, .num-homebrewPane .dijitBorderContainerNoGutter
-{
-    width : 100%;
 }
 .num-helpViewer .dijitTabPane
 {

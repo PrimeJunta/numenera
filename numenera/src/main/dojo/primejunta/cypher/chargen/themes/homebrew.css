@@ -1,3 +1,60 @@
+.num-homebrewPane, .num-homebrewPane .dijitBorderContainer, .num-homebrewPane .dijitBorderContainerNoGutter
+{
+}
+.num-homebrewPane .num-copyright
+{
+    width : 700px;
+    padding : 10px 0 0;
+}
+.num-centerLayout
+{
+    width : 800px;
+    height : 100%;
+    margin : 0 auto;
+}
+.num-moduleControls
+{
+    overflow-x : hidden;
+    width : 250px;
+    padding-top:1px !important;
+    border-left : 1px solid silver;
+    background-color : #f6eee6;
+}
+.num-moduleControls .dijitToggleButton
+{
+    display : block;
+    margin : 0;
+    width : 100%;
+}
+.num-moduleControls .dijitButtonNode
+{
+    width : 212px;
+    border-radius : 0;
+    background : none;
+    font-size : 14px;
+    border-color : transparent;
+}
+.num-scrollBarHider
+{
+    position : absolute;
+    top : 0;
+    left : 220px;
+    width : 30px;
+    height : 10000px;
+    background-color : #f8f6f4;
+    border-left : 1px solid silver;
+}
+.num-wordWidget
+{
+    padding : 20px !important;
+    font-size : 14px;
+}
+/* Tab styling */
+.cg-nestedTabs
+{
+    margin-left : auto;
+    margin-right : auto;
+}
 .cg-nestedTabs .dijitTabController
 {
     background-color : #f6eee6;
@@ -64,6 +121,10 @@
 {
     background-color : #ffe58f;
 }
+.num-homebrewTabContainer
+{
+    width : 1000px;
+}
 .num-homebrewTabContainer .dijitTabPane
 {
     padding : 0;
@@ -122,21 +183,17 @@
 /* Inputs */
 .num-homebrewInput
 {
-    width : 500px;
+    width : 400px;
 }
 .cg-fieldControl
 {
-}
-.cg-fieldControl .cg-fieldControlLabel
-{
-    width : 200px;
 }
 .cg-statControl
 {
 }
 .cg-statControl .cg-fieldControlLabel
 {
-    width : 200px;
+    width : 150px;
     text-align : right;
 }
 .cg-statControl .dijitInputInner
