@@ -4,11 +4,17 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "dojo/_base/array",
+         "dojo/request/xhr",
+         "dojo/has",
+         "dojo/io-query",
          "dojo/Deferred",
          "dojo/dom-construct" ],
 function( declare,
           lang,
           array,
+          xhr,
+          has,
+          ioQuery,
           Deferred,
           domConstruct )
 {
@@ -26,6 +32,12 @@ function( declare,
          */
         apiKey : "",
         /**
+         * For iOS authentication.
+         *
+         * @public String
+         */
+        redirectUri : "",
+        /**
          * The scope is the Drive API.
          * 
          * @public @final String
@@ -33,10 +45,18 @@ function( declare,
         SCOPES : "https://www.googleapis.com/auth/drive",
         /**
          * That's where it resides.
-         * 
-         * @public @final String
+         *
+         * @final
+         * @public String
          */
         API_URL : "https://apis.google.com/js/client.js?onload=handleClientLoad",
+        /**
+         * URL for revoking previously granted access.
+         *
+         * @final
+         * @public String
+         */
+        REVOKE_URL : "https://accounts.google.com/o/oauth2/revoke?token=",
         /**
          * Mix in kwObj, which presumably contains clientId and apiKey.
          * 
@@ -63,6 +83,14 @@ function( declare,
             {
                 window._googleDriveIsStarted = true;
                 window.handleClientLoad = lang.hitch( this, this._handleClientLoad, promise );
+                if( has( "ios" ) )
+                {
+                    this.checkAuthorization = this.iOSCheckAuthorization;
+                }
+                else
+                {
+                    this.checkAuthorization = this.standardCheckAuthorization;
+                }
                 domConstruct.create( "script", { "type" : "text/javascript", "src" : this.API_URL }, document.body, "first" );
             }
             return promise;
@@ -70,10 +98,10 @@ function( declare,
         /**
          * Check if the current user has authorized the application. If promise is provided, resolves
          * that on complete, else resolves and returns a new one.
-         * 
+         *
          * @public Deferred
          */
-        checkAuthorization : function( /* Deferred? */ promise, /* boolean? */ immediate )
+        standardCheckAuthorization : function( /* Deferred? */ promise, /* boolean? */ immediate )
         {
             if( !promise )
             {
@@ -84,12 +112,70 @@ function( declare,
                 "scope": this.SCOPES,
                 "immediate": immediate || false
             },
-            lang.hitch( this, function( reslt ) {
-                gapi.client.setApiKey( this.apiKey );
-                gapi.client.load( "drive", "v2", lang.hitch( this, function()
+            lang.hitch( this, function( reslt )
+            {
+                if( reslt && reslt.access_token )
+                {
+                    this.access_token = reslt.access_token;
+                    gapi.client.setApiKey( this.apiKey );
+                    gapi.client.load( "drive", "v2", lang.hitch( this, function()
+                    {
+                        promise.resolve( reslt );
+                    }));
+                }
+                else
                 {
                     promise.resolve( reslt );
-                }))
+                }
+            }));
+            return promise;
+        },
+        /**
+         * Does the same thing as the above method, but instead of using the provided Google popup, redirects. This
+         * makes the app behave as expected when used as a standalone iOS webapp. Otherwise the return page would be
+         * blank, since iOS opens popups from webapps in Safari rather than the webapp itself.
+         *
+         * @public Deferred
+         */
+        iOSCheckAuthorization : function( /* Deferred? */ promise, /* boolean? */ immediate )
+        {
+            if( !promise )
+            {
+                promise = new Deferred();
+            }
+            gapi.auth.authorize({
+                "client_id" : this.clientId,
+                "scope" : this.SCOPES,
+                "immediate" : true
+            },
+            lang.hitch( this, function( reslt ) {
+                if( reslt && reslt.access_token )
+                {
+                    this.access_token = reslt.access_token;
+                    gapi.client.setApiKey( this.apiKey );
+                    gapi.client.load( "drive", "v2", lang.hitch( this, function()
+                    {
+                        promise.resolve( reslt );
+                    }));
+                }
+                else if( !immediate ) // redirect to login
+                {
+                    var qs  = ioQuery.objectToQuery({
+                        client_id : this.clientId,
+                        scope : "https://www.googleapis.com/auth/drive",
+                        immediate : false,
+                        include_granted_scopes : "true",
+                        redirect_uri : this._getCleanRedirectURI(),
+                        origin : "http://" + window.location.host,
+                        response_type : "token",
+                        authuser : "0"
+                    });
+                    window.location.assign( "https://accounts.google.com/o/oauth2/auth?" + qs );
+                }
+                else
+                {
+                    promise.resolve( reslt );
+                }
             }));
             return promise;
         },
@@ -129,7 +215,7 @@ function( declare,
                         promise.resolve( result );
                     }
                 });
-            }
+            };
             var initialRequest = gapi.client.drive.files.list( kwObj );
             retrievePageOfFiles( initialRequest, [] );
             return promise;
@@ -427,6 +513,51 @@ function( declare,
             return out;
         },
         /**
+         * Revokes authorize token for the app. When the process completes, resolves the promise.
+         *
+         * @returns {dojo.Deferred}
+         */
+        logout : function()
+        {
+            var prom = new Deferred();
+            xhr.post(  this.REVOKE_URL + this.access_token, { headers:{ 'X-Requested-With' : null }, handleAs : "text" }  ).then( lang.hitch( this, function( reslt ) {
+                prom.resolve();
+            }),
+            lang.hitch( this, function( reslt ) {
+                if( reslt.message && reslt.message.indexOf( "status: 0" ) != -1 ) // TODO: figure out why it ends up in the error state and remove kludge
+                {
+                    prom.resolve();
+                }
+                else
+                {
+                    alert( "An unexpected error occurred on logout. To log out manually, go to https://plus.google.com/apps." );
+                }
+            }));
+            return prom;
+        },
+        /**
+         * Cleans up window location: strips query string, adds www. to the start if needed, and index.html to the end
+         * if needed.
+         *
+         * @returns {string}
+         * @private
+         */
+        _getCleanRedirectURI : function()
+        {
+            var pcol = window.location.protocol;
+            var host = window.location.host;
+            var path = window.location.pathname;
+            if( window.location.host.indexOf( "www." ) != 0 )
+            {
+                host = "www." + host;
+            }
+            if( path.charAt( path.length - 1 ) == "/"  )
+            {
+                path += "index.html";
+            }
+            return pcol + "//" + host + path;
+        },
+        /**
          * Called when the client library is loaded to start the auth flow. Sets timeout and continues
          * with checkAuthorization.
          * 
@@ -459,14 +590,7 @@ function( declare,
          */
         _includeInQuery : function( /* String */ field )
         {
-            if( array.indexOf( [ "title", "mimeType" ], field ) != -1 )
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return ( array.indexOf( [ "title", "mimeType" ], field ) != -1 );
         }
     });
 });
