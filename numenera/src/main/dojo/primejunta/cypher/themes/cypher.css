@@ -199,11 +199,18 @@ select
 }
 .num-noJavaScript
 {
+    font-family : arial, helvetica, helve, sans-serif, sans;
+    font-size : 14px;
     padding : 30px;
     color : #e4e4e4;
     width : 700px;
     margin-left:auto;
     margin-right:auto;
+}
+.num-noJavaScript h1
+{
+    font-family : georgia, times, serif;
+    font-size : 36px;
 }
 .num-noJavaScript a
 {
@@ -630,7 +637,7 @@ a.num-infoLink
 h1.num-helpViewerTitle
 {
 	color : #e4e4e4;
-	font-size : 30px;
+	font-size : 24px;
 }
 .num-helpViewer, .num-helpViewer .dijitBorderContainer, .num-helpViewer .dijitBorderContainerNoGutter
 {

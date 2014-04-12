@@ -46,6 +46,10 @@ function( declare,
         getText : function( force )
         {
             return this.inputTextarea.get( "value" );
+        },
+        clearCypher : function()
+        {
+            this.inputTextarea.set( "value", "" );
         }
     });
 });

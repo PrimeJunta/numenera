@@ -136,12 +136,12 @@ function( declare,
                 return;
             }
             this._populated = true;
-            this.field_list = new ContentPane({ } ).placeAt( this.containerNode );
+            this.field_list = new ContentPane({ "innerHTML" : "<h1>" + this.title + "</h1>" } ).placeAt( this.containerNode );
             this.text_list = new ContentPane({ } ).placeAt( this.containerNode );
             if( this.has_stats )
             {
-                var st = domConstruct.create( "table", {} );
-                domConstruct.create( "caption", { }, st );
+                var st = domConstruct.create( "table", { "width" : "100%" } );
+                domConstruct.create( "caption", { "innerHTML" : "<h2>Stats</h2>" }, st );
                 var tb = domConstruct.create( "tbody", {}, st );
                 var r1 = domConstruct.create( "tr", {}, tb );
                 var r2 = domConstruct.create( "tr", {}, tb );
@@ -164,10 +164,13 @@ function( declare,
             this._feature_structure = lang.clone( this.feature_structure );
             for( var o in this._feature_structure.field_list )
             {
-                this._feature_structure.field_list[ o ].control = new _FieldControl({
-                    field_id : o,
-                    definition : this._feature_structure.field_list[ o ],
-                    instance : this.instance }).placeAt( this.field_list );
+                if( this._isRendered( o ) )
+                {
+                    this._feature_structure.field_list[ o ].control = new _FieldControl({
+                        field_id : o,
+                        definition : this._feature_structure.field_list[ o ],
+                        instance : this.instance }).placeAt( this.field_list );
+                }
             }
             for( var o in this._feature_structure.text_list )
             {
@@ -201,6 +204,21 @@ function( declare,
                     field_id : o,
                     definition : this._feature_structure.advancement,
                     instance : this.instance } ).placeAt( this.advancement );
+            }
+        },
+        _isRendered : function( fld )
+        {
+            if( this._feature_structure.field_list[ fld ].internal )
+            {
+                return false;
+            }
+            if( this._feature_structure.field_list[ fld ].condition && !this[ this._feature_structure.field_list[ fld ].condition ] )
+            {
+                return false;
+            }
+            else
+            {
+                return true;
             }
         }
     });
