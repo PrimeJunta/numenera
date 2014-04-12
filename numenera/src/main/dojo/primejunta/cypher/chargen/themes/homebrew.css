@@ -195,3 +195,42 @@
 {
     width : 100%; /* don't know why I have to specify this */
 }
+/* Collapse/expand */
+.cg-collapsed, .cg-expanded
+{
+    -moz-transition: all .2s ease-in;
+    -o-transition: all .2s ease-in;
+    -webkit-transition: all .2s ease-in;
+    transition: all .2s ease-in;
+}
+.cg-showWhenExpanded
+{
+    display : none;
+}
+.cg-showWhenCollapsed
+{
+}
+.cg-showWhenExpanded
+{
+    display : none;
+}
+.cg-collapsed .cg-hideWhenCollapsed
+{
+    display : none;
+}
+.cg-expanded .cg-hideWhenExpanded
+{
+    display : none;
+}
+.cg-expanded .cg-showWhenExpanded
+{
+    display : block;
+}
+.cg-collapsed .cg-showWhenCollapsed
+{
+    display : block;
+}
+.num-activeControl
+{
+    cursor : pointer;
+}

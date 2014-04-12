@@ -1,6 +1,8 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
+         "dojo/on",
          "dojo/dom-construct",
+         "dojo/dom-class",
          "./_FieldControl",
          "./_TextControl",
          "./_StatControl",
@@ -10,7 +12,9 @@ define([ "dojo/_base/declare",
          "dijit/layout/ContentPane" ],
 function( declare,
           lang,
+          on,
           domConstruct,
+          domClass,
           _FieldControl,
           _TextControl,
           _StatControl,
@@ -63,6 +67,16 @@ function( declare,
                 speed_pool : {
                     label : "Speed pool"
                 },
+                cypher_count : {
+                    label : "Cypher limit"
+                },
+                shin_count : {
+                    label : "Shins",
+                    stat_constraints : {
+                        max : 99,
+                        pattern : "+#0;-#0"
+                    }
+                },
                 free_edge : {
                     label : "Free edge"
                 },
@@ -74,16 +88,6 @@ function( declare,
                 },
                 speed_edge : {
                     label : "Speed edge"
-                },
-                cypher_count : {
-                    label : "Cypher limit"
-                },
-                shin_count : {
-                    label : "Shins",
-                    stat_constraints : {
-                        max : 99,
-                        pattern : "+#0;-#0"
-                    }
                 },
                 recovery_roll : {
                     label : "Recovery bonus"
@@ -140,9 +144,18 @@ function( declare,
             this.text_list = new ContentPane({ } ).placeAt( this.containerNode );
             if( this.has_stats )
             {
-                var st = domConstruct.create( "table", { "width" : "100%" } );
-                domConstruct.create( "caption", { "innerHTML" : "<h2>Stats</h2>" }, st );
-                var tb = domConstruct.create( "tbody", {}, st );
+                if( this.stat_constraints.fixed )
+                {
+                    this.stats_node = domConstruct.create( "table", { "class" : "cg-expanded", "width" : "100%" } );
+                    this.stats_title = domConstruct.create( "caption", { "class" : "num-activeControl", "innerHTML" : '<h2>Stats</h2>' }, this.stats_node );
+                }
+                else
+                {
+                    this.stats_node = domConstruct.create( "table", { "class" : "cg-collapsed", "width" : "100%" } );
+                    this.stats_title = domConstruct.create( "caption", { "class" : "num-activeControl", "innerHTML" : '<h2>Stats <i class="fa fa-chevron-circle-right num-blueIcon cg-hideWhenExpanded"></i><i class="fa fa-chevron-circle-down num-blueIcon cg-hideWhenCollapsed"></i></h2>' }, this.stats_node );
+                    on( this.stats_title, "click", lang.hitch( this, this._toggleStatCollapse ) );
+                }
+                var tb = domConstruct.create( "tbody", {}, this.stats_node );
                 var r1 = domConstruct.create( "tr", {}, tb );
                 var r2 = domConstruct.create( "tr", {}, tb );
                 this.stats_list_1 = domConstruct.create( "td", {}, r1 );
@@ -150,7 +163,7 @@ function( declare,
                 this.stats_list_3 = domConstruct.create( "td", {}, r2 );
                 this.stats_list_4 = domConstruct.create( "td", {}, r2 );
                 var cp = new ContentPane().placeAt( this.containerNode );
-                cp.set( "content", st );
+                cp.set( "content", this.stats_node );
             }
             this.list_list = new ContentPane({ content : "<h2>Features</h2>" } ).placeAt( this.containerNode );
             if( this.has_advancement )
@@ -158,6 +171,11 @@ function( declare,
                 this.advancement = new ContentPane({ content : "<h2>Advancement</h2>" } ).placeAt( this.containerNode );
             }
             this._renderControls();
+        },
+        _toggleStatCollapse : function()
+        {
+            domClass.toggle( this.stats_node, "cg-collapsed" );
+            domClass.toggle( this.stats_node, "cg-expanded" );
         },
         _renderControls : function()
         {
@@ -183,7 +201,7 @@ function( declare,
                 var s = 0;
                 for( var o in this._feature_structure.stats_list )
                 {
-                    var nref = ( s < 4 ? "1" : s < 8 ? "2" : s < 10 ? "3" : 4 );
+                    var nref = ( s < 6 ? "1" : s < 12 ? "2" : s < 10 ? "3" : 4 );
                     this._feature_structure.stats_list[ o ].control = new _StatControl({ field_id : o,
                          definition : this._feature_structure.stats_list[ o ],
                          instance : this.instance,
