@@ -33,7 +33,7 @@
     padding-left : 1px !important;
     background-color : #f6eee6;
 }
-.num-moduleControls .dijitToggleButton
+.num-moduleControls .dijitToggleButton, .num-moduleControls .dijitButton
 {
     display : block;
     margin : 0;
@@ -147,6 +147,7 @@
 {
     padding : 0;
 }
+/* module container */
 .tundra .num-moduleContainer.dijitTabContainer .dijitTabChecked
 {
     border : none;
@@ -233,4 +234,22 @@
 .num-activeControl
 {
     cursor : pointer;
+}
+.num-tabCloseButton
+{
+    display : block;
+    position : absolute;
+    top : 4px;
+    right : 40px;
+}
+.num-moduleControls .dijitButtonText
+{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width : 170px;
+}
+.num-addButtonNode
+{
+    background-color: aliceblue;
+    display:block;
 }

@@ -16,6 +16,7 @@ define([ "dojo/_base/declare",
            return declare([ _FeatureBase ], {
                has_stats : false,
                FEATURE_TYPE : "FOCUS",
+               featureLabel : "focus",
                data : [{
                            origin : "ninth_world",
                            recursion : false,

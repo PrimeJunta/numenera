@@ -11,6 +11,7 @@ define([ "dojo/_base/declare",
        {
            return declare([ _FeatureBase ], {
                FEATURE_TYPE : "TYPE",
+               featureLabel : "Type",
                stat_constraints : {
                    min : -9,
                    max : 99,

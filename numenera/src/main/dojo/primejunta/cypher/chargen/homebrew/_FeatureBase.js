@@ -14,6 +14,7 @@ function( declare,
     return declare([ TabContainer ], {
         DATA_STORE_NAME : "_CG_HOMEBREW_STORE",
         FEATURE_TYPE : "",
+        featureLabel : "",
         data : [],
         tabPosition : "top",
         nested : false,
@@ -41,7 +42,7 @@ function( declare,
             {
                 var _title = this.data[ i ].origin ? this.data[ i ].origin : this.data[ i ].recursion;
                 _title = util.prettify( _title );
-                var mc = new _ModuleContainer({ title : _title, data : this.data[ i ], has_stats : this.has_stats, stat_constraints : this.stat_constraints });
+                var mc = new _ModuleContainer({ featureLabel : this.featureLabel, title : _title, data : this.data[ i ], has_stats : this.has_stats, stat_constraints : this.stat_constraints });
                 this.addChild( mc );
             }
         },
