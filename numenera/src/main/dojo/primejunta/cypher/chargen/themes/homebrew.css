@@ -18,7 +18,7 @@
 }
 .num-centerLayout
 {
-    width : 800px;
+    width : 1000px;
     height : 100%;
     margin : 0 auto;
     border-right : 1px solid silver;
@@ -223,13 +223,21 @@
 {
     display : none;
 }
-.cg-expanded .cg-showWhenExpanded
+.cg-expanded div.cg-showWhenExpanded
 {
     display : block;
 }
-.cg-collapsed .cg-showWhenCollapsed
+.cg-collapsed div.cg-showWhenCollapsed
 {
     display : block;
+}
+.cg-expanded td.cg-showWhenExpanded
+{
+    display : table-cell;
+}
+.cg-collapsed td.cg-showWhenCollapsed
+{
+    display : table-cell;
 }
 .num-activeControl
 {
@@ -247,4 +255,24 @@
     overflow: hidden;
     text-overflow: ellipsis;
     max-width : 170px;
+}
+/* List item */
+.cg-expandoNode
+{
+    display : inline-block;
+    padding : 2px;
+    font-size : 18px;
+}
+.cg-optionItem
+{
+    display : block;
+}
+.cg-expanded .cg-shrinkWhenExpanded
+{
+    width : 5em;
+    font-size : 13px;
+}
+.cg-complexItemInput
+{
+    width : 700px;
 }

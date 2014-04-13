@@ -1,5 +1,42 @@
-<li>
-  <input data-dojo-type="dijit/form/TextBox" data-dojo-attach-point="controlWidget" value="${value}" class="num-itemInput num-homebrewInput"/>
-  <button data-dojo-type="dijit/form/Button" data-dojo-attach-point="addButton" style="display:none"><i class="fa fa-plus-circle num-blueIcon"></i></button>
-  <button data-dojo-type="dijit/form/Button" data-dojo-attach-point="deleteButton" style="display:none"><i class="fa fa-minus-circle num-redIcon"></i></button>
-</li>
+<table cellspacing="0"  cellpadding="0" class="cg-collapsed cg-complexItemInput">
+  <tbody>
+    <tr class="cg-hideWhenCollapsed" valign="top">
+      <td>
+
+      </td>
+      <td>
+        <span>Base text</span>
+      </td>
+      <td>
+        <span data-dojo-attach-point="selectHeader">
+          Select <input data-dojo-type="dijit/form/NumberTextBox" data-dojo-props="min:0,max:2" data-dojo-attach-point="numberOfItemsInput" style="width:1em;text-align:center"/> from:
+        </span>
+      </td>
+      <td><span data-dojo-attach-point="midTextHeader">Mid text</span></td>
+      <td>Input prompt</td>
+    </tr>
+    <tr valign="top">
+      <td rowspan="2" width="20">
+        <span  data-dojo-attach-event="onClick:toggleContent" class="cg-expandoNode">
+          <i class="fa fa-chevron-circle-right num-blueIcon num-activeControl cg-hideWhenExpanded"></i>
+          <i class="fa fa-chevron-circle-down num-blueIcon num-activeControl cg-hideWhenCollapsed"></i>
+        </span>
+      </td>
+      <td class="cg-showWhenCollapsed">
+        <input data-dojo-type="dijit/form/TextBox" data-dojo-attach-point="controlWidget" value="${value}" style="width:100%"/>
+      </td>
+      <td data-dojo-attach-point="selectItemsNode" class="cg-showWhenExpanded">
+      </td>
+      <td class="cg-showWhenExpanded">
+        <input data-dojo-type="dijit/form/TextBox" data-dojo-attach-point="midTextInput" style="width:100%"/>
+      </td>
+      <td class="cg-showWhenExpanded">
+        <input data-dojo-type="dijit/form/TextBox" data-dojo-attach-point="inputDefaultInput" style="width:100%;font-style:italic;color:gray;"/>
+      </td>
+      <td class="cg-showWhenCollapsed" rowspan="2" align="right" width="30">
+        <button data-dojo-type="dijit/form/Button" data-dojo-attach-point="addButton" style="display:none"><i class="fa fa-plus-circle num-blueIcon"></i></button>
+        <button data-dojo-type="dijit/form/Button" data-dojo-attach-point="deleteButton" style="display:none"><i class="fa fa-minus-circle num-redIcon"></i></button>
+      </td>
+    </tr>
+  </tbody>
+</table>
