@@ -223,11 +223,11 @@
 {
     display : none;
 }
-.cg-expanded div.cg-showWhenExpanded
+.cg-expanded .cg-showWhenExpanded
 {
     display : block;
 }
-.cg-collapsed div.cg-showWhenCollapsed
+.cg-collapsed .cg-showWhenCollapsed
 {
     display : block;
 }
@@ -257,6 +257,13 @@
     max-width : 170px;
 }
 /* List item */
+.cg-complexItemInput
+{
+    background-color : #f4f4f4;
+    border : 1px solid silver;
+    margin : 5px;
+    border-radius : 3px;
+}
 .cg-expandoNode
 {
     display : inline-block;
@@ -275,4 +282,12 @@
 .cg-complexItemInput
 {
     width : 700px;
+}
+.cg-collapsed .dijitToggleButtonChecked, .cg-expanded .dijitToggleButtonChecked
+{
+    color : cyan;
+}
+.cg-controlCell
+{
+    background-color: #e4e4e4;
 }

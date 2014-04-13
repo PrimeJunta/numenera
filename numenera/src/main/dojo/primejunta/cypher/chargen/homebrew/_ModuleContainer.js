@@ -136,6 +136,7 @@ function( declare,
         },
         save : function( wordWidget )
         {
+            console.log( "Saving" );
             this.storage.put( this._getId( wordWidget ), wordWidget.getData() );
         },
         delete : function( wordWidget )

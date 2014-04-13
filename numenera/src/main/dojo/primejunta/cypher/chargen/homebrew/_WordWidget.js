@@ -155,8 +155,6 @@ function( declare,
                 var r2 = domConstruct.create( "tr", {}, tb );
                 this.stats_list_1 = domConstruct.create( "td", {}, r1 );
                 this.stats_list_2 = domConstruct.create( "td", {}, r1 );
-                this.stats_list_3 = domConstruct.create( "td", {}, r2 );
-                this.stats_list_4 = domConstruct.create( "td", {}, r2 );
                 var cp = new ContentPane().placeAt( this.containerNode );
                 cp.set( "content", this.stats_node );
             }
@@ -217,7 +215,7 @@ function( declare,
                 var s = 0;
                 for( var o in this._feature_structure.stats_list )
                 {
-                    var nref = ( s < 6 ? "1" : s < 12 ? "2" : s < 10 ? "3" : 4 );
+                    var nref = ( s < 6 ? "1" : "2" );
                     this._feature_structure.stats_list[ o ].control = new _StatControl({
                          parent : this,
                          field_id : o,
