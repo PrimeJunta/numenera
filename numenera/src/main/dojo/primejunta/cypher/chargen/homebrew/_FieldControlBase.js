@@ -43,10 +43,6 @@ function( declare,
             {
                 this.own( on( this._control, "change", lang.hitch( this, this.writeValue ) ) );
             }
-            else
-            {
-                console.log( this, "has no control!" );
-            }
         },
         createControl : function()
         {
@@ -63,9 +59,24 @@ function( declare,
                 return ( this.instance[ this.field_id ] || this.NOT_DEFINED_STRING );
             }
         },
+        get : function( prop )
+        {
+            if( prop == "value" )
+            {
+                return this.getValue();
+            }
+            else
+            {
+                return this.inherited( arguments );
+            }
+        },
+        getValue : function()
+        {
+            return this._control.get( "value" );
+        },
         writeValue : function()
         {
-            var val = this._control.get( "value" );
+            var val = this.getValue();
             if( this.path )
             {
                 this._setInstanceValue( this.instance[ this.path ], this.field_id, val );
@@ -78,7 +89,6 @@ function( declare,
         },
         _setInstanceValue : function( obj, fld, val )
         {
-            console.log( "setting", fld, "on", obj, "to", val );
             if( val )
             {
                 obj[ fld ] = val;

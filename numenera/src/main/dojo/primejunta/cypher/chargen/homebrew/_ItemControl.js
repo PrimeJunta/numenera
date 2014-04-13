@@ -1,15 +1,17 @@
 define([ "dojo/_base/declare",
-       "dojo/_base/lang",
-       "dojo/on",
-       "dijit/form/TextBox",
-       "dijit/form/Button",
-       "dijit/_WidgetBase",
-       "dijit/_TemplatedMixin",
-       "dijit/_WidgetsInTemplateMixin",
-       "dojo/text!./templates/_ItemControl.html" ],
+         "dojo/_base/lang",
+         "dojo/on",
+         "dojo/Evented",
+         "dijit/form/TextBox",
+         "dijit/form/Button",
+         "dijit/_WidgetBase",
+         "dijit/_TemplatedMixin",
+         "dijit/_WidgetsInTemplateMixin",
+         "dojo/text!./templates/_ItemControl.html" ],
 function( declare,
           lang,
           on,
+          Evented,
           TextBox,
           Button,
           _WidgetBase,
@@ -17,7 +19,7 @@ function( declare,
           _WidgetsInTemplateMixin,
           template )
 {
-    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin ], {
+    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Evented ], {
         value : "",
         templateString : template,
         addControl : false,
@@ -27,6 +29,9 @@ function( declare,
         postCreate : function()
         {
             this.own( on( this.controlWidget, "keyup", lang.hitch( this, this.checkState )));
+            this.own( on( this.controlWidget, "change", lang.hitch( this, function( evt ) {
+                this.emit( "change", evt );
+            })));
             if( !this.addControl )
             {
                 this.deleteButton.domNode.style.display = "inline-block";

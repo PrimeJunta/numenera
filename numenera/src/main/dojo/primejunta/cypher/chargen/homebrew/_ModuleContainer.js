@@ -140,6 +140,7 @@ function( declare,
         },
         delete : function( wordWidget )
         {
+            delete this.data.payload_data[ wordWidget.oid ];
             this.storage.remove( this._getId( wordWidget ) );
         },
         _getId : function( wordWidget )
