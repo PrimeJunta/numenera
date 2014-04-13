@@ -41,7 +41,7 @@ function( declare,
             this.createControl();
             if( this._control )
             {
-                this.own( on( this._control, "change", lang.hitch( this.parent, this.parent.save ) ) );
+                this.own( on( this._control, "change", lang.hitch( this, this.writeValue ) ) );
             }
             else
             {
@@ -61,6 +61,31 @@ function( declare,
             else
             {
                 return ( this.instance[ this.field_id ] || this.NOT_DEFINED_STRING );
+            }
+        },
+        writeValue : function()
+        {
+            var val = this._control.get( "value" );
+            if( this.path )
+            {
+                this._setInstanceValue( this.instance[ this.path ], this.field_id, val );
+            }
+            else
+            {
+                this._setInstanceValue( this.instance, this.field_id, val );
+            }
+            this.parent.save();
+        },
+        _setInstanceValue : function( obj, fld, val )
+        {
+            console.log( "setting", fld, "on", obj, "to", val );
+            if( val )
+            {
+                obj[ fld ] = val;
+            }
+            else
+            {
+                delete obj[ fld ];
             }
         }
     });

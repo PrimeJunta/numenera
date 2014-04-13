@@ -60,9 +60,7 @@ function( declare,
                     }
                 }
                 this.data[ _keys[ 1 ] ].payload_data[ _keys[ 2 ] ] = _stored[ o ];
-                console.log( "SET", _keys[ 1 ], _keys[ 2 ], "TO", _stored[ o ] );
             }
-            console.log( "DATA IS NOW", this.data );
         }
     });
 });

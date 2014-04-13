@@ -169,7 +169,6 @@ function( declare,
         },
         getData : function()
         {
-            // TODO: make this read the data dynamically, or make each control write it dynamically.
             this.instance.is_homebrew = true;
             return this.instance;
         },
