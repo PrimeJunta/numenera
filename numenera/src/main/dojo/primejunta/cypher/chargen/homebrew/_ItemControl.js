@@ -67,7 +67,29 @@ function( declare,
         {
             if( what == "value" )
             {
-                return this.controlWidget.get( "value" );
+                var val = this.controlWidget.get( "value" );
+                if( this.numberOfItemsInput.get( "value" ) > 0 )
+                {
+                    val += "${select:";
+                    val += this.numberOfItemsInput.get( "value" );
+                    val += ":";
+                    var opts = [];
+                    for( var i = 0; i < this._opts.length; i++ )
+                    {
+                        var _o = this._opts[ i ].get( "value" );
+                        if( _o )
+                        {
+                            opts.push( _o )
+                        }
+                    }
+                    val += opts.join( "|" ) + "}";
+                    val += this.midTextInput.get( "value" );
+                }
+                if( this.inputDefaultInput.get( "value" ) )
+                {
+                    val += "${input:" + this.inputDefaultInput.get( "value" ) + "}";
+                }
+                return val;
             }
             else
             {
