@@ -38,18 +38,29 @@ function( declare,
         {
             delete this._store[ this.storeName + "_" + key ];
         },
-        getKeys : function()
+        getItems : function( keyPf )
         {
+            var keys = this.getKeys( keyPf );
+            var out = {};
+            for( var i = 0; i < keys.length; i++ )
+            {
+                var _key = keys[ i ].substring( keys[ i ].indexOf( this.storeName.length + "_" + keyPf  ));
+                out[ _key ] = this.get( keys[ i ] );
+            }
+            return out;
+        },
+        getKeys : function( keyPf )
+        {
+            keyPf = keyPf ? keyPf : "";
             var keys = Object.keys( this._store );
             var out = [];
             for( var i = 0; i < keys.length; i++ )
             {
-                if( keys[ i ].indexOf( this.storeName ) == 0 )
+                if( keys[ i ].indexOf( this.storeName + "_" + keyPf ) == 0 )
                 {
                     out.push( keys[ i ].substring( this.storeName.length + 1 ));
                 }
             }
-            //console.log( "KEYS", out ); // TODO: remove this
             return out;
         }
     });

@@ -10,17 +10,19 @@ define([ "dojo/_base/declare",
                  strangeDescriptors)
        {
            return declare([ _FeatureBase ], {
-               FEATURE_TYPE : "ENABLER",
-               data : [{
-                           origin : "numenera",
-                           recursion : false,
-                           payload_data : numeneraDescriptors
-                       },
-                       {
-                           origin : "strange",
-                           recursion : false,
-                           payload_data : strangeDescriptors
+               featureLabel : "Enabler",
+               data : {
+                   "numenera" : {
+                       origin : "numenera",
+                       recursion : false,
+                       payload_data : numeneraDescriptors
+                   },
+                   "strange" : {
+                       origin : "strange",
+                       recursion : false,
+                       payload_data : strangeDescriptors
 
-                       }]
+                   }
+               }
            });
        });

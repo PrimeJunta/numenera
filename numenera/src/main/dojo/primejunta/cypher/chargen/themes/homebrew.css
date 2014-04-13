@@ -235,7 +235,7 @@
 {
     cursor : pointer;
 }
-.num-tabCloseButton
+.num-tabButton
 {
     display : block;
     position : absolute;
@@ -247,9 +247,4 @@
     overflow: hidden;
     text-overflow: ellipsis;
     max-width : 170px;
-}
-.num-addButtonNode
-{
-    background-color: aliceblue;
-    display:block;
 }

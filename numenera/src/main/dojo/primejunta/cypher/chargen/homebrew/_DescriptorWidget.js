@@ -10,19 +10,20 @@ function( declare,
           strangeDescriptors)
 {
     return declare([ _FeatureBase ], {
-        FEATURE_TYPE : "DESCRIPTOR",
         featureLabel : "Descriptor",
         has_stats : true,
-        data : [{
-            origin : "numenera",
-            recursion : false,
-            payload_data : numeneraDescriptors
-        },
-        {
-            origin : "strange",
-            recursion : false,
-            payload_data : strangeDescriptors
+        data : {
+            "numenera" : {
+                origin : "numenera",
+                recursion : false,
+                payload_data : numeneraDescriptors
+            },
+            "strange" : {
+                origin : "strange",
+                recursion : false,
+                payload_data : strangeDescriptors
 
-        }]
+            }
+        }
     });
 });

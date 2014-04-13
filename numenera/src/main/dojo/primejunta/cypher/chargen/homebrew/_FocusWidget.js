@@ -15,30 +15,31 @@ define([ "dojo/_base/declare",
        {
            return declare([ _FeatureBase ], {
                has_stats : false,
-               FEATURE_TYPE : "FOCUS",
-               featureLabel : "focus",
-               data : [{
-                           origin : "ninth_world",
-                           recursion : false,
-                           payload_data : ninthWorldFoci
-                       },
-                       {
-                           origin : "ardeyn",
-                           recursion : false,
-                           payload_data : ardeynFoci
+               featureLabel : "Focus",
+               data : {
+                   "ninth_world" : {
+                       origin : "numenera",
+                       recursion : "ninth_world",
+                       payload_data : ninthWorldFoci
 
-                       },
-                       {
-                           origin : "earth",
-                           recursion : false,
-                           payload_data : earthFoci
+                   },
+                   "ardeyn" : {
+                       origin : "strange",
+                       recursion : "ardeyn",
+                       payload_data : ardeynFoci
 
-                       },
-                       {
-                           origin : "ruk",
-                           recursion : false,
-                           payload_data : rukFoci
+                   },
+                   "earth" : {
+                       origin : "strange",
+                       recursion : "earth",
+                       payload_data : earthFoci
 
-                       }]
+                   },
+                   "ruk" : {
+                       origin : "strange",
+                       recursion : "ruk",
+                       payload_data : rukFoci
+                   }
+               }
            });
        });

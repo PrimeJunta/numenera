@@ -1,5 +1,5 @@
 /**
- * Extends stack controller with buttonWidget which supports closing, and addButton for adding stuff to the stack.
+ * Extends stack controller with buttonWidget which supports closing, and handles custom iconClass for a nicer icon.
  *
  * @public Widget
  */
@@ -21,20 +21,6 @@ function( declare,
           StackController )
 {
     return declare([ StackController ], {
-        hasAddButton : false,
-        addButtonLabel : "Add item",
-        buildRendering : function()
-        {
-            this.inherited( arguments );
-            if( this.hasAddButton )
-            {
-                this.containerNode = domConstruct.create( "span", {}, this.domNode );
-                this.addButtonNode = domConstruct.create( "span", { "class" : "num-addButtonNode"}, this.domNode );
-                this.addButton = new Button({ label : this.addButtonLabel, "style" : "position:relative;" } ).placeAt( this.addButtonNode );
-                domConstruct.create( "div", { "class" : "num-tabCloseButton num-activeControl", "innerHTML" : '<i class="num-blueIcon fa fa-plus-circle"></i>' }, this.addButton.titleNode );
-                on( this.addButton, "click", lang.hitch( this, this.onAddButtonClick ));
-            }
-        },
         onAddButtonClick : function()
         {
             // stub
@@ -42,6 +28,7 @@ function( declare,
         buttonWidget : declare( [ ToggleButton ], {
             tabIndex: "-1",
             closeButton: false,
+            addButton : false,
             _aria_attr: "aria-selected",
             buildRendering : function( /*Event*/ evt )
             {
@@ -50,8 +37,12 @@ function( declare,
                 domStyle.set( this.domNode, { "position" : "relative" });
                 if( this.closeButton )
                 {
-                    this.closeNode = domConstruct.create( "div", { "class" : "num-tabCloseButton num-activeControl", "innerHTML" : '<i class="num-redIcon fa fa-times-circle"></i>' }, this.titleNode );
+                    this.closeNode = domConstruct.create( "div", { "class" : "num-tabButton num-activeControl", "innerHTML" : '<i class="num-redIcon fa fa-times-circle"></i>' }, this.titleNode );
                     on( this.closeNode, "click", lang.hitch( this, this.closeTab ) );
+                }
+                else if( this.iconClass == "num-addButton" )
+                {
+                    this.addNode = domConstruct.create( "div", { "class" : "num-tabButton num-activeControl", "innerHTML" : '<i class="num-blueIcon fa fa-plus-circle"></i>' }, this.titleNode );
                 }
             },
             closeTab : function()

@@ -10,7 +10,6 @@ define([ "dojo/_base/declare",
                  strangeDescriptors)
        {
            return declare([ _FeatureBase ], {
-               FEATURE_TYPE : "TYPE",
                featureLabel : "Type",
                stat_constraints : {
                    min : -9,
@@ -19,16 +18,18 @@ define([ "dojo/_base/declare",
                    fixed : true
                },
                has_stats : true,
-               data : [{
-                           origin : "numenera",
-                           recursion : false,
-                           payload_data : numeneraDescriptors
-                       },
-                       {
-                           origin : "strange",
-                           recursion : false,
-                           payload_data : strangeDescriptors
+               data : {
+                   "numenera" : {
+                       origin : "numenera",
+                       recursion : false,
+                       payload_data : numeneraDescriptors
+                   },
+                   "strange" : {
+                       origin : "strange",
+                       recursion : false,
+                       payload_data : strangeDescriptors
 
-                       }]
+                   }
+                }
            });
        });

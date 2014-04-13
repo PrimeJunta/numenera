@@ -1,0 +1,26 @@
+<div>
+  <h2>Add ${featureLabel}</h2>
+  <table>
+    <tbody>
+    <tr>
+      <td>Name:</td>
+      <td>
+        <input type="text" data-dojo-attach-point="labelField" data-dojo-type="dijit/form/TextBox" data-dojo-attach-event="onChange:checkCreate"/>
+      </td>
+    </tr>
+    <tr>
+      <td>Based on:</td>
+      <td>
+        <select data-dojo-attach-point="templateSelect" data-dojo-attach-event="onChange:checkCreate">
+          <option value="" style="font-style:italic">-- nothing --</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" align="right">
+        <button data-dojo-attach-point="createButton" data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:createItem" disabled="disabled">Create</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

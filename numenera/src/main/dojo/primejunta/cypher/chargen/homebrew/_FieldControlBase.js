@@ -1,6 +1,7 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "dojo/json",
+         "dojo/on",
          "dijit/form/Button",
          "dijit/form/TextBox",
          "dijit/_WidgetBase",
@@ -10,6 +11,7 @@ define([ "dojo/_base/declare",
 function( declare,
           lang,
           json,
+          on,
           Button,
           TextBox,
           _WidgetBase,
@@ -27,16 +29,24 @@ function( declare,
         label : "",
         value : "",
         path : false,
+        parent : {},
         "class" : "cg-fieldControl",
         field_class : "num-itemInput num-homebrewInput",
         postMixInProperties : function()
         {
             this.value = this.readValue();
-            //this.value = this.instance
         },
         postCreate : function()
         {
             this.createControl();
+            if( this._control )
+            {
+                this.own( on( this._control, "change", lang.hitch( this.parent, this.parent.save ) ) );
+            }
+            else
+            {
+                console.log( this, "has no control!" );
+            }
         },
         createControl : function()
         {

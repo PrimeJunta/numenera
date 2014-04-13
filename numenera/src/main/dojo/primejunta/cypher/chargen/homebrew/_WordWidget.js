@@ -8,7 +8,6 @@ define([ "dojo/_base/declare",
          "./_StatControl",
          "./_ListControl",
          "./_AdvancementControl",
-         "primejunta/ui/util",
          "dijit/layout/ContentPane" ],
 function( declare,
           lang,
@@ -20,13 +19,14 @@ function( declare,
           _StatControl,
           _ListControl,
           _AdvancementControl,
-          util,
           ContentPane )
 {
     return declare([ ContentPane ],
     {
+        parent : {},
         instance : {},
         oid : "",
+        is_homebrew : false,
         stat_constraints : {},
         has_advancement : false,
         has_stats : true,
@@ -128,11 +128,6 @@ function( declare,
                 perk_list : "choice"
             }
         },
-        postMixInProperties : function()
-        {
-            this.inherited( arguments );
-            this.title = util.prettify( this.instance.label );
-        },
         populate : function()
         {
             if( this._populated )
@@ -141,7 +136,7 @@ function( declare,
             }
             this._populated = true;
             this.field_list = new ContentPane({ "innerHTML" : "<h1>" + this.title + "</h1>" } ).placeAt( this.containerNode );
-            this.text_list = new ContentPane({ } ).placeAt( this.containerNode );
+            this.text_list = new ContentPane({} ).placeAt( this.containerNode );
             if( this.has_stats )
             {
                 if( this.stat_constraints.fixed )
@@ -172,6 +167,25 @@ function( declare,
             }
             this._renderControls();
         },
+        getData : function()
+        {
+            // TODO: make this read the data dynamically, or make each control write it dynamically.
+            this.instance.is_homebrew = true;
+            return this.instance;
+        },
+        save : function()
+        {
+            this.parent.save( this );
+        },
+        onClose : function()
+        {
+            var cf = confirm( "Are you sure you want to delete " + this.title + "?" );
+            if( cf )
+            {
+                this.parent.delete( this );
+                return true;
+            }
+        },
         _toggleStatCollapse : function()
         {
             domClass.toggle( this.stats_node, "cg-collapsed" );
@@ -185,6 +199,7 @@ function( declare,
                 if( this._isRendered( o ) )
                 {
                     this._feature_structure.field_list[ o ].control = new _FieldControl({
+                        parent : this,
                         field_id : o,
                         definition : this._feature_structure.field_list[ o ],
                         instance : this.instance }).placeAt( this.field_list );
@@ -192,7 +207,9 @@ function( declare,
             }
             for( var o in this._feature_structure.text_list )
             {
-                this._feature_structure.text_list[ o ].control = new _TextControl({ field_id : o,
+                this._feature_structure.text_list[ o ].control = new _TextControl({
+                    parent : this,
+                    field_id : o,
                     definition : this._feature_structure.text_list[ o ],
                     instance : this.instance }).placeAt( this.text_list );
             }
@@ -202,7 +219,9 @@ function( declare,
                 for( var o in this._feature_structure.stats_list )
                 {
                     var nref = ( s < 6 ? "1" : s < 12 ? "2" : s < 10 ? "3" : 4 );
-                    this._feature_structure.stats_list[ o ].control = new _StatControl({ field_id : o,
+                    this._feature_structure.stats_list[ o ].control = new _StatControl({
+                         parent : this,
+                         field_id : o,
                          definition : this._feature_structure.stats_list[ o ],
                          instance : this.instance,
                          stat_constraints : this.stat_constraints }).placeAt( this[ "stats_list" + "_" + nref ] );
@@ -211,14 +230,18 @@ function( declare,
             }
             for( var o in this._feature_structure.list_list )
             {
-                this._feature_structure.list_list[ o ].control = new _ListControl({ path : "lists",
+                this._feature_structure.list_list[ o ].control = new _ListControl({
+                     path : "lists",
+                     parent : this,
                      field_id : o,
                      definition : this._feature_structure.list_list[ o ],
                      instance : this.instance }).placeAt( this.list_list );
             }
             if( this.has_advancement )
             {
-                this._feature_structure.advancement.control = new _AdvancementControl({ path : "advancement",
+                this._feature_structure.advancement.control = new _AdvancementControl({
+                    path : "advancement",
+                    parent : this,
                     field_id : o,
                     definition : this._feature_structure.advancement,
                     instance : this.instance } ).placeAt( this.advancement );
