@@ -34,8 +34,7 @@ function( declare,
         "class" : "num-moduleContainer",
         context : "", // recursion or origin
         featureLabel : "",
-        stat_constraints : {},
-        has_advancement : false,
+        feature_properties : {},
         storage : {},
         postMixInProperties : function()
         {
@@ -125,9 +124,7 @@ function( declare,
                 instance : kwObj.instance,
                 oid : kwObj.oid,
                 title : kwObj.title,
-                has_stats : this.has_stats,
-                stat_constraints : this.stat_constraints,
-                has_advancement : this.has_advancement,
+                feature_properties : this.feature_properties,
                 is_homebrew : kwObj.is_homebrew
             });
             this.addChild( this._controls[ kwObj.oid ] );

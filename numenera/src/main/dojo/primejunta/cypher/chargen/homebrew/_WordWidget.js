@@ -27,10 +27,12 @@ function( declare,
         instance : {},
         oid : "",
         is_homebrew : false,
-        stat_constraints : {},
-        has_advancement : false,
-        has_stats : true,
-        has_special_list : false,
+        feature_properties : {
+            stat_constraints : {},
+            has_advancement : false,
+            has_stats : true,
+            has_special_list : false
+        },
         stats_list : {
             free_pool : {
                 label : "Free pool"
@@ -124,15 +126,23 @@ function( declare,
                 }
             },
             advancement : {
-                stats : "_stats",
-                bonus_perks : "list",
-                perk_list : "choice"
+                stats : {
+                    type : "stats"
+                },
+                bonus_perks : {
+                    label : "Bonus abilities",
+                    type : "list"
+                },
+                perk_list : {
+                    type : "choice",
+                    condition : "has_special_list"
+                }
             }
         },
         postMixInProperties : function()
         {
             this.feature_structure.stats_list = this.stats_list;
-            this.feature_structure.advancement.stats = this.stats_list;
+            this.feature_structure.advancement.stats.stats_list = this.stats_list;
         },
         populate : function()
         {
@@ -143,9 +153,9 @@ function( declare,
             this._populated = true;
             this.field_list = new ContentPane({ "innerHTML" : "<h1>" + this.title + "</h1>" } ).placeAt( this.containerNode );
             this.text_list = new ContentPane({} ).placeAt( this.containerNode );
-            if( this.has_stats )
+            if( this.feature_properties.has_stats )
             {
-                if( this.stat_constraints.fixed )
+                if( this.feature_properties.stat_constraints.fixed )
                 {
                     this.stats_node = domConstruct.create( "table", { "class" : "cg-expanded", "width" : "100%" } );
                     this.stats_title = domConstruct.create( "caption", { "class" : "num-activeControl", "innerHTML" : '<h2>Stats</h2>' }, this.stats_node );
@@ -165,7 +175,7 @@ function( declare,
                 cp.set( "content", this.stats_node );
             }
             this.list_list = new ContentPane({ content : "<h2>Features</h2>" } ).placeAt( this.containerNode );
-            if( this.has_advancement )
+            if( this.feature_properties.has_advancement )
             {
                 this.advancement = new ContentPane({ content : "<h2>Advancement</h2>" } ).placeAt( this.containerNode );
             }
@@ -201,7 +211,7 @@ function( declare,
             {
                 if( this._isRendered( o ) )
                 {
-                    this._feature_structure.field_list[ o ].control = new _FieldControl({
+                    this._feature_structure.field_list[ o ]._control = new _FieldControl({
                         parent : this,
                         field_id : o,
                         definition : this._feature_structure.field_list[ o ],
@@ -210,42 +220,43 @@ function( declare,
             }
             for( var o in this._feature_structure.text_list )
             {
-                this._feature_structure.text_list[ o ].control = new _TextControl({
+                this._feature_structure.text_list[ o ]._control = new _TextControl({
                     parent : this,
                     field_id : o,
                     definition : this._feature_structure.text_list[ o ],
                     instance : this.instance }).placeAt( this.text_list );
             }
-            if( this.has_stats )
+            if( this.feature_properties.has_stats )
             {
                 var s = 0;
                 for( var o in this._feature_structure.stats_list )
                 {
                     var nref = ( s < 6 ? "1" : "2" );
-                    this._feature_structure.stats_list[ o ].control = new _StatControl({
+                    this._feature_structure.stats_list[ o ]._control = new _StatControl({
                          parent : this,
                          field_id : o,
                          definition : this._feature_structure.stats_list[ o ],
                          instance : this.instance,
-                         stat_constraints : this.stat_constraints }).placeAt( this[ "stats_list" + "_" + nref ] );
+                         feature_properties : this.feature_properties }).placeAt( this[ "stats_list" + "_" + nref ] );
                     s++;
                 }
             }
             for( var o in this._feature_structure.list_list )
             {
-                this._feature_structure.list_list[ o ].control = new _ListControl({
+                this._feature_structure.list_list[ o ]._control = new _ListControl({
                      path : "lists",
                      parent : this,
                      field_id : o,
                      definition : this._feature_structure.list_list[ o ],
                      instance : this.instance }).placeAt( this.list_list );
             }
-            if( this.has_advancement )
+            if( this.feature_properties.has_advancement )
             {
-                this._feature_structure.advancement.control = new _AdvancementControl({
+                this._feature_structure.advancement._control = new _AdvancementControl({
                     parent : this,
                     field_id : "advancement",
                     definition : this._feature_structure.advancement,
+                    feature_properties : this.feature_properties,
                     instance : this.instance } ).placeAt( this.advancement );
             }
         },

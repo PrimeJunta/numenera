@@ -19,12 +19,16 @@ function( declare,
             var vals = this.readValue();
             for( var i = 0; i < vals.length; i++ )
             {
-                var ctrl = new _ItemControl({ parent : this, value : vals[ i ] } ).placeAt( this.controlNode );
+                var ctrl = this.createItemControl({ parent : this, value : vals[ i ] }).placeAt( this.controlNode );
                 this._items.push( ctrl );
                 this.own( on( ctrl, "change", lang.hitch( this, this.writeValue ) ) );
             }
             this._newItemControl = new _ItemControl({ parent : this, addControl : true, value : "" } ).placeAt( this.controlNode );
             this.own( on( this._newItemControl, "change", lang.hitch( this, this.writeValue ) ) );
+        },
+        createItemControl : function( props )
+        {
+            return new _ItemControl( props );
         },
         getValue : function()
         {
@@ -37,7 +41,7 @@ function( declare,
                     out.push( val );
                 }
             }
-            if( this._newItemControl.get( "value" ) )
+            if( this._newItemControl && this._newItemControl.get( "value" ) )
             {
                 out.push( this._newItemControl.get( "value" ) );
             }
@@ -45,7 +49,7 @@ function( declare,
         },
         addItem : function( from )
         {
-            this._items.push( new _ItemControl({ parent : this, value : from.get( "value" )} ).placeAt( this._newItemControl.domNode, "before" ) );
+            this._items.push( this.createItemControl({ parent : this, value : from.get( "value" )} ).placeAt( this._newItemControl.domNode, "before" ) );
             from.set( "value", "" );
             this._newItemControl.focus();
         },

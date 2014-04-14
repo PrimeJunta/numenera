@@ -11,7 +11,6 @@ function( declare,
 {
     return declare([ _FeatureBase ], {
         featureLabel : "Descriptor",
-        has_stats : true,
         data : {
             "numenera" : {
                 origin : "numenera",

@@ -11,14 +11,17 @@ define([ "dojo/_base/declare",
        {
            return declare([ _FeatureBase ], {
                featureLabel : "Type",
-               stat_constraints : {
-                   min : -9,
-                   max : 99,
-                   pattern : "#0;-#0",
-                   fixed : true
+               feature_properties : {
+                   stat_constraints : {
+                       min : -9,
+                       max : 99,
+                       pattern : "#0;-#0",
+                       fixed : true
+                   },
+                   has_stats : true,
+                   has_advancement : true,
+                   has_special_list : true
                },
-               has_stats : true,
-               has_advancement : true,
                data : {
                    "numenera" : {
                        origin : "numenera",

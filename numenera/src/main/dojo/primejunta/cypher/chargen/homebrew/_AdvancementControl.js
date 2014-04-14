@@ -1,24 +1,21 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
-         "./_FieldControlBase",
+         "./_ListControl",
+         "./_TierControl",
          "dojo/text!./templates/_AdvancementControl.html" ],
 function( declare,
           lang,
-          _FieldControlBase,
+          _ListControl,
+          _TierControl,
           template )
 {
-    return declare([ _FieldControlBase ], {
+    return declare([ _ListControl ], {
         templateString : template,
-        createControl : function()
+        feature_properties : {},
+        createItemControl : function( props )
         {
-            console.log( "DEF", this.definition, "INST", this.instance, "PATH", this.path );
-            var vals = this.readValue();
-            console.log( "ADVANCEMENT IS", vals, this.instance.advancement );
-        },
-        readValue : function()
-        {
-            console.log( "FURRLD", this.field_id );
-            return this.inherited( arguments );
+            props.feature_properties = this.feature_properties;
+            return new _TierControl( props );
         }
     });
 });

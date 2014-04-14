@@ -16,13 +16,13 @@ function( declare,
         path : "stats",
         "class" : "cg-statControl cg-showWhenExpanded",
         field_class : "cg-statInput",
-        stat_constraints : {},
+        feature_properties : {},
         postMixInProperties : function()
         {
             this.inherited( arguments );
-            if( !this.stat_constraints.fixed && this.definition.stat_constraints )
+            if( !this.feature_properties.stat_constraints.fixed && this.definition.stat_constraints )
             {
-                this.stat_constraints = lang.mixin( lang.clone( this.stat_constraints ), this.definition.stat_constraints );
+                this.feature_properties.stat_constraints = lang.mixin( lang.clone( this.feature_properties.stat_constraints ), this.definition.stat_constraints );
             }
         },
         postCreate : function()
@@ -35,7 +35,7 @@ function( declare,
             this._control = new NumberTextBox({
                 "class" : this.field_class,
                 value : this.value,
-                constraints : this.stat_constraints
+                constraints : this.feature_properties.stat_constraints
             } ).placeAt( this.controlNode );
             on( this._control, "change", lang.hitch( this, this.checkClass ) );
         },

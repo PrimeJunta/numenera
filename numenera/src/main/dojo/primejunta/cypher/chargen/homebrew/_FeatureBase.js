@@ -18,12 +18,15 @@ function( declare,
         tabPosition : "top",
         nested : false,
         "class" : "cg-nestedTabs cg-leftTabs",
-        has_stats : true,
-        has_advancement : false,
-        stat_constraints : {
-            min : -9,
-            max : 9,
-            pattern : "+0;-0"
+        feature_properties : {
+            has_stats : true,
+            has_advancement : false,
+            has_special_list : false,
+            stat_constraints : {
+                min : -9,
+                max : 9,
+                pattern : "+0;-0"
+            }
         },
         buildRendering : function()
         {
@@ -48,9 +51,7 @@ function( declare,
                     context : _context,
                     title : _title,
                     data : this.data[ o ],
-                    has_stats : this.has_stats,
-                    has_advancement : this.has_advancement,
-                    stat_constraints : this.stat_constraints
+                    feature_properties : this.feature_properties
                 });
                 this.addChild( mc );
             }

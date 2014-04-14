@@ -14,8 +14,16 @@ define([ "dojo/_base/declare",
            rukFoci )
        {
            return declare([ _FeatureBase ], {
-               has_stats : false,
-               has_advancement : true,
+               feature_properties : {
+                   has_stats : false,
+                   has_advancement : true,
+                   has_special_list : false,
+                   stat_constraints : {
+                       min : -9,
+                       max : 9,
+                       pattern : "+0;-0"
+                   }
+               },
                featureLabel : "Focus",
                data : {
                    "ninth_world" : {
