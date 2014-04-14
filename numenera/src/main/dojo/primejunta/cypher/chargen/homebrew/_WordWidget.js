@@ -31,6 +31,48 @@ function( declare,
         has_advancement : false,
         has_stats : true,
         has_special_list : false,
+        stats_list : {
+            free_pool : {
+                label : "Free pool"
+            },
+            might_pool : {
+                label : "Might pool"
+            },
+            intellect_pool : {
+                label : "Intellect pool"
+            },
+            speed_pool : {
+                label : "Speed pool"
+            },
+            cypher_count : {
+                label : "Cypher limit"
+            },
+            shin_count : {
+                label : "Shins",
+                stat_constraints : {
+                    max : 99,
+                    pattern : "+#0;-#0"
+                }
+            },
+            free_edge : {
+                label : "Free edge"
+            },
+            might_edge : {
+                label : "Might edge"
+            },
+            intellect_edge : {
+                label : "Intellect edge"
+            },
+            speed_edge : {
+                label : "Speed edge"
+            },
+            recovery_roll : {
+                label : "Recovery bonus"
+            },
+            armor_bonus : {
+                label : "Armor bonus"
+            }
+        },
         feature_structure : {
             field_list : {
                 id : {
@@ -54,48 +96,7 @@ function( declare,
                     label : "Notes"
                 }
             },
-            stats_list : {
-                free_pool : {
-                    label : "Free pool"
-                },
-                might_pool : {
-                    label : "Might pool"
-                },
-                intellect_pool : {
-                    label : "Intellect pool"
-                },
-                speed_pool : {
-                    label : "Speed pool"
-                },
-                cypher_count : {
-                    label : "Cypher limit"
-                },
-                shin_count : {
-                    label : "Shins",
-                    stat_constraints : {
-                        max : 99,
-                        pattern : "+#0;-#0"
-                    }
-                },
-                free_edge : {
-                    label : "Free edge"
-                },
-                might_edge : {
-                    label : "Might edge"
-                },
-                intellect_edge : {
-                    label : "Intellect edge"
-                },
-                speed_edge : {
-                    label : "Speed edge"
-                },
-                recovery_roll : {
-                    label : "Recovery bonus"
-                },
-                armor_bonus : {
-                    label : "Armor bonus"
-                }
-            },
+            stats_list : "_stats",
             list_list : {
                 ability_list : {
                     label : "Skills",
@@ -123,10 +124,15 @@ function( declare,
                 }
             },
             advancement : {
-                stats : this.stats_list,
+                stats : "_stats",
                 bonus_perks : "list",
                 perk_list : "choice"
             }
+        },
+        postMixInProperties : function()
+        {
+            this.feature_structure.stats_list = this.stats_list;
+            this.feature_structure.advancement.stats = this.stats_list;
         },
         populate : function()
         {
@@ -237,9 +243,8 @@ function( declare,
             if( this.has_advancement )
             {
                 this._feature_structure.advancement.control = new _AdvancementControl({
-                    path : "advancement",
                     parent : this,
-                    field_id : o,
+                    field_id : "advancement",
                     definition : this._feature_structure.advancement,
                     instance : this.instance } ).placeAt( this.advancement );
             }

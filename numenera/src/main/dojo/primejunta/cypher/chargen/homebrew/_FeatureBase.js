@@ -19,6 +19,7 @@ function( declare,
         nested : false,
         "class" : "cg-nestedTabs cg-leftTabs",
         has_stats : true,
+        has_advancement : false,
         stat_constraints : {
             min : -9,
             max : 9,
@@ -41,7 +42,16 @@ function( declare,
             {
                 var _context = this.data[ o ].recursion ? this.data[ o ].recursion : this.data[ o ].origin;
                 var _title = util.prettify( _context );
-                var mc = new _ModuleContainer({ storage : this.storage, featureLabel : this.featureLabel, context : _context, title : _title, data : this.data[ o ], has_stats : this.has_stats, stat_constraints : this.stat_constraints });
+                var mc = new _ModuleContainer({
+                    storage : this.storage,
+                    featureLabel : this.featureLabel,
+                    context : _context,
+                    title : _title,
+                    data : this.data[ o ],
+                    has_stats : this.has_stats,
+                    has_advancement : this.has_advancement,
+                    stat_constraints : this.stat_constraints
+                });
                 this.addChild( mc );
             }
         },

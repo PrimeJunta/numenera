@@ -3,6 +3,7 @@ define([ "dojo/_base/declare",
          "dojo/json" ],
 function( declare, lang, json ) {
     return declare([], {
+        HOMEBREW_STORE_NAME : "_CG_HOMEBREW_STORE",
         migrateOldStores : function()
         {
             for( var o in window.localStorage )
@@ -48,7 +49,7 @@ function( declare, lang, json ) {
         },
         _isNewStyleEntry : function( key )
         {
-            return (( key.indexOf( this.CHARACTER_STORE_NAME ) == 0 || key.indexOf( this.SETTINGS_STORE_NAME ) == 0 ) && window.localStorage[ key ] != "[object Object]" );
+            return (( key.indexOf( this.CHARACTER_STORE_NAME ) == 0 || key.indexOf( this.SETTINGS_STORE_NAME ) == 0 || key.indexOf( this.HOMEBREW_STORE_NAME ) == 0 ) && window.localStorage[ key ] != "[object Object]" );
         },
         _parseStoredItem : function( key )
         {

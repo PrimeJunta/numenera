@@ -35,6 +35,7 @@ function( declare,
         context : "", // recursion or origin
         featureLabel : "",
         stat_constraints : {},
+        has_advancement : false,
         storage : {},
         postMixInProperties : function()
         {
@@ -126,6 +127,7 @@ function( declare,
                 title : kwObj.title,
                 has_stats : this.has_stats,
                 stat_constraints : this.stat_constraints,
+                has_advancement : this.has_advancement,
                 is_homebrew : kwObj.is_homebrew
             });
             this.addChild( this._controls[ kwObj.oid ] );

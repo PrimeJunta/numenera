@@ -18,6 +18,7 @@ define([ "dojo/_base/declare",
                    fixed : true
                },
                has_stats : true,
+               has_advancement : true,
                data : {
                    "numenera" : {
                        origin : "numenera",
