@@ -8,6 +8,7 @@ define([ "dojo/_base/declare",
          "dijit/form/CheckBox",
          "dijit/form/Button",
          "dijit/form/ToggleButton",
+         "./_SpecialCharParserMixin",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
          "dijit/_WidgetsInTemplateMixin",
@@ -22,17 +23,16 @@ function( declare,
           CheckBox,
           Button,
           ToggleButton,
+          _SpecialCharParserMixin,
           _WidgetBase,
           _TemplatedMixin,
           _WidgetsInTemplateMixin,
           template )
 {
-    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Evented ], {
+    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Evented, _SpecialCharParserMixin ], {
         value : "",
         templateString : template,
         addControl : false,
-        specialCharsIn : "TSEAIa",
-        specialCharsOut : "ⓉⓈⒺⒶⒾⓐ",
         parent : {},
         quickOptions : {
             Weapons : [ "Light Bashing Weapon", "Light Bladed Weapon", "Light Ranged Weapon", "Medium Bashing Weapon", "Medium Bladed Weapon", "Medium Ranged Weapon", "Heavy Bashing Weapon", "Heavy Bladed Weapon", "Heavy Ranged Weapon" ],
@@ -57,7 +57,7 @@ function( declare,
             {
                 this.hideSelect();
             }
-            this.own( on( this.controlWidget, "keyup", lang.hitch( this, this.checkState )));
+            this.setSpecialCharListener( this.controlWidget );
             this.own( on( this.controlWidget, "change", lang.hitch( this, function( evt ) {
                 this.emit( "change", evt );
             })));
@@ -72,16 +72,6 @@ function( declare,
                 this.own( on( this.addButton, "click", lang.hitch( this, this.addMe ) ) );
             }
         },
-        checkState : function()
-        {
-            // TODO: block forbidden characters ${}
-            var val = this.controlWidget.get( "value" );
-            var idx = this.specialCharsIn.indexOf( val.charAt( 0 ) );
-            if( val.charAt( 1 ) == " " && idx != -1 )
-            {
-                this.controlWidget.set( "value", this.specialCharsOut.charAt( idx ) + val.substring( 1 ) );
-            }
-        },
         get : function( what )
         {
             if( what == "value" )
@@ -92,7 +82,7 @@ function( declare,
                     val += "${select:";
                     val += this.numberOfItemsInput.get( "value" );
                     val += ":";
-                    this._optionControl.get( "value" );
+                    val += this._optionControl.get( "value" );
                     val += "}";
                     val += this.midTextInput.get( "value" );
                 }
@@ -175,7 +165,7 @@ function( declare,
         },
         _hasSelect : function()
         {
-            if( this.value.indexOf( "${select" ) != -1 )
+            if( this.value.indexOf( "${select:" ) != -1 )
             {
                 return true;
             }
@@ -193,12 +183,19 @@ function( declare,
         },
         _populateSelectOptionList : function()
         {
+            var num = 1;
+            var val = "";
             if( this._hasSelect() )
             {
                 var _sel = /\$\{select:(\d):([^}]+)\}/.exec( this.value );
-                this.numberOfItemsInput.set( "value", _sel[ 1 ] );
-                this._optionControl = new _OptionListControl({ parent : this, value : _sel[ 2 ] } ).placeAt( this.selectItemsNode );
+                if( _sel )
+                {
+                    num = _sel[ 1 ];
+                    val = _sel[ 2 ];
+                }
             }
+            this.numberOfItemsInput.set( "value", num );
+            this._optionControl = new _OptionListControl({ parent : this, value : val } ).placeAt( this.selectItemsNode );
         },
         _populateInputSettings : function()
         {

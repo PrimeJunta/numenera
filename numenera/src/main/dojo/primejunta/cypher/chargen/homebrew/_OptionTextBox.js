@@ -2,6 +2,7 @@ define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "dojo/on",
          "dijit/form/TextBox",
+         "./_SpecialCharParserMixin",
          "dojo/Evented",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -11,13 +12,14 @@ function( declare,
           lang,
           on,
           TextBox,
+          _SpecialCharParserMixin,
           Evented,
           _WidgetBase,
           _TemplatedMixin,
           _WidgetsInTemplateMixin,
           template )
 {
-    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Evented ], {
+    return declare([ _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Evented, _SpecialCharParserMixin ], {
         templateString : template,
         parent : {},
         add : false,
@@ -28,6 +30,7 @@ function( declare,
                 this.destroyNode.style.display = "none";
                 this.addNode.style.display = "block";
             }
+            this.setSpecialCharListener( this.control );
             on( this.control, "change", lang.hitch( this, function( evt ) {
                 this.emit( "change", evt );
             }));

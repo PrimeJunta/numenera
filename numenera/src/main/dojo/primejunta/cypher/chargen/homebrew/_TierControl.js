@@ -67,7 +67,7 @@ function( declare,
                             break;
                         case "choice" :
                             this._choiceControl = new _OptionListControl({
-                                title : "Perks",
+                                title : "Type Abilities",
                                 parent : this.parent, value : this.value[ o ]
                             } ).placeAt( this.containerNode );
                             break;

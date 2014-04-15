@@ -235,7 +235,7 @@ function( declare,
             {
                 return false;
             }
-            if( this._feature_structure.field_list[ fld ].condition && !this[ this._feature_structure.field_list[ fld ].condition ] )
+            if( this._feature_structure.field_list[ fld ].condition && !this.feature_properties[ this._feature_structure.field_list[ fld ].condition ] )
             {
                 return false;
             }
