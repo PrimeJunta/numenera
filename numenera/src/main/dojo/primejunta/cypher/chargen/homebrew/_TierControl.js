@@ -1,12 +1,20 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
+         "dojo/on",
+         "dojo/dom-construct",
          "./_FieldControlBase",
          "./_StatPane",
+         "./_ListControl",
+         "./_OptionTextBox",
          "dojo/text!./templates/_TierControl.html"],
 function( declare,
           lang,
+          on,
+          domConstruct,
           _FieldControlBase,
           _StatPane,
+          _ListControl,
+          _OptionTextBox,
           template )
 {
     return declare([ _FieldControlBase ], {
@@ -37,27 +45,49 @@ function( declare,
                     switch( this.definition[ o ].type )
                     {
                         case "stats" :
-                            // place _StatControls
-                            console.log( "STAT CTRLS", this.definition[ o ], this.value[ o ] || {} );
                             this._statsPane = new _StatPane({
                                 feature_properties : this.feature_properties,
                                 feature_structure : this.definition[ o ],
                                 parent : this.parent,
                                 instance : this.value[ o ] || {}
                             }).placeAt( this.containerNode );
-
                             break;
                         case "list" :
-                            // create _ListControl
-                            console.log( "LIST CTRL", this.definition[ o ], this.value[ o ] );
+                            var val = this.value[ o ];
+                            this._listControl = new _ListControl({
+                                feature_properties : this.feature_properties,
+                                definition : this.definition[ o ],
+                                parent : this.parent,
+                                instance : val || [],
+                                readValue : function()
+                                {
+                                    return this.instance;
+                                }
+                            } ).placeAt( this.containerNode );
                             break;
                         case "choice" :
+                            this._choicesNode = domConstruct.create( "div", {}, this.containerNode );
+                            this._opts = [];
+                            var vals = this.value[ o ].split( "|" );
+                            for( var i = 0; i < vals.length; i++ )
+                            {
+                                this.addOption( vals[ i ] );
+                            }
                             // create _ChoiceControl
                             console.log( "CHOICE CTRL", this.definition[ o ], this.value[ o ] );
                             break;
                     }
                 }
             }
+        },
+        addOption : function( val )
+        {
+            var opt = new _OptionTextBox({ parent : this.parent, value : val }).placeAt( this._choicesNode );
+            opt.own( on( opt, "change", lang.hitch( this, function( evt ) {
+                this.emit( "change", evt );
+            })));
+            this._opts.push( opt );
+            this.emit( "change", { bubbles : true, cancelable : true });
         }
     });
 });

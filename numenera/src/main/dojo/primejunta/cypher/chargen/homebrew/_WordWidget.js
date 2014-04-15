@@ -134,6 +134,7 @@ function( declare,
                     type : "list"
                 },
                 perk_list : {
+                    label : "Perks",
                     type : "choice",
                     condition : "has_special_list"
                 }
