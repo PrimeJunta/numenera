@@ -5,7 +5,7 @@ define([ "dojo/_base/declare",
          "./_FieldControlBase",
          "./_StatPane",
          "./_ListControl",
-         "./_OptionTextBox",
+         "./_OptionListControl",
          "dojo/text!./templates/_TierControl.html"],
 function( declare,
           lang,
@@ -14,7 +14,7 @@ function( declare,
           _FieldControlBase,
           _StatPane,
           _ListControl,
-          _OptionTextBox,
+          _OptionListControl,
           template )
 {
     return declare([ _FieldControlBase ], {
@@ -66,28 +66,14 @@ function( declare,
                             } ).placeAt( this.containerNode );
                             break;
                         case "choice" :
-                            this._choicesNode = domConstruct.create( "div", {}, this.containerNode );
-                            this._opts = [];
-                            var vals = this.value[ o ].split( "|" );
-                            for( var i = 0; i < vals.length; i++ )
-                            {
-                                this.addOption( vals[ i ] );
-                            }
-                            // create _ChoiceControl
-                            console.log( "CHOICE CTRL", this.definition[ o ], this.value[ o ] );
+                            this._choiceControl = new _OptionListControl({
+                                title : "Perks",
+                                parent : this.parent, value : this.value[ o ]
+                            } ).placeAt( this.containerNode );
                             break;
                     }
                 }
             }
-        },
-        addOption : function( val )
-        {
-            var opt = new _OptionTextBox({ parent : this.parent, value : val }).placeAt( this._choicesNode );
-            opt.own( on( opt, "change", lang.hitch( this, function( evt ) {
-                this.emit( "change", evt );
-            })));
-            this._opts.push( opt );
-            this.emit( "change", { bubbles : true, cancelable : true });
         }
     });
 });

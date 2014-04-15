@@ -3,7 +3,7 @@ define([ "dojo/_base/declare",
          "dojo/on",
          "dojo/Evented",
          "dojo/dom-class",
-         "./_OptionTextBox",
+         "./_OptionListControl",
          "dijit/form/TextBox",
          "dijit/form/CheckBox",
          "dijit/form/Button",
@@ -17,7 +17,7 @@ function( declare,
           on,
           Evented,
           domClass,
-          _OptionTextBox,
+          _OptionListControl,
           TextBox,
           CheckBox,
           Button,
@@ -87,25 +87,13 @@ function( declare,
             if( what == "value" )
             {
                 var val = this.controlWidget.get( "value" );
-                if( this.selectToggle.get( "checked" ) && this.numberOfItemsInput.get( "value" ) > 0 && this._opts.length > 0 )
+                if( this.selectToggle.get( "checked" ) && this.numberOfItemsInput.get( "value" ) > 0 && this._optionControl.get( "length" ) > 0 )
                 {
                     val += "${select:";
                     val += this.numberOfItemsInput.get( "value" );
                     val += ":";
-                    var opts = [];
-                    for( var i = 0; i < this._opts.length; i++ )
-                    {
-                        var _o = this._opts[ i ].get( "value" );
-                        if( _o )
-                        {
-                            opts.push( _o )
-                        }
-                    }
-                    if( this._newOpt.get( "value" ) )
-                    {
-                        opts.push( this._newOpt.get( "value" ) );
-                    }
-                    val += opts.join( "|" ) + "}";
+                    this._optionControl.get( "value" );
+                    val += "}";
                     val += this.midTextInput.get( "value" );
                 }
                 if( this.inputDefaultInput.get( "value" ) )
@@ -166,7 +154,6 @@ function( declare,
             this.midTextHeader.style.display = "none";
             this.midTextInput.domNode.style.display = "none";
             this.selectItemsNode.style.display = "none";
-            this.newOptNode.style.display = "none";
             this.selectToggle.set( "checked", false );
             this._selectHidden = true;
         },
@@ -176,50 +163,14 @@ function( declare,
             this.midTextHeader.style.display = "inline";
             this.midTextInput.domNode.style.display = "inline-block";
             this.selectItemsNode.style.display = "block";
-            this.newOptNode.style.display = "block";
             this.selectToggle.set( "checked", true );
             this._selectHidden = false;
-        },
-        plzAddItem : function( widg )
-        {
-            var val = widg.get( "value" );
-            if( val )
-            {
-                this.addItem( val );
-                widg.set( "value", "" );
-            }
-        },
-        destroyItem : function( widg )
-        {
-            this._opts.splice( this._opts.indexOf( widg ), 1 );
-            widg.destroy();
-            this.emit( "change", { bubbles : true, cancelable : true });
-        },
-        addItem : function( val )
-        {
-            var opt = new _OptionTextBox({ parent : this, value : val }).placeAt( this.selectItemsNode );
-            opt.own( on( opt, "change", lang.hitch( this, function( evt ) {
-                this.emit( "change", evt );
-            })));
-            this._opts.push( opt );
-            this.emit( "change", { bubbles : true, cancelable : true });
         },
         populateSelect : function()
         {
             if( this.quickPopulateSelect.value && this.quickOptions[ this.quickPopulateSelect.value ])
             {
-                while( this._opts.length > 0 )
-                {
-                    this._opts.pop().destroy();
-                }
-                this.createOptions( this.quickOptions[ this.quickPopulateSelect.value ] );
-            }
-        },
-        createOptions : function( opts )
-        {
-            for( var i = 0; i < opts.length; i++ )
-            {
-                this.addItem( opts[ i ] );
+                this._optionControl.set( "value", this.quickOptions[ this.quickPopulateSelect.value ] );
             }
         },
         _hasSelect : function()
@@ -242,15 +193,12 @@ function( declare,
         },
         _populateSelectOptionList : function()
         {
-            this._opts = [];
             if( this._hasSelect() )
             {
                 var _sel = /\$\{select:(\d):([^}]+)\}/.exec( this.value );
                 this.numberOfItemsInput.set( "value", _sel[ 1 ] );
-                var opts = _sel[ 2 ].split( "|" );
-                this.createOptions( opts );
+                this._optionControl = new _OptionListControl({ parent : this, value : _sel[ 2 ] } ).placeAt( this.selectItemsNode );
             }
-            this._newOpt = new _OptionTextBox({ parent : this, value : "", add : true }).placeAt( this.newOptNode );
         },
         _populateInputSettings : function()
         {
@@ -259,7 +207,6 @@ function( declare,
                 return;
             }
             var _inp = /\$\{input:([^}]+)\}/.exec( this.value );
-            console.log( "INP IS", _inp[ 1 ] );
             this.inputDefaultInput.set( "value", _inp[ 1 ] );
             if( !this._hasSelect() )
             {
