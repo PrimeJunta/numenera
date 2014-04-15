@@ -12,9 +12,17 @@ function( declare,
     return declare([ _ListControl ], {
         templateString : template,
         feature_properties : {},
+        postMixInProperties : function()
+        {
+            this._tier = 1;
+            this.inherited( arguments );
+        },
         createItemControl : function( props )
         {
+            console.log( "CREATE TIER CTRL", this.feature_properties );
             props.feature_properties = this.feature_properties;
+            props.tier = this._tier;
+            this._tier++;
             return new _TierControl( props );
         }
     });

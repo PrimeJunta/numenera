@@ -1,18 +1,26 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
          "./_FieldControlBase",
+         "./_StatPane",
          "dojo/text!./templates/_TierControl.html"],
 function( declare,
           lang,
           _FieldControlBase,
+          _StatPane,
           template )
 {
     return declare([ _FieldControlBase ], {
         templateString : template,
         feature_properties : {},
+        tier : 0,
         postMixInProperties : function()
         {
             this.definition = this.parent.definition;
+            this.feature_properties.stat_constraints = {
+                min : -9,
+                max : 9,
+                pattern : "+0;-0"
+            }
         },
         createControl : function()
         {
@@ -30,7 +38,14 @@ function( declare,
                     {
                         case "stats" :
                             // place _StatControls
-                            console.log( "STAT CTRLS", this.definition[ o ], this.value[ o ] );
+                            console.log( "STAT CTRLS", this.definition[ o ], this.value[ o ] || {} );
+                            this._statsPane = new _StatPane({
+                                feature_properties : this.feature_properties,
+                                feature_structure : this.definition[ o ],
+                                parent : this.parent,
+                                instance : this.value[ o ] || {}
+                            }).placeAt( this.containerNode );
+
                             break;
                         case "list" :
                             // create _ListControl

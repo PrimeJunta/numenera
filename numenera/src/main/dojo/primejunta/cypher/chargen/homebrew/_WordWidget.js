@@ -5,7 +5,7 @@ define([ "dojo/_base/declare",
          "dojo/dom-class",
          "./_FieldControl",
          "./_TextControl",
-         "./_StatControl",
+         "./_StatPane",
          "./_ListControl",
          "./_AdvancementControl",
          "dijit/layout/ContentPane" ],
@@ -16,7 +16,7 @@ function( declare,
           domClass,
           _FieldControl,
           _TextControl,
-          _StatControl,
+          _StatPane,
           _ListControl,
           _AdvancementControl,
           ContentPane )
@@ -153,26 +153,15 @@ function( declare,
             this._populated = true;
             this.field_list = new ContentPane({ "innerHTML" : "<h1>" + this.title + "</h1>" } ).placeAt( this.containerNode );
             this.text_list = new ContentPane({} ).placeAt( this.containerNode );
+            this._feature_structure = lang.clone( this.feature_structure );
             if( this.feature_properties.has_stats )
             {
-                if( this.feature_properties.stat_constraints.fixed )
-                {
-                    this.stats_node = domConstruct.create( "table", { "class" : "cg-expanded", "width" : "100%" } );
-                    this.stats_title = domConstruct.create( "caption", { "class" : "num-activeControl", "innerHTML" : '<h2>Stats</h2>' }, this.stats_node );
-                }
-                else
-                {
-                    this.stats_node = domConstruct.create( "table", { "class" : "cg-collapsed", "width" : "100%" } );
-                    this.stats_title = domConstruct.create( "caption", { "class" : "num-activeControl", "innerHTML" : '<h2>Stats <i class="fa fa-chevron-circle-right num-blueIcon cg-hideWhenExpanded"></i><i class="fa fa-chevron-circle-down num-blueIcon cg-hideWhenCollapsed"></i></h2>' }, this.stats_node );
-                    on( this.stats_title, "click", lang.hitch( this, this._toggleStatCollapse ) );
-                }
-                var tb = domConstruct.create( "tbody", {}, this.stats_node );
-                var r1 = domConstruct.create( "tr", {}, tb );
-                var r2 = domConstruct.create( "tr", {}, tb );
-                this.stats_list_1 = domConstruct.create( "td", {}, r1 );
-                this.stats_list_2 = domConstruct.create( "td", {}, r1 );
-                var cp = new ContentPane().placeAt( this.containerNode );
-                cp.set( "content", this.stats_node );
+                this._statsPane = new _StatPane({
+                    feature_properties : this.feature_properties,
+                    feature_structure : this._feature_structure,
+                    parent : this.parent,
+                    instance : this.instance
+                }).placeAt( this.containerNode );
             }
             this.list_list = new ContentPane({ content : "<h2>Features</h2>" } ).placeAt( this.containerNode );
             if( this.feature_properties.has_advancement )
@@ -199,14 +188,8 @@ function( declare,
                 return true;
             }
         },
-        _toggleStatCollapse : function()
-        {
-            domClass.toggle( this.stats_node, "cg-collapsed" );
-            domClass.toggle( this.stats_node, "cg-expanded" );
-        },
         _renderControls : function()
         {
-            this._feature_structure = lang.clone( this.feature_structure );
             for( var o in this._feature_structure.field_list )
             {
                 if( this._isRendered( o ) )
@@ -225,21 +208,6 @@ function( declare,
                     field_id : o,
                     definition : this._feature_structure.text_list[ o ],
                     instance : this.instance }).placeAt( this.text_list );
-            }
-            if( this.feature_properties.has_stats )
-            {
-                var s = 0;
-                for( var o in this._feature_structure.stats_list )
-                {
-                    var nref = ( s < 6 ? "1" : "2" );
-                    this._feature_structure.stats_list[ o ]._control = new _StatControl({
-                         parent : this,
-                         field_id : o,
-                         definition : this._feature_structure.stats_list[ o ],
-                         instance : this.instance,
-                         feature_properties : this.feature_properties }).placeAt( this[ "stats_list" + "_" + nref ] );
-                    s++;
-                }
             }
             for( var o in this._feature_structure.list_list )
             {
