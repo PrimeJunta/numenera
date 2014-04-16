@@ -52,7 +52,7 @@ function( declare,
                     context : _context,
                     title : _title,
                     data : this.data[ o ],
-                    feature_properties : this.feature_properties
+                    feature_properties : lang.clone( this.feature_properties )
                 });
                 this.addChild( mc );
             }

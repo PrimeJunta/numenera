@@ -126,7 +126,7 @@ function( declare,
                 instance : kwObj.instance,
                 oid : kwObj.oid,
                 title : kwObj.title,
-                feature_properties : this.feature_properties,
+                feature_properties : lang.clone( this.feature_properties ),
                 is_homebrew : kwObj.is_homebrew
             });
             this.addChild( this._controls[ kwObj.oid ] );
