@@ -28,7 +28,7 @@ function( declare,
             }
             else
             {
-                this.stats_title = domConstruct.create( "h3", { "class" : "num-activeControl", "innerHTML" : 'Stats <i class="fa fa-chevron-circle-right num-blueIcon cg-hideWhenExpanded"></i><i class="fa fa-chevron-circle-down num-blueIcon cg-hideWhenCollapsed"></i>' }, this.containerNode );
+                this.stats_title = domConstruct.create( "h3", { "class" : "num-activeControl", "innerHTML" : '<i class="fa fa-chevron-circle-right num-mutedIcon cg-hideWhenExpanded"></i><i class="fa fa-chevron-circle-down num-orangeIcon cg-hideWhenCollapsed"></i> Stat adjustments' }, this.containerNode );
                 this.stats_node = domConstruct.create( "table", { "width" : "100%" }, this.containerNode );
                 domClass.add( this.domNode, "cg-collapsed" );
                 on( this.stats_title, "click", lang.hitch( this, this._toggleCollapse ) );

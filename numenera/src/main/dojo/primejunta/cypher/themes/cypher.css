@@ -490,6 +490,14 @@ a.num-infoLink
 {
 	color : gray;
 }
+.num-mutedIcon
+{
+    color : #8F9EAE;
+}
+.num-orangeIcon
+{
+    color : #FFAD5C;
+}
 .num-largeIcon
 {
 	font-size : 22px;

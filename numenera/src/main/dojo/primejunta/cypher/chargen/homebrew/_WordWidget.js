@@ -152,8 +152,10 @@ function( declare,
                 return;
             }
             this._populated = true;
-            this.field_list = new ContentPane({ "innerHTML" : "<h1>" + this.title + "</h1>" } ).placeAt( this.containerNode );
-            this.text_list = new ContentPane({} ).placeAt( this.containerNode );
+            domConstruct.create( "h1", { "innerHTML" : this.title }, this.containerNode );
+            this.baseFieldContainer = new ContentPane({ "class" : "cg-baseFieldContainer" } ).placeAt( this.containerNode );
+            this.field_list = new ContentPane({} ).placeAt( this.baseFieldContainer );
+            this.text_list = new ContentPane({} ).placeAt( this.baseFieldContainer );
             this._feature_structure = lang.clone( this.feature_structure );
             if( this.feature_properties.has_stats )
             {
@@ -164,7 +166,7 @@ function( declare,
                     instance : this.instance
                 }).placeAt( this.containerNode );
             }
-            this.list_list = new ContentPane({ content : "<h2>Features</h2>" } ).placeAt( this.containerNode );
+            this.list_list = new ContentPane({} ).placeAt( this.containerNode );
             if( this.feature_properties.has_advancement )
             {
                 this.advancement = new ContentPane({ content : "<h2>Advancement</h2>" } ).placeAt( this.containerNode );

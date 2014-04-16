@@ -167,9 +167,13 @@
     text-decoration : none;
 }
 /* Inputs */
-.num-homebrewInput
+.dijitTextBox.num-homebrewInput
 {
-    width : 400px;
+    width : 677px;
+}
+.dijitTextArea.num-homebrewInput
+{
+    width : 685px;
 }
 .cg-fieldControl
 {
@@ -254,6 +258,14 @@
     overflow: hidden;
     text-overflow: ellipsis;
     max-width : 170px;
+}
+.cg-baseFieldContainer
+{
+    background-color : #f4f4f4;
+    border : 1px solid silver;
+    margin : 5px;
+    padding : 5px !important;
+    border-radius : 3px;
 }
 /* List item */
 .cg-complexItemInput
