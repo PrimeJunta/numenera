@@ -66,8 +66,9 @@ function( declare,
                             } ).placeAt( this.containerNode );
                             break;
                         case "choice" :
+                            domConstruct.create( "h3", { "class" : "cg-fieldControlLabel", "innerHTML" : "Type Abilities" }, this.containerNode );
                             this._choiceControl = new _OptionListControl({
-                                title : "Type Abilities",
+                                "class" : "cg-complexItemInput cg-standaloneOptionList",
                                 parent : this.parent, value : this.value[ o ]
                             } ).placeAt( this.containerNode );
                             break;

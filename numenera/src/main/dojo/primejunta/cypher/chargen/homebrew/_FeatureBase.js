@@ -41,6 +41,7 @@ function( declare,
         },
         renderModules : function()
         {
+            window._populating = true;
             for( var o in this.data )
             {
                 var _context = this.data[ o ].recursion ? this.data[ o ].recursion : this.data[ o ].origin;
@@ -55,6 +56,7 @@ function( declare,
                 });
                 this.addChild( mc );
             }
+            window._populating = false;
         },
         getData : function()
         {

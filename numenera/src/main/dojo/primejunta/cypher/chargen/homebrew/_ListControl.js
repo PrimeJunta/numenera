@@ -23,12 +23,16 @@ function( declare,
                 this._items.push( ctrl );
                 this.own( on( ctrl, "change", lang.hitch( this, this.writeValue ) ) );
             }
-            this._newItemControl = new _ItemControl({ parent : this, addControl : true, value : "" } ).placeAt( this.controlNode );
-            this.own( on( this._newItemControl, "change", lang.hitch( this, this.writeValue ) ) );
+            this.createNewItemControl();
         },
         createItemControl : function( props )
         {
             return new _ItemControl( props );
+        },
+        createNewItemControl : function()
+        {
+            this._newItemControl = new _ItemControl({ parent : this, addControl : true, value : "" } ).placeAt( this.controlNode );
+            this.own( on( this._newItemControl, "change", lang.hitch( this, this.writeValue ) ) );
         },
         getValue : function()
         {

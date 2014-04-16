@@ -90,6 +90,7 @@ function( declare,
         },
         populate : function()
         {
+            this._populating = true;
             this.oids = {};
             this._controls = {};
             var _fip = false;
@@ -112,6 +113,7 @@ function( declare,
                     )});
                 }
             }
+            this._populating = false;
         },
         createControl : function( kwObj, switchTo )
         {
@@ -135,7 +137,10 @@ function( declare,
         },
         save : function( wordWidget )
         {
-            console.log( "Saving" );
+            if( this._populating )
+            {
+                return;
+            }
             this.storage.put( this._getId( wordWidget ), wordWidget.getData() );
         },
         delete : function( wordWidget )

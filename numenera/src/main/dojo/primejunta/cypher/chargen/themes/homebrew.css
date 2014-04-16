@@ -174,23 +174,22 @@
 .cg-fieldControl
 {
 }
-.cg-statControl
-{
-}
-.cg-statControl .cg-fieldControlLabel
+.hb-fieldControlLabel
 {
     width : 150px;
     text-align : right;
 }
-.cg-statControl .dijitInputInner
+.hb-statInput .dijitInputInner
 {
     text-align : center;
-    vertical-align : -20px !important;
 }
-.cg-statControl .cg-statInput
+.hb-statInput
 {
-    height : 38px;
-    padding : 12px 0 0;
+    width : 25px;
+    border-radius : 15px;
+    height : 22px;
+    padding-top : 3px;
+    background-image: none !important;
 }
 .num-itemInput .dijitInputContainer
 {
@@ -290,4 +289,26 @@
 .cg-controlCell
 {
     background-color: #e4e4e4;
+}
+/* nested complexItemInput */
+.cg-tierRow .cg-complexItemInput
+{
+    width : 640px;
+}
+.cg-complexItemInput.cg-standaloneOptionList
+{
+    width : 628px;
+    padding : 5px;
+}
+.hb-advancementControl
+{
+    border : 1px solid silver;
+    border-bottom-color : transparent;
+    border-radius : 3px;
+    width : 700px;
+    margin-left : 3px;
+}
+td.hb-tierCell
+{
+    border-bottom : 1px solid silver;
 }

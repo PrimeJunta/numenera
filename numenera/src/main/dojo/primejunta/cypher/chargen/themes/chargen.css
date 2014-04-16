@@ -265,7 +265,7 @@ input[readonly].cg-statInput
 }
 td.cg-tierTitleCell
 {
-    width : 100px;
+    width : 30px;
     background-image : url( '../../themes/images/cloudbg.jpg' );
 }
 .num-evenBackground .cg-tierTitleCell
@@ -276,8 +276,14 @@ td.cg-tierTitleCell
 {
     color : black;
 }
+.cg-tierTitleWrapper
+{
+    width : 30px;
+}
 .cg-tierTitle
 {
+    width: 100px;
+    margin-left: -35px;
     text-align : center;
     transform : rotate( -90deg );
     -ms-transform : rotate( -90deg ); /* IE 9 */

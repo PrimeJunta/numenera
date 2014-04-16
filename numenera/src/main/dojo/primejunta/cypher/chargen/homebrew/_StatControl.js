@@ -14,8 +14,8 @@ function( declare,
     return declare([ _FieldControlBase ], {
         templateString : template,
         path : "stats",
-        "class" : "cg-statControl cg-showWhenExpanded",
-        field_class : "cg-statInput",
+        "class" : "cg-showWhenExpanded",
+        field_class : "hb-statInput",
         feature_properties : {},
         postMixInProperties : function()
         {

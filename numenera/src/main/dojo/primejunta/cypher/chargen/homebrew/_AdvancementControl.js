@@ -19,11 +19,14 @@ function( declare,
         },
         createItemControl : function( props )
         {
-            console.log( "CREATE TIER CTRL", this.feature_properties );
             props.feature_properties = this.feature_properties;
             props.tier = this._tier;
             this._tier++;
             return new _TierControl( props );
+        },
+        createNewItemControl : function()
+        {
+            // can't create tiers above 6
         },
         save : function()
         {
