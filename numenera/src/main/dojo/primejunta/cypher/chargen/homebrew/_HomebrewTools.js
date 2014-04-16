@@ -46,10 +46,10 @@ function( declare,
             },
             "Foci" : {
                 "widgetType" : _FocusWidget
-            },
+            }/*,
             "Enablers" : {
                 "widgetType" : _EnablerWidget
-            }
+            }*/
             // method to add recursion
         },
         postCreate : function()

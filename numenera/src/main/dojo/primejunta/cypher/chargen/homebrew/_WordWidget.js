@@ -104,10 +104,6 @@ function( declare,
                     label : "Skills",
                     label_s : "a skill"
                 },
-                special_list : {
-                    label : "Special abilities",
-                    label_s : "a special ability"
-                },
                 bonus_list : {
                     label : "Bonus abilities",
                     label_s : "a bonus ability"
@@ -121,6 +117,7 @@ function( declare,
                     label_s : "equipment"
                 },
                 cypher_list : {
+                    condition : "has_special_list",
                     label : "Cyphers",
                     label_s : "a cypher"
                 }
@@ -195,7 +192,7 @@ function( declare,
         {
             for( var o in this._feature_structure.field_list )
             {
-                if( this._isRendered( o ) )
+                if( this._isRendered( o, "field_list" ) )
                 {
                     this._feature_structure.field_list[ o ]._control = new _FieldControl({
                         parent : this,
@@ -214,12 +211,15 @@ function( declare,
             }
             for( var o in this._feature_structure.list_list )
             {
-                this._feature_structure.list_list[ o ]._control = new _ListControl({
-                     path : "lists",
-                     parent : this,
-                     field_id : o,
-                     definition : this._feature_structure.list_list[ o ],
-                     instance : this.instance }).placeAt( this.list_list );
+                if( this._isRendered( o, "list_list" ) )
+                {
+                    this._feature_structure.list_list[ o ]._control = new _ListControl( {
+                        path : "lists",
+                        parent : this,
+                        field_id : o,
+                        definition : this._feature_structure.list_list[ o ],
+                        instance : this.instance } ).placeAt( this.list_list );
+                }
             }
             if( this.feature_properties.has_advancement )
             {
@@ -231,13 +231,13 @@ function( declare,
                     instance : this.instance } ).placeAt( this.advancement );
             }
         },
-        _isRendered : function( fld )
+        _isRendered : function( fld, nde )
         {
-            if( this._feature_structure.field_list[ fld ].internal )
+            if( this._feature_structure[ nde ][ fld ].internal )
             {
                 return false;
             }
-            if( this._feature_structure.field_list[ fld ].condition && !this.feature_properties[ this._feature_structure.field_list[ fld ].condition ] )
+            if( this._feature_structure[ nde ][ fld ].condition && !this.feature_properties[ this._feature_structure[ nde ][ fld ].condition ] )
             {
                 return false;
             }

@@ -4,13 +4,15 @@
     <td style="padding:0 0 2px;">
       <input data-dojo-attach-point="control" data-dojo-type="dijit/form/TextBox" class="cg-optionItem" style="width:100%;"/>
     </td>
-    <td style="padding:0 0 0 2px;width:20px;text-align: center;">
-      <span data-dojo-attach-point="destroyNode" data-dojo-attach-event="onClick:pleaseDestroyMe">
-        <i class="fa num-redIcon fa-times-circle num-activeControl"></i>
-      </span>
-      <span data-dojo-attach-point="addNode" data-dojo-attach-event="onClick:pleaseAddMe" style="display:none">
-        <i class="fa num-blueIcon fa-plus-circle num-activeControl"></i>
-      </span>
+    <td style="width:20px;text-align: center;">
+      <div style="margin:-3px 0 0 0;">
+        <span data-dojo-attach-point="destroyNode" data-dojo-attach-event="onClick:pleaseDestroyMe">
+          <i class="fa num-redIcon fa-times-circle num-activeControl"></i>
+        </span>
+        <span data-dojo-attach-point="addNode" data-dojo-attach-event="onClick:pleaseAddMe" style="display:none">
+          <i class="fa num-blueIcon fa-plus-circle num-activeControl"></i>
+        </span>
+      </div>
     </td>
   </tr>
   </tbody>

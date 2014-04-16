@@ -104,7 +104,7 @@ function( declare,
             for( var o in this.data.payload_data )
             {
                 this.oids[ o ] = this.data.payload_data[ o ];
-                if( this.data.payload_data[ o ].is_homebrew )
+                if( true || this.data.payload_data[ o ].is_homebrew )
                 {
                     this.createControl({
                          oid : o,
