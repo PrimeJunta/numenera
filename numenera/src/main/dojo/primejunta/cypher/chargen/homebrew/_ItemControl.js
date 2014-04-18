@@ -197,6 +197,7 @@ function( declare,
             }
             this.numberOfItemsInput.set( "value", num );
             this._optionControl = new _OptionListControl({ parent : this, value : val } ).placeAt( this.selectItemsNode );
+            this.own( on( this._optionControl, "change", lang.hitch( this, this.emit, "change" ) ) );
         },
         _populateInputSettings : function()
         {

@@ -51,7 +51,6 @@ function( declare,
                                 field_id : o,
                                 instance : this.value
                             }).placeAt( this.containerNode );
-                            on( this._statsPane, "change", lang.hitch( this, this._update, this._statsPane ) );
                             break;
                         case "list" :
                             var val = this.value[ o ];
@@ -62,7 +61,6 @@ function( declare,
                                 field_id : o,
                                 instance : this.value
                             } ).placeAt( this.containerNode );
-                            on( this._listControl, "change", lang.hitch( this, this._update, this._listControl ) );
                             break;
                         case "choice" :
                             domConstruct.create( "h3", { "class" : "cg-fieldControlLabel", "innerHTML" : "Type Abilities" }, this.containerNode );
@@ -72,15 +70,15 @@ function( declare,
                                 field_id : o,
                                 value : this.value[ o ]
                             } ).placeAt( this.containerNode );
-                            on( this._choiceControl, "change", lang.hitch( this, this._update, this._choiceControl ) );
+                            on( this._choiceControl, "change", lang.hitch( this, this._updateChoices, this._choiceControl ) );
                             break;
                     }
                 }
             }
         },
-        _update : function( ctrl )
+        _updateChoices : function( ctrl )
         {
-
+            this.value[ ctrl.field_id ] = ctrl.get( "value" );
         }
     });
 });
