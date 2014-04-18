@@ -26,7 +26,7 @@ function( declare,
         createItem : function()
         {
             var lbl = this.labelField.get( "value" );
-            var inst = lang.clone( this.data.payload_data[ this.templateSelect.value ] || {});
+            var inst = lang.clone( this.data.base_payload_data[ this.templateSelect.value ] || {});
             inst.label = lbl;
             this.labelField.set( "value", "" );
             this.checkCreate();
@@ -50,9 +50,9 @@ function( declare,
         },
         populateSelect : function()
         {
-            for( var o in this.data.payload_data )
+            for( var o in this.data.base_payload_data )
             {
-                this.templateSelect.options[ this.templateSelect.options.length ] = new Option( this.data.payload_data[ o ].label, o );
+                this.templateSelect.options[ this.templateSelect.options.length ] = new Option( this.data.base_payload_data[ o ].label, o );
             }
         },
         populate : function()
@@ -64,6 +64,13 @@ function( declare,
             var val = this.labelField.get( "value" );
             if( val )
             {
+                for( var o in this.data.base_payload_data )
+                {
+                    if( this.data.base_payload_data[ o ].label.toLowerCase() == val.toLowerCase() )
+                    {
+                        return false;
+                    }
+                }
                 for( var o in this.data.payload_data )
                 {
                     if( this.data.payload_data[ o ].label.toLowerCase() == val.toLowerCase() )

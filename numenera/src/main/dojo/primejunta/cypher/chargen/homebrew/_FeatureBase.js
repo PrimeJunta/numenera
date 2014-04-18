@@ -72,6 +72,10 @@ function( declare,
                         payload_data : {}
                     }
                 }
+                if( !this.data[ _keys[ 1 ] ].payload_data )
+                {
+                    this.data[ _keys[ 1 ] ].payload_data = {};
+                }
                 this.data[ _keys[ 1 ] ].payload_data[ _keys[ 2 ] ] = _stored[ o ];
             }
         }

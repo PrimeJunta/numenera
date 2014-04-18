@@ -26,12 +26,12 @@ define([ "dojo/_base/declare",
                    "numenera" : {
                        origin : "numenera",
                        recursion : false,
-                       payload_data : numeneraDescriptors
+                       base_payload_data : numeneraDescriptors
                    },
                    "strange" : {
                        origin : "strange",
                        recursion : false,
-                       payload_data : strangeDescriptors
+                       base_payload_data : strangeDescriptors
 
                    }
                 }

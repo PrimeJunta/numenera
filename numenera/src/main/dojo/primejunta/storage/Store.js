@@ -38,6 +38,14 @@ function( declare,
         {
             delete this._store[ this.storeName + "_" + key ];
         },
+        clear : function()
+        {
+            var keys = this.getKeys();
+            for( var i = 0; i < keys.length; i++ )
+            {
+                this.remove( keys[ i ] );
+            }
+        },
         getItems : function( keyPf )
         {
             var keys = this.getKeys( keyPf );

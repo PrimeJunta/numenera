@@ -29,25 +29,25 @@ define([ "dojo/_base/declare",
                    "ninth_world" : {
                        origin : "numenera",
                        recursion : "ninth_world",
-                       payload_data : ninthWorldFoci
+                       base_payload_data : ninthWorldFoci
 
                    },
                    "ardeyn" : {
                        origin : "strange",
                        recursion : "ardeyn",
-                       payload_data : ardeynFoci
+                       base_payload_data : ardeynFoci
 
                    },
                    "earth" : {
                        origin : "strange",
                        recursion : "earth",
-                       payload_data : earthFoci
+                       base_payload_data : earthFoci
 
                    },
                    "ruk" : {
                        origin : "strange",
                        recursion : "ruk",
-                       payload_data : rukFoci
+                       base_payload_data : rukFoci
                    }
                }
            });
