@@ -53,14 +53,10 @@ function( declare,
         },
         writeValue : function()
         {
-            console.log( "WRITE VALUE", this.instance, this.path, this.field_value );
             this.inherited( arguments );
         },
         _setInstanceValue : function( obj, fld, val )
         {
-            console.log( "INSTANCE IS", this.instance );
-
-            console.log( "SET INST VAL!", obj, fld, val );
             this.inherited( arguments );
         }
     });

@@ -39,6 +39,7 @@ function( declare,
             Attacks : [ "Ⓣ Light Bashing", "Ⓣ Light Bladed", "Ⓣ Light Ranged", "Ⓣ Medium Bashing", "Ⓣ Medium Bladed", "Ⓣ Medium Ranged", "Ⓣ Heavy Bashing", "Ⓣ Heavy Bladed", "Ⓣ Heavy Ranged" ],
             Defenses : [ "Ⓣ Might Defense", "Ⓣ Speed Defense", "Ⓣ Intellect Defense"]
         },
+        // TODO: clean up unnecessary change events fired during construction
         postCreate : function()
         {
             this._populateSelectOptionList();

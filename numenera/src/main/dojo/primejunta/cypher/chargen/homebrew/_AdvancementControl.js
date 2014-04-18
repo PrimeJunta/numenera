@@ -30,7 +30,7 @@ function( declare,
         },
         writeValue : function()
         {
-            console.log( "WRITE!" );
+            // do nothing, handled by tier widgets
         }
     });
 });

@@ -78,6 +78,9 @@ function( declare,
         },
         writeValue : function()
         {
+
+            console.log( "WRITE VALUE", this.path, this.field_id );
+
             var val = this.getValue();
             if( this.path )
             {

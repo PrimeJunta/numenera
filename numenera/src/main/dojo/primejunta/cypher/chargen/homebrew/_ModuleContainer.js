@@ -140,14 +140,19 @@ function( declare,
         },
         save : function( wordWidget )
         {
-            if( this._populating )
+            if( this._saveTimeout )
             {
-                return;
+                clearTimeout( this._saveTimeout );
             }
-            console.log( "SAVING" );
+            this._saveTimeout = setTimeout( lang.hitch( this, this.doSave, wordWidget ), 500 );
+        },
+        doSave : function( wordWidget )
+        {
+            console.log( "ACTUALLY SAVE" );
+            delete this._saveTimeout;
             this.storage.put( this._getId( wordWidget ), wordWidget.getData() );
         },
-        delete : function( wordWidget )
+        deleteChild : function( wordWidget )
         {
             delete this.data.payload_data[ wordWidget.oid ];
             this.storage.remove( this._getId( wordWidget ) );

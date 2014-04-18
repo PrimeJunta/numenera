@@ -180,7 +180,7 @@ function( declare,
             var cf = confirm( "Are you sure you want to delete " + this.title + "?" );
             if( cf )
             {
-                this.parent.delete( this );
+                this.parent.deleteChild( this );
                 return true;
             }
         },

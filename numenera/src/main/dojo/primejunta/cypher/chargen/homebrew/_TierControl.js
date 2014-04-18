@@ -32,7 +32,6 @@ function( declare,
         },
         createControl : function()
         {
-            console.log( "DEF IS", this.definition, "VAL IS", this.value );
             for( var o in this.definition )
             {
                 if( o.charAt( 0 ) == "_" )
