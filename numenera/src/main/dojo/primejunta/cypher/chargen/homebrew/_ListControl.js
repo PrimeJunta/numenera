@@ -62,6 +62,16 @@ function( declare,
             item.destroy();
             this._items.splice( this._items.indexOf( item ), 1 );
             this.writeValue();
+        },
+        writeValue : function()
+        {
+            //console.log( "MUH INST IS", this.instance );
+            this.inherited( arguments );
+        },
+        _setInstanceValue : function( obj, fld, val )
+        {
+            //console.log( "IMMA SET", obj, fld, val );
+            this.inherited( arguments );
         }
     });
 });

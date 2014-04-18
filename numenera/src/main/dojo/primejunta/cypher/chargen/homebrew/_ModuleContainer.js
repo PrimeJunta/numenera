@@ -1,5 +1,6 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
+         "dojo/on",
          "dojo/json",
          "dojo/topic",
          "dojo/dom-construct",
@@ -14,6 +15,7 @@ define([ "dojo/_base/declare",
          "dijit/layout/ContentPane" ],
 function( declare,
           lang,
+          on,
           json,
           topic,
           domConstruct,
@@ -82,6 +84,7 @@ function( declare,
             if( this._stackContainer )
             {
                 this._stackContainer.addChild( chld );
+                on( chld, "change", lang.hitch( this, this.save, chld ) );
             }
             else
             {
@@ -141,6 +144,7 @@ function( declare,
             {
                 return;
             }
+            console.log( "SAVING" );
             this.storage.put( this._getId( wordWidget ), wordWidget.getData() );
         },
         delete : function( wordWidget )

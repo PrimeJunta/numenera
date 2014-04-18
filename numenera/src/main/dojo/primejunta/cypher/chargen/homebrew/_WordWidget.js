@@ -175,10 +175,6 @@ function( declare,
             this.instance.is_homebrew = true;
             return this.instance;
         },
-        save : function()
-        {
-            this.parent.save( this );
-        },
         onClose : function()
         {
             var cf = confirm( "Are you sure you want to delete " + this.title + "?" );

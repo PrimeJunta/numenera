@@ -28,9 +28,9 @@ function( declare,
         {
             // can't create tiers above 6
         },
-        save : function()
+        writeValue : function()
         {
-            this.parent.save()
+            console.log( "WRITE!" );
         }
     });
 });

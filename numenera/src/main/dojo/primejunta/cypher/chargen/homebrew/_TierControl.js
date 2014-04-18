@@ -32,7 +32,7 @@ function( declare,
         },
         createControl : function()
         {
-            console.log( "CREATE CONTROL FOR DEF", this.definition, "VAL", this.value, "PROPS", this.feature_properties );
+            console.log( "DEF IS", this.definition, "VAL IS", this.value );
             for( var o in this.definition )
             {
                 if( o.charAt( 0 ) == "_" )
@@ -49,8 +49,10 @@ function( declare,
                                 feature_properties : this.feature_properties,
                                 feature_structure : this.definition[ o ],
                                 parent : this.parent,
-                                instance : this.value[ o ] || {}
+                                field_id : o,
+                                instance : this.value
                             }).placeAt( this.containerNode );
+                            on( this._statsPane, "change", lang.hitch( this, this._update, this._statsPane ) );
                             break;
                         case "list" :
                             var val = this.value[ o ];
@@ -58,23 +60,28 @@ function( declare,
                                 feature_properties : this.feature_properties,
                                 definition : this.definition[ o ],
                                 parent : this.parent,
-                                instance : val || [],
-                                readValue : function()
-                                {
-                                    return this.instance;
-                                }
+                                field_id : o,
+                                instance : this.value
                             } ).placeAt( this.containerNode );
+                            on( this._listControl, "change", lang.hitch( this, this._update, this._listControl ) );
                             break;
                         case "choice" :
                             domConstruct.create( "h3", { "class" : "cg-fieldControlLabel", "innerHTML" : "Type Abilities" }, this.containerNode );
                             this._choiceControl = new _OptionListControl({
                                 "class" : "cg-complexItemInput cg-standaloneOptionList",
-                                parent : this.parent, value : this.value[ o ]
+                                parent : this.parent,
+                                field_id : o,
+                                value : this.value[ o ]
                             } ).placeAt( this.containerNode );
+                            on( this._choiceControl, "change", lang.hitch( this, this._update, this._choiceControl ) );
                             break;
                     }
                 }
             }
+        },
+        _update : function( ctrl )
+        {
+
         }
     });
 });

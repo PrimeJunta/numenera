@@ -81,13 +81,17 @@ function( declare,
             var val = this.getValue();
             if( this.path )
             {
+                if( !this.instance[ this.path ] )
+                {
+                    this.instance[ this.path ] = {};
+                }
                 this._setInstanceValue( this.instance[ this.path ], this.field_id, val );
             }
             else
             {
                 this._setInstanceValue( this.instance, this.field_id, val );
             }
-            this.parent.save();
+            this.emit( "change", { bubbles : true, cancelable : true });
         },
         _setInstanceValue : function( obj, fld, val )
         {

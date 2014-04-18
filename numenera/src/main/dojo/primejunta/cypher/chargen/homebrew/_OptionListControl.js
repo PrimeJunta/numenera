@@ -24,6 +24,10 @@ function( declare,
         {
             this.inherited( arguments );
             this._newOpt = new _OptionTextBox({ parent : this, value : "", add : true }).placeAt( this.newOptionNode );
+            this._newOpt.own( on( this._newOpt, "change", lang.hitch( this, function( evt ) {
+                this.emit( "change", evt );
+            })));
+
             if( !this.value )
             {
                 this.value = "";
