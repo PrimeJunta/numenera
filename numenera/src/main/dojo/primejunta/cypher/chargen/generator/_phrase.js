@@ -14,9 +14,15 @@ function( declare,
          */
         writePhraseSelects : function()
         {
+            this.getHomebrewData(); // from _homebrew
+            this.updatePhraseData(); // from _recursions
             this.initializeSelect( "descriptorSelect", this.descriptors );
             this.initializeSelect( "typeSelect", this.types );
             this.initializeSelect( "focusSelect", this.foci );
+            if( this._splashPane )
+            {
+                this._splashPane.writePhraseSelects();
+            }
         },
         /**
          * Iterate through data and write an option into select at attach point, with text = member.label and 
@@ -26,11 +32,20 @@ function( declare,
         {
             var sel = this[ select ];
             sel.options.length = 1;
+            var opts = [];
             for( var o in data )
             {
                 var opt = new Option( data[ o ].label, o );
-                sel.options[ sel.options.length ] = opt;
+                opts.push( opt );
             }
+            opts.sort( function( a, b ) {
+                return a.text < b.text ? 1 : 0;
+            });
+            while( opts.length > 0 )
+            {
+                sel.options[ sel.options.length ] = opts.pop();
+            }
+
         },
         /**
          * Triggered when user picks a descriptor from the list. Sets the article on the page to "a" or "an",

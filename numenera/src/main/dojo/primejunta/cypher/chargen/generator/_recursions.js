@@ -75,7 +75,7 @@ function( declare,
         {
             this.recursion = rec;
             this.focusSelect.options.length = 1;
-            this.foci = this.recursions[ rec ];
+            this.updatePhraseData();
             this.initializeSelect( "focusSelect", this.recursions[ rec ] );
             if( focusId )
             {
@@ -193,16 +193,26 @@ function( declare,
                 };
             }
         },
+        updatePhraseData : function()
+        {
+            if( this.origin )
+            {
+                this.types = this.origins[ this.origin ].types;
+                this.descriptors = this.origins[ this.origin ].descriptors;
+                this.featAdjustments = this.origins[ this.origin ].featAdjustments;
+                this.featStackingExceptions = this.origins[ this.origin ].featStackingExceptions;
+                this.optionalData = this.origins[ this.origin ].optionalData;
+            }
+            if( this.recursion )
+            {
+                this.foci = this.recursions[ this.recursion ];
+            }
+        },
         _doSetOrigin : function( originId )
         {
             domClass.remove( document.body, "cg-origin-" + this.origin );
             domClass.add( document.body, "cg-origin-" + originId );
-            this.origin = originId;
-            this.types = this.origins[ originId ].types;
-            this.descriptors = this.origins[ originId ].descriptors;
-            this.featAdjustments = this.origins[ originId ].featAdjustments;
-            this.featStackingExceptions = this.origins[ originId ].featStackingExceptions;
-            this.optionalData = this.origins[ originId ].optionalData;
+            this.origin = originId
             this.setRecursion( this.origins[ originId ].defaultRecursion );
             this.writePhraseSelects();
         }

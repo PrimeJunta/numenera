@@ -145,7 +145,6 @@ function( declare,
             this.inherited( arguments );
             window._allowSwitchOrigin = ( window.location.hash && window.location.hash.indexOf( "morrison=hotel" ) != -1 );
             this.recursionSelectDisplay = window._allowSwitchOrigin ? "inline-block" : "none";
-            this.getHomebrewData(); // from _homebrew
         },
         /**
          * Initialize internal arrays, initialize selects from data, and connect various event handlers to the UI buttons.
@@ -155,10 +154,11 @@ function( declare,
             this._buffer = [];
             this._populating = [];
             this._controls = [];
+            this.getHomebrewData( true );
+            this.writePhraseSelects();
             this.initializeRecursions();
             this.setupOptionals(); // from optionals
             this.statsControl.manager = this;
-            this.writePhraseSelects();
             this._characterStore = new _CharacterStore({ manager : this, gapiProperties : this.gapiProperties });
             this.views.splash = this.controller.getView( "splash" );
             this._splashPane = this.createSplashCharacterPane({ manager : this, controller : this.controller }).placeAt( this.views.splash );
@@ -302,6 +302,7 @@ function( declare,
         },
         show : function()
         {
+            this.writePhraseSelects();
             return this.controller.showView( this.currentView );
         },
         /**

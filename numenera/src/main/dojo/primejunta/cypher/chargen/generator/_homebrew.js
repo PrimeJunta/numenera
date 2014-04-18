@@ -9,29 +9,43 @@ define([ "dojo/_base/declare",
 function( declare, lang, Store ) {
     return declare([], {
         HOMEBREW_STORE_NAME : "_CG_HOMEBREW_STORE",
-        getHomebrewData : function()
+        FEATURE_LIST : [ "types", "descriptors" ],
+        getHomebrewData : function( isStartup )
         {
+            console.log( "GHD" );
             if( !this._hbstore )
             {
                 this._hbstore = new Store( this.HOMEBREW_STORE_NAME );
+            }
+            if( !isStartup && !this._hbstore.get( "_HAS_CHANGED" ) )
+            {
+                return;
+            }
+            else
+            {
+                this._hbstore.remove( "_HAS_CHANGED" );
             }
             for( var o in this.origins )
             {
                 for( var d in this.origins[ o ] )
                 {
-                    var _d = ( d == "types" ? "type" : d == "descriptors" ? "descriptor" : d );
-                    this._cloneFeature( this.origins[ o ], d );
-                    this._augmentWithHomebrew( this.origins[ o ][ d ], o, _d );
+                    if( this.FEATURE_LIST.indexOf( d ) != -1 )
+                    {
+                        var _d = ( d == "types" ? "type" : d == "descriptors" ? "descriptor" : d );
+                        this._cloneFeature( this.origins[ o ], d );
+                        this._augmentWithHomebrew( this.origins[ o ][ d ], o, _d );
+                    }
                 }
             }
             for( var r in this.recursions )
             {
-                for( var f in this.recursions[ r ] )
+                if( r.charAt( 0 ) != "_" )
                 {
                     this._cloneFeature( this.recursions, r );
                     this._augmentWithHomebrew( this.recursions[ r ], r, "focus" );
                 }
             }
+            console.log( "AUGMENTED IS NOW", this.origins, this.recursions );
         },
         _augmentWithHomebrew : function( obj, contxt, ftype )
         {

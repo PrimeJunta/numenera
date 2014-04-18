@@ -151,10 +151,12 @@ function( declare,
             console.log( "ACTUALLY SAVE" );
             delete this._saveTimeout;
             this.storage.put( this._getId( wordWidget ), wordWidget.getData() );
+            this.storage.put( "_HAS_CHANGED", "true" );
         },
         deleteChild : function( wordWidget )
         {
             delete this.data.payload_data[ wordWidget.oid ];
+            this.storage.put( "_HAS_CHANGED", "true" );
             this.storage.remove( this._getId( wordWidget ) );
         },
         _getId : function( wordWidget )
