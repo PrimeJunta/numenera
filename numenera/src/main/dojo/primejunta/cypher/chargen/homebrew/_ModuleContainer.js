@@ -149,7 +149,6 @@ function( declare,
         },
         doSave : function( wordWidget )
         {
-            console.log( "ACTUALLY SAVE" );
             delete this._saveTimeout;
             this.storage.put( this._getId( wordWidget ), wordWidget.getData() );
             this.storage.put( "_HAS_CHANGED", "true" );

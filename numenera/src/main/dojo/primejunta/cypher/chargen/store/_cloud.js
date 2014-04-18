@@ -262,12 +262,8 @@ function( declare,
          */
         performSync : function()
         {
-
-            console.log( "SYNC SETTING IS", this._settingsStore.get( "_CCG_SYNC_CHARACTERS" ), this._settingsStore.get( "_CCG_SYNC_CHARACTERS" ) == true );
-
             if( this._settingsStore.get( "_CCG_SYNC_CHARACTERS" ) !== true || this._syncInProgress )
             {
-                console.log( "INTERRUPTING:",this._settingsStore.get( "_CCG_SYNC_CHARACTERS" ), this._syncInProgress  );
                 return;
             }
             this._syncInProgress = true;
@@ -328,9 +324,6 @@ function( declare,
             if( this.cloudSyncFileName.get( "value" ) != "" )
             {
                 this._settingsStore.put( "_CCG_SYNC_FILE_TITLE", this.cloudSyncFileName.get( "value" ) );
-
-                console.log( "CALLED FROM SSFT" );
-
                 this.performSync();
             }
         },
@@ -407,9 +400,6 @@ function( declare,
             if( state == "DIRTY" )
             {
                 // someone saved something, so we sync immediately
-
-                console.log( "CALLED FROM DIRTY" );
-
                 this.performSync();
             }
         },

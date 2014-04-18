@@ -498,6 +498,11 @@ function( declare,
         },
         _getPushFileRequest : function( fileId, fileData, base64Data )
         {
+
+            if( fileId )
+            {
+                fileData.id = fileId;
+            }
             var boundary = '-------314159265358979323846';
             var delimiter = "\r\n--" + boundary + "\r\n";
             var close_delim = "\r\n--" + boundary + "--";
@@ -512,8 +517,8 @@ function( declare,
                 base64Data +
                 close_delim;
             var request = gapi.client.request({
-                'path': '/upload/drive/v2/files' + ( fileId ? '/' + fileId : "" ),
-                'method': 'POST',
+                'path': '/upload/drive/v2/files' + ( fileId ? "/" + fileId : "" ),
+                'method': fileId ? "PUT" : "POST",
                 'params': {
                     'uploadType': 'multipart', 'alt': 'json'
                 },

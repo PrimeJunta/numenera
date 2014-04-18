@@ -12,7 +12,6 @@ function( declare, lang, Store ) {
         FEATURE_LIST : [ "types", "descriptors" ],
         getHomebrewData : function( isStartup )
         {
-            console.log( "GHD" );
             if( !this._hbstore )
             {
                 this._hbstore = new Store( this.HOMEBREW_STORE_NAME );
@@ -45,7 +44,6 @@ function( declare, lang, Store ) {
                     this._augmentWithHomebrew( this.recursions[ r ], r, "focus" );
                 }
             }
-            console.log( "AUGMENTED IS NOW", this.origins, this.recursions );
         },
         _augmentWithHomebrew : function( obj, contxt, ftype )
         {
