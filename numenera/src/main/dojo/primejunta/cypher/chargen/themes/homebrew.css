@@ -81,6 +81,7 @@
 .cg-nestedTabs .dijitTabListWrapper .dijitTabContainerTop-tabs
 {
     border-bottom : none;
+    display : none; /* REMOVE ME TO ENABLE RECURSION/ORIGIN SWITCHING */
 }
 .cg-nestedTabs .dijitTabContainerTop-tabs
 {
