@@ -31,6 +31,7 @@ define([ "dojo/_base/declare",
          "./generator/_recursions",
          "./generator/_textarea",
          "./generator/_widgets",
+         "./generator/_homebrew",
          "./optional/_OptionalRulesMixin",
          "dijit/_WidgetBase",
          "dijit/_TemplatedMixin",
@@ -62,12 +63,27 @@ function( declare,
           _recursions,
           _textarea,
           _widgets,
+          _homebrew,
           _OptionalRulesMixin,
           _WidgetBase,
           _TemplatedMixin,
           _WidgetsInTemplateMixin )
 {
-    return declare( "primejunta/numenera/chargen/_CharacterGeneratorBase", [ ContentPane, _TemplatedMixin, _WidgetsInTemplateMixin, _UtilityMixin, _data, _lists, _phrase, _widgets, _recursions, _gm, _textarea, _finalize, _OptionalRulesMixin ], {
+    return declare( "primejunta/numenera/chargen/_CharacterGeneratorBase", [
+        ContentPane,
+        _TemplatedMixin,
+        _WidgetsInTemplateMixin,
+        _UtilityMixin,
+        _data,
+        _lists,
+        _phrase,
+        _widgets,
+        _recursions,
+        _gm,
+        _textarea,
+        _finalize,
+        _homebrew,
+        _OptionalRulesMixin ], {
         /**
          * The view controller.
          */
@@ -129,6 +145,7 @@ function( declare,
             this.inherited( arguments );
             window._allowSwitchOrigin = ( window.location.hash && window.location.hash.indexOf( "morrison=hotel" ) != -1 );
             this.recursionSelectDisplay = window._allowSwitchOrigin ? "inline-block" : "none";
+            this.getHomebrewData(); // from _homebrew
         },
         /**
          * Initialize internal arrays, initialize selects from data, and connect various event handlers to the UI buttons.
