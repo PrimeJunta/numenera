@@ -6,9 +6,9 @@ function( declare,
           LinkButton )
 {
     return declare([], {
-        updateDownloadLink : function( _data )
+        updateDownloadLink : function()
         {
-            _data = this.characterDataToBackupData( _data ); 
+            var _data = this.characterDataToBackupData( this.getStoredCharacterData() );
             var href = "data:text/plain;," + encodeURIComponent( _data ) + "";
             this.downloadButton.set( "href", href );
             this.downloadButton.set( "download", this.manager.dataFileName + ".txt" );

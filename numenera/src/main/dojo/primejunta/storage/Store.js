@@ -34,6 +34,17 @@ function( declare,
                 return rawVal;
             }
         },
+        has : function( key )
+        {
+            if( this._store[ this.storeName + "_" + key ] )
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        },
         remove : function( key )
         {
             delete this._store[ this.storeName + "_" + key ];

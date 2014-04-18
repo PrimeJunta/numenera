@@ -8,6 +8,7 @@ define([ "dojo/_base/declare",
          "dojo/Deferred",
          "dojo/io-query",
          "dojo/cookie",
+         "dojo/topic",
          "primejunta/storage/Store",
          "./_cloud",
          "./_file",
@@ -31,6 +32,7 @@ function( declare,
           Deferred,
           ioQuery,
           cookie,
+          topic,
           Store,
           _cloud,
           _file,
@@ -52,6 +54,7 @@ function( declare,
          * Local storage property which contains the settings for cloud storage.
          */
         SETTINGS_STORE_NAME : "_CG_SETTINGS",
+        HOMEBREW_STORE_NAME : "_CG_HOMEBREW_STORE",
         manager : {},
         templateString : template,
         _tempStoreToken : "_CCG_TMP_",
@@ -60,6 +63,7 @@ function( declare,
         {
             this._characterStore = new Store( this.CHARACTER_STORE_NAME );
             this._settingsStore = new Store( this.SETTINGS_STORE_NAME );
+            this._homebrewStore = new Store( this.HOMEBREW_STORE_NAME );
             this.migrateOldStores();
             domConstruct.place( this.characterManagerDialog.domNode, document.body );
             this.characterManagerDialog.startup();
@@ -82,33 +86,57 @@ function( declare,
             }
             this.clearMessages();
             domConstruct.empty( this.characterManagerContentNode );
+            domConstruct.empty( this.homebrewStoreContentNode );
+            if( this._homebrewStore.getKeys().length > 0 )
+            {
+                this.homebrewStoreContentNode.innerHTML = "<p>There are " + this._homebrewStore.getKeys().length + " homebrewed features stored.</p>";
+            }
+            else
+            {
+                this.homebrewStoreContentNode.innerHTML = "<p>There are no homebrewed features stored.</p>";
+            }
             var nde = domConstruct.create( "div", { style : "width:100%;margin-bottom:30px;" }, this.characterManagerContentNode );
-            this.getStoredCharacters( restored ).then( lang.hitch( this, function( _data ) {
-                for( var c in _data )
+            var _data = this.getStoredCharacters( restored );
+            for( var c in _data )
+            {
+                // In case of corrupted data
+                if( !_data[ c ] )
                 {
-                    // In case of corrupted data
-                    if( !_data[ c ] )
-                    {
-                        _data[ c ] = { key : c };
-                    }
-                    else if( !_data[ c ].key )
-                    {
-                        _data[ c ].key = c;
-                    }
-                    var cm = new _CharacterManager( _data[ c ] ).placeAt( nde );
-                    cm.manager = this;
-                    this._cwa.push( cm );
+                    _data[ c ] = { key : c };
                 }
-                if( this._cwa.length == 0 )
+                else if( !_data[ c ].key )
                 {
-                    nde.innerHTML = "No saved characters.";
+                    _data[ c ].key = c;
                 }
-                this.updateDownloadLink( _data ); // in _file
-            }));
+                var cm = new _CharacterManager( _data[ c ] ).placeAt( nde );
+                cm.manager = this;
+                this._cwa.push( cm );
+            }
+            if( this._cwa.length == 0 )
+            {
+                nde.innerHTML = "No saved characters.";
+            }
+            this.updateDownloadLink(); // in _file
+        },
+        /**
+         * Used for creating backup files.
+         */
+        getStoredCharacterData : function()
+        {
+            var _cdata = this.getStoredCharacters();
+            var _hbdata = this.getHomebrewData();
+            return {
+                "format_version" : "4.0",
+                "homebrew_data" : _hbdata,
+                "character_data" : _cdata
+            };
+        },
+        getHomebrewData : function()
+        {
+            return this._homebrewStore.getItems();
         },
         getStoredCharacters : function( restored )
         {
-            var deferred = new Deferred();
             if( !restored )
             {
                 restored = [];
@@ -128,8 +156,7 @@ function( declare,
                     _data[ chars[ i ] ] = props;
                 }
             }
-            deferred.resolve( _data );
-            return deferred;
+            return _data;
         },
         /**
          * Stores the character under the character name.
@@ -249,7 +276,18 @@ function( declare,
          * @param sync - If true, will perform a full sync: any characters not in obj will get deleted,
          *               any others overwritten.
          */
-        _restoreFromBackupData : function( obj, sync )
+        _restoreFromBackupData : function( buData, sync )
+        {
+            var obj = buData.character_data ? buData.character_data : buData;
+            var cReslt = this._restoreCharacters( buData.character_data ? buData.character_data : buData, sync );
+            if( buData.homebrew_data )
+            {
+                this._restoreHomebrew( buData.homebrew_data, sync )
+            }
+            setTimeout( lang.hitch( this, this._show, cReslt.restored ), 300 );
+            return cReslt.unrestored;
+        },
+        _restoreCharacters : function( obj, sync )
         {
             var keys = this._filterKeys( this._characterStore.getKeys() ).sort();
             var restored = [];
@@ -273,8 +311,27 @@ function( declare,
                     unrestored.push( o );
                 }
             }
-            setTimeout( lang.hitch( this, this._show, restored ), 300 );
-            return unrestored;
+            return {
+                restored : restored,
+                unrestored : unrestored
+            }
+        },
+        _restoreHomebrew : function( hbData, sync )
+        {
+            var _changed = false;
+            for( var o in hbData  )
+            {
+                if( !this._homebrewStore.has( o ) || sync )
+                {
+                    this._homebrewStore.put( o, hbData[ o ] );
+                    _changed = true;
+                }
+            }
+            if( _changed )
+            {
+                this._homebrewStore.put( "_HAS_CHANGED", "true" );
+                topic.publish( "/HomebrewData/phraseChanged" );
+            }
         },
         _characterIsValid : function( _char )
         {

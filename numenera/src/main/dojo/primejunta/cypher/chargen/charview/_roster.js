@@ -14,7 +14,7 @@ function( declare,
     return declare([], {
         initRoster : function()
         {
-            this.manager.getStoredCharacters().then( lang.hitch( this, this.doInitRoster ) );
+            this.manager.getStoredCharacterData().then( lang.hitch( this, this.doInitRoster ) );
         },
         includeCharacter : function( character, picked )
         {

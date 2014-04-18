@@ -1,11 +1,13 @@
 define([ "dojo/_base/declare",
          "dojo/_base/lang",
+         "dojo/topic",
          "dijit/layout/TabContainer",
          "./_ModuleContainer",
          "primejunta/storage/Store",
          "primejunta/ui/util" ],
 function( declare,
           lang,
+          topic,
           TabContainer,
           _ModuleContainer,
           Store,
@@ -36,6 +38,19 @@ function( declare,
         {
             this.inherited( arguments );
             this.storage = new Store( this.DATA_STORE_NAME );
+            this.getData();
+            this.renderModules();
+            topic.subscribe( "/HomebrewData/phraseChanged", lang.hitch( this, this.rewriteModules ) );
+        },
+        rewriteModules : function()
+        {
+            var chld = this.getChildren();
+            while( chld.length > 0 )
+            {
+                var _chld = chld.pop();
+                this.removeChild( _chld );
+                _chld.destroy();
+            }
             this.getData();
             this.renderModules();
         },

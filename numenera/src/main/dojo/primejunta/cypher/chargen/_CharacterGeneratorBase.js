@@ -173,6 +173,7 @@ function( declare,
             topic.subscribe( "CharGen/pleaseShowUnlock", lang.hitch( this, this.setFinalizedClass, false ) );
             topic.subscribe( "CharGen/pleaseHideUnlock", lang.hitch( this, this.setFinalizedClass, true ) );
             topic.subscribe( "/CharacterStore/DataRefreshed", lang.hitch( this, this.setDataRefreshedReminder, true ));
+            topic.subscribe( "/HomebrewData/phraseChanged", lang.hitch( this, this.writePhraseSelects ) );
             this.inherited( arguments );
             this.checkForStartupQuery();
         },

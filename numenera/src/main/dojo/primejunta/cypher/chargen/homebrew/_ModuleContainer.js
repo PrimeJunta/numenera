@@ -59,7 +59,8 @@ function( declare,
             var _hider = domConstruct.create( "div", { "class" : "num-scrollBarHider" }, this._loc.domNode );
             this._stackContainer = new StackContainer({ style : "overflow:auto;"} ).placeAt( _soc );
             this._stackController = new StackController({ containerId : this._stackContainer.id } ).placeAt( _coc );
-            topic.subscribe( this._stackContainer.id + "-selectChild", lang.hitch( this, this.handleSelectChild ) ); // What's the event? Couldn't find it in the docs...
+            this.own( topic.subscribe( this._stackContainer.id + "-selectChild", lang.hitch( this, this.handleSelectChild ) ) ); // What's the event? Couldn't find it in the docs...
+            this.own( this._stackContainer, this._stackController, _coc, _soc, this._loc );
         },
         postCreate : function()
         {

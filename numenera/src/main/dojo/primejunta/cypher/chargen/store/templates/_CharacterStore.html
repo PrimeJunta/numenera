@@ -12,6 +12,7 @@
       <h3>Remembered Heroes</h3>
       <p>Click (or tap) to load a remembered hero.</p>
       <div data-dojo-attach-point="characterManagerContentNode"></div>
+      <div data-dojo-attach-point="homebrewStoreContentNode"></div>
       <p>Characters will be restored from a backup only if they
         don't already exist. To roll back to a backup, delete the
         character, then restore from the backup. Be sure to take another
@@ -37,12 +38,11 @@
                         data-dojo-attach-event="onClick:authorizeCloudStorage"
                         disabled="disabled">Authorize</button>
               </div>
-              <div style="text-align: right" data-dojo-attach-point="logoutControls"
-                   style="display:none;">
+              <div style="text-align: right;display:none;" data-dojo-attach-point="logoutControls">
                 <button data-dojo-type="dijit/form/Button"
                         data-dojo-props="iconClass:'num-cloudStorageIcon'"
                         data-dojo-attach-point="revokeDriveButton"
-                        data-dojo-attach-event="onClick:logoutFromCloudStorage">Revoke</button>
+                        data-dojo-attach-event="onClick:deAuthorizeCloudStorage">Revoke</button>
               </div>
 
             </td>

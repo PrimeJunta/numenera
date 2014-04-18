@@ -101,7 +101,7 @@ function( declare,
          */
         setupCloudUI : function( /* Object */ authResult )
         {
-            if( this._settingsStore.get( "_CCG_SYNC_CHARACTERS" ) == "true" )
+            if( this._settingsStore.get( "_CCG_SYNC_CHARACTERS" ) == true )
             {
                 this.syncCheckbox.set( "checked", true );
             }
@@ -136,7 +136,10 @@ function( declare,
             this.authorizeDriveButton.set( "disabled", true );
             this.drive.checkAuthorization().then( lang.hitch( this, this.setupCloudUI ) );
         },
-        logoutFromCloudStorage : function()
+        /**
+         *
+         */
+        deAuthorizeCloudStorage : function()
         {
             this.drive.logout().then( lang.hitch( this, this.setupCloudUI ) );
         },
@@ -222,7 +225,7 @@ function( declare,
         setSyncSwitch : function()
         {
             var to = this.syncCheckbox.checked;
-            this._settingsStore.put( "_CCG_SYNC_CHARACTERS", to ? "true" : "false" );
+            this._settingsStore.put( "_CCG_SYNC_CHARACTERS", to ? true : false );
             this.setSyncTimer( to );
         },
         /**
@@ -244,7 +247,7 @@ function( declare,
         /**
          * If _CCG_SYNC_CHARACTERS pref is unset, does nothing. Else sets a timer to start self in SYNC_INTERVAL,
          * reads sync state and time from _storage with SYNC_STATE_KEY and SYNC_TIME_KEY. If everything is cool,
-         * calls drive.syncFile on data read from getStoredCharacters. If the result is PLEASE_UPDATE, performs
+         * calls drive.syncFile on data read from getStoredCharacterData. If the result is PLEASE_UPDATE, performs
          * a "hard" sync with the data: i.e., it overwrites the stored character data with the result from the
          * server. I.e., you will lose any un-synced local changes, except to your currently open character: the
          * next time you save it, it will be marked as ready for sync, and will end up on the server. This sounds
@@ -259,56 +262,63 @@ function( declare,
          */
         performSync : function()
         {
-            if( this._settingsStore.get( "_CCG_SYNC_CHARACTERS" ) == "false" )
+
+            console.log( "SYNC SETTING IS", this._settingsStore.get( "_CCG_SYNC_CHARACTERS" ), this._settingsStore.get( "_CCG_SYNC_CHARACTERS" ) == true );
+
+            if( this._settingsStore.get( "_CCG_SYNC_CHARACTERS" ) !== true || this._syncInProgress )
             {
+                console.log( "INTERRUPTING:",this._settingsStore.get( "_CCG_SYNC_CHARACTERS" ), this._syncInProgress  );
                 return;
             }
+            this._syncInProgress = true;
             var syncFileTitle = this.getSyncFileTitle();
             this._syncTimer = setTimeout( lang.hitch( this, this.performSync ), this.SYNC_INTERVAL );
             var syncState = this._settingsStore.get( this.SYNC_STATE_KEY );
             if( syncState == "CONFLICT" )
             {
+                this._syncInProgress = false;
                 return;
             }
             this._setCBSpinner( true );
             this._settingsStore.put( this.SYNC_STATE_KEY, "PENDING" ); // starting the sync
-            this.getStoredCharacters().then( lang.hitch( this, function( characterData ) {
-                var fileData = {
-                    title : syncFileTitle,
-                    mimeType : this.BACKUP_MIME_TYPE,
-                    description : this.BACKUP_DESCRIPTION,
-                    dirty : ( syncState == "DIRTY" ),
-                    modifiedDate : this._settingsStore.get( this.SYNC_TIME_KEY )
-                };
-                this.drive.syncFile( fileData, this.characterDataToBackupData( characterData ) ).then(
-                    lang.hitch( this, function( reslt ) {
-                        if( reslt.fileData )
+            var characterData = this.getStoredCharacterData();
+            var fileData = {
+                title : syncFileTitle,
+                mimeType : this.BACKUP_MIME_TYPE,
+                description : this.BACKUP_DESCRIPTION,
+                dirty : ( syncState == "DIRTY" ),
+                modifiedDate : this._settingsStore.get( this.SYNC_TIME_KEY )
+            };
+            this.drive.syncFile( fileData, this.characterDataToBackupData( characterData ) ).then(
+                lang.hitch( this, function( reslt ) {
+                    if( reslt.fileData )
+                    {
+                        this._settingsStore.put( this.SYNC_TIME_KEY, reslt.fileData.modifiedDate );
+                    }
+                    if( reslt.result == "PLEASE_UPDATE" )
+                    {
+                        var obj = this.backupDataToCharacterData( reslt.contentData );
+                        if( obj )
                         {
-                            this._settingsStore.put( this.SYNC_TIME_KEY, reslt.fileData.modifiedDate );
+                            this._restoreFromBackupData( obj, true ); // Overwrite restore.
+                            topic.publish( "/CharacterStore/DataRefreshed" );
                         }
-                        if( reslt.result == "PLEASE_UPDATE" )
+                        else
                         {
-                            var obj = this.backupDataToCharacterData( reslt.contentData );
-                            if( obj )
-                            {
-                                this._restoreFromBackupData( obj, true ); // Overwrite restore.
-                                topic.publish( "/CharacterStore/DataRefreshed" );
-                            }
-                            else
-                            {
-                                // should never happen normally
-                                alert( "The file didn't contain a backup. Imagine that!" );
-                            }
+                            // should never happen normally
+                            alert( "The file didn't contain a backup. Imagine that!" );
                         }
-                        this.setSyncState( "CLEAN" );
-                        this.getCloudBackups( false );
-                        this._setCBSpinner( false );
-                    }),
-                    lang.hitch( this, function() {
-                        // fail silently and try again after the timeout
-                        this.setSyncState( "FAILED" );
-                    }));
-            }));
+                    }
+
+                    this.setSyncState( "CLEAN" );
+                    this.getCloudBackups( false );
+                    this._setCBSpinner( false );
+                }),
+                lang.hitch( this, function() {
+                    // fail silently and try again after the timeout
+                    this._setCBSpinner( false );
+                    this.setSyncState( "FAILED" );
+                }));
         },
         /**
          * Stores preference for sync file title for performing syncs and future reference.
@@ -318,6 +328,9 @@ function( declare,
             if( this.cloudSyncFileName.get( "value" ) != "" )
             {
                 this._settingsStore.put( "_CCG_SYNC_FILE_TITLE", this.cloudSyncFileName.get( "value" ) );
+
+                console.log( "CALLED FROM SSFT" );
+
                 this.performSync();
             }
         },
@@ -330,15 +343,14 @@ function( declare,
         backupToCloud : function()
         {
             this._setCBDisabled( true );
-            this.getStoredCharacters().then( lang.hitch( this, function( characterData ) {
-                var fileData = {
-                        title : this.cloudBackupFileName.value,
-                        description : this.BACKUP_DESCRIPTION,
-                        mimeType : this.BACKUP_MIME_TYPE
-                };
-                this.drive.updateFileByProperties( fileData, this.characterDataToBackupData( characterData ) ).then( lang.hitch( this, function() {
-                    this.getCloudBackups( false );
-                }));
+            var characterData = this.getStoredCharacterData();
+            var fileData = {
+                    title : this.cloudBackupFileName.value,
+                    description : this.BACKUP_DESCRIPTION,
+                    mimeType : this.BACKUP_MIME_TYPE
+            };
+            this.drive.updateFileByProperties( fileData, this.characterDataToBackupData( characterData ) ).then( lang.hitch( this, function() {
+                this.getCloudBackups( false );
             }));
         },
         /**
@@ -395,6 +407,9 @@ function( declare,
             if( state == "DIRTY" )
             {
                 // someone saved something, so we sync immediately
+
+                console.log( "CALLED FROM DIRTY" );
+
                 this.performSync();
             }
         },
@@ -419,7 +434,7 @@ function( declare,
             this.cloudSyncFileName = new ComboBox({
                 store : this._backupListStore,
                 searchAttr : "title",
-                onChange : lang.hitch( this, this.setSyncFileTitle ),
+                onBlur : lang.hitch( this, this.setSyncFileTitle ),
                 value : "My Characters" }).placeAt( this.cloudSyncFileNameNode, "replace" );
         },
         /**
@@ -467,6 +482,7 @@ function( declare,
             }
             else
             {
+                this._syncInProgress = false;
                 domClass.remove( this.cloudWorkingIcon, "fa-spin" );
                 this.cloudWorkingIcon.style.visibility = "hidden";
             }

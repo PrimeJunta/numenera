@@ -120,11 +120,13 @@ function( declare,
                     gapi.client.setApiKey( this.apiKey );
                     gapi.client.load( "drive", "v2", lang.hitch( this, function()
                     {
+                        window._googleDriveIsReady = true;
                         promise.resolve( reslt );
                     }));
                 }
                 else
                 {
+                    window._googleDriveIsReady = false;
                     promise.resolve( reslt );
                 }
             }));
@@ -155,6 +157,7 @@ function( declare,
                     gapi.client.setApiKey( this.apiKey );
                     gapi.client.load( "drive", "v2", lang.hitch( this, function()
                     {
+                        window._googleDriveIsReady = true;
                         promise.resolve( reslt );
                     }));
                 }
@@ -174,6 +177,7 @@ function( declare,
                 }
                 else
                 {
+                    window._googleDriveIsReady = false;
                     promise.resolve( reslt );
                 }
             }));
@@ -186,8 +190,13 @@ function( declare,
          */
         listFiles : function( /* Object */ kwObj )
         {
-            kwObj = kwObj || {};
             var promise = new Deferred();
+            if( !window._googleDriveIsReady )
+            {
+                promise.reject( "Drive not ready or not authorized." );
+                return promise;
+            }
+            kwObj = kwObj || {};
             var retrievePageOfFiles = function( request, result )
             {
                 request.execute( function( resp )
@@ -228,7 +237,12 @@ function( declare,
         getFileContent : function( /* DriveFile */ fileData )
         {
             var promise = new Deferred();
-            downloadFile( fileData, lang.hitch( this, function( resp )
+            if( !window._googleDriveIsReady )
+            {
+                promise.reject( "Drive not ready or not authorized." );
+                return promise;
+            }
+            this.downloadFile( fileData, lang.hitch( this, function( resp )
             {
                 promise.resolve( resp );
             }));
@@ -242,6 +256,11 @@ function( declare,
         downloadFileByProperties : function( /* Object */ fileProperties )
         {
             var promise = new Deferred();
+            if( !window._googleDriveIsReady )
+            {
+                promise.reject( "Drive not ready or not authorized." );
+                return promise;
+            }
             this.listFiles({ q : this.queryFromProps( fileProperties )}).then( lang.hitch( this, function( reslt ) {
                 if( reslt[ 0 ] )
                 {
@@ -257,23 +276,28 @@ function( declare,
             return promise;
         },
         /**
-         * Download a file"s content.
+         * Download a file's content.
          *
          * @public Deferred
          */
         downloadFile : function( /* DriveFile */ fileData )
         {
             var promise = new Deferred();
+            if( !window._googleDriveIsReady )
+            {
+                promise.reject( "Drive not ready or not authorized." );
+                return promise;
+            }
             if( fileData.downloadUrl )
             {
                 var accessToken = gapi.auth.getToken().access_token;
                 var xhr = new XMLHttpRequest();
                 xhr.open( "GET", fileData.downloadUrl );
                 xhr.setRequestHeader( "Authorization", "Bearer " + accessToken );
-                xhr.onload = function()
+                xhr.onload = lang.hitch( this, function()
                 {
-                    promise.resolve( xhr.responseText );
-                };
+                    promise.resolve( this.unescape_utf8( xhr.responseText ) );
+                });
                 xhr.onerror = function() {
                     promise.reject( "XHR error." );
                 };
@@ -292,35 +316,48 @@ function( declare,
          */
         insertFile : function( /* Object */ fileData, /* String|byte[] */ contentData )
         {
-            var promise = new Deferred();
-            this._assertFileDataIsValid( fileData );
-            var boundary = "-------314159265358979323846";
-            var delimiter = "\r\n--" + boundary + "\r\n";
-            var close_delim = "\r\n--" + boundary + "--";
-            var base64Data = btoa( contentData );
-            var multipartRequestBody =
-                    delimiter +
-                    "Content-Type: application/json\r\n\r\n" +
-                    JSON.stringify( fileData ) +
-                    delimiter +
-                    "Content-Type: " + fileData.mimeType + "\r\n" +
-                    "Content-Transfer-Encoding: base64\r\n" +
-                    "\r\n" +
-                    base64Data +
-                    close_delim;
 
-            var request = gapi.client.request({
-                    "path": "/upload/drive/v2/files",
-                    "method": "POST",
-                    "params": {"uploadType": "multipart"},
-                    "headers": {
-                        "Content-Type": "multipart/mixed; boundary=\"" + boundary + "\""
-                    },
-                    "body": multipartRequestBody});
+            var promise = new Deferred();
+            if( !window._googleDriveIsReady )
+            {
+                promise.reject( "Drive not ready or not authorized." );
+                return promise;
+            }
+            this._assertFileDataIsValid( fileData );
+            delete fileData.modifiedDate;
+            var base64Data = this.utf8_to_b64( contentData );
+            var request = this._getPushFileRequest( "", fileData, base64Data );
             request.execute( lang.hitch( this, function( file ) {
                 promise.resolve( file );
             }));
             return promise;
+        },
+        /**
+         * Because btoa/atob can't into UTF-8. https://developer.mozilla.org/en-US/docs/Web/API/Window.btoa
+         *
+         * @param str
+         * @returns {string}
+         */
+        utf8_to_b64 : function( str )
+        {
+            return window.btoa( encodeURIComponent( escape( "Charset=UTF-8" + str ) ) );
+        },
+        /**
+         * Because btoa/atob can't into UTF-8. https://developer.mozilla.org/en-US/docs/Web/API/Window.btoa
+         *
+         * @param str
+         * @returns {string}
+         */
+        unescape_utf8 : function ( str )
+        {
+            if( str.indexOf( "Charset%253DUTF-8" ) == 0 )
+            {
+                return unescape( decodeURIComponent(  str.substring( "Charset%253DUTF-8".length ) ) );
+            }
+            else
+            {
+                return str;
+            }
         },
         /**
          * Updates file matching inputData with contentData. If not present, inserts it. If more than one match is present,
@@ -330,8 +367,13 @@ function( declare,
          */
         updateFileByProperties : function( /* Object */ inputData, /* String|byte[] */ contentData )
         {
-            this._assertFileDataIsValid( inputData );
             var promise = new Deferred();
+            if( !window._googleDriveIsReady )
+            {
+                promise.reject( "Drive not ready or not authorized." );
+                return promise;
+            }
+            this._assertFileDataIsValid( inputData );
             this.listFiles({ q : this.queryFromProps( inputData ) }).then( lang.hitch( this, function( reslt ) {
                 if( !reslt[ 0 ] )
                 {
@@ -369,10 +411,15 @@ function( declare,
          */
         syncFile : function( /* Object */ fileData, /* String|byte[] */ contentData )
         {
+            var promise = new Deferred();
+            if( !window._googleDriveIsReady )
+            {
+                promise.reject( "Drive not ready or not authorized." );
+                return promise;
+            }
             var dirty = fileData.dirty;
             delete fileData.dirty;
             this._assertFileDataIsValid( fileData );
-            var promise = new Deferred();
             this.listFiles({ q : this.queryFromProps( fileData ) }).then( lang.hitch( this, function( reslt ) {
                 if( !reslt[ 0 ] )
                 {
@@ -432,38 +479,50 @@ function( declare,
         updateFile : function( /* String */ fileId, /* Object */ fileData, /* String|byte[] */ contentData )
         {
             var promise = new Deferred();
+            if( !window._googleDriveIsReady )
+            {
+                promise.reject( "Drive not ready or not authorized." );
+                return promise;
+            }
             this._assertFileDataIsValid( fileData );
             delete fileData.id;
             delete fileData.modifiedDate;
-            var boundary = '-------314159265358979323846';
-            var delimiter = "\r\n--" + boundary + "\r\n";
-            var close_delim = "\r\n--" + boundary + "--";
             // Updating the metadata is optional and you can instead use the value from drive.files.get.
-            var base64Data = btoa( contentData );
-            var multipartRequestBody =
-                  delimiter +
-                  'Content-Type: application/json\r\n\r\n' +
-                  JSON.stringify( fileData ) +
-                  delimiter +
-                  'Content-Type: ' + fileData.mimeType + '\r\n' +
-                  'Content-Transfer-Encoding: base64\r\n' +
-                  '\r\n' +
-                  base64Data +
-                  close_delim;
-
-            var request = gapi.client.request({
-                  'path': '/upload/drive/v2/files/' + fileId,
-                  'method': 'PUT',
-                  'params': {'uploadType': 'multipart', 'alt': 'json'},
-                  'headers': {
-                    'Content-Type': 'multipart/mixed; boundary="' + boundary + '"'
-                  },
-                  'body': multipartRequestBody});
+            var base64Data = this.utf8_to_b64( contentData )
+            var request = this._getPushFileRequest( fileId, fileData, base64Data );
             request.execute( lang.hitch( this, function( file )
             {
                 promise.resolve( file );
             }));
             return promise;
+        },
+        _getPushFileRequest : function( fileId, fileData, base64Data )
+        {
+            var boundary = '-------314159265358979323846';
+            var delimiter = "\r\n--" + boundary + "\r\n";
+            var close_delim = "\r\n--" + boundary + "--";
+            var multipartRequestBody =
+                delimiter +
+                'Content-Type: application/json\r\n\r\n' +
+                JSON.stringify( fileData ) +
+                delimiter +
+                'Content-Type: ' + fileData.mimeType + '\r\n' +
+                'Content-Transfer-Encoding: base64\r\n' +
+                '\r\n' +
+                base64Data +
+                close_delim;
+            var request = gapi.client.request({
+                'path': '/upload/drive/v2/files' + ( fileId ? '/' + fileId : "" ),
+                'method': 'POST',
+                'params': {
+                    'uploadType': 'multipart', 'alt': 'json'
+                },
+                'headers': {
+                    'Content-Type': 'multipart/mixed; boundary="' + boundary + '"'
+                },
+                'body': multipartRequestBody
+            });
+            return request;
         },
         /**
          * Insert new file from File object (typically read from a File input.)
@@ -473,6 +532,11 @@ function( declare,
         insertFileFromFile : function( /* File */ fileData )
         {
             var promise = new Deferred();
+            if( !window._googleDriveIsReady )
+            {
+                promise.reject( "Drive not ready or not authorized." );
+                return promise;
+            }
             var reader = new FileReader();
             reader.readAsBinaryString( fileData );
             reader.onload = lang.hitch( this, function( e ) {
@@ -526,6 +590,7 @@ function( declare,
             lang.hitch( this, function( reslt ) {
                 if( reslt.message && reslt.message.indexOf( "status: 0" ) != -1 ) // TODO: figure out why it ends up in the error state and remove kludge
                 {
+                    window._googleDriveIsReady = false;
                     prom.resolve();
                 }
                 else
