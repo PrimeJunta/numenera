@@ -496,39 +496,6 @@ function( declare,
             }));
             return promise;
         },
-        _getPushFileRequest : function( fileId, fileData, base64Data )
-        {
-
-            if( fileId )
-            {
-                fileData.id = fileId;
-            }
-            var boundary = '-------314159265358979323846';
-            var delimiter = "\r\n--" + boundary + "\r\n";
-            var close_delim = "\r\n--" + boundary + "--";
-            var multipartRequestBody =
-                delimiter +
-                'Content-Type: application/json\r\n\r\n' +
-                JSON.stringify( fileData ) +
-                delimiter +
-                'Content-Type: ' + fileData.mimeType + '\r\n' +
-                'Content-Transfer-Encoding: base64\r\n' +
-                '\r\n' +
-                base64Data +
-                close_delim;
-            var request = gapi.client.request({
-                'path': '/upload/drive/v2/files' + ( fileId ? "/" + fileId : "" ),
-                'method': fileId ? "PUT" : "POST",
-                'params': {
-                    'uploadType': 'multipart', 'alt': 'json'
-                },
-                'headers': {
-                    'Content-Type': 'multipart/mixed; boundary="' + boundary + '"'
-                },
-                'body': multipartRequestBody
-            });
-            return request;
-        },
         /**
          * Insert new file from File object (typically read from a File input.)
          * 
@@ -604,6 +571,49 @@ function( declare,
                 }
             }));
             return prom;
+        },
+        /**
+         * Prepares a gapi.client.request to push a file to the Drive. If a fileId is supplied, creates a PUT request
+         * with the fileId in the path, which will update it; else creates a POST request with no fileId, which will
+         * create it.
+         *
+         * @param fileId
+         * @param fileData
+         * @param base64Data
+         * @returns {gapi.client.HttpRequest<any>}
+         * @private
+         */
+        _getPushFileRequest : function( fileId, fileData, base64Data )
+        {
+            if( fileId )
+            {
+                fileData.id = fileId;
+            }
+            var boundary = '-------314159265358979323846';
+            var delimiter = "\r\n--" + boundary + "\r\n";
+            var close_delim = "\r\n--" + boundary + "--";
+            var multipartRequestBody =
+                delimiter +
+                'Content-Type: application/json\r\n\r\n' +
+                JSON.stringify( fileData ) +
+                delimiter +
+                'Content-Type: ' + fileData.mimeType + '\r\n' +
+                'Content-Transfer-Encoding: base64\r\n' +
+                '\r\n' +
+                base64Data +
+                close_delim;
+            var request = gapi.client.request({
+                'path': '/upload/drive/v2/files' + ( fileId ? "/" + fileId : "" ),
+                'method': fileId ? "PUT" : "POST",
+                'params': {
+                    'uploadType': 'multipart', 'alt': 'json'
+                },
+                'headers': {
+                    'Content-Type': 'multipart/mixed; boundary="' + boundary + '"'
+                },
+                'body': multipartRequestBody
+            });
+            return request;
         },
         /**
          * Cleans up window location: strips query string, adds www. to the start if needed, and index.html to the end
