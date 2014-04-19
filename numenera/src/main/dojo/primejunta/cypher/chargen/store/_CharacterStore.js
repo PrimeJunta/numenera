@@ -104,7 +104,7 @@ function( declare,
                 {
                     _data[ c ] = { key : c };
                 }
-                else if( !_data[ c ].key )
+                else
                 {
                     _data[ c ].key = c;
                 }
