@@ -43,7 +43,7 @@ function( declare,
                 }
                 inputNode = this.inputNode;
             }
-            if( this.DEFAULT_VALUES[ inputNode.value ] )
+            if( this.DEFAULT_VALUES[ inputNode.value ] || inputNode.value == this.inputValue )
             {
                 domClass.add( inputNode, "num-valueNotSet" );
             }
@@ -83,7 +83,7 @@ function( declare,
                 }
                 inputNode = this.inputNode;
             }
-            if( this.DEFAULT_VALUES[ inputNode.value ] )
+            if( this.DEFAULT_VALUES[ inputNode.value ] || inputNode.value == this.inputValue )
             {
                 inputNode.value = "";
             }

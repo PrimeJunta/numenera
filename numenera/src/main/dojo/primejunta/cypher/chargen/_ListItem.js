@@ -105,21 +105,29 @@ function( declare,
          */
         getBaseText : function()
         {
-            return this.content.indexOf( "${" ) != -1 ? this.content.substring( 0, this.content.indexOf( "${" ) ) : this.content;
+            var reslt = /([^\$]*)\$\{/.exec( this.content );
+            return ( reslt && ( reslt[ 1 ] || reslt[ 1 ] === "" ) )  ? reslt[ 1 ] : this.content;
+            //return this.content.indexOf( "${" ) != -1 ? this.content.substring( 0, this.content.indexOf( "${" ) ) : this.content;
         },
         /**
          * Extracts midText from content (anything between } and ${ if both are present, or empty string if not.
          */
         getMidText : function()
         {
-            return ( this.content.indexOf( "${input" ) != -1 && this.content.indexOf( "${select" ) != -1 ) ? this.content.substring( this.content.indexOf( "}" ) + 1, this.content.indexOf( "${input" ) ) : "";
+            var reslt = /\$\{select:[^\}]+\}([^\$]*)/.exec( this.content );
+            return ( reslt && ( reslt[ 1 ] || reslt[ 1 ] === "" ) )  ? reslt[ 1 ] : this.content;
+
+            //return ( this.content.indexOf( "${input" ) != -1 && this.content.indexOf( "${select" ) != -1 ) ? this.content.substring( this.content.indexOf( "}" ) + 1, this.content.indexOf( "${input" ) ) : "";
         },
         /**
          * Extracts default value for input from content, "" if not defined.
          */
         getInputValue : function()
         {
-            return this.content.indexOf( "${input:" ) != -1 ? this.content.substring( this.content.indexOf( "${input:" ) + 8, this.content.lastIndexOf( "}" ) ) : "";
+            var reslt = /\$\{input:([^\}]*)/.exec( this.content );
+            return ( reslt && ( reslt[ 1 ] || reslt[ 1 ] === "" ) ) ? reslt[ 1 ] : this.content;
+
+            //return this.content.indexOf( "${input:" ) != -1 ? this.content.substring( this.content.indexOf( "${input:" ) + 8, this.content.lastIndexOf( "}" ) ) : "";
         },
         /**
          * Returns state as string, concatenated from baseText, select value, midText, and inputValue if present.
