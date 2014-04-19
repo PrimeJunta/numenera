@@ -124,18 +124,17 @@ function( declare,
             else if( cookie( this.CURRENT_CHARACTER_COOKIE ) )
             {
                 this.currentView = "startup";
-                this.getStoredCharacters().then( lang.hitch( this, function( chars ) {
-                    for( var o in chars )
+                var chars = this.getStoredCharacters();
+                for( var o in chars )
+                {
+                    if( chars[ o ].name == cookie( this.CURRENT_CHARACTER_COOKIE ) )
                     {
-                        if( chars[ o ].name == cookie( this.CURRENT_CHARACTER_COOKIE ) )
-                        {
-                            this.populateFromStoredData( chars[ o ].data );
-                            this.currentView = "chargen";
-                            return;
-                        }
+                        this.populateFromStoredData( chars[ o ].data );
+                        this.currentView = "chargen";
+                        return;
                     }
-                    this.currentView = "splash";
-                }));
+                }
+                this.currentView = "splash";
             }
             else
             {
@@ -322,6 +321,10 @@ function( declare,
                 img_data : this.portraitWidget.getData(),
                 disabled : disb.join( "" ),
                 deleted : dels.join( "" )
+            }
+            if( !obj.descriptor || !obj.type || !obj.focus )
+            {
+                throw( new Error( "Phrase selects not populated, dying horribly." ) );
             }
             obj = lang.mixin( obj, this.getFlatRecursionData() );
             return obj;

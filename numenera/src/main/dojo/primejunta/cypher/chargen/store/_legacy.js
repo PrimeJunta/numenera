@@ -37,7 +37,6 @@ function( declare, lang, json ) {
                     }
                 }
             }
-            //console.log( "NOW STORE IS", window.localStorage );
         },
         _migrateItem : function( store, value, newKey, oldKey )
         {

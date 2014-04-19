@@ -12,10 +12,6 @@ function( declare,
           _CharacterPicker )
 {
     return declare([], {
-        initRoster : function()
-        {
-            this.manager.getStoredCharacterData().then( lang.hitch( this, this.doInitRoster ) );
-        },
         includeCharacter : function( character, picked )
         {
             if( picked )
@@ -28,8 +24,9 @@ function( declare,
             }
             this.updateStoredRoster();
         },
-        doInitRoster : function( chars )
+        initRoster : function()
         {
+            var chars = this.manager.getStoredCharacters();
             this._storedCharacters = {};
             this._pickers = [];
             for( var o in chars )

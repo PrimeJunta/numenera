@@ -60,7 +60,7 @@ html, body, .mobile body
 	width : 16px;
 	background-size : cover;
 }
-body, .mobile body
+body, .mobile body.tundra
 {
     background-color : #182838;
     background-image : url( 'images/grain.png' );
@@ -274,7 +274,7 @@ a.num-infoLink
 /* list items */
 .num-itemInput
 {
-    width : 350px;
+    width : 250px;
     display : inline-block;
     font-size : 14px;
     text-align : left;

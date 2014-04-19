@@ -69,7 +69,7 @@ function( declare,
         },
         adjustFields : function()
         {
-            if( this._storedCharacters && this._storedCharacters[ this.character.character_name ].adjusted )
+            if( this._storedCharacters && this._storedCharacters[ this.character.character_name ] && this._storedCharacters[ this.character.character_name ].adjusted )
             {
                 this._character = this._storedCharacters[ this.character.character_name ].adjusted;
                 this._curRecoveryRoll = this._character.current_recovery_roll;

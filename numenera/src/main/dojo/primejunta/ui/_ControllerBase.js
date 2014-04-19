@@ -110,12 +110,10 @@ function( declare,
          */
         showView : function( name )
         {
-            //console.log( "REQUESTED TRANSITION FROM", ( this.showingView ? this.showingView.name : null ), "TO", name );
             var prom = new Deferred();
             var view = this.views[ name ];
             if( !view )
             {
-                //console.log( "No view matching", name );
                 prom.resolve();
                 return prom;
             }
@@ -126,12 +124,10 @@ function( declare,
             }
             else if( this.showingView ) // hide the showing view first
             {
-                //console.log( "PERFORMING TRANSITION FROM", this.showingView.name, "TO", name );
                 return this.showingView.hide().then( lang.hitch( view, view.show ) );
             }
             else // no showing view, so just show
             {
-                //console.log( "JUST SHOW", name );
                 return view.show();
             }
         },

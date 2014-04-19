@@ -14,6 +14,11 @@ function( declare,
          */
         writePhraseSelects : function()
         {
+            var state = {
+                descriptor : this.selectValue( this.descriptorSelect ).value,
+                type : this.selectValue( this.typeSelect ).value,
+                focus : this.selectValue( this.focusSelect ).value
+            };
             this.getHomebrewData(); // from _homebrew
             this.updatePhraseData(); // from _recursions
             this.initializeSelect( "descriptorSelect", this.descriptors );
@@ -23,6 +28,9 @@ function( declare,
             {
                 this._splashPane.writePhraseSelects();
             }
+            this.selectValue( this.descriptorSelect, state.descriptor );
+            this.selectValue( this.typeSelect, state.type );
+            this.selectValue( this.focusSelect, state.focus );
         },
         /**
          * Iterate through data and write an option into select at attach point, with text = member.label and 

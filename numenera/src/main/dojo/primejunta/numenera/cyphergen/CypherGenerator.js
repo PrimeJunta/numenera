@@ -39,7 +39,6 @@ function( declare,
         cypher_type : false,
         postMixInProperties : function()
         {
-            console.log( "PMIP" );
             this.inherited( arguments );
             if( window.location.hash.length > 0 )
             {
@@ -52,7 +51,6 @@ function( declare,
         },
         postCreate : function()
         {
-            console.log( "PC", this );
             this.moduleControlsNode.appendChild( this.controller.getModuleLinks( "cyphergen" ) );
             this._cf = new CypherFactory();
         },
