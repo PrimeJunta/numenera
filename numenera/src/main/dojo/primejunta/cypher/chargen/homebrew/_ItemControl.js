@@ -59,9 +59,12 @@ function( declare,
                 this.hideSelect();
             }
             this.setSpecialCharListener( this.controlWidget );
-            this.own( on( this.controlWidget, "change", lang.hitch( this, function( evt ) {
-                this.emit( "change", evt );
-            })));
+            this.own(
+                on( this.controlWidget, "change", lang.hitch( this, this.emit, "change" ) ),
+                on( this.numberOfItemsInput, "change", lang.hitch( this, this.emit, "change" ) ),
+                on( this.midTextInput, "change", lang.hitch( this, this.emit, "change" ) ),
+                on( this.inputDefaultInput, "change", lang.hitch( this, this.emit, "change" ) )
+            );
             if( !this.addControl )
             {
                 this.deleteButton.style.display = "inline-block";
@@ -77,6 +80,7 @@ function( declare,
         {
             if( what == "value" )
             {
+                console.log( "GET VALUE" );
                 var val = this.controlWidget.get( "value" );
                 if( this.selectToggle.get( "checked" ) && this.numberOfItemsInput.get( "value" ) > 0 && this._optionControl.get( "length" ) > 0 )
                 {
