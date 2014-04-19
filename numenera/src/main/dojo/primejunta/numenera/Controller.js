@@ -17,7 +17,7 @@ function( declare,
 {
     return declare([ _ControllerBase ],
     {
-        version : "4.0.0b1",
+        version : "4.0.0b2",
         copyright : copyright,
         modules : {
             chargen : {
