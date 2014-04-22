@@ -10,57 +10,67 @@
       <div data-dojo-type="dojox/mobile/Heading" class="cg-buttonBar">
         <table style="width:765px;margin-left:auto;margin-right:auto;" cellspacing="0" cellpadding="0">
           <tr>
-            <td align="left">
+            <td>
               <button data-dojo-attach-point="helpButton"
                 data-dojo-type="dojox/mobile/ToolBarButton"
-                data-dojo-attach-event="onClick:showHelp"
-                style="" class="">
+                data-dojo-attach-event="onClick:showHelp">
                 <i class="fa fa-question-circle num-mediumIcon num-blueIcon"></i>
               </button>
+            </td>
+            <td>
               <button data-dojo-attach-point="printButton"
                 data-dojo-type="dojox/mobile/ToolBarButton"
-                data-dojo-attach-event="onClick:showPrintView" class=""
-                style="float: left">
+                data-dojo-attach-event="onClick:showPrintView">
                 <i class="fa fa-print"></i> Print
               </button>
+            </td>
+            <td>
               <button data-dojo-attach-point="playViewButton"
                 data-dojo-type="dojox/mobile/ToolBarButton"
-                data-dojo-attach-event="onClick:showPlayView" class=""
-                style="float: left">
+                data-dojo-attach-event="onClick:showPlayView">
                 <i class="fa fa-arrows-alt fa-fullscreen"></i> Play
               </button>
+            </td>
+            <td>
               <button data-dojo-attach-point="saveButton"
                 data-dojo-type="dojox/mobile/ToolBarButton"
                 data-dojo-attach-event="onClick:pleaseStoreCharacter"
-                style="float: left" class="" disabled="true">
+                disabled="true">
                 <i class="fa fa-save"></i> Save
               </button>
+            </td>
+            <td>
               <button data-dojo-type="dojox/mobile/ToolBarButton"
                 data-dojo-attach-point="characterStoreButton"
-                data-dojo-attach-event="onClick:openCharacterStore"
-                style="float: left">
+                data-dojo-attach-event="onClick:openCharacterStore">
                 <i class="fa fa-folder-open"></i> Open
               </button>
+            </td>
+            <td>
+              <button data-dojo-attach-point="customizeButtonNode"></button>
+            </td>
+            <td>
+              <button data-dojo-type="dojox/mobile/ToolBarButton"
+                data-dojo-attach-event="onClick:toggleGMControls"
+                data-dojo-attach-point="gmControlsToggle"
+                class="cg-gmControlSwitch">
+                <i class="fa fa-gavel"></i> GM Controls
+              </button>
+            </td>
+            <td>
+              <button data-dojo-type="dojox/mobile/ToolBarButton"
+                class="" data-dojo-attach-point="finalizeButton"
+                data-dojo-attach-event="onClick:finalize">
+                <i class="fa fa-angle-double-up"></i> Advance
+              </button>
+            </td>
+            <td>
               <button data-dojo-type="dojox/mobile/ToolBarButton"
                 class="num-redButton num-framelessButton"
                 data-dojo-attach-event="onClick:pleaseClearAll"
                 data-dojo-attach-point="clearButton" style="float:right">
                 <i class="fa fa-times-circle num-redIcon num-mediumIcon"></i>
               </button>
-              <button data-dojo-type="dojox/mobile/ToolBarButton"
-                class="" data-dojo-attach-point="finalizeButton"
-                style="float: right"
-                data-dojo-attach-event="onClick:finalize">
-                <i class="fa fa-angle-double-up"></i> Advance
-              </button>
-              <button data-dojo-type="dojox/mobile/ToolBarButton"
-                data-dojo-attach-event="onClick:toggleGMControls"
-                data-dojo-attach-point="gmControlsToggle"
-                class="cg-gmControlSwitch" style="float: right">
-                <i class="fa fa-gavel"></i> GM Controls
-              </button>
-              <button data-dojo-attach-point="customizeButtonNode"
-                class="" style="float:right"></button>
             </td>
           </tr>
         </table>
