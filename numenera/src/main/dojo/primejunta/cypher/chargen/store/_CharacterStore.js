@@ -235,7 +235,7 @@ function( declare,
                 + "<ul>\n";
             for( var i = 0; i < this._cwa.length; i++ )
             {
-                characterList += "<li><a href=\"" + loc + "?" + this._preprocessLinkData( this._cwa[ i ].data ) + "\">" + this._cwa[ i ].name + "</a></li>\n";
+                characterList += "<li><a href=\"" + loc + "#" + this._preprocessLinkData( this._cwa[ i ].data ) + "\">" + this._cwa[ i ].name + "</a></li>\n";
             }
             characterList += "</ul>\n</div>\n";
             characterList += "<p>Copy-paste and save this list in case something bad happens to your browser, or if you want to mail them to someone.</p>";

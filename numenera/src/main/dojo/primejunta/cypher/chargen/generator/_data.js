@@ -153,11 +153,12 @@ function( declare,
             }
         },
         /**
-         * Calls populateFromStoredData on the query string, and autoSave.
+         * De-authorizes Google Drive because we're loading in data from an un-trusted source. Then continues with
+         * _doPopulateFromQueryString.
          */
         populateFromQueryString : function()
         {
-            this._doPopulateFromQueryString();
+            this._characterStore.drive.logout().then( lang.hitch( this, this._doPopulateFromQueryString ) );
         },
         /**
          * UI call to store character.
@@ -195,22 +196,34 @@ function( declare,
             this.transitionTo( "chargen" );
         },
         /**
-         * Checks that we're not in the middle of something and that a type, focus, and descriptor are set;
-         * then enables the save and print buttons and updates the link with the character data. Also pushes
-         * the same data into the undo buffer.
+         * If enableSave(), set a timeout for _doAutoSave.
          */
         autoSave : function()
         {
+            if( this.enableSave() )
+            {
+                setTimeout( lang.hitch( this, this._doAutoSave, 100 ) ); // async to stop the UI from stuttering in case things take time
+            }
+        },
+        /**
+         * Checks that we're not in the middle of something and that a type, focus, and descriptor are set;
+         * then enables the save and print buttons and updates the link with the character data. Returns true if this
+         * happened, else returns false.
+         *
+         * @returns {boolean}
+         */
+        enableSave : function()
+        {
             if( this._populating.length > 0 )
             {
-                return;
+                return false;
             }
             if( !this.getType() || !this.getFocus() || !this.getDescriptor() )
             {
-                return;
+                return false;
             }
             this.saveButton.set( "disabled", false );
-            setTimeout( lang.hitch( this, this._doAutoSave, 100 ) ); // async to stop the UI from stuttering in case things take time
+            return true;
         },
         /**
          * Wraps _populateFromStoredData in a try-catch block and displays a polite alert if something bad happened, e.g. because
@@ -560,8 +573,8 @@ function( declare,
          */
         _doPopulateFromQueryString : function()
         {
-            this.populateFromStoredData( window.location.search.substring( 1 ) );
-            this.autoSave();
+            this.populateFromStoredData( window.location.hash.substring( 1 ) );
+            this.enableSave();
         },
         /**
          * Checks if inputElem.value is a default, and if so, returns "". Else returns _escapeDelimiter on it.

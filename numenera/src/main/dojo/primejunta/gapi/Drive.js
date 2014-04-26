@@ -67,8 +67,7 @@ function( declare,
             lang.mixin( this, kwObj );
         },
         /**
-         * Starts up API if not already started. This continues directly with authorization check,
-         * so don't do it unless you want the user to see that pop-up.
+         * Starts up API if not already started.
          * 
          * @public Deferred
          */
@@ -120,14 +119,24 @@ function( declare,
                     gapi.client.setApiKey( this.apiKey );
                     gapi.client.load( "drive", "v2", lang.hitch( this, function()
                     {
-                        window._googleDriveIsReady = true;
-                        promise.resolve( reslt );
+                        if( this._revokeOnStartup )
+                        {
+                            this.logout().then( lang.hitch( this, function() {
+                                promise.resolve();
+                            }));
+                        }
+                        else
+                        {
+                            window._googleDriveIsReady = true;
+                            promise.resolve( reslt );
+                        }
                     }));
                 }
                 else
                 {
+                    this._revokeOnStartup = false;
                     window._googleDriveIsReady = false;
-                    promise.resolve( reslt );
+                    promise.resolve();
                 }
             }));
             return promise;
@@ -157,8 +166,17 @@ function( declare,
                     gapi.client.setApiKey( this.apiKey );
                     gapi.client.load( "drive", "v2", lang.hitch( this, function()
                     {
-                        window._googleDriveIsReady = true;
-                        promise.resolve( reslt );
+                        if( this._revokeOnStartup )
+                        {
+                            this.logout().then( lang.hitch( this, function() {
+                                promise.resolve();
+                            }));
+                        }
+                        else
+                        {
+                            window._googleDriveIsReady = true;
+                            promise.resolve( reslt );
+                        }
                     }));
                 }
                 else if( !immediate ) // redirect to login
@@ -177,6 +195,7 @@ function( declare,
                 }
                 else
                 {
+                    this._revokeOnStartup = false;
                     window._googleDriveIsReady = false;
                     promise.resolve( reslt );
                 }
@@ -556,20 +575,32 @@ function( declare,
         logout : function()
         {
             var prom = new Deferred();
-            xhr.post(  this.REVOKE_URL + this.access_token, { headers:{ 'X-Requested-With' : null }, handleAs : "text" }  ).then( lang.hitch( this, function( reslt ) {
+            if( !this.access_token )
+            {
+                this._revokeOnStartup = true;
                 prom.resolve();
-            }),
-            lang.hitch( this, function( reslt ) {
-                if( reslt.message && reslt.message.indexOf( "status: 0" ) != -1 ) // TODO: figure out why it ends up in the error state and remove kludge
+                return prom;
+            }
+            xhr.post( this.REVOKE_URL + this.access_token, { headers:{ 'X-Requested-With' : null }, handleAs : "text" } ).then(
+                lang.hitch( this, function( reslt )
                 {
+                    this._revokeOnStartup = false;
                     window._googleDriveIsReady = false;
                     prom.resolve();
-                }
-                else
+                }),
+                lang.hitch( this, function( reslt )
                 {
-                    alert( "An unexpected error occurred on logout. To log out manually, go to https://plus.google.com/apps." );
-                }
-            }));
+                    if( reslt.message && reslt.message.indexOf( "status: 0" ) != -1 ) // TODO: figure out why it ends up in the error state and remove kludge
+                    {
+                        this._revokeOnStartup = false;
+                        window._googleDriveIsReady = false;
+                        prom.resolve();
+                    }
+                    else
+                    {
+                        alert( "An unexpected error occurred on logout. To log out manually, go to https://plus.google.com/apps." );
+                    }
+                }));
             return prom;
         },
         /**
